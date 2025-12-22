@@ -30,7 +30,10 @@
                   @click="select_pending_invoice"
                 >
                     <h5> Hóa đơn {{ sale.id }} </h5>
-                    <i class="fa fa-times"></i>
+                    <i class="fa fa-times" @click="remove_pending_sale"></i>
+                </li>
+                <li class="new_pending_sale pending-sales-item" @click="add_new_pending_sale">
+                  <h5> Đơn mới </h5>
                 </li>
                 
               </ul>
@@ -40,6 +43,10 @@
           </div>
         </div>
         <div class="header-right">
+          <div class="user-name"> </div>
+          <div class="menu-toggle"> 
+            <menu_toggle/>
+          </div>
         </div>  
       </div>
     </div>
@@ -48,10 +55,13 @@
 </template>
 <script>
 // import { search } from 'core-js/fn/symbol';
-
+import menu_toggle from '@/components/menu_toogle.vue'
 
   export default {
     name: "SaleView",
+    components: {
+      menu_toggle
+    },
     methods: {
       formatPrice(value) {
         return new Intl.NumberFormat('vi-VN').format(value);
@@ -88,6 +98,27 @@
           item.classList.remove('selected');
         });
         event.currentTarget.classList.add('selected');
+      }, 
+
+      remove_pending_sale(event) {
+        event.stopPropagation(); // prevent triggering parent click event
+        console.log("Remove pending sale");
+        console.log(event);
+        const index = Array.from(event.currentTarget.parentNode.parentNode.children).indexOf(event.currentTarget.parentNode);
+        this.localPendingSales.splice(index, 1);
+        // update local storage
+        localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
+      },
+
+      add_new_pending_sale() {
+        console.log("Add new pending sale");
+        const newId = this.localPendingSales.length > 0 ? Math.max(...this.localPendingSales.map(sale => sale.id)) + 1 : 1;
+        this.localPendingSales.push({
+          id: newId,
+          items: []
+        });
+        // update local storage
+        localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
       }
       
     },
@@ -150,7 +181,7 @@ $main-bg-color: azure;
 }
 .carts-tab {
   flex: 1;
-  width: 70vw;
+  max-width: 70vw;
 }
 
 .page-header {
@@ -194,6 +225,7 @@ $main-bg-color: azure;
   top: 100%;
   left: 0;
   width: 100%;
+  // max-height: 90vh;
   z-index: 2;
 }
 .product-search > i {
@@ -230,12 +262,32 @@ $main-bg-color: azure;
   flex-direction: row;
   padding: 0.3rem 0 0 0 ;
   height: 100%;
+  user-select: none;           /* Modern browsers */
+  -webkit-user-select: none;   /* Safari */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Legacy IE */
+}
+.pending-sales-item:hover {
+  background-color: rgba(0, 0, 0, 0.285);
+  cursor: pointer;
 }
 
+.new_pending_sale > h5 {
+  padding-right: 0.4rem ;
+}
+
+.menu-toggle{
+  // menu-toggle
+    padding: 0.4rem 1rem 0.4rem 0.4rem;
+    display: flex;
+    align-items: center;
+}
 .pending-sales-item {
-  margin-right: 0.5rem ;
+  border-left: rgba(0, 0, 0, 0.256) 0.7px solid;
+  border-radius: 0.3rem 0.3rem 0rem 0rem;
+  // margin-right: 0.5rem ;
   padding-left: 0.75rem ;
-  padding-right: 0.35rem ;
+  padding-right: 0.55rem ;
   display: flex;
   height: 100%;
   // max-width: 10rem;
@@ -267,7 +319,7 @@ $main-bg-color: azure;
 
 .pending-sales-item.selected {
   background-color: $main-bg-color;
-  border-radius: 0.3rem 0.3rem 0rem 0rem;
+  
 
   h5 {
     font-weight: bold;
@@ -289,11 +341,15 @@ $main-bg-color: azure;
 .header-left {
   display: flex;
   flex-direction: row;
+  flex-grow: 4;
 }
 
 .header-right {
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
+  min-width: 15vw;
+  justify-content: flex-end
 }
 
 </style>

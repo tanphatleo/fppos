@@ -2,12 +2,7 @@ fp_pos jUsTjin#@!
 CREATE USER fp_pos WITH PASSWORD 'jUsTjin#@!';
 CREATE ROLE developer_group NOLOGIN;
 GRANT ALL PRIVILEGES ON DATABASE fp_pos TO developer_group;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 GRANT developer_group TO dev_user;
-=======
->>>>>>> temp-fix
 GRANT developer_group TO dev_user;
 GRANT ALL ON SCHEMA public TO fp_pos;
 
@@ -19,7 +14,3 @@ nom install bulma
 
 #rememmber to delete .git inside fppos_vue
 
-<<<<<<< HEAD
-=======
->>>>>>> 1376ae2 (Initial commit)
->>>>>>> temp-fix
