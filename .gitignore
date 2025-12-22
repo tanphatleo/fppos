@@ -1,3 +1,11 @@
 # venv
 .venv/
+<<<<<<< HEAD
 
+=======
+.vscode/
+
+# Python cache
+__pycache__/
+/fppos_vue/node_modules/
+>>>>>>> 1376ae2 (Initial commit)

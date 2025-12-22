@@ -2,4 +2,18 @@ fp_pos jUsTjin#@!
 CREATE USER fp_pos WITH PASSWORD 'jUsTjin#@!';
 CREATE ROLE developer_group NOLOGIN;
 GRANT ALL PRIVILEGES ON DATABASE fp_pos TO developer_group;
+<<<<<<< HEAD
 GRANT developer_group TO dev_user;
+=======
+GRANT developer_group TO dev_user;
+GRANT ALL ON SCHEMA public TO fp_pos;
+
+npm install -g vue/cli
+vue create fppos_vue
+cd fppos_vue
+npm install axios
+nom install bulma
+
+#rememmber to delete .git inside fppos_vue
+
+>>>>>>> 1376ae2 (Initial commit)
