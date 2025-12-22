@@ -1,0 +1,5 @@
+fp_pos jUsTjin#@!
+CREATE USER fp_pos WITH PASSWORD 'jUsTjin#@!';
+CREATE ROLE developer_group NOLOGIN;
+GRANT ALL PRIVILEGES ON DATABASE fp_pos TO developer_group;
+GRANT developer_group TO dev_user;
