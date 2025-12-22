@@ -1,7 +1,15 @@
 # venv
 .venv/
+<<<<<<< HEAD
+=======
+
+>>>>>>> temp-fix
 .vscode/
 
 # Python cache
 __pycache__/
+<<<<<<< HEAD
 /fppos_vue/node_modules/
+=======
+/fppos_vue/node_modules/
+>>>>>>> temp-fix
