@@ -1,23 +1,17 @@
 <template>
-<<<<<<< HEAD
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
-=======
   <!-- <nav>
     <router-link to="/">Home</router-link> |
   </nav> -->
->>>>>>> temp-fix
   <router-view/>
 </template>
 
 <style lang="scss">
-<<<<<<< HEAD
-=======
 @import '../node_modules/bulma/';
 
->>>>>>> temp-fix
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

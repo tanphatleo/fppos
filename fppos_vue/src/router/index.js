@@ -1,9 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-<<<<<<< HEAD
-=======
 import Sale from '@/views/Sale.vue'
->>>>>>> temp-fix
 
 const routes = [
   {
@@ -12,14 +9,11 @@ const routes = [
     component: HomeView
   },
   {
-<<<<<<< HEAD
-=======
     path: '/sale',
     name: 'sale',
     component: Sale
   },
   {
->>>>>>> temp-fix
     path: '/about',
     name: 'about',
     // route level code-splitting
