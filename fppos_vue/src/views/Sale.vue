@@ -43,11 +43,18 @@
           </div>
         </div>
         <div class="header-right">
-          <div class="user-name"> </div>
+          <div class="user-name"> {{ this.branch }}</div>
+          <div class="user-name"> {{ this.user }}</div>
           <div class="menu-toggle"> 
             <menu_toggle/>
           </div>
         </div>  
+      </div>
+      <div class="body-page">
+        <div class="detail-box">
+        </div>
+        <div class="shortcut-box">
+        </div>
       </div>
     </div>
   </div>
@@ -126,7 +133,9 @@ import menu_toggle from '@/components/menu_toogle.vue'
       return {
         products: [],
         filteredProducts: [], 
-        localPendingSales: []
+        localPendingSales: [], 
+        user: 'Nguyen Van A', 
+        branch: 'Chi nhánh Hà Nội'
       }
     },
     created() {
@@ -162,12 +171,197 @@ $kv-primary: #0070F4;
 $size-sm: 4vh;
 $main-bg-color: azure;
 
+
+
+
+
+
 .home-page {
   height: 100%;
   display: flex ;
   flex-direction: column;
   background-color: $main-bg-color;
+
+  .page-header {
+    display: flex;
+    flex-direction: row;
+    height: max($size-sm, 3rem);
+    background-color: $kv-primary;
+
+    .header-left {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 4;
+      
+      .col-left-control {
+        display: flex;
+
+        .product-search {
+          // background-color: white;
+            min-width: 30rem;
+            position: relative;
+            height: 100%;
+            padding: 0.4rem 0 0.4rem 0.4rem;
+            flex-grow: 1;
+            display: flex;
+            max-width: 15vw;
+        }
+        .product-search > .place-holder {
+          min-width: 3rem;
+        }
+
+        
+        .product-search > input {
+          width: 100%;
+          height: 100%;
+          border: none;
+          border-radius: 0.3rem;
+          font-size: 1rem;
+          box-shadow: 0 0 0 0;
+          outline: none;
+          width: 100%;
+          
+        }
+
+        .product-search > i {
+          position: absolute;
+          left: 1rem;
+          z-index: 1;
+          color: gray;
+          
+          // Vertical Centering Logic
+          top: 50%;
+          transform: translateY(-50%); 
+          
+          // Ensure the icon has a consistent width for horizontal centering
+          width: 1.5rem; 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .carts-tab {
+          flex: 1;
+          max-width: 70vw;
+
+          .pending-sales-list {
+            display: flex ;
+            flex-direction: row;
+            padding: 0.3rem 0 0 0 ;
+            height: 100%;
+            user-select: none;           /* Modern browsers */
+            -webkit-user-select: none;   /* Safari */
+            -moz-user-select: none;      /* Firefox */
+            -ms-user-select: none;       /* Legacy IE */
+          }
+          .pending-sales-item:hover {
+            background-color: rgba(0, 0, 0, 0.285);
+            cursor: pointer;
+          }
+
+          .new_pending_sale > h5 {
+            padding-right: 0.4rem ;
+          }
+
+          .pending-sales-item {
+            border-left: rgba(0, 0, 0, 0.256) 0.7px solid;
+            border-radius: 0.3rem 0.3rem 0rem 0rem;
+            // margin-right: 0.5rem ;
+            padding-left: 0.75rem ;
+            padding-right: 0.55rem ;
+            display: flex;
+            height: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            // box-shadow: 1em 1em 2em rgba(0, 0, 0, 0.1);
+            // max-width: 10rem;
+
+            h5 {
+              margin: 0;              /* Remove default browser margin that pushes text down */
+              line-height: 1;         /* Ensures the text box is only as tall as the font */
+              font-size: 1rem;
+              display: flex;          /* Sometimes helps icons center better */
+              align-items: center;
+              color: white;
+            }
+
+            i {
+              cursor: pointer;
+              display: flex;          /* Sometimes helps icons center better */
+              align-items: center;
+              text-align: center;
+              color: white;
+              margin-left: 0.8rem;
+              // margin-left: 1rem;
+            }
+
+            i:hover {
+              color: red!important;
+              // background-color: red!important;
+            }
+          }
+
+          .pending-sales-item.selected {
+            background-color: $main-bg-color;
+            
+
+            h5 {
+              font-weight: bold;
+              color: black;
+            };
+
+            i {
+              color: black;
+            }
+          } 
+
+        }
+
+      }
+
+    }
+
+    .header-right {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+      min-width: 15vw;
+      justify-content: flex-end;
+
+      .menu-toggle{
+        // menu-toggle
+          padding: 0.4rem 1.2rem 0.4rem 0.4rem;
+          display: flex;
+          align-items: center;
+      }
+
+    }
+
+  }
+
+  .body-page{
+    flex: 1;
+    background-color: red;
+    display: flex ;
+    flex-direction: row;
+
+    .detail-box {
+      flex: 3;
+      background-color: $main-bg-color;
+      margin: 0.3rem;
+      border-radius: 0.3rem;
+    }
+
+    .shortcut-box {
+      flex: 1;
+      background-color: $main-bg-color;
+      margin: 0.3rem;
+      border-radius: 0.3rem;
+    }
+
+  }
+
 }
+
 .number-blue {
   color: $kv-primary;
   // text-decoration: solid;
@@ -179,37 +373,14 @@ $main-bg-color: azure;
   color: black;
   padding-left: 2.5rem;
 }
-.carts-tab {
-  flex: 1;
-  max-width: 70vw;
-}
 
-.page-header {
-  display: flex;
-  flex-direction: row;
-  height: $size-sm;
-  background-color: $kv-primary;
-}
 
-.product-search {
-  // background-color: white;
-    min-width: 30rem;
-    position: relative;
-    height: 100%;
-    padding: 0.4rem 0 0.4rem 0.4rem;
-    flex-grow: 1;
-    display: flex;
-    max-width: 15vw;
-}
-.product-search > .place-holder {
-  
-  min-width: 3rem;
-}
 .suggestions-item {
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1rem 0.5rem 1rem;
 }
+
 .suggestions-item:hover {
   background-color: lightgray;
   cursor: pointer;
@@ -228,128 +399,27 @@ $main-bg-color: azure;
   // max-height: 90vh;
   z-index: 2;
 }
-.product-search > i {
-  position: absolute;
-  left: 1rem;
-  z-index: 1;
-  color: gray;
-  
-  // Vertical Centering Logic
-  top: 50%;
-  transform: translateY(-50%); 
-  
-  // Ensure the icon has a consistent width for horizontal centering
-  width: 1.5rem; 
+
+
+.user-name{
+  margin-right: 2rem;
+  padding-right: 1rem;
+  color: white;
+  // font-weight: bold;
+  margin-right: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
-.product-search > input {
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 0.3rem;
-  font-size: 1rem;
-  box-shadow: 0 0 0 0;
-  outline: none;
-  width: 100%;
-  
-}
-
-.pending-sales-list {
-  display: flex ;
-  flex-direction: row;
-  padding: 0.3rem 0 0 0 ;
-  height: 100%;
-  user-select: none;           /* Modern browsers */
-  -webkit-user-select: none;   /* Safari */
-  -moz-user-select: none;      /* Firefox */
-  -ms-user-select: none;       /* Legacy IE */
-}
-.pending-sales-item:hover {
-  background-color: rgba(0, 0, 0, 0.285);
-  cursor: pointer;
-}
-
-.new_pending_sale > h5 {
-  padding-right: 0.4rem ;
-}
-
-.menu-toggle{
-  // menu-toggle
-    padding: 0.4rem 1rem 0.4rem 0.4rem;
-    display: flex;
-    align-items: center;
-}
-.pending-sales-item {
-  border-left: rgba(0, 0, 0, 0.256) 0.7px solid;
-  border-radius: 0.3rem 0.3rem 0rem 0rem;
-  // margin-right: 0.5rem ;
-  padding-left: 0.75rem ;
-  padding-right: 0.55rem ;
-  display: flex;
-  height: 100%;
-  // max-width: 10rem;
-
-  h5 {
-    margin: 0;              /* Remove default browser margin that pushes text down */
-    line-height: 1;         /* Ensures the text box is only as tall as the font */
-    font-size: 1rem;
-    display: flex;          /* Sometimes helps icons center better */
-    align-items: center;
-    color: white;
-  }
-
-  i {
-    cursor: pointer;
-    display: flex;          /* Sometimes helps icons center better */
-    align-items: center;
-    text-align: center;
-    color: white;
-    margin-left: 0.8rem;
-    // margin-left: 1rem;
-  }
-
-  i:hover {
-    color: red!important;
-    // background-color: red!important;
-  }
-}
-
-.pending-sales-item.selected {
-  background-color: $main-bg-color;
-  
-
-  h5 {
-    font-weight: bold;
-    color: black;
-  };
-
-  i {
-    color: black;
-  }
-} 
 
 
 
 
-.col-left-control {
-  display: flex;
-}
 
-.header-left {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 4;
-}
 
-.header-right {
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  min-width: 15vw;
-  justify-content: flex-end
-}
+
+
+
+
 
 </style>
