@@ -243,6 +243,7 @@ const update_total_and_quantity = () => {
     totalItems += item.quantity;
   });
   props.focus_invoice.total = total;
+  props.focus_invoice.finalTotal = total - props.focus_invoice.discount;
   props.focus_invoice.totalItems = totalItems;
   emit('update-invoice', props.focus_invoice); // Notify parent of total/quantity change
 };

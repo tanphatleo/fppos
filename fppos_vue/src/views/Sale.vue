@@ -64,7 +64,7 @@
         <div class="shortcut-box">
           <div class="shortcut-box-header">
             <div class="search_filter-control">
-              <div class="customer-search" v-bind:class="{ 'is-hidden': focus_customer }">
+              <div class="customer-search" v-bind:class="{ 'is-hidden': focus_invoice.customer }">
                 <i class="fas fa-search"></i>
                 <input class="customer-search-input c-input" placeholder="Tìm khách hàng" @focus="search_input_focus" @blur="search_input_cust_blur" @input="search_input_change_cust"/>
                 <i class="fas fa-plus add-cust" @click="isCustomerModalOpen=!isCustomerModalOpen"></i>
@@ -85,10 +85,10 @@
                   </ul>
                 </div>
               </div>
-              <div class="customer-selected" v-bind:class="{ 'is-hidden': !focus_customer }">
+              <div class="customer-selected" v-bind:class="{ 'is-hidden': !focus_invoice.customer }">
                 <span class="customer-search-input c-input edit-cust"
                 @click="isCustomerModalOpen = true"  
-                > {{ focus_customer ? focus_customer.name : '' }} 
+                > {{ focus_invoice.customer ? focus_invoice.customer.name : '' }} 
                 </span>
                 <i class="fa fa-times add-cust" @click="remove_focus_customer"></i>
                 <div class="place-holder"> </div>
@@ -125,7 +125,7 @@
           </div>
           <div class="payment-action no-select">
             <button class="payment-button"
-            @click="isPaymentModalOpen=true">
+            @click="openPaymentModal">
               Thanh toán
             </button>
           </div>
@@ -140,7 +140,7 @@
   <AddCust 
     v-if="isCustomerModalOpen" 
     :current-branch="this.branch"
-    :customer="focus_customer"
+    :customer="focus_invoice.customer"
     @close="isCustomerModalOpen = false" 
     @save="handleCustomerSave"
   />
@@ -155,8 +155,11 @@
     :cart-data="this.focus_invoice"
     :channels="this.channels"
     :default-surcharges="this.defaultSurcharges"
-    :key="focus_invoice ? focus_invoice.id : 'no-invoice'"
+    :bank-accounts="this.bankAccounts"
+    :transport-companies="this.transportCompanies"
+    :key="focus_invoice ? focus_invoice.id + '-' + JSON.stringify(focus_invoice) : 'no-invoice'"
     @close="isPaymentModalOpen = false"
+    @update-cart-data="handleUpdateItem"
   />
 
 </template>
@@ -190,14 +193,18 @@ import Payment from '@/components/Payment.vue';
         isFilterModalOpen: false,
         filteredCust: [],
         productGroupFilter: [],
-        focus_customer: null
-        // {
-        //   id: 1,
-        //   code: 'CUST001',
-        //   name: 'Nguyen Van A',
-        //   phone: '0909123456'
-        // }
-        ,
+        bankAccounts: [
+          { id: 2, name: 'Vietcombank' , number: '1234433153', default: true },
+          { id: 1, name: 'Techpay' , number: '541313432', default: false },
+          { id: 3, name: 'Techcombank' , number: '32541234321', default: false }
+        ],
+        transportCompanies: [
+          { id: 1, name: 'Giao hàng nhanh' },
+          { id: 2, name: 'Giao hàng tiết kiệm' },
+          { id: 3, name: 'Viettel Post' },
+          { id: 4, name: 'J&T Express' }
+        ],
+
         channels: [
           { id: 0, name: 'Bán trực tiếp' },
           { id: 154207, name: 'Facebook' },
@@ -216,8 +223,15 @@ import Payment from '@/components/Payment.vue';
           discount: 0,
           finalTotal: 0,
           note: '',
+          customer: null,
           totalSurcharge: 0,
           surcharges: [],
+          paymentMethod: 'cash',
+          chosenDiscountMethod: null,
+          discountMethodValue: 0,
+          transportCompany: null,
+          amountPaidByCustomer: 0,
+          amountPaidTransportCompany: 0,
           items: [
           ]
         }
@@ -225,6 +239,11 @@ import Payment from '@/components/Payment.vue';
     },
     
     methods: {
+
+      openPaymentModal() {
+        this.focus_invoice = JSON.parse(JSON.stringify(this.focus_invoice));
+        this.isPaymentModalOpen = true;
+      },
 
       limit_text(text, maxLength) {
         if (text.length <= maxLength) {
@@ -235,7 +254,8 @@ import Payment from '@/components/Payment.vue';
 
       select_focus_customer(customer) {
         console.log("Selected customer:", customer);
-        this.focus_customer = customer;
+        this.focus_invoice.customer = customer;
+        this.handleUpdateItem(this.focus_invoice);
         // clear search input
         document.querySelector('.customer-search-input').value = '';
       },
@@ -321,7 +341,7 @@ import Payment from '@/components/Payment.vue';
         
         // loop through add selected to data-sale-id = id
         const targetItem = document.querySelector(`[data-sale-id="${id}"]`);
-        console.log(targetItem);
+        // console.log(targetItem);
         // window.alert("Selected invoice " + id);
         if (targetItem) {
           targetItem.classList.add('selected');
@@ -330,10 +350,13 @@ import Payment from '@/components/Payment.vue';
         // filter localPendingSales to get the one with id and assign to focus_invoice
         // window.alert("Selected invoice " + id);
         this.focus_invoice = this.localPendingSales.find(sale => sale.id === id);
+        console.log("Focus invoice set to:", this.focus_invoice);
         // window.alert("Focus invoice set to:", this.focus_invoice);
 
         // update local storage selected_invoice_id
         localStorage.setItem('selected_invoice_id', id);
+
+        
       }, 
 
       remove_pending_sale(event) {
@@ -385,7 +408,7 @@ import Payment from '@/components/Payment.vue';
 
       },
 
-      handleUpdateItem(updatedInvoice) {
+      async handleUpdateItem(updatedInvoice) {
         // json partse object 
         // let parsed = JSON.stringify(updatedInvoice);
 
@@ -400,14 +423,16 @@ import Payment from '@/components/Payment.vue';
           localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
         }
 
+        // check if focus_invoice is the updated one, if so, update it
+        await this.select_pending_invoice(updatedInvoice.id, null);
 
-
+        console.log("Updated invoice:", this.focus_invoice);
         console.log("Item updated in cart");
         // Additional logic can be added here if needed
-        console.log(this.localPendingSales);
+        // console.log(this.localPendingSales);
       },
 
-      update_total_and_quantity() {
+      async update_total_and_quantity() {
         if (!this.focus_invoice || !Array.isArray(this.focus_invoice.items)) return;
         let total = 0;
         let totalItems = 0;
@@ -416,14 +441,16 @@ import Payment from '@/components/Payment.vue';
           totalItems += (item.quantity || 0);
         });
         this.focus_invoice.total = total;
+        this.focus_invoice.finalTotal = total - (this.focus_invoice.discount || 0) + (this.focus_invoice.totalSurcharge || 0);
         this.focus_invoice.totalItems = totalItems;
       },
 
       remove_focus_customer() {
-        this.focus_customer = null;
+        this.focus_invoice.customer = null;
+        this.handleUpdateItem(this.focus_invoice);
       },
 
-      add_product(product) {
+      async add_product(product) {
         // window.alert("Add product to cart");
         console.log(product);
         if (!product) return;
@@ -454,8 +481,9 @@ import Payment from '@/components/Payment.vue';
             isOpenPopover: false
           });
         }
-        this.update_total_and_quantity();
-        this.handleUpdateItem(this.focus_invoice);
+        await this.update_total_and_quantity();
+
+        await this.handleUpdateItem(this.focus_invoice);
       },
     },
     
@@ -497,7 +525,8 @@ import Payment from '@/components/Payment.vue';
           note: '',
           totalSurcharge: 0,
           // copy this.defaultSurcharges array
-          surcharges: JSON.parse(JSON.stringify(this.defaultSurcharges)),
+          surcharges: [],
+          paymentMethod: 'cash',
           items: [
             {
               uuid: '1',
@@ -543,8 +572,8 @@ import Payment from '@/components/Payment.vue';
       }
 
       // this.focus_invoice = this.localPendingSales[0];
-      console.log("Pending Sales Loaded:", this.localPendingSales);
-      console.log("Focus Invoice:", this.focus_invoice);
+      // console.log("Pending Sales Loaded:", this.localPendingSales);
+      // console.log("Focus Invoice:", this.focus_invoice);
     }
   }
 </script>

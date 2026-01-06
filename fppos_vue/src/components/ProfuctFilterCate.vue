@@ -230,7 +230,7 @@ $kv-primary: #0070F4;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 20vw;
+  width: 30rem;
   max-width: 100%;
   background: #fff;
   z-index: 1050;

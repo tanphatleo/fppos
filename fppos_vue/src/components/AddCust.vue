@@ -321,7 +321,8 @@ const wardList = ref({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  $kv-primary: #0070F4;
 /* Reset & Layout */
 .no-select {
   user-select: none;
@@ -361,7 +362,7 @@ const wardList = ref({
 
 /* Header */
 .window-header {
-  background-color: #0090da;
+  background-color: $kv-primary;
   color: white;
   padding: 10px 15px;
   display: flex;
@@ -476,7 +477,7 @@ const wardList = ref({
 .form-group input:focus, 
 .form-group select:focus, 
 .form-group textarea:focus {
-  border-color: #0090da;
+  border-color: $kv-primary;
   outline: none;
 }
 
@@ -511,7 +512,7 @@ const wardList = ref({
 
 .autocomplete-list li:hover {
   background-color: #f0f8ff;
-  color: #0090da;
+  color: $kv-primary;
 }
 
 /* Specific Field Styles */
@@ -566,12 +567,12 @@ const wardList = ref({
 
 .btn-outline {
   background: white;
-  border-color: #0090da;
-  color: #0090da;
+  border-color:   $kv-primary;
+  color: $kv-primary;
 }
 
 .btn-primary {
-  background: #0090da;
+  background: $kv-primary;
   color: white;
 }
 

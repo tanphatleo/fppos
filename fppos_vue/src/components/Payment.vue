@@ -19,8 +19,8 @@
                 </div>
             
                 <div class="date-group">
-                    <input type="date" v-model="purchaseDate" class="form-input date-input " @click="openDatePicker($event)" ref="dateInputRef" />
-                    <input type="time" v-model="purchaseTime" class="form-input time-input" @click="openTimePicker($event)" ref="timeInputRef" />
+                    <input type="date" v-model="purchaseDate" class="form-input date-input" disabled @click="openDatePicker($event)" ref="dateInputRef" />
+                    <input type="time" v-model="purchaseTime" class="form-input time-input" disabled @click="openTimePicker($event)" ref="timeInputRef" />
                 </div>
             </div>
             
@@ -55,13 +55,18 @@
             <span class="row-label">Giảm giá</span>
             <span class="side-info"></span>
             <div style="position:relative;">
-                <button class="value-amt" @mousedown.stop="toggleDiscountPopover">0</button>
+                <button class="value-amt" id="discountButton" @mousedown.stop="toggleDiscountPopover"> {{ formatCurrency(discountAmount) }}</button>
                 <div class="popover-content" v-show="openDiscount" ref="popoverRef">
                     
                     <div>Giảm giá</div>
-                    <input type="number" class="value-input font-bold text-right" />
-                    <button :class="{ active: chosen_discount_method === 'VND' }" @click="chosen_discount_method = 'VND'">VND</button>
-                    <button :class="{ active: chosen_discount_method === '%' }" @click="chosen_discount_method = '%'">%</button>
+                    <input 
+                        type="decimal" 
+                        v-model="discountMethodValue"
+                        class="value-input font-bold text-right" 
+                        @change="handleChangeDiscount"
+                        />
+                    <button :class="{ active: chosenDiscountMethod === 'VND' }" @mousedown.stop="chosenDiscountMethod = 'VND'">VND</button>
+                    <button :class="{ active: chosenDiscountMethod === '%' }" @mousedown.stop="chosenDiscountMethod = '%'">%</button>
                 </div>
             </div>
             
@@ -86,10 +91,14 @@
           <div class="row payment-input-row">
             <label class="font-bold">Khách thanh toán</label>
             <input 
-              type="number" 
-              v-model="amountPaidByCustomer" 
-              class="value-input font-bold text-right customer-payment-input"
-            />
+                type="text" 
+                v-model="amountPaidDisplay" 
+                @focus="selectAll"
+                @keypress="onlyNumbers"
+                :disabled="paymentMethod=='receivable'"
+                class="value-input font-bold text-right customer-payment-input"
+                placeholder="0"
+                />
           </div>
 
           <div class="row methods-row">
@@ -98,12 +107,26 @@
                 <input 
                   type="radio" 
                   :value="method.value" 
-                  v-model="paymentMethod" 
+                  v-model="paymentMethod"
+                  @change="handlePaymentMethodChange" 
                 />
                 {{ method.label }}
               </label>
+
             </div>
-            <button class="btn-icon" title="Thanh toán kết hợp">...</button>
+            <div v-if="paymentMethod === 'transfer'" class="bank-holder">
+              <select class="form-select custom-select">
+                <option 
+                  v-for="account in props.bankAccounts" 
+                  :key="account.id" 
+                  :value="account.id"
+                  :selected="account.default"
+                  >
+                    {{ account.name  + ' - ' + account.number }}
+                </option>
+              </select>
+
+            </div>
           </div>
 
           <div class="row" v-if="changeDue > 0">
@@ -115,11 +138,35 @@
              <div class="value text-danger">{{ formatCurrency(Math.abs(changeDue)) }}</div>
           </div>
 
+          <hr class="divider">
+
+          <div class="row">
+            <label>Đơn vị vận chuyển</label>
+            <select class="form-select custom-select transport-company-select">
+              <option 
+                v-for="company in props.transportCompanies" 
+                :key="company.id" 
+                :value="company.id"
+                >
+                  {{ company.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label for=""> Phí ship mình trả</label>
+            <input 
+                v-model="amountPaidTransportCompanyDisplay" 
+                @focus="selectAll"
+                @keypress="onlyNumbers" 
+                type="text" class="value-input font-bold text-right transport-company-amount" />
+          </div>
+
         </div>
       </div>
 
       <div class="modal-footer">
-        <button class="btn-primary" @click="handlePayment">Thanh toán</button>
+        <button class="btn-primary" @click="handlePayment" :disabled="(paymentMethod !== 'receivable' && amountPaidByCustomer < finalTotal)">Thanh toán</button>
       </div>
 
     </div>
@@ -144,13 +191,94 @@ const props = defineProps({
   visible: { type: Boolean, default: false },
   cartData: { type: Object, required: true }, // Expects { total: number, customer: object },
   channels: { type: Array, default: () => [] },
-  defaultSurcharges: { type: Array, default: () => [] }
+  defaultSurcharges: { type: Array, default: () => [] },
+  bankAccounts: { type: Array, default: () => [] },
+  transportCompanies: { type: Array, default: () => [] },
 });
 
-const emit = defineEmits(['close', 'complete-payment']);
+console.log("Payment Component Props:", props);
+const emit = defineEmits(['close', 'complete-payment', 'update-cart-data']);
 
+const handleChangeDiscount = () => {
+    if (chosenDiscountMethod.value === 'VND') {
+        // Direct amount
+        discountAmount.value = Math.round(discountMethodValue.value);
+        discountMethodValue.value = discountAmount.value;
 
-function toggleDiscountPopover() {
+        emit('update-cart-data', {
+            ...props.cartData,
+            discountMethodValue: discountMethodValue.value,
+            chosenDiscountMethod: 'VND',
+            discount: discountAmount.value
+        });
+        
+    } else if (chosenDiscountMethod.value === '%') {
+        // Percentage round to nearest 2 decimal
+        discountMethodValue.value = Math.round((discountMethodValue.value / 100) * 10000) / 100;
+        discountAmount.value = Math.round((discountMethodValue.value / 100) * totalAmount.value);
+        
+        emit('update-cart-data', {
+            ...props.cartData,
+            discountMethodValue: discountMethodValue.value,
+            chosenDiscountMethod: '%',
+            discount: discountAmount.value
+        });
+    }
+};
+
+const onlyNumbers = (event) => {
+  // Allow only numbers 0-9
+  const charCode = (event.which) ? event.which : event.keyCode;
+  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+    event.preventDefault();
+  }
+};
+
+const handlePaymentMethodChange = () => {
+//   if method is 'receivable', set amountPaidByCustomer to 0 and disable input
+    if (paymentMethod.value === 'receivable') {
+        amountPaidByCustomer.value = 0;
+    }
+
+    if (paymentMethod.value !== 'receivable' && amountPaidByCustomer.value !== finalTotal.value) {
+        amountPaidByCustomer.value = finalTotal.value;
+    }
+};
+
+const amountPaidDisplay = computed({
+  get: () => {
+    // Show empty string if 0 to make typing easier, or keep 0 if preferred
+    if (amountPaidByCustomer.value === 0) return '0'; 
+    
+    // Format with dots (e.g., 100000 -> "100.000")
+    return new Intl.NumberFormat('vi-VN').format(amountPaidByCustomer.value);
+  },
+  set: (newValue) => {
+    // 1. Remove any character that is NOT a digit (remove dots, spaces)
+    const sanitized = newValue.replace(/\D/g, '');
+    
+    // 2. Convert back to number and update the real variable
+    amountPaidByCustomer.value = sanitized ? parseInt(sanitized, 10) : 0;
+  }
+});
+
+const amountPaidTransportCompanyDisplay = computed({
+    get: () => {
+        if (amountPaidTransportCompany.value === 0) return '0';
+        return new Intl.NumberFormat('vi-VN').format(amountPaidTransportCompany.value);
+    },
+    set: (newValue) => {
+        const sanitized = newValue.replace(/\D/g, '');
+        amountPaidTransportCompany.value = sanitized ? parseInt(sanitized, 10) : 0;
+    }
+});
+
+// Optional: Helper to select all text on click (UX best practice for POS)
+const selectAll = (event) => {
+  event.target.select();
+};
+
+function toggleDiscountPopover(event) {
     openDiscount.value = !openDiscount.value;
 }
 
@@ -170,6 +298,8 @@ const openDiscount = ref(false);
 const popoverRef = ref(null);
 
 function handleClickOutside(event) {
+    console.log("Clicked outside popover check");
+    console.log(event);
   if (popoverRef.value && !popoverRef.value.contains(event.target)) {
     openDiscount.value = false;
   }
@@ -183,13 +313,28 @@ watch(openDiscount, (val) => {
   }
 });
 
+
+
 onBeforeUnmount(() => {
   document.removeEventListener('mousedown', handleClickOutside);
 });
 
-// Date Time
-const purchaseDate = ref(new Date().toISOString().substr(0, 10));
-const purchaseTime = ref("18:55");
+
+function getTodayDateStr() {
+  const d = new Date();
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const day = d.getDate().toString().padStart(2, '0');
+  return `${d.getFullYear()}-${month}-${day}`;
+}
+function getNowTimeStr() {
+  const d = new Date();
+  const hours = d.getHours().toString().padStart(2, '0');
+  const minutes = d.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
+
+const purchaseDate = ref(getTodayDateStr());
+const purchaseTime = ref(getNowTimeStr());
 
 const dateInputRef = ref(null);
 const timeInputRef = ref(null);
@@ -227,15 +372,54 @@ const totalAmount = ref(0); // Will load from props
 const discountAmount = ref(0);
 const surchargeAmount = ref(0);
 const amountPaidByCustomer = ref(0); // "Khách thanh toán"
-
+const amountPaidTransportCompany = ref(0); // "Phí ship mình trả"
+const discountMethodValue = ref(0);
+const chosenDiscountMethod = ref('VND');
 // Payment Methods
 const paymentMethod = ref('cash'); // 'cash', 'card', 'transfer'
 const paymentMethods = [
   { value: 'cash', label: 'Tiền mặt' },
-  { value: 'transfer', label: 'Chuyển khoản' }
+  { value: 'transfer', label: 'Chuyển khoản' },
+  { value: 'receivable', label: 'Công Nợ' }
 ];
 
-const chosen_discount_method = ref('VND');
+watch(chosenDiscountMethod, (newMethod) => {
+    // calculate discountAmount based on new method
+    // window.alert("Changed method to: " + chosenDiscountMethod.value);
+    if (newMethod === 'VND') {
+        discountAmount.value = Math.round((discountMethodValue.value / 100) * totalAmount.value);
+
+        // Update choosen method value in cart data
+        discountMethodValue.value = discountAmount.value;
+        emit('update-cart-data', {
+            ...props.cartData,
+            discountMethodValue: discountMethodValue.value,
+            chosenDiscountMethod: 'VND',
+            discount: discountAmount.value
+        });
+        // emit('update-cart-data', props.cartData);
+
+    } else if (newMethod === '%') {
+        // round to nearest 2 decimal
+        discountMethodValue.value = Math.round((discountMethodValue.value / totalAmount.value) * 100 * 100) / 100;
+        discountAmount.value = Math.round((discountMethodValue.value / 100) * totalAmount.value);
+
+
+        emit('update-cart-data', {
+            ...props.cartData,
+            discountMethodValue: discountMethodValue.value,
+            chosenDiscountMethod: '%',
+            discount: discountAmount.value
+        });
+
+        // props.cartData.discountMethodValue = discountMethodValue.value;
+        // props.cartData.chosenDiscountMethod = '%';
+        // props.cartData.discount = discountAmount.value;
+        // emit('update-cart-data', props.cartData);
+        // discountAmount.value = Math.round((discountMethodValue.value / 100) * totalAmount.value);
+    }
+
+});
 
 // --- Computed Logic ---
 
@@ -255,12 +439,28 @@ const formatCurrency = (value) => {
 };
 
 // --- Lifecycle ---
+
+watch(() => props.visible, (val) => {
+  if (val) {
+    purchaseDate.value = getTodayDateStr();
+    purchaseTime.value = getNowTimeStr();
+  }
+});
+
 onMounted(() => {
   // Initialize with data passed from parent
   if (props.cartData) {
-    totalAmount.value = props.cartData.total || 1458000;
+    totalAmount.value = props.cartData.total ;
     amountPaidByCustomer.value = totalAmount.value; // Auto-fill full amount
+    discountAmount.value = props.cartData.discount || 0;
+    surchargeAmount.value = props.cartData.surcharge || 0;
+    discountMethodValue.value = props.cartData.discountMethodValue || 0;
+    chosenDiscountMethod.value = props.cartData.chosenDiscountMethod || 'VND';
+    paymentMethod.value = props.cartData.paymentMethod || 'cash';
+    amountPaidTransportCompany.value = props.cartData.amountPaidTransportCompany || 0;
   }
+  purchaseDate.value = getTodayDateStr();
+  purchaseTime.value = getNowTimeStr();
 });
 
 // --- Actions ---
@@ -286,6 +486,25 @@ const close = () => {
 
 
 <style scoped>
+.bank-holder {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #f4f4f4;
+    border-radius: 0.5rem;
+
+    select {
+        flex: 1;
+        font-size: 1rem;
+    }
+
+}
+
+.transport-company-select {
+    font-size: 1rem;
+}
 /* Basic Styles to mimic the POS layout - Replace with Tailwind if preferred */
 .modal-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -295,7 +514,7 @@ const close = () => {
 
 .modal-container {
   background: white; 
-  width: 20vw; 
+  width: 30rem; 
   border-radius: 1rem; 
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   display: flex; 
@@ -316,6 +535,12 @@ const close = () => {
 
 
 /* Top Controls */
+.customer-info{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
 .top-controls { 
     display: flex; 
     justify-content: space-between; 
@@ -388,6 +613,18 @@ input.customer-payment-input {
     border-right: none;
     width: 8rem;
     font-size: 1rem;
+}
+input.transport-company-amount {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 8rem;
+    font-size: 1rem;
+}
+input.transport-company-amount::-webkit-outer-spin-button,
+input.transport-company-amount::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .form-select, .form-input { 
@@ -473,14 +710,20 @@ input.customer-payment-input {
 .value-input { 
   text-align: right; border: 1px solid #ddd; padding: 5px; width: 120px;
 }
-.divider { border: 0; border-top: 1px dashed #ccc; margin: 10px 0; }
+
+.divider { border: 0; border-top: 2px dashed #a9a9a9; margin: 10px 0; background-color: transparent;}
 .text-primary { color: #007bff; font-size: 1.2rem; }
 .text-danger { color: #dc3545; }
 .font-bold { font-weight: bold; }
 .text-right { text-align: right; }
 
 /* Methods */
-.methods-row { justify-content: space-between; }
+.methods-row { 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* justify-content: space-around;  */
+}
 .radio-group { display: flex; gap: 15px; }
 .radio-label { display: flex; align-items: center; gap: 5px; cursor: pointer; }
 
@@ -498,6 +741,11 @@ input.customer-payment-input {
     flex: 1;
     padding: 0.8rem;
     border-radius: 0.6rem;
+  }
+
+  button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
   }
 }
 .note-input { flex: 1; border: 1px solid #ccc; padding: 5px; resize: none; }
