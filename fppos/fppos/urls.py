@@ -16,9 +16,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet, GroupViewSet 
+from branches.views import BranchViewSet
+from customers.views import ProvinceViewSet, WardViewSet, AddressViewSet, CustomerViewSet
+
+router = DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
+router.register(r'branches', BranchViewSet)
+router.register(r'provinces', ProvinceViewSet)
+router.register(r'wards', WardViewSet)
+router.register(r'addresses', AddressViewSet)
+router.register(r'customers', CustomerViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/v1/', include('djoser.urls')),
     path('api/v1/', include('djoser.urls.authtoken')),
+    path('api/v1/', include(router.urls)),
 ]
+

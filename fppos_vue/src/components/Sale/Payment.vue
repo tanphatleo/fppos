@@ -76,7 +76,7 @@
             <span class="row-label">Thu khác</span>
             <span class="side-info"></span>
             <div style="position:relative;">
-                <button class="value-amt" @click="surchargesOpen=true">0</button>
+                <button class="value-amt" @click="surchargesOpen=true">{{ formatCurrency(totalSurcharge) }}</button>
             </div>
             
           </div>
@@ -142,12 +142,13 @@
 
           <div class="row">
             <label>Đơn vị vận chuyển</label>
-            <select class="form-select custom-select transport-company-select">
+            <select 
+            v-model="transportCompany"
+            class="form-select custom-select transport-company-select">
               <option 
                 v-for="company in props.transportCompanies" 
                 :key="company.id" 
-                :value="company.id"
-                >
+                :value="company">
                   {{ company.name }}
               </option>
             </select>
@@ -175,9 +176,9 @@
   <Surcharge 
     v-if="true" 
     :visible="surchargesOpen" 
-    :defaultSurcharges="props.defaultSurcharges"
-    @close="surchargesOpen = false" 
-    @save=""
+    :default-surcharges="props.defaultSurcharges"
+    :chosen-surcharges="props.cartData.surcharges || []"
+    @close="handleUpdateSurcharges" 
     />
 
 </template>
@@ -197,7 +198,22 @@ const props = defineProps({
 });
 
 console.log("Payment Component Props:", props);
+// console.log("Payment Component Props:", props);
 const emit = defineEmits(['close', 'complete-payment', 'update-cart-data']);
+
+const handleUpdateSurcharges = (surcharges) => {
+    // Calculate total surcharge amount
+    console.log(" handleUpdateSurcharges Selected Surcharges:", surcharges);
+    surchargesOpen.value = false;
+
+    totalSurcharge.value = surcharges.reduce((sum, s) => sum + s.value, 0);
+
+    emit('update-cart-data', {
+        ...props.cartData,
+        surcharges: surcharges,
+        surcharge: totalSurcharge.value
+    });
+};
 
 const handleChangeDiscount = () => {
     if (chosenDiscountMethod.value === 'VND') {
@@ -253,6 +269,7 @@ const amountPaidDisplay = computed({
     // Format with dots (e.g., 100000 -> "100.000")
     return new Intl.NumberFormat('vi-VN').format(amountPaidByCustomer.value);
   },
+
   set: (newValue) => {
     // 1. Remove any character that is NOT a digit (remove dots, spaces)
     const sanitized = newValue.replace(/\D/g, '');
@@ -261,6 +278,8 @@ const amountPaidDisplay = computed({
     amountPaidByCustomer.value = sanitized ? parseInt(sanitized, 10) : 0;
   }
 });
+
+
 
 const amountPaidTransportCompanyDisplay = computed({
     get: () => {
@@ -375,6 +394,9 @@ const amountPaidByCustomer = ref(0); // "Khách thanh toán"
 const amountPaidTransportCompany = ref(0); // "Phí ship mình trả"
 const discountMethodValue = ref(0);
 const chosenDiscountMethod = ref('VND');
+const totalSurcharge = ref(0);
+const transportCompany = ref(null);
+// const 
 // Payment Methods
 const paymentMethod = ref('cash'); // 'cash', 'card', 'transfer'
 const paymentMethods = [
@@ -451,13 +473,18 @@ onMounted(() => {
   // Initialize with data passed from parent
   if (props.cartData) {
     totalAmount.value = props.cartData.total ;
-    amountPaidByCustomer.value = totalAmount.value; // Auto-fill full amount
+     // Auto-fill full amount
     discountAmount.value = props.cartData.discount || 0;
     surchargeAmount.value = props.cartData.surcharge || 0;
     discountMethodValue.value = props.cartData.discountMethodValue || 0;
     chosenDiscountMethod.value = props.cartData.chosenDiscountMethod || 'VND';
     paymentMethod.value = props.cartData.paymentMethod || 'cash';
+    console.log("props.cartData.transportCompany:", props.cartData.transportCompany);
+    transportCompany.value = props.cartData.transportCompany || props.transportCompanies[0];
+    console.log("Initialized transportCompany to:", transportCompany.value);
     amountPaidTransportCompany.value = props.cartData.amountPaidTransportCompany || 0;
+    totalSurcharge.value = props.cartData.surcharge || 0;
+    amountPaidByCustomer.value = props.cartData.amountPaidByCustomer || totalAmount.value - discountAmount.value + surchargeAmount.value;
   }
   purchaseDate.value = getTodayDateStr();
   purchaseTime.value = getNowTimeStr();
@@ -479,7 +506,33 @@ const handlePayment = () => {
 };
 
 const close = () => {
-  emit('close');
+    console.log("Closing Payment Modal update-cart-data");
+
+    console.log("Emitting update-cart-data with:", {
+        ...props.cartData,
+        amountPaidByCustomer: amountPaidByCustomer.value,
+        amountPaidTransportCompany: amountPaidTransportCompany.value,
+        paymentMethod: paymentMethod.value, 
+        selectedChannel: selectedChannel.value,
+        selectedSeller: selectedSeller.value,
+        transportCompany: transportCompany.value,
+        amountPaidTransportCompany: amountPaidTransportCompany.value,
+    });
+  emit('update-cart-data', {
+    ...props.cartData,
+    amountPaidByCustomer: amountPaidByCustomer.value,
+    amountPaidTransportCompany: amountPaidTransportCompany.value,
+    paymentMethod: paymentMethod.value, 
+    selectedChannel: selectedChannel.value,
+    selectedSeller: selectedSeller.value,
+    transportCompany: transportCompany.value,
+    amountPaidTransportCompany: amountPaidTransportCompany.value,
+    
+    // source: 'payment-modal'
+  });  
+
+  emit('close'
+  );
 };
 </script>
 

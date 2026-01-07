@@ -41,6 +41,7 @@
                 <td class="cell-price">
                   <input 
                     type="number" 
+                    @focus="selectAll"
                     v-model="item.value"
                     :disabled="!item.selected"
                     class="form-control-sm text-right no-arrow"
@@ -61,6 +62,14 @@ import { ref, computed, watch } from 'vue';
 const overlayRef = ref(null);
 const modalRef = ref(null);
 
+const updateChosenSurcharges = (item) => {
+  // This function can be used to perform any additional actions
+  // when a surcharge is selected/deselected.
+    emit('update-surcharges', surchargeList.value.filter(s => s.selected));
+
+
+};
+
 const onOverlayClick = (e) => {
   // Only emit close if click is outside modal-container
   if (modalRef.value && !modalRef.value.contains(e.target)) {
@@ -73,7 +82,8 @@ const props = defineProps({
   visible: { type: Boolean, default: false },
   // Allow passing existing surcharges from parent
   items: { type: Array, default: () => [] },
-  defaultSurcharges: { type: Array, default: () => [] }
+  defaultSurcharges: { type: Array, default: () => [] },
+  chosenSurcharges: { type: Array, default: () => [] }
 });
 
 const emit = defineEmits(['close', 'update-surcharges']);
@@ -82,10 +92,30 @@ const emit = defineEmits(['close', 'update-surcharges']);
 // Default mock data based on your HTML snapshot
 const defaultSurcharges = props.defaultSurcharges.length > 0 ? 
   props.defaultSurcharges : [
-  { id: 1, code: 'S001', name: 'Other', value: 0, selected: false }
+    { id: 1, code:'VOUCHER', name: 'Voucher', value: 3000, selected: false },
+    { id: 2, code:'POINTS', name: 'Điểm thưởng', value: 0, selected: false },
+    { id: 3, code:'OTHER', name: 'Khác', value: 0, selected: false }
 ];
 
+const selectAll = (event) => {
+  event.target.select();
+};
+
 const surchargeList = ref([...defaultSurcharges]);
+
+console.log("Updating surchargeList based on chosenSurcharges:", props.chosenSurcharges);
+// check each surcharge in chosenSurcharges and update surchargeList accordingly
+if (props.chosenSurcharges && props.chosenSurcharges.length > 0) {
+    
+  props.chosenSurcharges.forEach(chosen => {
+    const match = surchargeList.value.find(s => s.id === chosen.id);
+    if (match) {
+      match.selected = chosen.selected;
+      match.value = chosen.value;
+    }
+  });
+}
+
 
 // If props.items is provided (e.g., editing previously saved state), use it
 watch(() => props.items, (newItems) => {
@@ -111,17 +141,11 @@ const toggleSelection = (item) => {
   // Logic if needed when toggling
 };
 
-const handleSave = () => {
-  // Emit both the total and the detailed list back to parent
-  emit('update-surcharges', {
-    total: totalAmount.value,
-    items: surchargeList.value
-  });
-  emit('close');
-};
+
 
 const close = () => {
-  emit('close');
+    console.log("Closing Surcharge Modal. Selected Surcharges:", surchargeList.value.filter(s => s.selected));
+  emit('close', surchargeList.value.filter(s => s.selected));
 };
 </script>
 

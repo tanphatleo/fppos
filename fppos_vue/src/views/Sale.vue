@@ -165,11 +165,11 @@
 </template>
 <script>
 // import { search } from 'core-js/fn/symbol';
-import menu_toggle from '@/components/menu_toogle.vue'
-import AddCust from '@/components/AddCust.vue';
-import Carts from '@/components/Carts.vue';
-import ProfuctFilterCate from '@/components/ProfuctFilterCate.vue';
-import Payment from '@/components/Payment.vue';
+import menu_toggle from '@/components/Sale/menu_toogle.vue';
+import AddCust from '@/components/Sale/AddCust.vue';
+import Carts from '@/components/Sale/Carts.vue';
+import ProfuctFilterCate from '@/components/Sale/ProfuctFilterCate.vue';
+import Payment from '@/components/Sale/Payment.vue';
 
   export default {
     name: "SaleView",
@@ -231,6 +231,7 @@ import Payment from '@/components/Payment.vue';
           discountMethodValue: 0,
           transportCompany: null,
           amountPaidByCustomer: 0,
+          changeDue: 0,
           amountPaidTransportCompany: 0,
           items: [
           ]
@@ -350,7 +351,7 @@ import Payment from '@/components/Payment.vue';
         // filter localPendingSales to get the one with id and assign to focus_invoice
         // window.alert("Selected invoice " + id);
         this.focus_invoice = this.localPendingSales.find(sale => sale.id === id);
-        console.log("Focus invoice set to:", this.focus_invoice);
+        // console.log("Focus invoice set to:", this.focus_invoice);
         // window.alert("Focus invoice set to:", this.focus_invoice);
 
         // update local storage selected_invoice_id
@@ -409,6 +410,7 @@ import Payment from '@/components/Payment.vue';
       },
 
       async handleUpdateItem(updatedInvoice) {
+        console.log("Handling update for invoice:", updatedInvoice);
         // json partse object 
         // let parsed = JSON.stringify(updatedInvoice);
 
