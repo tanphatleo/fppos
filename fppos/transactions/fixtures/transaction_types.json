@@ -1,0 +1,36 @@
+[
+    {
+        "model": "transactions.TransactionType",
+        "pk": 1,
+        "fields": {
+            "name": "Chuyển tiền sale cho Kim",
+            "is_active": true,
+            "transaction_type": "CR",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    }, 
+    {
+        "model": "transactions.TransactionType",
+        "pk": 2,
+        "fields": {
+            "name": "Thu tiền từ khách hàng",
+            "is_active": true,
+            "transaction_type": "DR",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "transactions.TransactionType",
+        "pk": 3,
+        "fields": {
+            "name": "Chi tiền ship ngoài đơn hàng",
+            "is_active": true,
+            "transaction_type": "CR",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    }
+    
+]

@@ -10,7 +10,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     product_type = models.CharField(max_length=10, choices=PRODUCT_TYPE_CHOICES, default='normal')
     price = models.IntegerField(default=0)  # Change price to IntegerField
-    package_details = JSONField(blank=True, null=True)  # JSON field for package contents
+    package_details = models.JSONField(blank=True, null=True)  # JSON field for package contents
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

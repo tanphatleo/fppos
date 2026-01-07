@@ -1,0 +1,6074 @@
+[
+    {
+        "model": "customers.Province",
+        "pk": 1,
+        "fields": {
+            "name": "Tỉnh An Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 2,
+        "fields": {
+            "name": "Tỉnh Bắc Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 3,
+        "fields": {
+            "name": "Tỉnh Cà Mau",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 4,
+        "fields": {
+            "name": "Tỉnh Cao Bằng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 5,
+        "fields": {
+            "name": "Thành Phố Cần Thơ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 6,
+        "fields": {
+            "name": "Thành phố Đà Nẵng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 7,
+        "fields": {
+            "name": "Tỉnh Đắk Lắk",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 8,
+        "fields": {
+            "name": "Tỉnh Điện Biên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 9,
+        "fields": {
+            "name": "Tỉnh Đồng Nai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 10,
+        "fields": {
+            "name": "Tỉnh Đồng Tháp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 11,
+        "fields": {
+            "name": "Tỉnh Gia Lai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 12,
+        "fields": {
+            "name": "Thành phố Hà Nội",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 13,
+        "fields": {
+            "name": "Tỉnh Hà Tĩnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 14,
+        "fields": {
+            "name": "Thành phố Hải Phòng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 15,
+        "fields": {
+            "name": "Thành phố Huế",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 16,
+        "fields": {
+            "name": "Tỉnh Hưng Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 17,
+        "fields": {
+            "name": "Tỉnh Khánh Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 18,
+        "fields": {
+            "name": "Tỉnh Lai Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 19,
+        "fields": {
+            "name": "Tỉnh Lạng Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 20,
+        "fields": {
+            "name": "Tỉnh Lào Cai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 21,
+        "fields": {
+            "name": "Tỉnh Lâm Đồng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 22,
+        "fields": {
+            "name": "Tỉnh Nghệ An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 23,
+        "fields": {
+            "name": "Tỉnh Ninh Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 24,
+        "fields": {
+            "name": "Tỉnh Phú Thọ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 25,
+        "fields": {
+            "name": "Tỉnh Quảng Ngãi",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 26,
+        "fields": {
+            "name": "Tỉnh Quảng Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 27,
+        "fields": {
+            "name": "Tỉnh Quảng Trị",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 28,
+        "fields": {
+            "name": "Tỉnh Sơn La",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 29,
+        "fields": {
+            "name": "Tỉnh Tây Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 30,
+        "fields": {
+            "name": "Tỉnh Thái Nguyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 31,
+        "fields": {
+            "name": "Tỉnh Thanh Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 32,
+        "fields": {
+            "name": "Thành phố Hồ Chí Minh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 33,
+        "fields": {
+            "name": "Tỉnh Tuyên Quang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 34,
+        "fields": {
+            "name": "Tỉnh Vĩnh Long",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 35,
+        "fields": {
+            "name": "Hà Nội - Quận Ba Đình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 36,
+        "fields": {
+            "name": "Hà Nội - Quận Hoàn Kiếm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 37,
+        "fields": {
+            "name": "Hà Nội - Quận Tây Hồ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 38,
+        "fields": {
+            "name": "Hà Nội - Quận Long Biên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 39,
+        "fields": {
+            "name": "Hà Nội - Quận Cầu Giấy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 40,
+        "fields": {
+            "name": "Hà Nội - Quận Đống Đa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 41,
+        "fields": {
+            "name": "Hà Nội - Quận Hai Bà Trưng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 42,
+        "fields": {
+            "name": "Hà Nội - Quận Hoàng Mai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 43,
+        "fields": {
+            "name": "Hà Nội - Quận Thanh Xuân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 44,
+        "fields": {
+            "name": "Hà Nội - Huyện Sóc Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 45,
+        "fields": {
+            "name": "Hà Nội - Huyện Đông Anh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 46,
+        "fields": {
+            "name": "Hà Nội - Huyện Gia Lâm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 47,
+        "fields": {
+            "name": "Hà Nội - Quận Nam Từ Liêm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 48,
+        "fields": {
+            "name": "Hà Nội - Huyện Thanh Trì",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 49,
+        "fields": {
+            "name": "Hà Nội - Quận Bắc Từ Liêm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 50,
+        "fields": {
+            "name": "Hà Nội - Huyện Mê Linh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 51,
+        "fields": {
+            "name": "Hà Nội - Quận Hà Đông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 52,
+        "fields": {
+            "name": "Hà Nội - Thị xã Sơn Tây",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 53,
+        "fields": {
+            "name": "Hà Nội - Huyện Ba Vì",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 54,
+        "fields": {
+            "name": "Hà Nội - Huyện Phúc Thọ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 55,
+        "fields": {
+            "name": "Hà Nội - Huyện Đan Phượng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 56,
+        "fields": {
+            "name": "Hà Nội - Huyện Hoài Đức",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 57,
+        "fields": {
+            "name": "Hà Nội - Huyện Quốc Oai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 58,
+        "fields": {
+            "name": "Hà Nội - Huyện Thạch Thất",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 59,
+        "fields": {
+            "name": "Hà Nội - Huyện Chương Mỹ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 60,
+        "fields": {
+            "name": "Hà Nội - Huyện Thanh Oai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 61,
+        "fields": {
+            "name": "Hà Nội - Huyện Thường Tín",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 62,
+        "fields": {
+            "name": "Hà Nội - Huyện Phú Xuyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 63,
+        "fields": {
+            "name": "Hà Nội - Huyện Ứng Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 64,
+        "fields": {
+            "name": "Hà Nội - Huyện Mỹ Đức",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 65,
+        "fields": {
+            "name": "Hà Giang - Thành phố Hà Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 66,
+        "fields": {
+            "name": "Hà Giang - Huyện Đồng Văn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 67,
+        "fields": {
+            "name": "Hà Giang - Huyện Mèo Vạc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 68,
+        "fields": {
+            "name": "Hà Giang - Huyện Yên Minh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 69,
+        "fields": {
+            "name": "Hà Giang - Huyện Quản Bạ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 70,
+        "fields": {
+            "name": "Hà Giang - Huyện Vị Xuyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 71,
+        "fields": {
+            "name": "Hà Giang - Huyện Bắc Mê",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 72,
+        "fields": {
+            "name": "Hà Giang - Huyện Hoàng Su Phì",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 73,
+        "fields": {
+            "name": "Hà Giang - Huyện Xín Mần",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 74,
+        "fields": {
+            "name": "Hà Giang - Huyện Bắc Quang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 75,
+        "fields": {
+            "name": "Hà Giang - Huyện Quang Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 76,
+        "fields": {
+            "name": "Cao Bằng - Thành phố Cao Bằng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 77,
+        "fields": {
+            "name": "Cao Bằng - Huyện Bảo Lâm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 78,
+        "fields": {
+            "name": "Cao Bằng - Huyện Bảo Lạc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 79,
+        "fields": {
+            "name": "Cao Bằng - Huyện Hà Quảng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 80,
+        "fields": {
+            "name": "Cao Bằng - Huyện Trùng Khánh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 81,
+        "fields": {
+            "name": "Cao Bằng - Huyện Hạ Lang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 82,
+        "fields": {
+            "name": "Cao Bằng - Huyện Quảng Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 83,
+        "fields": {
+            "name": "Cao Bằng - Huyện Hoà An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 84,
+        "fields": {
+            "name": "Cao Bằng - Huyện Nguyên Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 85,
+        "fields": {
+            "name": "Cao Bằng - Huyện Thạch An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 86,
+        "fields": {
+            "name": "Bắc Kạn - Thành Phố Bắc Kạn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 87,
+        "fields": {
+            "name": "Bắc Kạn - Huyện Pác Nặm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 88,
+        "fields": {
+            "name": "Bắc Kạn - Huyện Ba Bể",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 89,
+        "fields": {
+            "name": "Bắc Kạn - Huyện Ngân Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 90,
+        "fields": {
+            "name": "Bắc Kạn - Huyện Bạch Thông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 91,
+        "fields": {
+            "name": "Bắc Kạn - Huyện Chợ Đồn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 92,
+        "fields": {
+            "name": "Bắc Kạn - Huyện Chợ Mới",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 93,
+        "fields": {
+            "name": "Bắc Kạn - Huyện Na Rì",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 94,
+        "fields": {
+            "name": "Tuyên Quang - Thành phố Tuyên Quang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 95,
+        "fields": {
+            "name": "Tuyên Quang - Huyện Lâm Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 96,
+        "fields": {
+            "name": "Tuyên Quang - Huyện Na Hang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 97,
+        "fields": {
+            "name": "Tuyên Quang - Huyện Chiêm Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 98,
+        "fields": {
+            "name": "Tuyên Quang - Huyện Hàm Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 99,
+        "fields": {
+            "name": "Tuyên Quang - Huyện Yên Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 100,
+        "fields": {
+            "name": "Tuyên Quang - Huyện Sơn Dương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 101,
+        "fields": {
+            "name": "Lào Cai - Thành phố Lào Cai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 102,
+        "fields": {
+            "name": "Lào Cai - Huyện Bát Xát",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 103,
+        "fields": {
+            "name": "Lào Cai - Huyện Mường Khương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 104,
+        "fields": {
+            "name": "Lào Cai - Huyện Si Ma Cai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 105,
+        "fields": {
+            "name": "Lào Cai - Huyện Bắc Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 106,
+        "fields": {
+            "name": "Lào Cai - Huyện Bảo Thắng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 107,
+        "fields": {
+            "name": "Lào Cai - Huyện Bảo Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 108,
+        "fields": {
+            "name": "Lào Cai - Thị xã Sa Pa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 109,
+        "fields": {
+            "name": "Lào Cai - Huyện Văn Bàn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 110,
+        "fields": {
+            "name": "Điện Biên - Thành phố Điện Biên Phủ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 111,
+        "fields": {
+            "name": "Điện Biên - Thị Xã Mường Lay",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 112,
+        "fields": {
+            "name": "Điện Biên - Huyện Mường Nhé",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 113,
+        "fields": {
+            "name": "Điện Biên - Huyện Mường Chà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 114,
+        "fields": {
+            "name": "Điện Biên - Huyện Tủa Chùa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 115,
+        "fields": {
+            "name": "Điện Biên - Huyện Tuần Giáo",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 116,
+        "fields": {
+            "name": "Điện Biên - Huyện Điện Biên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 117,
+        "fields": {
+            "name": "Điện Biên - Huyện Điện Biên Đông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 118,
+        "fields": {
+            "name": "Điện Biên - Huyện Mường Ảng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 119,
+        "fields": {
+            "name": "Điện Biên - Huyện Nậm Pồ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 120,
+        "fields": {
+            "name": "Lai Châu - Thành phố Lai Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 121,
+        "fields": {
+            "name": "Lai Châu - Huyện Tam Đường",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 122,
+        "fields": {
+            "name": "Lai Châu - Huyện Mường Tè",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 123,
+        "fields": {
+            "name": "Lai Châu - Huyện Sìn Hồ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 124,
+        "fields": {
+            "name": "Lai Châu - Huyện Phong Thổ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 125,
+        "fields": {
+            "name": "Lai Châu - Huyện Than Uyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 126,
+        "fields": {
+            "name": "Lai Châu - Huyện Tân Uyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 127,
+        "fields": {
+            "name": "Lai Châu - Huyện Nậm Nhùn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 128,
+        "fields": {
+            "name": "Sơn La - Thành phố Sơn La",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 129,
+        "fields": {
+            "name": "Sơn La - Huyện Quỳnh Nhai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 130,
+        "fields": {
+            "name": "Sơn La - Huyện Thuận Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 131,
+        "fields": {
+            "name": "Sơn La - Huyện Mường La",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 132,
+        "fields": {
+            "name": "Sơn La - Huyện Bắc Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 133,
+        "fields": {
+            "name": "Sơn La - Huyện Phù Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 134,
+        "fields": {
+            "name": "Sơn La - Huyện Mộc Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 135,
+        "fields": {
+            "name": "Sơn La - Huyện Yên Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 136,
+        "fields": {
+            "name": "Sơn La - Huyện Mai Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 137,
+        "fields": {
+            "name": "Sơn La - Huyện Sông Mã",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 138,
+        "fields": {
+            "name": "Sơn La - Huyện Sốp Cộp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 139,
+        "fields": {
+            "name": "Sơn La - Huyện Vân Hồ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 140,
+        "fields": {
+            "name": "Yên Bái - Thành phố Yên Bái",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 141,
+        "fields": {
+            "name": "Yên Bái - Thị xã Nghĩa Lộ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 142,
+        "fields": {
+            "name": "Yên Bái - Huyện Lục Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 143,
+        "fields": {
+            "name": "Yên Bái - Huyện Văn Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 144,
+        "fields": {
+            "name": "Yên Bái - Huyện Mù Căng Chải",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 145,
+        "fields": {
+            "name": "Yên Bái - Huyện Trấn Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 146,
+        "fields": {
+            "name": "Yên Bái - Huyện Trạm Tấu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 147,
+        "fields": {
+            "name": "Yên Bái - Huyện Văn Chấn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 148,
+        "fields": {
+            "name": "Yên Bái - Huyện Yên Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 149,
+        "fields": {
+            "name": "Hoà Bình - Thành phố Hòa Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 150,
+        "fields": {
+            "name": "Hoà Bình - Huyện Đà Bắc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 151,
+        "fields": {
+            "name": "Hoà Bình - Huyện Lương Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 152,
+        "fields": {
+            "name": "Hoà Bình - Huyện Kim Bôi",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 153,
+        "fields": {
+            "name": "Hoà Bình - Huyện Cao Phong",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 154,
+        "fields": {
+            "name": "Hoà Bình - Huyện Tân Lạc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 155,
+        "fields": {
+            "name": "Hoà Bình - Huyện Mai Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 156,
+        "fields": {
+            "name": "Hoà Bình - Huyện Lạc Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 157,
+        "fields": {
+            "name": "Hoà Bình - Huyện Yên Thủy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 158,
+        "fields": {
+            "name": "Hoà Bình - Huyện Lạc Thủy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 159,
+        "fields": {
+            "name": "Thái Nguyên - Thành phố Thái Nguyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 160,
+        "fields": {
+            "name": "Thái Nguyên - Thành phố Sông Công",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 161,
+        "fields": {
+            "name": "Thái Nguyên - Huyện Định Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 162,
+        "fields": {
+            "name": "Thái Nguyên - Huyện Phú Lương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 163,
+        "fields": {
+            "name": "Thái Nguyên - Huyện Đồng Hỷ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 164,
+        "fields": {
+            "name": "Thái Nguyên - Huyện Võ Nhai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 165,
+        "fields": {
+            "name": "Thái Nguyên - Huyện Đại Từ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 166,
+        "fields": {
+            "name": "Thái Nguyên - Thành phố Phổ Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 167,
+        "fields": {
+            "name": "Thái Nguyên - Huyện Phú Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 168,
+        "fields": {
+            "name": "Lạng Sơn - Thành phố Lạng Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 169,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Tràng Định",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 170,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Bình Gia",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 171,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Văn Lãng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 172,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Cao Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 173,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Văn Quan",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 174,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Bắc Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 175,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Hữu Lũng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 176,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Chi Lăng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 177,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Lộc Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 178,
+        "fields": {
+            "name": "Lạng Sơn - Huyện Đình Lập",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 179,
+        "fields": {
+            "name": "Quảng Ninh - Thành phố Hạ Long",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 180,
+        "fields": {
+            "name": "Quảng Ninh - Thành phố Móng Cái",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 181,
+        "fields": {
+            "name": "Quảng Ninh - Thành phố Cẩm Phả",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 182,
+        "fields": {
+            "name": "Quảng Ninh - Thành phố Uông Bí",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 183,
+        "fields": {
+            "name": "Quảng Ninh - Huyện Bình Liêu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 184,
+        "fields": {
+            "name": "Quảng Ninh - Huyện Tiên Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 185,
+        "fields": {
+            "name": "Quảng Ninh - Huyện Đầm Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 186,
+        "fields": {
+            "name": "Quảng Ninh - Huyện Hải Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 187,
+        "fields": {
+            "name": "Quảng Ninh - Huyện Ba Chẽ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 188,
+        "fields": {
+            "name": "Quảng Ninh - Huyện Vân Đồn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 189,
+        "fields": {
+            "name": "Quảng Ninh - Thị xã Đông Triều",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 190,
+        "fields": {
+            "name": "Quảng Ninh - Thị xã Quảng Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 191,
+        "fields": {
+            "name": "Quảng Ninh - Huyện Cô Tô",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 192,
+        "fields": {
+            "name": "Bắc Giang - Thành phố Bắc Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 193,
+        "fields": {
+            "name": "Bắc Giang - Huyện Yên Thế",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 194,
+        "fields": {
+            "name": "Bắc Giang - Huyện Tân Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 195,
+        "fields": {
+            "name": "Bắc Giang - Huyện Lạng Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 196,
+        "fields": {
+            "name": "Bắc Giang - Huyện Lục Nam",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 197,
+        "fields": {
+            "name": "Bắc Giang - Huyện Lục Ngạn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 198,
+        "fields": {
+            "name": "Bắc Giang - Huyện Sơn Động",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 199,
+        "fields": {
+            "name": "Bắc Giang - Huyện Yên Dũng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 200,
+        "fields": {
+            "name": "Bắc Giang - Huyện Việt Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 201,
+        "fields": {
+            "name": "Bắc Giang - Huyện Hiệp Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 202,
+        "fields": {
+            "name": "Phú Thọ - Thành phố Việt Trì",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 203,
+        "fields": {
+            "name": "Phú Thọ - Thị xã Phú Thọ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 204,
+        "fields": {
+            "name": "Phú Thọ - Huyện Đoan Hùng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 205,
+        "fields": {
+            "name": "Phú Thọ - Huyện Hạ Hoà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 206,
+        "fields": {
+            "name": "Phú Thọ - Huyện Thanh Ba",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 207,
+        "fields": {
+            "name": "Phú Thọ - Huyện Phù Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 208,
+        "fields": {
+            "name": "Phú Thọ - Huyện Yên Lập",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 209,
+        "fields": {
+            "name": "Phú Thọ - Huyện Cẩm Khê",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 210,
+        "fields": {
+            "name": "Phú Thọ - Huyện Tam Nông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 211,
+        "fields": {
+            "name": "Phú Thọ - Huyện Lâm Thao",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 212,
+        "fields": {
+            "name": "Phú Thọ - Huyện Thanh Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 213,
+        "fields": {
+            "name": "Phú Thọ - Huyện Thanh Thuỷ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 214,
+        "fields": {
+            "name": "Phú Thọ - Huyện Tân Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 215,
+        "fields": {
+            "name": "Vĩnh Phúc - Thành phố Vĩnh Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 216,
+        "fields": {
+            "name": "Vĩnh Phúc - Thành phố Phúc Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 217,
+        "fields": {
+            "name": "Vĩnh Phúc - Huyện Lập Thạch",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 218,
+        "fields": {
+            "name": "Vĩnh Phúc - Huyện Tam Dương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 219,
+        "fields": {
+            "name": "Vĩnh Phúc - Huyện Tam Đảo",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 220,
+        "fields": {
+            "name": "Vĩnh Phúc - Huyện Bình Xuyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 221,
+        "fields": {
+            "name": "Vĩnh Phúc - Huyện Yên Lạc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 222,
+        "fields": {
+            "name": "Vĩnh Phúc - Huyện Vĩnh Tường",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 223,
+        "fields": {
+            "name": "Vĩnh Phúc - Huyện Sông Lô",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 224,
+        "fields": {
+            "name": "Bắc Ninh - Thành phố Bắc Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 225,
+        "fields": {
+            "name": "Bắc Ninh - Huyện Yên Phong",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 226,
+        "fields": {
+            "name": "Bắc Ninh - Thị xã Quế Võ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 227,
+        "fields": {
+            "name": "Bắc Ninh - Huyện Tiên Du",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 228,
+        "fields": {
+            "name": "Bắc Ninh - Thành phố Từ Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 229,
+        "fields": {
+            "name": "Bắc Ninh - Thị xã Thuận Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 230,
+        "fields": {
+            "name": "Bắc Ninh - Huyện Gia Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 231,
+        "fields": {
+            "name": "Bắc Ninh - Huyện Lương Tài",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 232,
+        "fields": {
+            "name": "Hải Dương - Thành phố Hải Dương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 233,
+        "fields": {
+            "name": "Hải Dương - Thành phố Chí Linh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 234,
+        "fields": {
+            "name": "Hải Dương - Huyện Nam Sách",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 235,
+        "fields": {
+            "name": "Hải Dương - Thị xã Kinh Môn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 236,
+        "fields": {
+            "name": "Hải Dương - Huyện Kim Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 237,
+        "fields": {
+            "name": "Hải Dương - Huyện Thanh Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 238,
+        "fields": {
+            "name": "Hải Dương - Huyện Cẩm Giàng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 239,
+        "fields": {
+            "name": "Hải Dương - Huyện Bình Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 240,
+        "fields": {
+            "name": "Hải Dương - Huyện Gia Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 241,
+        "fields": {
+            "name": "Hải Dương - Huyện Tứ Kỳ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 242,
+        "fields": {
+            "name": "Hải Dương - Huyện Ninh Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 243,
+        "fields": {
+            "name": "Hải Dương - Huyện Thanh Miện",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 244,
+        "fields": {
+            "name": "Hải Phòng - Quận Hồng Bàng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 245,
+        "fields": {
+            "name": "Hải Phòng - Quận Ngô Quyền",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 246,
+        "fields": {
+            "name": "Hải Phòng - Quận Lê Chân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 247,
+        "fields": {
+            "name": "Hải Phòng - Quận Hải An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 248,
+        "fields": {
+            "name": "Hải Phòng - Quận Kiến An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 249,
+        "fields": {
+            "name": "Hải Phòng - Quận Đồ Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 250,
+        "fields": {
+            "name": "Hải Phòng - Quận Dương Kinh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 251,
+        "fields": {
+            "name": "Hải Phòng - Huyện Thuỷ Nguyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 252,
+        "fields": {
+            "name": "Hải Phòng - Huyện An Dương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 253,
+        "fields": {
+            "name": "Hải Phòng - Huyện An Lão",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 254,
+        "fields": {
+            "name": "Hải Phòng - Huyện Kiến Thuỵ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 255,
+        "fields": {
+            "name": "Hải Phòng - Huyện Tiên Lãng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 256,
+        "fields": {
+            "name": "Hải Phòng - Huyện Vĩnh Bảo",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 257,
+        "fields": {
+            "name": "Hải Phòng - Huyện Cát Hải",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 258,
+        "fields": {
+            "name": "Hải Phòng - Huyện Bạch Long Vĩ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 259,
+        "fields": {
+            "name": "Hưng Yên - Thành phố Hưng Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 260,
+        "fields": {
+            "name": "Hưng Yên - Huyện Văn Lâm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 261,
+        "fields": {
+            "name": "Hưng Yên - Huyện Văn Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 262,
+        "fields": {
+            "name": "Hưng Yên - Huyện Yên Mỹ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 263,
+        "fields": {
+            "name": "Hưng Yên - Thị xã Mỹ Hào",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 264,
+        "fields": {
+            "name": "Hưng Yên - Huyện Ân Thi",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 265,
+        "fields": {
+            "name": "Hưng Yên - Huyện Khoái Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 266,
+        "fields": {
+            "name": "Hưng Yên - Huyện Kim Động",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 267,
+        "fields": {
+            "name": "Hưng Yên - Huyện Tiên Lữ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 268,
+        "fields": {
+            "name": "Hưng Yên - Huyện Phù Cừ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 269,
+        "fields": {
+            "name": "Thái Bình - Thành phố Thái Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 270,
+        "fields": {
+            "name": "Thái Bình - Huyện Quỳnh Phụ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 271,
+        "fields": {
+            "name": "Thái Bình - Huyện Hưng Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 272,
+        "fields": {
+            "name": "Thái Bình - Huyện Đông Hưng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 273,
+        "fields": {
+            "name": "Thái Bình - Huyện Thái Thụy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 274,
+        "fields": {
+            "name": "Thái Bình - Huyện Tiền Hải",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 275,
+        "fields": {
+            "name": "Thái Bình - Huyện Kiến Xương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 276,
+        "fields": {
+            "name": "Thái Bình - Huyện Vũ Thư",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 277,
+        "fields": {
+            "name": "Hà Nam - Thành phố Phủ Lý",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 278,
+        "fields": {
+            "name": "Hà Nam - Thị xã Duy Tiên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 279,
+        "fields": {
+            "name": "Hà Nam - Huyện Kim Bảng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 280,
+        "fields": {
+            "name": "Hà Nam - Huyện Thanh Liêm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 281,
+        "fields": {
+            "name": "Hà Nam - Huyện Bình Lục",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 282,
+        "fields": {
+            "name": "Hà Nam - Huyện Lý Nhân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 283,
+        "fields": {
+            "name": "Nam Định - Thành phố Nam Định",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 284,
+        "fields": {
+            "name": "Nam Định - Huyện Mỹ Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 285,
+        "fields": {
+            "name": "Nam Định - Huyện Vụ Bản",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 286,
+        "fields": {
+            "name": "Nam Định - Huyện Ý Yên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 287,
+        "fields": {
+            "name": "Nam Định - Huyện Nghĩa Hưng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 288,
+        "fields": {
+            "name": "Nam Định - Huyện Nam Trực",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 289,
+        "fields": {
+            "name": "Nam Định - Huyện Trực Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 290,
+        "fields": {
+            "name": "Nam Định - Huyện Xuân Trường",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 291,
+        "fields": {
+            "name": "Nam Định - Huyện Giao Thủy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 292,
+        "fields": {
+            "name": "Nam Định - Huyện Hải Hậu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 293,
+        "fields": {
+            "name": "Ninh Bình - Thành phố Ninh Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 294,
+        "fields": {
+            "name": "Ninh Bình - Thành phố Tam Điệp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 295,
+        "fields": {
+            "name": "Ninh Bình - Huyện Nho Quan",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 296,
+        "fields": {
+            "name": "Ninh Bình - Huyện Gia Viễn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 297,
+        "fields": {
+            "name": "Ninh Bình - Huyện Hoa Lư",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 298,
+        "fields": {
+            "name": "Ninh Bình - Huyện Yên Khánh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 299,
+        "fields": {
+            "name": "Ninh Bình - Huyện Kim Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 300,
+        "fields": {
+            "name": "Ninh Bình - Huyện Yên Mô",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 301,
+        "fields": {
+            "name": "Thanh Hóa - Thành phố Thanh Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 302,
+        "fields": {
+            "name": "Thanh Hóa - Thị xã Bỉm Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 303,
+        "fields": {
+            "name": "Thanh Hóa - Thành phố Sầm Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 304,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Mường Lát",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 305,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Quan Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 306,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Bá Thước",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 307,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Quan Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 308,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Lang Chánh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 309,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Ngọc Lặc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 310,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Cẩm Thủy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 311,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Thạch Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 312,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Hà Trung",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 313,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Vĩnh Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 314,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Yên Định",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 315,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Thọ Xuân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 316,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Thường Xuân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 317,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Triệu Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 318,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Thiệu Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 319,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Hoằng Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 320,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Hậu Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 321,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Nga Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 322,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Như Xuân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 323,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Như Thanh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 324,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Nông Cống",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 325,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Đông Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 326,
+        "fields": {
+            "name": "Thanh Hóa - Huyện Quảng Xương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 327,
+        "fields": {
+            "name": "Thanh Hóa - Thị xã Nghi Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 328,
+        "fields": {
+            "name": "Nghệ An - Thành phố Vinh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 329,
+        "fields": {
+            "name": "Nghệ An - Thị xã Cửa Lò",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 330,
+        "fields": {
+            "name": "Nghệ An - Thị xã Thái Hoà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 331,
+        "fields": {
+            "name": "Nghệ An - Huyện Quế Phong",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 332,
+        "fields": {
+            "name": "Nghệ An - Huyện Quỳ Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 333,
+        "fields": {
+            "name": "Nghệ An - Huyện Kỳ Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 334,
+        "fields": {
+            "name": "Nghệ An - Huyện Tương Dương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 335,
+        "fields": {
+            "name": "Nghệ An - Huyện Nghĩa Đàn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 336,
+        "fields": {
+            "name": "Nghệ An - Huyện Quỳ Hợp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 337,
+        "fields": {
+            "name": "Nghệ An - Huyện Quỳnh Lưu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 338,
+        "fields": {
+            "name": "Nghệ An - Huyện Con Cuông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 339,
+        "fields": {
+            "name": "Nghệ An - Huyện Tân Kỳ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 340,
+        "fields": {
+            "name": "Nghệ An - Huyện Anh Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 341,
+        "fields": {
+            "name": "Nghệ An - Huyện Diễn Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 342,
+        "fields": {
+            "name": "Nghệ An - Huyện Yên Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 343,
+        "fields": {
+            "name": "Nghệ An - Huyện Đô Lương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 344,
+        "fields": {
+            "name": "Nghệ An - Huyện Thanh Chương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 345,
+        "fields": {
+            "name": "Nghệ An - Huyện Nghi Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 346,
+        "fields": {
+            "name": "Nghệ An - Huyện Nam Đàn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 347,
+        "fields": {
+            "name": "Nghệ An - Huyện Hưng Nguyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 348,
+        "fields": {
+            "name": "Nghệ An - Thị xã Hoàng Mai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 349,
+        "fields": {
+            "name": "Hà Tĩnh - Thành phố Hà Tĩnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 350,
+        "fields": {
+            "name": "Hà Tĩnh - Thị xã Hồng Lĩnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 351,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Hương Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 352,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Đức Thọ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 353,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Vũ Quang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 354,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Nghi Xuân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 355,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Can Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 356,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Hương Khê",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 357,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Thạch Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 358,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Cẩm Xuyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 359,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Kỳ Anh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 360,
+        "fields": {
+            "name": "Hà Tĩnh - Huyện Lộc Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 361,
+        "fields": {
+            "name": "Hà Tĩnh - Thị xã Kỳ Anh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 362,
+        "fields": {
+            "name": "Quảng Bình - Thành Phố Đồng Hới",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 363,
+        "fields": {
+            "name": "Quảng Bình - Huyện Minh Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 364,
+        "fields": {
+            "name": "Quảng Bình - Huyện Tuyên Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 365,
+        "fields": {
+            "name": "Quảng Bình - Huyện Quảng Trạch",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 366,
+        "fields": {
+            "name": "Quảng Bình - Huyện Bố Trạch",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 367,
+        "fields": {
+            "name": "Quảng Bình - Huyện Quảng Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 368,
+        "fields": {
+            "name": "Quảng Bình - Huyện Lệ Thủy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 369,
+        "fields": {
+            "name": "Quảng Bình - Thị xã Ba Đồn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 370,
+        "fields": {
+            "name": "Quảng Trị - Thành phố Đông Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 371,
+        "fields": {
+            "name": "Quảng Trị - Thị xã Quảng Trị",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 372,
+        "fields": {
+            "name": "Quảng Trị - Huyện Vĩnh Linh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 373,
+        "fields": {
+            "name": "Quảng Trị - Huyện Hướng Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 374,
+        "fields": {
+            "name": "Quảng Trị - Huyện Gio Linh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 375,
+        "fields": {
+            "name": "Quảng Trị - Huyện Đa Krông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 376,
+        "fields": {
+            "name": "Quảng Trị - Huyện Cam Lộ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 377,
+        "fields": {
+            "name": "Quảng Trị - Huyện Triệu Phong",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 378,
+        "fields": {
+            "name": "Quảng Trị - Huyện Hải Lăng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 379,
+        "fields": {
+            "name": "Quảng Trị - Huyện Cồn Cỏ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 380,
+        "fields": {
+            "name": "Thừa Thiên Huế - Thành phố Huế",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 381,
+        "fields": {
+            "name": "Thừa Thiên Huế - Huyện Phong Điền",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 382,
+        "fields": {
+            "name": "Thừa Thiên Huế - Huyện Quảng Điền",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 383,
+        "fields": {
+            "name": "Thừa Thiên Huế - Huyện Phú Vang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 384,
+        "fields": {
+            "name": "Thừa Thiên Huế - Thị xã Hương Thủy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 385,
+        "fields": {
+            "name": "Thừa Thiên Huế - Thị xã Hương Trà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 386,
+        "fields": {
+            "name": "Thừa Thiên Huế - Huyện A Lưới",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 387,
+        "fields": {
+            "name": "Thừa Thiên Huế - Huyện Phú Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 388,
+        "fields": {
+            "name": "Thừa Thiên Huế - Huyện Nam Đông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 389,
+        "fields": {
+            "name": "Đà Nẵng - Quận Liên Chiểu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 390,
+        "fields": {
+            "name": "Đà Nẵng - Quận Thanh Khê",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 391,
+        "fields": {
+            "name": "Đà Nẵng - Quận Hải Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 392,
+        "fields": {
+            "name": "Đà Nẵng - Quận Sơn Trà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 393,
+        "fields": {
+            "name": "Đà Nẵng - Quận Ngũ Hành Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 394,
+        "fields": {
+            "name": "Đà Nẵng - Quận Cẩm Lệ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 395,
+        "fields": {
+            "name": "Đà Nẵng - Huyện Hòa Vang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 396,
+        "fields": {
+            "name": "Đà Nẵng - Huyện Hoàng Sa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 397,
+        "fields": {
+            "name": "Quảng Nam - Thành phố Tam Kỳ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 398,
+        "fields": {
+            "name": "Quảng Nam - Thành phố Hội An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 399,
+        "fields": {
+            "name": "Quảng Nam - Huyện Tây Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 400,
+        "fields": {
+            "name": "Quảng Nam - Huyện Đông Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 401,
+        "fields": {
+            "name": "Quảng Nam - Huyện Đại Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 402,
+        "fields": {
+            "name": "Quảng Nam - Thị xã Điện Bàn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 403,
+        "fields": {
+            "name": "Quảng Nam - Huyện Duy Xuyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 404,
+        "fields": {
+            "name": "Quảng Nam - Huyện Quế Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 405,
+        "fields": {
+            "name": "Quảng Nam - Huyện Nam Giang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 406,
+        "fields": {
+            "name": "Quảng Nam - Huyện Phước Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 407,
+        "fields": {
+            "name": "Quảng Nam - Huyện Hiệp Đức",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 408,
+        "fields": {
+            "name": "Quảng Nam - Huyện Thăng Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 409,
+        "fields": {
+            "name": "Quảng Nam - Huyện Tiên Phước",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 410,
+        "fields": {
+            "name": "Quảng Nam - Huyện Bắc Trà My",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 411,
+        "fields": {
+            "name": "Quảng Nam - Huyện Nam Trà My",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 412,
+        "fields": {
+            "name": "Quảng Nam - Huyện Núi Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 413,
+        "fields": {
+            "name": "Quảng Nam - Huyện Phú Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 414,
+        "fields": {
+            "name": "Quảng Nam - Huyện Nông Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 415,
+        "fields": {
+            "name": "Quảng Ngãi - Thành phố Quảng Ngãi",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 416,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Bình Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 417,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Trà Bồng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 418,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Sơn Tịnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 419,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Tư Nghĩa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 420,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Sơn Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 421,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Sơn Tây",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 422,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Minh Long",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 423,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Nghĩa Hành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 424,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Mộ Đức",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 425,
+        "fields": {
+            "name": "Quảng Ngãi - Thị xã Đức Phổ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 426,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Ba Tơ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 427,
+        "fields": {
+            "name": "Quảng Ngãi - Huyện Lý Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 428,
+        "fields": {
+            "name": "Bình Định - Thành phố Quy Nhơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 429,
+        "fields": {
+            "name": "Bình Định - Huyện An Lão",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 430,
+        "fields": {
+            "name": "Bình Định - Thị xã Hoài Nhơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 431,
+        "fields": {
+            "name": "Bình Định - Huyện Hoài Ân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 432,
+        "fields": {
+            "name": "Bình Định - Huyện Phù Mỹ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 433,
+        "fields": {
+            "name": "Bình Định - Huyện Vĩnh Thạnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 434,
+        "fields": {
+            "name": "Bình Định - Huyện Tây Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 435,
+        "fields": {
+            "name": "Bình Định - Huyện Phù Cát",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 436,
+        "fields": {
+            "name": "Bình Định - Thị xã An Nhơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 437,
+        "fields": {
+            "name": "Bình Định - Huyện Tuy Phước",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 438,
+        "fields": {
+            "name": "Bình Định - Huyện Vân Canh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 439,
+        "fields": {
+            "name": "Phú Yên - Thành phố Tuy Hoà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 440,
+        "fields": {
+            "name": "Phú Yên - Thị xã Sông Cầu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 441,
+        "fields": {
+            "name": "Phú Yên - Huyện Đồng Xuân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 442,
+        "fields": {
+            "name": "Phú Yên - Huyện Tuy An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 443,
+        "fields": {
+            "name": "Phú Yên - Huyện Sơn Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 444,
+        "fields": {
+            "name": "Phú Yên - Huyện Sông Hinh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 445,
+        "fields": {
+            "name": "Phú Yên - Huyện Tây Hoà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 446,
+        "fields": {
+            "name": "Phú Yên - Huyện Phú Hoà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 447,
+        "fields": {
+            "name": "Phú Yên - Thị xã Đông Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 448,
+        "fields": {
+            "name": "Khánh Hòa - Thành phố Nha Trang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 449,
+        "fields": {
+            "name": "Khánh Hòa - Thành phố Cam Ranh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 450,
+        "fields": {
+            "name": "Khánh Hòa - Huyện Cam Lâm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 451,
+        "fields": {
+            "name": "Khánh Hòa - Huyện Vạn Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 452,
+        "fields": {
+            "name": "Khánh Hòa - Thị xã Ninh Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 453,
+        "fields": {
+            "name": "Khánh Hòa - Huyện Khánh Vĩnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 454,
+        "fields": {
+            "name": "Khánh Hòa - Huyện Diên Khánh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 455,
+        "fields": {
+            "name": "Khánh Hòa - Huyện Khánh Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 456,
+        "fields": {
+            "name": "Khánh Hòa - Huyện Trường Sa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 457,
+        "fields": {
+            "name": "Ninh Thuận - Thành phố Phan Rang-Tháp Chàm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 458,
+        "fields": {
+            "name": "Ninh Thuận - Huyện Bác Ái",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 459,
+        "fields": {
+            "name": "Ninh Thuận - Huyện Ninh Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 460,
+        "fields": {
+            "name": "Ninh Thuận - Huyện Ninh Hải",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 461,
+        "fields": {
+            "name": "Ninh Thuận - Huyện Ninh Phước",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 462,
+        "fields": {
+            "name": "Ninh Thuận - Huyện Thuận Bắc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 463,
+        "fields": {
+            "name": "Ninh Thuận - Huyện Thuận Nam",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 464,
+        "fields": {
+            "name": "Bình Thuận - Thành phố Phan Thiết",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 465,
+        "fields": {
+            "name": "Bình Thuận - Thị xã La Gi",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 466,
+        "fields": {
+            "name": "Bình Thuận - Huyện Tuy Phong",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 467,
+        "fields": {
+            "name": "Bình Thuận - Huyện Bắc Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 468,
+        "fields": {
+            "name": "Bình Thuận - Huyện Hàm Thuận Bắc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 469,
+        "fields": {
+            "name": "Bình Thuận - Huyện Hàm Thuận Nam",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 470,
+        "fields": {
+            "name": "Bình Thuận - Huyện Tánh Linh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 471,
+        "fields": {
+            "name": "Bình Thuận - Huyện Đức Linh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 472,
+        "fields": {
+            "name": "Bình Thuận - Huyện Hàm Tân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 473,
+        "fields": {
+            "name": "Bình Thuận - Huyện Phú Quí",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 474,
+        "fields": {
+            "name": "Kon Tum - Thành phố Kon Tum",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 475,
+        "fields": {
+            "name": "Kon Tum - Huyện Đắk Glei",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 476,
+        "fields": {
+            "name": "Kon Tum - Huyện Ngọc Hồi",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 477,
+        "fields": {
+            "name": "Kon Tum - Huyện Đắk Tô",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 478,
+        "fields": {
+            "name": "Kon Tum - Huyện Kon Plông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 479,
+        "fields": {
+            "name": "Kon Tum - Huyện Kon Rẫy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 480,
+        "fields": {
+            "name": "Kon Tum - Huyện Đắk Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 481,
+        "fields": {
+            "name": "Kon Tum - Huyện Sa Thầy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 482,
+        "fields": {
+            "name": "Kon Tum - Huyện Tu Mơ Rông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 483,
+        "fields": {
+            "name": "Kon Tum - Huyện Ia H' Drai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 484,
+        "fields": {
+            "name": "Gia Lai - Thành phố Pleiku",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 485,
+        "fields": {
+            "name": "Gia Lai - Thị xã An Khê",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 486,
+        "fields": {
+            "name": "Gia Lai - Thị xã Ayun Pa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 487,
+        "fields": {
+            "name": "Gia Lai - Huyện KBang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 488,
+        "fields": {
+            "name": "Gia Lai - Huyện Đăk Đoa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 489,
+        "fields": {
+            "name": "Gia Lai - Huyện Chư Păh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 490,
+        "fields": {
+            "name": "Gia Lai - Huyện Ia Grai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 491,
+        "fields": {
+            "name": "Gia Lai - Huyện Mang Yang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 492,
+        "fields": {
+            "name": "Gia Lai - Huyện Kông Chro",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 493,
+        "fields": {
+            "name": "Gia Lai - Huyện Đức Cơ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 494,
+        "fields": {
+            "name": "Gia Lai - Huyện Chư Prông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 495,
+        "fields": {
+            "name": "Gia Lai - Huyện Chư Sê",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 496,
+        "fields": {
+            "name": "Gia Lai - Huyện Đăk Pơ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 497,
+        "fields": {
+            "name": "Gia Lai - Huyện Ia Pa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 498,
+        "fields": {
+            "name": "Gia Lai - Huyện Krông Pa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 499,
+        "fields": {
+            "name": "Gia Lai - Huyện Phú Thiện",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 500,
+        "fields": {
+            "name": "Gia Lai - Huyện Chư Pưh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 501,
+        "fields": {
+            "name": "Đắk Lắk - Thành phố Buôn Ma Thuột",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 502,
+        "fields": {
+            "name": "Đắk Lắk - Thị Xã Buôn Hồ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 503,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Ea H'leo",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 504,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Ea Súp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 505,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Buôn Đôn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 506,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Cư M'gar",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 507,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Krông Búk",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 508,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Krông Năng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 509,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Ea Kar",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 510,
+        "fields": {
+            "name": "Đắk Lắk - Huyện M'Đrắk",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 511,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Krông Bông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 512,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Krông Pắc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 513,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Krông A Na",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 514,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Lắk",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 515,
+        "fields": {
+            "name": "Đắk Lắk - Huyện Cư Kuin",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 516,
+        "fields": {
+            "name": "Đắk Nông - Thành phố Gia Nghĩa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 517,
+        "fields": {
+            "name": "Đắk Nông - Huyện Đăk Glong",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 518,
+        "fields": {
+            "name": "Đắk Nông - Huyện Cư Jút",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 519,
+        "fields": {
+            "name": "Đắk Nông - Huyện Đắk Mil",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 520,
+        "fields": {
+            "name": "Đắk Nông - Huyện Krông Nô",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 521,
+        "fields": {
+            "name": "Đắk Nông - Huyện Đắk Song",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 522,
+        "fields": {
+            "name": "Đắk Nông - Huyện Đắk R'Lấp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 523,
+        "fields": {
+            "name": "Đắk Nông - Huyện Tuy Đức",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 524,
+        "fields": {
+            "name": "Lâm Đồng - Thành phố Đà Lạt",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 525,
+        "fields": {
+            "name": "Lâm Đồng - Thành phố Bảo Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 526,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Đam Rông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 527,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Lạc Dương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 528,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Lâm Hà",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 529,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Đơn Dương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 530,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Đức Trọng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 531,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Di Linh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 532,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Bảo Lâm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 533,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Đạ Huoai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 534,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Đạ Tẻh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 535,
+        "fields": {
+            "name": "Lâm Đồng - Huyện Cát Tiên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 536,
+        "fields": {
+            "name": "Bình Phước - Thị xã Phước Long",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 537,
+        "fields": {
+            "name": "Bình Phước - Thành phố Đồng Xoài",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 538,
+        "fields": {
+            "name": "Bình Phước - Thị xã Bình Long",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 539,
+        "fields": {
+            "name": "Bình Phước - Huyện Bù Gia Mập",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 540,
+        "fields": {
+            "name": "Bình Phước - Huyện Lộc Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 541,
+        "fields": {
+            "name": "Bình Phước - Huyện Bù Đốp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 542,
+        "fields": {
+            "name": "Bình Phước - Huyện Hớn Quản",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 543,
+        "fields": {
+            "name": "Bình Phước - Huyện Đồng Phú",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 544,
+        "fields": {
+            "name": "Bình Phước - Huyện Bù Đăng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 545,
+        "fields": {
+            "name": "Bình Phước - Thị xã Chơn Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 546,
+        "fields": {
+            "name": "Bình Phước - Huyện Phú Riềng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 547,
+        "fields": {
+            "name": "Tây Ninh - Thành phố Tây Ninh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 548,
+        "fields": {
+            "name": "Tây Ninh - Huyện Tân Biên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 549,
+        "fields": {
+            "name": "Tây Ninh - Huyện Tân Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 550,
+        "fields": {
+            "name": "Tây Ninh - Huyện Dương Minh Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 551,
+        "fields": {
+            "name": "Tây Ninh - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 552,
+        "fields": {
+            "name": "Tây Ninh - Thị xã Hòa Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 553,
+        "fields": {
+            "name": "Tây Ninh - Huyện Gò Dầu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 554,
+        "fields": {
+            "name": "Tây Ninh - Huyện Bến Cầu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 555,
+        "fields": {
+            "name": "Tây Ninh - Thị xã Trảng Bàng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 556,
+        "fields": {
+            "name": "Bình Dương - Thành phố Thủ Dầu Một",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 557,
+        "fields": {
+            "name": "Bình Dương - Huyện Bàu Bàng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 558,
+        "fields": {
+            "name": "Bình Dương - Huyện Dầu Tiếng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 559,
+        "fields": {
+            "name": "Bình Dương - Thị xã Bến Cát",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 560,
+        "fields": {
+            "name": "Bình Dương - Huyện Phú Giáo",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 561,
+        "fields": {
+            "name": "Bình Dương - Thành phố Tân Uyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 562,
+        "fields": {
+            "name": "Bình Dương - Thành phố Dĩ An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 563,
+        "fields": {
+            "name": "Bình Dương - Thành phố Thuận An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 564,
+        "fields": {
+            "name": "Bình Dương - Huyện Bắc Tân Uyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 565,
+        "fields": {
+            "name": "Đồng Nai - Thành phố Biên Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 566,
+        "fields": {
+            "name": "Đồng Nai - Thành phố Long Khánh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 567,
+        "fields": {
+            "name": "Đồng Nai - Huyện Tân Phú",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 568,
+        "fields": {
+            "name": "Đồng Nai - Huyện Vĩnh Cửu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 569,
+        "fields": {
+            "name": "Đồng Nai - Huyện Định Quán",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 570,
+        "fields": {
+            "name": "Đồng Nai - Huyện Trảng Bom",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 571,
+        "fields": {
+            "name": "Đồng Nai - Huyện Thống Nhất",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 572,
+        "fields": {
+            "name": "Đồng Nai - Huyện Cẩm Mỹ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 573,
+        "fields": {
+            "name": "Đồng Nai - Huyện Long Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 574,
+        "fields": {
+            "name": "Đồng Nai - Huyện Xuân Lộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 575,
+        "fields": {
+            "name": "Đồng Nai - Huyện Nhơn Trạch",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 576,
+        "fields": {
+            "name": "Bà Rịa - Vũng Tàu - Thành phố Vũng Tàu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 577,
+        "fields": {
+            "name": "Bà Rịa - Vũng Tàu - Thành phố Bà Rịa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 578,
+        "fields": {
+            "name": "Bà Rịa - Vũng Tàu - Huyện Châu Đức",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 579,
+        "fields": {
+            "name": "Bà Rịa - Vũng Tàu - Huyện Xuyên Mộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 580,
+        "fields": {
+            "name": "Bà Rịa - Vũng Tàu - Huyện Long Điền",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 581,
+        "fields": {
+            "name": "Bà Rịa - Vũng Tàu - Huyện Đất Đỏ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 582,
+        "fields": {
+            "name": "Bà Rịa - Vũng Tàu - Thị xã Phú Mỹ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 583,
+        "fields": {
+            "name": "Bà Rịa - Vũng Tàu - Huyện Côn Đảo",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 584,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 1",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 585,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 12",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 586,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận Gò Vấp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 587,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận Bình Thạnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 588,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận Tân Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 589,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận Tân Phú",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 590,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận Phú Nhuận",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 591,
+        "fields": {
+            "name": "Hồ Chí Minh - Thành phố Thủ Đức",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 592,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 3",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 593,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 10",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 594,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 11",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 595,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 4",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 596,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 5",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 597,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 6",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 598,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 8",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 599,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận Bình Tân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 600,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 7",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 601,
+        "fields": {
+            "name": "Hồ Chí Minh - Huyện Củ Chi",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 602,
+        "fields": {
+            "name": "Hồ Chí Minh - Huyện Hóc Môn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 603,
+        "fields": {
+            "name": "Hồ Chí Minh - Huyện Bình Chánh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 604,
+        "fields": {
+            "name": "Hồ Chí Minh - Huyện Nhà Bè",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 605,
+        "fields": {
+            "name": "Hồ Chí Minh - Huyện Cần Giờ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 606,
+        "fields": {
+            "name": "Long An - Thành phố Tân An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 607,
+        "fields": {
+            "name": "Long An - Thị xã Kiến Tường",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 608,
+        "fields": {
+            "name": "Long An - Huyện Tân Hưng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 609,
+        "fields": {
+            "name": "Long An - Huyện Vĩnh Hưng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 610,
+        "fields": {
+            "name": "Long An - Huyện Mộc Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 611,
+        "fields": {
+            "name": "Long An - Huyện Tân Thạnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 612,
+        "fields": {
+            "name": "Long An - Huyện Thạnh Hóa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 613,
+        "fields": {
+            "name": "Long An - Huyện Đức Huệ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 614,
+        "fields": {
+            "name": "Long An - Huyện Đức Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 615,
+        "fields": {
+            "name": "Long An - Huyện Bến Lức",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 616,
+        "fields": {
+            "name": "Long An - Huyện Thủ Thừa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 617,
+        "fields": {
+            "name": "Long An - Huyện Tân Trụ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 618,
+        "fields": {
+            "name": "Long An - Huyện Cần Đước",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 619,
+        "fields": {
+            "name": "Long An - Huyện Cần Giuộc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 620,
+        "fields": {
+            "name": "Long An - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 621,
+        "fields": {
+            "name": "Tiền Giang - Thành phố Mỹ Tho",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 622,
+        "fields": {
+            "name": "Tiền Giang - Thị xã Gò Công",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 623,
+        "fields": {
+            "name": "Tiền Giang - Thị xã Cai Lậy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 624,
+        "fields": {
+            "name": "Tiền Giang - Huyện Tân Phước",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 625,
+        "fields": {
+            "name": "Tiền Giang - Huyện Cái Bè",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 626,
+        "fields": {
+            "name": "Tiền Giang - Huyện Cai Lậy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 627,
+        "fields": {
+            "name": "Tiền Giang - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 628,
+        "fields": {
+            "name": "Tiền Giang - Huyện Chợ Gạo",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 629,
+        "fields": {
+            "name": "Tiền Giang - Huyện Gò Công Tây",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 630,
+        "fields": {
+            "name": "Tiền Giang - Huyện Gò Công Đông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 631,
+        "fields": {
+            "name": "Tiền Giang - Huyện Tân Phú Đông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 632,
+        "fields": {
+            "name": "Bến Tre - Thành phố Bến Tre",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 633,
+        "fields": {
+            "name": "Bến Tre - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 634,
+        "fields": {
+            "name": "Bến Tre - Huyện Chợ Lách",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 635,
+        "fields": {
+            "name": "Bến Tre - Huyện Mỏ Cày Nam",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 636,
+        "fields": {
+            "name": "Bến Tre - Huyện Giồng Trôm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 637,
+        "fields": {
+            "name": "Bến Tre - Huyện Bình Đại",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 638,
+        "fields": {
+            "name": "Bến Tre - Huyện Ba Tri",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 639,
+        "fields": {
+            "name": "Bến Tre - Huyện Thạnh Phú",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 640,
+        "fields": {
+            "name": "Bến Tre - Huyện Mỏ Cày Bắc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 641,
+        "fields": {
+            "name": "Trà Vinh - Thành phố Trà Vinh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 642,
+        "fields": {
+            "name": "Trà Vinh - Huyện Càng Long",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 643,
+        "fields": {
+            "name": "Trà Vinh - Huyện Cầu Kè",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 644,
+        "fields": {
+            "name": "Trà Vinh - Huyện Tiểu Cần",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 645,
+        "fields": {
+            "name": "Trà Vinh - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 646,
+        "fields": {
+            "name": "Trà Vinh - Huyện Cầu Ngang",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 647,
+        "fields": {
+            "name": "Trà Vinh - Huyện Trà Cú",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 648,
+        "fields": {
+            "name": "Trà Vinh - Huyện Duyên Hải",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 649,
+        "fields": {
+            "name": "Trà Vinh - Thị xã Duyên Hải",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 650,
+        "fields": {
+            "name": "Vĩnh Long - Thành phố Vĩnh Long",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 651,
+        "fields": {
+            "name": "Vĩnh Long - Huyện Long Hồ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 652,
+        "fields": {
+            "name": "Vĩnh Long - Huyện Mang Thít",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 653,
+        "fields": {
+            "name": "Vĩnh Long - Huyện  Vũng Liêm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 654,
+        "fields": {
+            "name": "Vĩnh Long - Huyện Tam Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 655,
+        "fields": {
+            "name": "Vĩnh Long - Thị xã Bình Minh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 656,
+        "fields": {
+            "name": "Vĩnh Long - Huyện Trà Ôn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 657,
+        "fields": {
+            "name": "Vĩnh Long - Huyện Bình Tân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 658,
+        "fields": {
+            "name": "Đồng Tháp - Thành phố Cao Lãnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 659,
+        "fields": {
+            "name": "Đồng Tháp - Thành phố Sa Đéc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 660,
+        "fields": {
+            "name": "Đồng Tháp - Thành phố Hồng Ngự",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 661,
+        "fields": {
+            "name": "Đồng Tháp - Huyện Tân Hồng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 662,
+        "fields": {
+            "name": "Đồng Tháp - Huyện Hồng Ngự",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 663,
+        "fields": {
+            "name": "Đồng Tháp - Huyện Tam Nông",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 664,
+        "fields": {
+            "name": "Đồng Tháp - Huyện Tháp Mười",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 665,
+        "fields": {
+            "name": "Đồng Tháp - Huyện Cao Lãnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 666,
+        "fields": {
+            "name": "Đồng Tháp - Huyện Thanh Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 667,
+        "fields": {
+            "name": "Đồng Tháp - Huyện Lấp Vò",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 668,
+        "fields": {
+            "name": "Đồng Tháp - Huyện Lai Vung",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 669,
+        "fields": {
+            "name": "Đồng Tháp - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 670,
+        "fields": {
+            "name": "An Giang - Thành phố Long Xuyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 671,
+        "fields": {
+            "name": "An Giang - Thành phố Châu Đốc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 672,
+        "fields": {
+            "name": "An Giang - Huyện An Phú",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 673,
+        "fields": {
+            "name": "An Giang - Thị xã Tân Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 674,
+        "fields": {
+            "name": "An Giang - Huyện Phú Tân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 675,
+        "fields": {
+            "name": "An Giang - Huyện Châu Phú",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 676,
+        "fields": {
+            "name": "An Giang - Thị xã Tịnh Biên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 677,
+        "fields": {
+            "name": "An Giang - Huyện Tri Tôn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 678,
+        "fields": {
+            "name": "An Giang - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 679,
+        "fields": {
+            "name": "An Giang - Huyện Chợ Mới",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 680,
+        "fields": {
+            "name": "An Giang - Huyện Thoại Sơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 681,
+        "fields": {
+            "name": "Kiên Giang - Thành phố Rạch Giá",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 682,
+        "fields": {
+            "name": "Kiên Giang - Thành phố Hà Tiên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 683,
+        "fields": {
+            "name": "Kiên Giang - Huyện Kiên Lương",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 684,
+        "fields": {
+            "name": "Kiên Giang - Huyện Hòn Đất",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 685,
+        "fields": {
+            "name": "Kiên Giang - Huyện Tân Hiệp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 686,
+        "fields": {
+            "name": "Kiên Giang - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 687,
+        "fields": {
+            "name": "Kiên Giang - Huyện Giồng Riềng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 688,
+        "fields": {
+            "name": "Kiên Giang - Huyện Gò Quao",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 689,
+        "fields": {
+            "name": "Kiên Giang - Huyện An Biên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 690,
+        "fields": {
+            "name": "Kiên Giang - Huyện An Minh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 691,
+        "fields": {
+            "name": "Kiên Giang - Huyện Vĩnh Thuận",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 692,
+        "fields": {
+            "name": "Kiên Giang - Thành phố Phú Quốc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 693,
+        "fields": {
+            "name": "Kiên Giang - Huyện Kiên Hải",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 694,
+        "fields": {
+            "name": "Kiên Giang - Huyện U Minh Thượng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 695,
+        "fields": {
+            "name": "Kiên Giang - Huyện Giang Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 696,
+        "fields": {
+            "name": "Cần Thơ - Quận Ninh Kiều",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 697,
+        "fields": {
+            "name": "Cần Thơ - Quận Ô Môn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 698,
+        "fields": {
+            "name": "Cần Thơ - Quận Bình Thuỷ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 699,
+        "fields": {
+            "name": "Cần Thơ - Quận Cái Răng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 700,
+        "fields": {
+            "name": "Cần Thơ - Quận Thốt Nốt",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 701,
+        "fields": {
+            "name": "Cần Thơ - Huyện Vĩnh Thạnh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 702,
+        "fields": {
+            "name": "Cần Thơ - Huyện Cờ Đỏ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 703,
+        "fields": {
+            "name": "Cần Thơ - Huyện Phong Điền",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 704,
+        "fields": {
+            "name": "Cần Thơ - Huyện Thới Lai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 705,
+        "fields": {
+            "name": "Hậu Giang - Thành phố Vị Thanh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 706,
+        "fields": {
+            "name": "Hậu Giang - Thành phố Ngã Bảy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 707,
+        "fields": {
+            "name": "Hậu Giang - Huyện Châu Thành A",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 708,
+        "fields": {
+            "name": "Hậu Giang - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 709,
+        "fields": {
+            "name": "Hậu Giang - Huyện Phụng Hiệp",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 710,
+        "fields": {
+            "name": "Hậu Giang - Huyện Vị Thuỷ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 711,
+        "fields": {
+            "name": "Hậu Giang - Huyện Long Mỹ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 712,
+        "fields": {
+            "name": "Hậu Giang - Thị xã Long Mỹ",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 713,
+        "fields": {
+            "name": "Sóc Trăng - Thành phố Sóc Trăng",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 714,
+        "fields": {
+            "name": "Sóc Trăng - Huyện Châu Thành",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 715,
+        "fields": {
+            "name": "Sóc Trăng - Huyện Kế Sách",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 716,
+        "fields": {
+            "name": "Sóc Trăng - Huyện Mỹ Tú",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 717,
+        "fields": {
+            "name": "Sóc Trăng - Huyện Cù Lao Dung",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 718,
+        "fields": {
+            "name": "Sóc Trăng - Huyện Long Phú",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 719,
+        "fields": {
+            "name": "Sóc Trăng - Huyện Mỹ Xuyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 720,
+        "fields": {
+            "name": "Sóc Trăng - Thị xã Ngã Năm",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 721,
+        "fields": {
+            "name": "Sóc Trăng - Huyện Thạnh Trị",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 722,
+        "fields": {
+            "name": "Sóc Trăng - Thị xã Vĩnh Châu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 723,
+        "fields": {
+            "name": "Sóc Trăng - Huyện Trần Đề",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 724,
+        "fields": {
+            "name": "Bạc Liêu - Thành phố Bạc Liêu",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 725,
+        "fields": {
+            "name": "Bạc Liêu - Huyện Hồng Dân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 726,
+        "fields": {
+            "name": "Bạc Liêu - Huyện Phước Long",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 727,
+        "fields": {
+            "name": "Bạc Liêu - Huyện Vĩnh Lợi",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 728,
+        "fields": {
+            "name": "Bạc Liêu - Thị xã Giá Rai",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 729,
+        "fields": {
+            "name": "Bạc Liêu - Huyện Đông Hải",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 730,
+        "fields": {
+            "name": "Bạc Liêu - Huyện Hoà Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 731,
+        "fields": {
+            "name": "Cà Mau - Thành phố Cà Mau",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 732,
+        "fields": {
+            "name": "Cà Mau - Huyện U Minh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 733,
+        "fields": {
+            "name": "Cà Mau - Huyện Thới Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 734,
+        "fields": {
+            "name": "Cà Mau - Huyện Trần Văn Thời",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 735,
+        "fields": {
+            "name": "Cà Mau - Huyện Cái Nước",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 736,
+        "fields": {
+            "name": "Cà Mau - Huyện Đầm Dơi",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 737,
+        "fields": {
+            "name": "Cà Mau - Huyện Năm Căn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 738,
+        "fields": {
+            "name": "Cà Mau - Huyện Phú Tân",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 739,
+        "fields": {
+            "name": "Cà Mau - Huyện Ngọc Hiển",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 740,
+        "fields": {
+            "name": "An Giang - Huyện Tịnh Biên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 741,
+        "fields": {
+            "name": "Bạc Liêu - Huyện Hòa Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 742,
+        "fields": {
+            "name": "Bình Định - Huyện Hoài Nhơn",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 743,
+        "fields": {
+            "name": "Bình Dương - Thành phố Bến Cát",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 744,
+        "fields": {
+            "name": "Bình Dương - Thị xã Dĩ An",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 745,
+        "fields": {
+            "name": "Bình Dương - Thị xã Tân Uyên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 746,
+        "fields": {
+            "name": "Bình Phước - Thị xã Đồng Xoài",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 747,
+        "fields": {
+            "name": "Cần Thơ - Quận Bình Thủy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 748,
+        "fields": {
+            "name": "Đắk Nông - Thị xã Gia Nghĩa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 749,
+        "fields": {
+            "name": "Đồng Nai - Thị xã Long Khánh",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 750,
+        "fields": {
+            "name": "Đồng Tháp - Thị xã Hồng Ngự",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 751,
+        "fields": {
+            "name": "Hậu Giang - Huyện Vị Thủy",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 759,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 2",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 752,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận 9",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 753,
+        "fields": {
+            "name": "Hồ Chí Minh - Quận Thủ Đức",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 754,
+        "fields": {
+            "name": "Hòa Bình - Thành phố Hòa Bình",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 755,
+        "fields": {
+            "name": "Kiên Giang - Huyện Phú Quốc",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 756,
+        "fields": {
+            "name": "Kiên Giang - Thị xã Hà Tiên",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 757,
+        "fields": {
+            "name": "Phú Yên - Thành phố Tuy Hòa",
+            "is_active": true
+        }
+    },
+    {
+        "model": "customers.Province",
+        "pk": 758,
+        "fields": {
+            "name": "Vĩnh Long - Huyện Vũng Liêm",
+            "is_active": true
+        }
+    }
+]

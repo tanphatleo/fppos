@@ -1,0 +1,3606 @@
+[
+    {
+        "model": "products.product",
+        "pk": 1,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "WebsiteFPGV0002",
+            "name": "\u1ee8c g\u00e0 vi\u00ean Eatclean 200g - Website",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 2,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "WebsiteFPGV0003",
+            "name": "\u1ee8c g\u00e0 vi\u00ean Eatclean 200g - Website",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 3,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "WebsiteFPGV0010",
+            "name": "COMBO \u1ee8c g\u00e0 vi\u00ean 200gr - Website",
+            "price": 392000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 4,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "PGBG07",
+            "name": "Combo burger 3 v\u1ecb",
+            "price": 120000,
+            "package_details": [
+                {
+                    "code": "FPBG02",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPBG05",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPBG06",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 5,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "FPBG06",
+            "name": "Burger G\u00e0 Ng\u0169 V\u1ecb",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 6,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "FPBG05",
+            "name": "Burger G\u00e0 Chua Ng\u1ecdt",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 7,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "FP0061005",
+            "name": "COMBO 1kg \u1ee8C G\u00c0 \u0102N LI\u1ec0N 100g (mix v\u1ecb)",
+            "price": 300000,
+            "package_details": [
+                {
+                    "code": "FP0021",
+                    "quantity": 2
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 2
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC100",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0027",
+                    "quantity": 2
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 8,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "FP0061004",
+            "name": "COMBO 1kg \u1ee8C G\u00c0 \u0102N LI\u1ec0N 100g (mix v\u1ecb)",
+            "price": 165000,
+            "package_details": [
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0027",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 9,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN07",
+            "name": "Combo 03 g\u00f3i mix v\u1ecb c\u01a1m g\u1ea1o l\u1ee9c \u0103n li\u1ec1n",
+            "price": 85000,
+            "package_details": [
+                {
+                    "code": "GLAN01",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 10,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "WebsiteFPGV0004",
+            "name": "\u1ee8c g\u00e0 vi\u00ean Eatclean 200g - Website",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 11,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "WebsiteFPGV0009",
+            "name": "COMBO \u1ee8c g\u00e0 vi\u00ean 200gr - Website",
+            "price": 196000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 12,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0001",
+            "name": "\u1ee8c g\u00e0 sinh t\u1ed1 100gr",
+            "price": 18000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 13,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "WebsiteSS0009",
+            "name": "H\u1ee7 s\u1ed1t T\u1ee9 xuy\u00ean 250ml - Website",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 14,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "WebsiteSS0008",
+            "name": "H\u1ee7 s\u1ed1t Ti\u00eau \u0110en 250ml - Website",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 15,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG026",
+            "name": "CF-NUI X\u00c0O B\u00d2",
+            "price": 44000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 16,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG025",
+            "name": "CF-C\u01a0M G\u00c0 N\u01af\u1edaNG (TI\u00caU XANH)",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 17,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG024",
+            "name": "CF-BA R\u1eccI KHO N\u1ea4M",
+            "price": 44000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 18,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000049",
+            "name": "H\u1ee6 TI\u1ebeU X\u00c0O T\u00d4M TH\u1ecaT",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 19,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000048",
+            "name": "NUI X\u00c0O B\u00d2 (NEW)",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 20,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000047",
+            "name": "C\u01a0M CHI\u00caN TH\u1ecaT HEO XAY",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 21,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000046",
+            "name": "C\u01a0M X\u00cdU M\u1ea0I",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 22,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000045",
+            "name": "BA R\u1eccI KHO N\u1ea4M",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 23,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000044",
+            "name": "C\u01a0M G\u00c0 H\u1ea2I NAM",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 24,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0016",
+            "name": "CD - H\u1ee6 TI\u1ebeU X\u00c0O T\u00d4M TH\u1ecaT",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 25,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0015",
+            "name": "CD - C\u01a0M G\u00c0 H\u1ea2I NAM",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 26,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0018593",
+            "name": "C\u01a1m g\u00e0 xi\u00ean (Teriyaki)",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 27,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0018592",
+            "name": "C\u01a1m g\u00e0 H\u1ea3i Nam",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 28,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0018591",
+            "name": "C\u01a1m x\u00edu m\u1ea1i",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 29,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0018590",
+            "name": "C\u01a1m ba r\u1ecdi kho n\u1ea5m",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 30,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "WebsiteFPGV0001",
+            "name": "\u1ee8c g\u00e0 vi\u00ean Eatclean 200g - Website",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 31,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017499",
+            "name": "C\u01a1m g\u00e0 xi\u00ean (yakitori)",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 32,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017498",
+            "name": "Nui x\u00e0o b\u00f2",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 33,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017497",
+            "name": "C\u01a1m g\u00e0 n\u01b0\u1edbng (ti\u00eau xanh)",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 34,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017496",
+            "name": "C\u01a1m g\u00e0 chi\u00ean gi\u00f2n s\u1ed1t me",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 35,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017495",
+            "name": "C\u01a1m g\u00e0 n\u01b0\u1edbng (x\u00e1 x\u00edu)",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 36,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017494",
+            "name": "Mi\u1ebfn x\u00e0o b\u00f2",
+            "price": 37500,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 37,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017493",
+            "name": "B\u00fan x\u00e0o Singapore",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 38,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017492",
+            "name": "C\u01a1m g\u00e0 x\u00e0o l\u00e1 qu\u1ebf",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 39,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017491",
+            "name": "C\u01a1m chi\u00ean th\u1ecbt heo xay",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 40,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 8,
+            "code": "I0017490",
+            "name": "M\u1ef3 \u00fd b\u00f2 b\u1eb1m",
+            "price": 36750,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 41,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0014",
+            "name": "CD - C\u01a0M CHI\u00caN TH\u1ecaT HEO XAY",
+            "price": 58000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 42,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0013",
+            "name": "CD - C\u01a0M G\u00c0 X\u00c0O L\u00c1 QU\u1ebe",
+            "price": 58000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 43,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0012",
+            "name": "CD - C\u01a0M G\u00c0 CHI\u00caN GI\u00d2N S\u1ed0T ME",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 44,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0011",
+            "name": "CD - C\u01a0M G\u00c0 N\u01af\u1edaNG (TI\u00caU XANH)",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 45,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0010",
+            "name": "CD - C\u01a0M G\u00c0 N\u01af\u1edaNG (X\u00c1 X\u00cdU)",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 46,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0009",
+            "name": "CD - C\u01a0M G\u00c0 XI\u00caN (YAKITORI)",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 47,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0008",
+            "name": "CD - MI\u1ebeN X\u00c0O B\u00d2",
+            "price": 69000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 48,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0007",
+            "name": "CD - B\u00daN X\u00c0O SINGAPORE",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 49,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0006",
+            "name": "CD - BA R\u1eccI KHO N\u1ea4M",
+            "price": 36000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 50,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0005",
+            "name": "CD - C\u00c1 BASA KHO T\u1ed8",
+            "price": 38000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 51,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0004",
+            "name": "CD - C\u01a0M G\u00c0 TERIYAKI",
+            "price": 36000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 52,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0003",
+            "name": "CD - NUI X\u00c0O B\u00d2 B\u01a0 T\u1eceI",
+            "price": 38000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 53,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0002",
+            "name": "CD - C\u01a0M X\u00cdU M\u1ea0I S\u1ed0T C\u00c0",
+            "price": 37000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 54,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 7,
+            "code": "FPCF0001",
+            "name": "CD - M\u1ef2 \u00dd B\u00d2 B\u1eb2M",
+            "price": 35000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 55,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0011",
+            "name": "COMBO 12 G\u00d3I \u1ee8C G\u00c0 VI\u00caN 200GR",
+            "price": 588000,
+            "package_details": [
+                {
+                    "code": "FPGV0001",
+                    "quantity": 3
+                },
+                {
+                    "code": "FPGV0002",
+                    "quantity": 3
+                },
+                {
+                    "code": "FPGV0003",
+                    "quantity": 3
+                },
+                {
+                    "code": "FPGV0004",
+                    "quantity": 3
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 56,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0010",
+            "name": "COMBO 8 G\u00d3I \u1ee8C G\u00c0 VI\u00caN 200GR",
+            "price": 392000,
+            "package_details": [
+                {
+                    "code": "FPGV0001",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPGV0002",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPGV0003",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPGV0004",
+                    "quantity": 2
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 57,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0009",
+            "name": "COMBO 4 G\u00d3I \u1ee8C G\u00c0 VI\u00caN 200GR",
+            "price": 196000,
+            "package_details": [
+                {
+                    "code": "FPGV0001",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0002",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0003",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0004",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 58,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0011",
+            "name": "S\u1ed1t M\u1eafm T\u1ecfi 20ml",
+            "price": 5000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 59,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0010",
+            "name": "S\u1ed1t M\u1eafm T\u1ecfi 20ml - H\u00e0ng T\u1eb7ng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 60,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0004",
+            "name": "\u1ee8c g\u00e0 vi\u00ean Rau c\u1ee7 eatclean 200gr",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 61,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0003",
+            "name": "\u1ee8c g\u00e0 vi\u00ean M\u1eafm t\u1ecfi 200gr",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 62,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0002",
+            "name": "\u1ee8c g\u00e0 vi\u00ean L\u00e1 chanh 200gr",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 63,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0001",
+            "name": "\u1ee8c g\u00e0 vi\u00ean N\u1ea5m h\u01b0\u01a1ng 200gr",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 64,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0009",
+            "name": "H\u1ee7 S\u1ed1t T\u1ee9 xuy\u00ean 250ml",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 65,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0008",
+            "name": "H\u1ee7 S\u1ed1t Ti\u00eau \u0111en 250ml",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 66,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG023",
+            "name": "CF-M\u1ef2 \u00dd B\u00d2 B\u1eb0M",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 67,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG022",
+            "name": "CF-C\u01a0M CHI\u00caN G\u00c0 X\u00c9",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 68,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG021",
+            "name": "CF-B\u00d2 X\u00c0O B\u00d4NG THI\u00caN L\u00dd",
+            "price": 44000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 69,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG020",
+            "name": "CF-C\u01a0M G\u00c0 TERIYAKI",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 70,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG019",
+            "name": "CF-C\u00c0 RI B\u00d2 KHOAI N\u01af\u1edaNG",
+            "price": 44000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 71,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 10,
+            "code": "BCT10",
+            "name": "GRANOLA 200gr",
+            "price": 85000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 72,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK7",
+            "name": "S\u1ed1t Smoked BBQ - H\u00e0ng t\u1eb7ng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 73,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK6",
+            "name": "S\u1ed1t Mustard cream - H\u00e0ng t\u1eb7ng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 74,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK5",
+            "name": "S\u1ed1t Rosemary - H\u00e0ng t\u1eb7ng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 75,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FPCTGY",
+            "name": "COMBO CITYGYM",
+            "price": 185000,
+            "package_details": [
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPBG02",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC100",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN01",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0027",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 76,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "FPBG04",
+            "name": "COMBO 10 G\u00d3I BURGER G\u00c0 2 B\u00c1NH",
+            "price": 359000,
+            "package_details": [
+                {
+                    "code": "FPBG02",
+                    "quantity": 4
+                },
+                {
+                    "code": "FPBG05",
+                    "quantity": 3
+                },
+                {
+                    "code": "FPBG06",
+                    "quantity": 3
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 77,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "FPBG03",
+            "name": "COMBO 05 G\u00d3I BURGER G\u00c0 2 B\u00c1NH",
+            "price": 189000,
+            "package_details": [
+                {
+                    "code": "FPBG02",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPBG05",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPBG06",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 78,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN06",
+            "name": "Combo 15 g\u00f3i mix v\u1ecb c\u01a1m g\u1ea1o l\u1ee9c \u0103n li\u1ec1n",
+            "price": 349000,
+            "package_details": [
+                {
+                    "code": "GLAN01",
+                    "quantity": 5
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 5
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 5
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 79,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN05",
+            "name": "Combo 10 g\u00f3i mix v\u1ecb c\u01a1m g\u1ea1o l\u1ee9c \u0103n li\u1ec1n",
+            "price": 229000,
+            "package_details": [
+                {
+                    "code": "GLAN01",
+                    "quantity": 4
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 3
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 3
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 80,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN04",
+            "name": "Combo 05 g\u00f3i mix v\u1ecb c\u01a1m g\u1ea1o l\u1ee9c \u0103n li\u1ec1n",
+            "price": 119000,
+            "package_details": [
+                {
+                    "code": "GLAN01",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 2
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 2
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 81,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0061503",
+            "name": "COMBO 08 G\u00d3I \u1ee8C G\u00c0 \u0102N LI\u1ec0N FITPACK 150g (Mix 8 v\u1ecb)",
+            "price": 299000,
+            "package_details": [
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0015",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0016",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC150",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0017",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 82,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0061502",
+            "name": "COMBO 07 G\u00d3I \u1ee8C G\u00c0 \u0102N LI\u1ec0N FITPACK 150g (Mix 7 v\u1ecb)",
+            "price": 269000,
+            "package_details": [
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0016",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC150",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0017",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 83,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0061003",
+            "name": "COMBO 08 G\u00d3I \u1ee8C G\u00c0 \u0102N LI\u1ec0N 100g (mix 8 v\u1ecb)",
+            "price": 229000,
+            "package_details": [
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0025",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC100",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0027",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 84,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0061002",
+            "name": "COMBO 07 G\u00d3I \u1ee8C G\u00c0 \u0102N LI\u1ec0N 100g (mix 7 v\u1ecb)",
+            "price": 203000,
+            "package_details": [
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC100",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0027",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 85,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0027",
+            "name": "100g \u1ee8c g\u00e0 B\u00edt t\u1ebft",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 86,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0017",
+            "name": "\u1ee8c g\u00e0 B\u00edt t\u1ebft 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 87,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN03",
+            "name": "C\u01a1m g\u1ea1o l\u1ee9c 200g - V\u1ecb rong bi\u1ec3n",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 88,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN02",
+            "name": "C\u01a1m g\u1ea1o l\u1ee9c 200g - V\u1ecb c\u00e1 m\u1eb7n",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 89,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000043",
+            "name": "G\u00c0 CHI\u00caN GI\u00d2N S\u1ed0T ME",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 90,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000042",
+            "name": "G\u00e0 n\u01b0\u1edbng ti\u00eau xanh",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 91,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000041",
+            "name": "HEO S\u1ed0T CAY H\u00c0N QU\u1ed0C",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 92,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000040",
+            "name": "BA R\u1eccI KHO C\u1ea2I CHUA",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 93,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000039",
+            "name": "NUI X\u00c0O B\u00d2 L\u00daC L\u1eaeC",
+            "price": 64000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 94,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000038",
+            "name": "G\u00c0 N\u01af\u1edaNG X\u00c1 X\u00cdU",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 95,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG104",
+            "name": "GO-MENU 4",
+            "price": 350000,
+            "package_details": [
+                {
+                    "code": "FFPGEL",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG007",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG009",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG016",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG017",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG018",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 96,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG103",
+            "name": "GO-MENU 3",
+            "price": 350000,
+            "package_details": [
+                {
+                    "code": "FFPGEL",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG003",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG004",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG007",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG008",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG009",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG010",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 97,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG102",
+            "name": "GO-MENU 2",
+            "price": 350000,
+            "package_details": [
+                {
+                    "code": "FFPGEL",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG005",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG014",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG015",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 98,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG101",
+            "name": "GO-MENU 1",
+            "price": 350000,
+            "package_details": [
+                {
+                    "code": "FFPGEL",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG001",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG002",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG003",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG004",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG005",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPG006",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 99,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG018",
+            "name": "GO-G\u00c0 S\u1ed0T CAM",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 100,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG017",
+            "name": "GO-C\u00c0 RI B\u00d2 NH\u1eacT + KHOAI N\u01af\u1edaNG",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 101,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG016",
+            "name": "GO-BIBIMBAP H\u00c0N QU\u1ed0C",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 102,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG015",
+            "name": "GO-C\u01a0M B\u00d2 X\u00c0O B\u00d4NG THI\u00caN L\u00dd",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 103,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG014",
+            "name": "GO-G\u00c0 X\u00c0O L\u00c1 QU\u1ebe",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 104,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG013",
+            "name": "GO-M\u1ef2 \u00dd B\u00d2 B\u1eb0M",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 105,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG012",
+            "name": "GO-S\u01af\u1edcN HEO TR\u1ee8NG MU\u1ed0I",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 106,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG011",
+            "name": "GO-C\u01a0M X\u00cdU M\u1ea0I G\u00c0",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 107,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG010",
+            "name": "GO-S\u01af\u1edcN KINH \u0110\u00d4",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 108,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG009",
+            "name": "GO-G\u00c0 X\u00c0O X\u1ea2 \u1edaT",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 109,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG008",
+            "name": "GO-C\u01a0M B\u00d2 BULGOGI",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 110,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG007",
+            "name": "GO-B\u00d2 X\u00c0O H\u00c0NH C\u1ea6N",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 111,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG006",
+            "name": "GO-B\u00daN G\u1ea0O SINGAPORE",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 112,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG005",
+            "name": "GO-C\u01a0M CHI\u00caN G\u00c0 X\u00c9",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 113,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG004",
+            "name": "GO-NUI B\u00d2 H\u1ea6M \u0110\u1eacU",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 114,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG003",
+            "name": "GO-C\u00c0 RI G\u00c0 \u0110\u1eacU L\u0102NG",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 115,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG002",
+            "name": "GO-C\u01a0M G\u00c0 TERIYAKI",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 116,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 6,
+            "code": "FPG001",
+            "name": "GO-C\u01a0M GYUDON B\u00d2",
+            "price": 60000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 117,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000037",
+            "name": "G\u00c0 S\u1ed0T CAM",
+            "price": 58000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 118,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000036",
+            "name": "NUI B\u00d2 H\u1ea6M \u0110\u1eacU",
+            "price": 64000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 119,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000035",
+            "name": "C\u00c0 RI G\u00c0 \u0110\u1eacU L\u0102NG",
+            "price": 64000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 120,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000034",
+            "name": "S\u01af\u1edcN KINH \u0110\u00d4",
+            "price": 62000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 121,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 10,
+            "code": "BCT09",
+            "name": "THANH G\u1ea0O L\u1ee8C CH\u00c0 B\u00d4NG PH\u00d4 MAI 220gr",
+            "price": 85000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 122,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 10,
+            "code": "BCT08",
+            "name": "THANH G\u1ea0O L\u1ee8C RONG BI\u1ec2N 220gr",
+            "price": 85000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 123,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN01",
+            "name": "C\u01a1m g\u1ea1o l\u1ee9c \u0103n li\u1ec1n Fitpack 200g",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 124,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 10,
+            "code": "BCT03",
+            "name": "B\u00c1NH BISCOTTI CHOCOLATE 200g",
+            "price": 85000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 125,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 10,
+            "code": "BCT02",
+            "name": "B\u00c1NH BISCOTTI MATCHA 200g",
+            "price": 85000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 126,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 10,
+            "code": "BCT01",
+            "name": "B\u00c1NH BISCOTTI TRUY\u1ec0N TH\u1ed0NG 200g",
+            "price": 85000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 127,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "UGAC150",
+            "name": "\u1ee8C G\u00c0 \u00c1P CH\u1ea2O NGUY\u00caN V\u1eca 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 128,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "MGT150",
+            "name": "150g G\u00e0 Ti\u1ec1m",
+            "price": 39000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 129,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 13,
+            "code": "BOX01",
+            "name": "\ud835\udc01\ud835\udc0e\ud835\udc17 bu\u1ed5i s\u00e1ng",
+            "price": 429000,
+            "package_details": [
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "DS0002",
+                    "quantity": 2
+                },
+                {
+                    "code": "DS0008",
+                    "quantity": 2
+                },
+                {
+                    "code": "DS0005",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPBG02",
+                    "quantity": 2
+                },
+                {
+                    "code": "GLAN01",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 130,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 13,
+            "code": "BOX03",
+            "name": "\ud835\udc01\ud835\udc0e\ud835\udc17 bu\u1ed5i t\u1ed1i",
+            "price": 629000,
+            "package_details": [
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0025",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "SS0001",
+                    "quantity": 1
+                },
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPBG02",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPSTEAK0",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPSTEAKBO",
+                    "quantity": 2
+                },
+                {
+                    "code": "UGAC100",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN01",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0027",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPSTEAK5",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPSTEAK6",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0001",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0003",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 131,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 13,
+            "code": "BOX02",
+            "name": "BOX \u1ee8c g\u00e0",
+            "price": 459000,
+            "package_details": [
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0015",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0016",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC150",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN01",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0017",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0002",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0003",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0004",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 132,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "SETBG2",
+            "name": "Combo 02 burger g\u00e0 + 2 v\u1ecf b\u00e1nh nguy\u00ean c\u00e1m",
+            "price": 65000,
+            "package_details": [
+                {
+                    "code": "FPBG02",
+                    "quantity": 1
+                },
+                {
+                    "code": "BGBA01",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 133,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "BGBA03",
+            "name": "V\u1ecf b\u00e1nh BURGER - 1 b\u00e1nh",
+            "price": 13000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 134,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "UGAC100",
+            "name": "\u1ee8C G\u00c0 \u00c1P CH\u1ea2O 100gr",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 135,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "BGBA02",
+            "name": "V\u1ecf b\u00e1nh BURGER - 4 b\u00e1nh",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 136,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "BGBA01",
+            "name": "V\u1ecf b\u00e1nh BURGER - 2 b\u00e1nh",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 137,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAKBO",
+            "name": "B\u01a1 l\u1ea1t 10gr",
+            "price": 5000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 138,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK3",
+            "name": "S\u1ed1t Smoked BBQ",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 139,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK2",
+            "name": "S\u1ed1t Mustard cream",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 140,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK1",
+            "name": "S\u1ed1t Rosemary",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 141,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK0",
+            "name": "Steak B\u00f2 M\u1ef9 Fitpack - Kh\u00f4ng s\u1ed1t",
+            "price": 119000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 142,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 14,
+            "code": "FPRC01",
+            "name": "Rau C\u1ee7 \u00c1p Ch\u1ea3o Eatclean \u0103n li\u1ec1n Fitpack",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 143,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "COM03L",
+            "name": "Combo 3 h\u1ed9p c\u01a1m - Giao l\u1ea1nh",
+            "price": 160000,
+            "package_details": [
+                {
+                    "code": "SP000002",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000004",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000006",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 144,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 15,
+            "code": "FPBNTIM",
+            "name": "B\u00ccNH N\u01af\u1edaC FITPACK M\u00c0U T\u00cdM",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 145,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 15,
+            "code": "FPBNXLA",
+            "name": "B\u00ccNH N\u01af\u1edaC FITPACK M\u00c0U L\u00c1",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 146,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 15,
+            "code": "FPBNXLM",
+            "name": "B\u00ccNH N\u01af\u1edaC FITPACK M\u00c0U D\u01af\u01a0NG",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 147,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 15,
+            "code": "FPBNCAM",
+            "name": "B\u00ccNH N\u01af\u1edaC FITPACK M\u00c0U CAM",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 148,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 15,
+            "code": "FPBNVAN",
+            "name": "B\u00ccNH N\u01af\u1edaC FITPACK M\u00c0U V\u00c0NG",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 149,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 15,
+            "code": "FPBNHON",
+            "name": "B\u00ccNH N\u01af\u1edaC FITPACK M\u00c0U H\u1ed2NG",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 150,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 15,
+            "code": "FPBNDOO",
+            "name": "B\u00ccNH N\u01af\u1edaC FITPACK M\u00c0U \u0110\u1ece",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 151,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 15,
+            "code": "FPBNDEN",
+            "name": "B\u00ccNH N\u01af\u1edaC FITPACK M\u00c0U \u0110EN",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 152,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "COM03N",
+            "name": "Combo 3 h\u1ed9p c\u01a1m - H\u00e2m n\u00f3ng",
+            "price": 160000,
+            "package_details": [
+                {
+                    "code": "SP000002",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000003",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000026",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 153,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "FPBG02",
+            "name": "BURGER G\u00e0 Teriyaki",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 154,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0007",
+            "name": "S\u1ed1t Ti\u00eau \u0110en 20ml - H\u00e0ng T\u1eb7ng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 155,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0006",
+            "name": "S\u1ed1t T\u1ee9 Xuy\u00ean 20ml - H\u00e0ng T\u1eb7ng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 156,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "COM05N",
+            "name": "Combo c\u01a1m Healthy Ready To Eat",
+            "price": 250000,
+            "package_details": [
+                {
+                    "code": "SP000002",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000003",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000004",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000006",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000026",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 157,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000032",
+            "name": "C\u01a0M C\u00c0 T\u00cdM S\u1ed0T TH\u1ecaT",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 158,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0005",
+            "name": "S\u1ed1t T\u1ee9 Xuy\u00ean 20ml",
+            "price": 5000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 159,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0004",
+            "name": "S\u1ed1t Ti\u00eau \u0110en 20ml",
+            "price": 5000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 160,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "COM05L",
+            "name": "Combo c\u01a1m Healthy Ready To Eat",
+            "price": 250000,
+            "package_details": [
+                {
+                    "code": "SP000006",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000007",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000025",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000026",
+                    "quantity": 1
+                },
+                {
+                    "code": "SP000029",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 161,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000031",
+            "name": "C\u01a0M G\u00c0 X\u00c0O H\u1ea0T \u0110I\u1ec0U",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 162,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000029",
+            "name": "B\u00daN X\u00c0O SINGAPORE",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 163,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 16,
+            "code": "DS0005",
+            "name": "X\u00cdU M\u1ea0I TH\u1ecaT - G\u00d3I 4 VI\u00caN",
+            "price": 36000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 164,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 16,
+            "code": "DS0008",
+            "name": "X\u00cdU M\u1ea0I S\u00d2 \u0110I\u1ec6P - G\u00d3I 4 VI\u00caN",
+            "price": 44000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 165,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000026",
+            "name": "C\u01a0M G\u00c0 M\u1eaeM T\u1eceI",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 166,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 16,
+            "code": "DS0002",
+            "name": "H\u00c1 C\u1ea2O T\u00d4M \u00da N\u1ee4 - G\u00f3i 4 vi\u00ean",
+            "price": 36000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 167,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000025",
+            "name": "G\u1ea0O L\u1ee8C X\u00cdU M\u1ea0I G\u00c0",
+            "price": 58000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 168,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000024",
+            "name": "C\u01a0M CHI\u00caN G\u00c0 X\u00c9",
+            "price": 58000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 169,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0061001",
+            "name": "COMBO 06 G\u00d3I \u1ee8C G\u00c0 \u0102N LI\u1ec0N 100g (mix 6 v\u1ecb)",
+            "price": 175000,
+            "package_details": [
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC100",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 170,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0003",
+            "name": "S\u1ed1t Teriyaki 20ml",
+            "price": 5000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 171,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0061501",
+            "name": "COMBO 06 G\u00d3I \u1ee8C G\u00c0 \u0102N LI\u1ec0N FITPACK 150g (Mix 6 v\u1ecb)",
+            "price": 230000,
+            "package_details": [
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0016",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC150",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 172,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FF0026",
+            "name": "100g \u1ee8c g\u00e0 X\u00f4ng Kh\u00f3i",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 173,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0016",
+            "name": "\u1ee8c g\u00e0 X\u00f4ng Kh\u00f3i 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 174,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0002",
+            "name": "S\u1ed1t Teriyaki 10ml - H\u00e0ng T\u1eb7ng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 175,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0001",
+            "name": "H\u1ee7 S\u1ed1t Teriyaki 200ml",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 176,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "4897074803240",
+            "name": "SANDWICH B\u00d2 TR\u1ee8NG",
+            "price": 53000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 177,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000021",
+            "name": "MI\u1ebeN H\u00c0N QU\u1ed0C X\u00c0O B\u00d2",
+            "price": 69000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 178,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP005100",
+            "name": "COMBO 05 g\u00f3i \u1ee9c g\u00e0 100g (5 v\u1ecb mix)",
+            "price": 133000,
+            "package_details": [
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 179,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP005150",
+            "name": "COMBO 05 g\u00f3i \u1ee9c g\u00e0 150g (5 v\u1ecb mix)",
+            "price": 174000,
+            "package_details": [
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0015",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 180,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0022",
+            "name": "100g \u1ee8c g\u00e0 C\u00e0 ri \u1ea4n",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 181,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0015",
+            "name": "\u1ee8c g\u00e0 T\u1ecfi \u00c1 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 182,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP004",
+            "name": "Combo 04 g\u00f3i \u1ee9c g\u00e0 100g (4 v\u1ecb mix)",
+            "price": 105000,
+            "package_details": [
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 183,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0024",
+            "name": "100g \u1ee8c g\u00e0 Ti\u00eau xanh",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 184,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0023",
+            "name": "100g \u1ee8c g\u00e0 Ng\u0169 v\u1ecb",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 185,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0025",
+            "name": "100g \u1ee8c g\u00e0 T\u1ecfi \u00c1",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 186,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0021",
+            "name": "100g \u1ee8c g\u00e0 Teriyaki",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 187,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000010",
+            "name": "BA CH\u1ec8 CH\u00c1Y T\u1eceI",
+            "price": 68000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 188,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000008",
+            "name": "C\u00c0 RI B\u00d2 KHOAI N\u01af\u1edaNG",
+            "price": 68000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 189,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000007",
+            "name": "B\u00d2 X\u00c0O B\u00d4NG THI\u00caN L\u00dd",
+            "price": 68000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 190,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000006",
+            "name": "C\u01a0M GYUDON B\u00d2",
+            "price": 63000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 191,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000005",
+            "name": "C\u01a0M G\u00c0 XI\u00caN YAKITORI",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 192,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000004",
+            "name": "C\u01a0M G\u1ea0O L\u1ee8C G\u00c0 TERIYAKI",
+            "price": 59000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 193,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000003",
+            "name": "C\u01a0M X\u00c1 X\u00cdU",
+            "price": 63000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 194,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000002",
+            "name": "G\u00c0 X\u00c0O L\u00c1 QU\u1ebe",
+            "price": 58000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 195,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000001",
+            "name": "M\u1ef2 \u00dd S\u1ed0T B\u00d2 B\u1eb0M",
+            "price": 58000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 196,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0013",
+            "name": "\u1ee8c g\u00e0 Ng\u0169 v\u1ecb 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 197,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0012",
+            "name": "\u1ee8c g\u00e0 C\u00e0 ri \u1ea5n 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 198,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0011",
+            "name": "\u1ee8c g\u00e0 Teriyaki 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 199,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0014",
+            "name": "\u1ee8c g\u00e0 Ti\u00eau xanh 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    }
+]

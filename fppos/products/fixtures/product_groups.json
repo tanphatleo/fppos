@@ -1,0 +1,146 @@
+[
+    {
+        "model": "products.productgroup",
+        "pk": 1,
+        "fields": {
+            "name": "Kh\u00e1c",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 2,
+        "fields": {
+            "name": "BURGER",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 3,
+        "fields": {
+            "name": "C\u01a1m h\u1ed9p",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 4,
+        "fields": {
+            "name": "\u1ee8c g\u00e0 100g",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 5,
+        "fields": {
+            "name": "S\u1ed1t",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 6,
+        "fields": {
+            "name": "FP GO",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 7,
+        "fields": {
+            "name": "C\u01a1m cafe",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 8,
+        "fields": {
+            "name": "Farmers",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 9,
+        "fields": {
+            "name": "\u1ee8c g\u00e0 vi\u00ean",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 10,
+        "fields": {
+            "name": "BISCOTTI",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 11,
+        "fields": {
+            "name": "STEAK",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 12,
+        "fields": {
+            "name": "\u1ee8c g\u00e0 150g",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 13,
+        "fields": {
+            "name": "COMBO TH\u00d9NG",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 14,
+        "fields": {
+            "name": "Rau c\u1ee7 \u0103n li\u1ec1n",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 15,
+        "fields": {
+            "name": "B\u00ecnh N\u01b0\u1edbc",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "products.productgroup",
+        "pk": 16,
+        "fields": {
+            "name": "DIMSUM",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z"
+        }
+    }
+]

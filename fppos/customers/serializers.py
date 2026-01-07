@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Customer, Province, Ward, Address
+from .models import Customer, Province, Ward
 
 class ProvinceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,10 +11,6 @@ class WardSerializer(serializers.ModelSerializer):
         model = Ward
         fields = '__all__'
 
-class AddressSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Address
-        fields = '__all__'
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:

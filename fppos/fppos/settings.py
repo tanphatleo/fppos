@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'branches',
     'products',
     'customers',
+    'sales',
+    "purchases",
+    "transactions",
     
 ]
 
