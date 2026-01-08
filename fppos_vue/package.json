@@ -7,11 +7,17 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@primeuix/themes": "^2.0.2",
+    "@tanstack/vue-table": "^8.21.3",
     "axios": "^1.13.2",
     "bulma": "^1.0.4",
     "core-js": "^3.8.3",
+    "element-plus": "^2.13.0",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.5.4",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
+    "vuetify": "^4.0.0-alpha.0",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

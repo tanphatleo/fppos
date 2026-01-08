@@ -48,7 +48,7 @@
                       <input 
                         type="number" 
                         v-model.number="item.quantity" 
-                        class="form-control form-control-sm"
+                        class="form-control form-control-sm input-white"
                         @change="onQuantityChange(item)"
                       />
                       <button type="button" class="btn-icon btn-icon-bg-default up" @click="updateQuantity(item, 1)">
@@ -395,6 +395,11 @@ $primary-color: #0090da;
 
 .font-bold {
   font-weight: bold;
+}
+
+.input-white {
+  background-color: white !important;
+  color: black !important;
 }
 
 .carts {

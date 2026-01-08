@@ -1,13 +1,61 @@
 <template>
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav> -->
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-  </nav> -->
-  <router-view/>
+  <LoadingOverlay v-if="store.getters.isLoading" />
+  <router-view />
 </template>
+
+<script>
+import { useStore } from 'vuex';
+import { onBeforeMount } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
+import LoadingOverlay from './components/LoadingOverlay.vue';
+
+// Set the root URL for axios globally
+axios.defaults.baseURL = 'http://localhost:8000/api/v1';
+
+export default {
+  name: 'App',
+  components: {
+    LoadingOverlay,
+  },
+  setup() {
+    const store = useStore();
+    const router = useRouter();
+
+    const checkTokenValidity = async () => {
+      try {
+        const response = await axios.get('/usergroups');
+        console.log('Token is valid:', response.data);
+      } catch (error) {
+        console.error('Invalid token:', error);
+        store.dispatch('removeToken'); // Clear token if invalid
+        router.push('/signin'); // Redirect to SignIn page
+      }
+    };
+
+    onBeforeMount(() => {
+      store.dispatch('checkAuthentication').then(() => {
+        if (store.getters.isAuthenticated) {
+          const token = store.getters.getToken;
+          console.log('Existing token found:', token);
+          axios.defaults.headers.common['Authorization'] = `Token ${token}`; // Set default token header
+          checkTokenValidity(); // Check token validity
+          store.commit('setLoading', false); 
+        } else {
+          router.push('/signin'); // Redirect to SignIn page if not authenticated
+          store.commit('setLoading', false);
+        }
+      });
+
+      console.log('isLoading:', store.getters.isLoading);
+    });
+
+    return {
+      store,
+    };
+  },
+};
+</script>
 
 <style lang="scss">
 @import '../node_modules/bulma/';
@@ -22,19 +70,18 @@ $main-bg-color: azure;
 
 #app {
   height: 100%;
+  max-height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  // overflow: hidden;
+  overflow: visible; /* Ensure no clipping */
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   background-color: $main-bg-color;
-  overflow: hidden;
-  // height: 100%;
+  box-sizing: border-box;
+  // border: 3px solid purple; /* Debugging border */
 }
-
-
 </style>
