@@ -72,12 +72,12 @@ export default {
         { Id: 5, name: "Sổ quỹ" },
         { Id: 6, name: "Cài đặt" },
       ],
-      activeView: "Hóa Đơn", // Define your menus data here
+      activeView: "Khách hàng", // Define your menus data here
     };
   },
   mounted() {
     // Automatically click/select "Hóa Đơn" when the page loads
-    this.setActiveView("Hóa Đơn");
+    this.setActiveView("Khách hàng");
   },
   methods: {
     setActiveView(page) {

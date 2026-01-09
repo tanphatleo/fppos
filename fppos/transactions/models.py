@@ -37,7 +37,6 @@ class Transaction(models.Model):
         ('DR', 'Debit'),
     ]
     id = models.AutoField(primary_key=True)
-    branch = models.ForeignKey('branches.Branch', on_delete=models.CASCADE, related_name='transactions')
     transaction_type = models.CharField(max_length=2, choices=TRANSACTION_TYPE_CHOICES)
     amount = models.DecimalField(max_digits=10, decimal_places=0)
     description = models.TextField(blank=True, null=True)

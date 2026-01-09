@@ -1,0 +1,12 @@
+from rest_framework import serializers
+from .models import Invoice, Surcharge
+
+class InvoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Invoice
+        fields = '__all__'
+
+class SurchargeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Surcharge
+        fields = '__all__'

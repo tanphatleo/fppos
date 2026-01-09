@@ -43,6 +43,7 @@ export default createStore({
       localStorage.setItem('token', token);
       commit('setToken', token);
       commit('setAuthentication', true);
+      commit('setLoading', false);
 
     },
 

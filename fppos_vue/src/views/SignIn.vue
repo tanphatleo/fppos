@@ -55,7 +55,7 @@ export default {
         .then(response => {
           const token = response.data.auth_token;
           this.$store.dispatch('setToken', token);
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          axios.defaults.headers.common['Authorization'] = `Token ${token}`;
           this.$router.push('/manage'); // Redirect to manage page after sign-in
         })
         .catch(error => {
@@ -73,6 +73,13 @@ export default {
 </script>
 
 <style scoped>
+
+
+input {
+  background-color: white;
+  color: black;
+}
+
 .sign-in {
   display: flex;
   justify-content: center;

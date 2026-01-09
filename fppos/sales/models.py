@@ -9,7 +9,6 @@ class Invoice(models.Model):
     id = models.AutoField(primary_key=True)  # Ensure `id` is the primary key
     code = models.CharField(max_length=10, unique=True, blank=True)  # Code remains a unique field
     customer = models.ForeignKey('customers.Customer', on_delete=models.CASCADE, related_name='invoices')
-    branch = models.ForeignKey('branches.Branch', on_delete=models.CASCADE, related_name='invoices')
     date = models.DateField()  # Change to allow user input
     time = models.TimeField()  # Change to allow user input
     final_total = models.DecimalField(max_digits=10, decimal_places=0, default=0.00)
@@ -31,7 +30,9 @@ class Invoice(models.Model):
     discount_method_value = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     transport_company = models.TextField()
     amount_paid_transport_company = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-
+    items = models.JSONField(blank=True, null=True)  # JSON field to store invoice items
+    items_full = models.JSONField(blank=True, null=True)  # JSON field to store full invoice items details
+    combo_info = models.JSONField(blank=True, null=True)  # JSON field to store combo information
     def __str__(self):
         return self.code
 
@@ -41,15 +42,6 @@ def generate_invoice_code(sender, instance, **kwargs):
         last_invoice = sender.objects.order_by('-id').first()
         next_number = int(last_invoice.code[2:]) + 1 if last_invoice and last_invoice.code else 1
         instance.code = f"HD{next_number:08d}"
-
-class InvoiceItem(models.Model):
-    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE, related_name='items')
-    product = models.ForeignKey('products.Product', on_delete=models.CASCADE, related_name='invoice_items')
-    quantity = models.PositiveIntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    package_details = models.JSONField(blank=True, null=True)  # JSON field for package contents
-    def __str__(self):
-        return f"{self.product.name} - {self.quantity} pcs"
 
 class Surcharge(models.Model):
     name = models.CharField(max_length=100, unique=True)

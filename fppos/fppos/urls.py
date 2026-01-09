@@ -18,19 +18,20 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, GroupViewSet 
-from branches.views import BranchViewSet
 from customers.views import ProvinceViewSet, WardViewSet, CustomerViewSet
 from products.views import ProductViewSet, ProductGroupViewSet
+from sales.views import InvoiceViewSet, SurchargeViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'usergroups', GroupViewSet)
-router.register(r'branches', BranchViewSet)
 router.register(r'provinces', ProvinceViewSet)
 router.register(r'wards', WardViewSet)
 router.register(r'customers', CustomerViewSet)
 router.register(r'products', ProductViewSet)
 router.register(r'productgroups', ProductGroupViewSet)
+router.register(r'invoices', InvoiceViewSet)
+router.register(r'surcharges', SurchargeViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

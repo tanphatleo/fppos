@@ -14,7 +14,10 @@ class Customer(models.Model):
     address = models.TextField(blank=True, null=True)
     province = models.ForeignKey('Province', on_delete=models.SET_NULL, null=True, related_name='customers')
     ward = models.ForeignKey('Ward', on_delete=models.SET_NULL, null=True, related_name='customers')
-    branch = models.ForeignKey('branches.Branch', on_delete=models.SET_NULL, null=True, related_name='customers')  # Add relation to Branch
+    birthday = models.DateField(blank=True, null=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    facebook = models.CharField(max_length=100, blank=True, null=True)
+    note = models.TextField(blank=True, null=True)
     tax_id = models.CharField(max_length=50, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_by = models.ForeignKey(

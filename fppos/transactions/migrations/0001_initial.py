@@ -9,7 +9,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('branches', '0002_branch_allow_sellers_alter_branch_id'),
     ]
 
     operations = [
@@ -54,7 +53,6 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('branch', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='transactions', to='branches.branch')),
             ],
         ),
     ]

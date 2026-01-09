@@ -10,7 +10,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('branches', '0002_branch_allow_sellers_alter_branch_id'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -47,7 +46,6 @@ class Migration(migrations.Migration):
                 ('address', models.TextField(blank=True, null=True)),
                 ('tax_id', models.CharField(blank=True, max_length=50, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('branch', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='customers', to='branches.branch')),
                 ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='created_customers', to=settings.AUTH_USER_MODEL)),
                 ('updated_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='updated_customers', to=settings.AUTH_USER_MODEL)),
                 ('province', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='customers', to='customers.province')),

@@ -74,7 +74,9 @@
     </div>
     <AddEditCustomer
       v-if="showAddEdit"
-      :customerData="selectedCustomer"
+      :customer="selectedCustomer"
+      :regionList="provinces"
+      :wardList="wards"
       @close="showAddEdit = false"
       @saved="onCustomerSaved"
     />
@@ -100,6 +102,8 @@ export default {
     const pageSize = ref(200);
     const showAddEdit = ref(false);
     const selectedCustomer = ref({});
+    const wards = ref([]);
+    const provinces = ref([]);
     const headers = [
         { title: 'Mã', key: 'code', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Tên', key: 'name', headerProps: { class: 'my-custom-header-class' }},
@@ -143,6 +147,24 @@ export default {
       store.commit('setLoading', false);
     };
 
+    const fetchProvincesWards = async () => {
+      try {
+        const [provincesResponse, wardsResponse] = await Promise.all([
+          axios.get('/provinces/'),
+          axios.get('/wards/')
+        ]);
+        provinces.value = provincesResponse.data;
+        wards.value = wardsResponse.data;
+      } catch (error) {
+        console.error('Error fetching provinces or wards:', error);
+      }
+    };
+
+    function createNewCustomer() {
+      selectedCustomer.value = {};
+      showAddEdit.value = true;
+    };
+
     function exportToCSV() {
       const csvRows = [];
       csvRows.push(headers.map(h => h.title).join(','));
@@ -168,6 +190,7 @@ export default {
     }
 
     function openEditCustomer(event, { item }) {
+      console.log('Editing customer:', item);
       selectedCustomer.value = { ...item };
       showAddEdit.value = true;
     }
@@ -179,6 +202,7 @@ export default {
 
     onMounted(() => {
       fetchCustomers();
+      fetchProvincesWards();
     });
 
     return {
@@ -191,10 +215,13 @@ export default {
       headers,
       filteredCustomers,
       isActiveFilter,
+      provinces,
+      wards,
       exportToCSV,
       openAddCustomer,
       openEditCustomer,
       onCustomerSaved,
+      createNewCustomer,
     };
   },
 };

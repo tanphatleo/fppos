@@ -9,7 +9,6 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('branches', '0002_branch_allow_sellers_alter_branch_id'),
         ('customers', '0001_initial'),
         ('products', '0001_initial'),
     ]
@@ -48,7 +47,6 @@ class Migration(migrations.Migration):
                 ('discount_method_value', models.DecimalField(decimal_places=2, default=0.0, max_digits=10)),
                 ('transport_company', models.TextField()),
                 ('amount_paid_transport_company', models.DecimalField(decimal_places=2, default=0.0, max_digits=10)),
-                ('branch', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='invoices', to='branches.branch')),
                 ('customer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='invoices', to='customers.customer')),
             ],
         ),
