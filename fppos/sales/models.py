@@ -21,18 +21,13 @@ class Invoice(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     total_surcharge = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     surcharges = models.JSONField(blank=True, null=True)  # JSON field for surcharge details
-    payment_method = models.TextField()
-    CHOSEN_DISCOUNT_METHOD_CHOICES = [
-        ('percentage', 'Percentage'),
-        ('value', 'Value'),
-    ]
-    chosen_discount_method = models.CharField(max_length=10, choices=CHOSEN_DISCOUNT_METHOD_CHOICES)
+    payment_method = models.TextField(blank=True, null=True)
     discount_method_value = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    transport_company = models.TextField()
+    transport_company = models.TextField(blank=True, null=True)
     amount_paid_transport_company = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     items = models.JSONField(blank=True, null=True)  # JSON field to store invoice items
-    items_full = models.JSONField(blank=True, null=True)  # JSON field to store full invoice items details
-    combo_info = models.JSONField(blank=True, null=True)  # JSON field to store combo information
+    # items_full = models.JSONField(blank=True, null=True)  # JSON field to store full invoice items details
+    # combo_info = models.JSONField(blank=True, null=True)  # JSON field to store combo information
     def __str__(self):
         return self.code
 
@@ -44,7 +39,9 @@ def generate_invoice_code(sender, instance, **kwargs):
         instance.code = f"HD{next_number:08d}"
 
 class Surcharge(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    id = models.AutoField(primary_key=True)
+    code = models.CharField(max_length=10, unique=True, blank=True)
+    description = models.CharField(max_length=100, unique=True)
     amount = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

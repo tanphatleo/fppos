@@ -13,6 +13,8 @@ class WardSerializer(serializers.ModelSerializer):
 
 
 class CustomerSerializer(serializers.ModelSerializer):
+    # code = serializers.ReadOnlyField()
+
     class Meta:
         model = Customer
         fields = '__all__'

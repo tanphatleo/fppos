@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" class="modal-overlay">
+  <div v-if="visible" class="modal-overlay" @mousedown.self="close">
     <div class="modal-container">
 
       <div class="modal-body">
@@ -8,9 +8,6 @@
           
             <div class="label-group">
                 <div class="control-group">
-                    <select v-model="selectedSeller" class="form-select custom-select">
-                    <option v-for="s in sellers" :key="s.id" :value="s.id">{{ s.name }}</option>
-                    </select>
 
                     <select v-model="selectedChannel" class="form-select custom-select">
                     <option v-for="c in channels" :key="c.id" :value="c.id">{{ c.name }}</option>
@@ -55,19 +52,15 @@
             <span class="row-label">Giảm giá</span>
             <span class="side-info"></span>
             <div style="position:relative;">
-                <button class="value-amt" id="discountButton" @mousedown.stop="toggleDiscountPopover"> {{ formatCurrency(discountAmount) }}</button>
-                <div class="popover-content" v-show="openDiscount" ref="popoverRef">
-                    
-                    <div>Giảm giá</div>
-                    <input 
-                        type="decimal" 
-                        v-model="discountMethodValue"
-                        class="value-input font-bold text-right" 
-                        @change="handleChangeDiscount"
-                        />
-                    <button :class="{ active: chosenDiscountMethod === 'VND' }" @mousedown.stop="chosenDiscountMethod = 'VND'">VND</button>
-                    <button :class="{ active: chosenDiscountMethod === '%' }" @mousedown.stop="chosenDiscountMethod = '%'">%</button>
-                </div>
+                <input 
+                type="text" 
+                v-model="discountMethodValueDisplay" 
+                @focus="selectAll"
+                @keypress="onlyNumbersandPer"
+                @change="checkAndUpdateDiscount"
+                class="value-input font-bold text-right customer-payment-input"
+                placeholder="0"
+                />
             </div>
             
           </div>
@@ -122,7 +115,7 @@
                   :value="account.id"
                   :selected="account.default"
                   >
-                    {{ account.name  + ' - ' + account.number }}
+                    {{ account.bank_name  + ' - ' + account.account_number }}
                 </option>
               </select>
 
@@ -133,9 +126,15 @@
              <label>Tiền thừa trả khách</label>
              <div class="value">{{ formatCurrency(changeDue) }}</div>
           </div>
-          <div class="row" v-else-if="changeDue < 0">
-             <label class="text-danger">Khách còn thiếu</label>
-             <div class="value text-danger">{{ formatCurrency(Math.abs(changeDue)) }}</div>
+          <div class="row confirm-missing-payment" v-else-if="changeDue < 0">
+            <div class="confirm-missing-payment-row">
+              <label class="text-danger">Khách còn thiếu</label>
+              <div class="value text-danger">{{ formatCurrency(Math.abs(changeDue)) }}</div>
+            </div>
+             <div class="confirm-missing-payment-row-2" v-if="paymentMethod!=='receivable'">
+              <input type="checkbox" v-model="confirm_miss_payment" /> Xác nhận thanh toán thiếu
+             </div>
+             
           </div>
 
           <hr class="divider">
@@ -167,7 +166,7 @@
       </div>
 
       <div class="modal-footer">
-        <button class="btn-primary" @click="handlePayment" :disabled="(paymentMethod !== 'receivable' && amountPaidByCustomer < finalTotal)">Thanh toán</button>
+        <button class="btn-primary" @click="handlePayment" :disabled="(paymentMethod !== 'receivable' && amountPaidByCustomer < finalTotal && !confirm_miss_payment)">Thanh toán</button>
       </div>
 
     </div>
@@ -197,16 +196,40 @@ const props = defineProps({
   transportCompanies: { type: Array, default: () => [] },
 });
 
-console.log("Payment Component Props:", props);
+
+
+// console.log("Payment Component Props:", props);
 // console.log("Payment Component Props:", props);
 const emit = defineEmits(['close', 'complete-payment', 'update-cart-data']);
 
+const onlyNumbersandPer = (event) => {
+  // Allow only numbers 0-9 and a single % at the end
+  const input = event.target.value;
+  const char = event.data || String.fromCharCode(event.which || event.keyCode);
+  // Allow navigation keys
+  if ([8, 9, 13, 27, 37, 39, 46].includes(event.keyCode)) return;
+
+  // If % is pressed
+  if (char === '%') {
+    // Only allow one % and only at the end
+    if (input.includes('%') || event.target.selectionStart !== input.length) {
+      event.preventDefault();
+    }
+    return;
+  }
+  // Allow numbers
+  if (/\d/.test(char)) return;
+  // Block everything else
+  event.preventDefault();
+};
+
 const handleUpdateSurcharges = (surcharges) => {
+    console.log(" handleUpdateSurcharges called " );
     // Calculate total surcharge amount
-    console.log(" handleUpdateSurcharges Selected Surcharges:", surcharges);
+    // console.log(" handleUpdateSurcharges Selected Surcharges:", surcharges);
     surchargesOpen.value = false;
 
-    totalSurcharge.value = surcharges.reduce((sum, s) => sum + s.value, 0);
+    totalSurcharge.value = surcharges.reduce((sum, s) => sum + s.amount, 0);
 
     emit('update-cart-data', {
         ...props.cartData,
@@ -215,32 +238,6 @@ const handleUpdateSurcharges = (surcharges) => {
     });
 };
 
-const handleChangeDiscount = () => {
-    if (chosenDiscountMethod.value === 'VND') {
-        // Direct amount
-        discountAmount.value = Math.round(discountMethodValue.value);
-        discountMethodValue.value = discountAmount.value;
-
-        emit('update-cart-data', {
-            ...props.cartData,
-            discountMethodValue: discountMethodValue.value,
-            chosenDiscountMethod: 'VND',
-            discount: discountAmount.value
-        });
-        
-    } else if (chosenDiscountMethod.value === '%') {
-        // Percentage round to nearest 2 decimal
-        discountMethodValue.value = Math.round((discountMethodValue.value / 100) * 10000) / 100;
-        discountAmount.value = Math.round((discountMethodValue.value / 100) * totalAmount.value);
-        
-        emit('update-cart-data', {
-            ...props.cartData,
-            discountMethodValue: discountMethodValue.value,
-            chosenDiscountMethod: '%',
-            discount: discountAmount.value
-        });
-    }
-};
 
 const onlyNumbers = (event) => {
   // Allow only numbers 0-9
@@ -248,6 +245,40 @@ const onlyNumbers = (event) => {
   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
     event.preventDefault();
   }
+};
+
+const checkAndUpdateDiscount = (event) => {
+    // If input ends with %, treat as percentage
+    console.log("checkAndUpdateDiscount called");
+
+    const input = discountMethodValueDisplay.value;
+    console.log("Input value:", discountMethodValueDisplay);  
+    console.log("Raw input string:", input);
+    if (input.endsWith('%')) {
+        const percentStr = input.slice(0, -1).trim();
+        // console.log("Percentage discount detected:", percentStr);
+        const percentValue = parseFloat(percentStr);
+        if (!isNaN(percentValue)) {
+            discountMethodValue.value = Math.round((percentValue / 100) * totalAmount.value);
+        } else {
+            discountMethodValue.value = 0;
+        }
+    } else {
+        // Treat as fixed amount
+        const fixedValue = parseInt(input.replace(/\D/g, ''), 10);
+        if (!isNaN(fixedValue)) {
+            discountMethodValue.value = fixedValue;
+        } else {
+            discountMethodValue.value = 0;
+        }
+    }
+
+    emit('update-cart-data', {
+        ...props.cartData,
+        discount: discountMethodValue.value,
+        discountMethodValue: discountMethodValue.value,
+        chosenDiscountMethod: 'VND'
+    });
 };
 
 const handlePaymentMethodChange = () => {
@@ -292,14 +323,32 @@ const amountPaidTransportCompanyDisplay = computed({
     }
 });
 
+const discountMethodValueDisplay = computed({
+    get: () => {
+        if (discountMethodValue.value === 0) return '0';
+
+        try {
+          if (discountMethodValue.value.endsWith('%')) {
+              return discountMethodValue.value;
+          }
+        } catch (e) {
+          // Not a string, proceed
+        }
+        
+        return new Intl.NumberFormat('vi-VN').format(discountMethodValue.value);
+    },
+    set: (newValue) => {
+      // allow only numbers and % at the end
+        const sanitized = newValue.replace(/[^\d%]/g, '');
+        console.log("Sanitized discount input:", sanitized);
+        discountMethodValue.value = sanitized;
+    }
+});
+
 // Optional: Helper to select all text on click (UX best practice for POS)
 const selectAll = (event) => {
   event.target.select();
 };
-
-function toggleDiscountPopover(event) {
-    openDiscount.value = !openDiscount.value;
-}
 
 const surchargesOpen = ref(false);
 // --- State ---
@@ -308,35 +357,11 @@ const sellers = ref([
   { id: 36934, name: 'Fitpack Hà Nội' },
   { id: 39480, name: 'Bán hàng HN' }
 ]);
+
 const selectedSeller = ref(36934);
 
 const channels = props.channels || [];
 const selectedChannel = ref(0);
-
-const openDiscount = ref(false);
-const popoverRef = ref(null);
-
-function handleClickOutside(event) {
-    console.log("Clicked outside popover check");
-    console.log(event);
-  if (popoverRef.value && !popoverRef.value.contains(event.target)) {
-    openDiscount.value = false;
-  }
-}
-
-watch(openDiscount, (val) => {
-  if (val) {
-    document.addEventListener('mousedown', handleClickOutside);
-  } else {
-    document.removeEventListener('mousedown', handleClickOutside);
-  }
-});
-
-
-
-onBeforeUnmount(() => {
-  document.removeEventListener('mousedown', handleClickOutside);
-});
 
 
 function getTodayDateStr() {
@@ -387,6 +412,7 @@ function openDatePicker(event) {
 }
 
 // Financials
+const confirm_miss_payment = ref(false);
 const totalAmount = ref(0); // Will load from props
 const discountAmount = ref(0);
 const surchargeAmount = ref(0);
@@ -394,6 +420,7 @@ const amountPaidByCustomer = ref(0); // "Khách thanh toán"
 const amountPaidTransportCompany = ref(0); // "Phí ship mình trả"
 const discountMethodValue = ref(0);
 const chosenDiscountMethod = ref('VND');
+// console.log("Initialized chosenDiscountMethod to:", chosenDiscountMethod.value);
 const totalSurcharge = ref(0);
 const transportCompany = ref(null);
 // const 
@@ -404,45 +431,6 @@ const paymentMethods = [
   { value: 'transfer', label: 'Chuyển khoản' },
   { value: 'receivable', label: 'Công Nợ' }
 ];
-
-watch(chosenDiscountMethod, (newMethod) => {
-    // calculate discountAmount based on new method
-    // window.alert("Changed method to: " + chosenDiscountMethod.value);
-    if (newMethod === 'VND') {
-        discountAmount.value = Math.round((discountMethodValue.value / 100) * totalAmount.value);
-
-        // Update choosen method value in cart data
-        discountMethodValue.value = discountAmount.value;
-        emit('update-cart-data', {
-            ...props.cartData,
-            discountMethodValue: discountMethodValue.value,
-            chosenDiscountMethod: 'VND',
-            discount: discountAmount.value
-        });
-        // emit('update-cart-data', props.cartData);
-
-    } else if (newMethod === '%') {
-        // round to nearest 2 decimal
-        discountMethodValue.value = Math.round((discountMethodValue.value / totalAmount.value) * 100 * 100) / 100;
-        discountAmount.value = Math.round((discountMethodValue.value / 100) * totalAmount.value);
-
-
-        emit('update-cart-data', {
-            ...props.cartData,
-            discountMethodValue: discountMethodValue.value,
-            chosenDiscountMethod: '%',
-            discount: discountAmount.value
-        });
-
-        // props.cartData.discountMethodValue = discountMethodValue.value;
-        // props.cartData.chosenDiscountMethod = '%';
-        // props.cartData.discount = discountAmount.value;
-        // emit('update-cart-data', props.cartData);
-        // discountAmount.value = Math.round((discountMethodValue.value / 100) * totalAmount.value);
-    }
-
-});
-
 // --- Computed Logic ---
 
 // 1. Calculate the final amount the customer needs to pay
@@ -464,6 +452,7 @@ const formatCurrency = (value) => {
 
 watch(() => props.visible, (val) => {
   if (val) {
+    // console.log('Payment.vue props when visible:', JSON.parse(JSON.stringify(props)));
     purchaseDate.value = getTodayDateStr();
     purchaseTime.value = getNowTimeStr();
   }
@@ -472,16 +461,21 @@ watch(() => props.visible, (val) => {
 onMounted(() => {
   // Initialize with data passed from parent
   if (props.cartData) {
+
+    // const deepCartData = JSON.parse(JSON.stringify(props.cartData));
     totalAmount.value = props.cartData.total ;
      // Auto-fill full amount
     discountAmount.value = props.cartData.discount || 0;
     surchargeAmount.value = props.cartData.surcharge || 0;
     discountMethodValue.value = props.cartData.discountMethodValue || 0;
     chosenDiscountMethod.value = props.cartData.chosenDiscountMethod || 'VND';
+    // console.log("current chosenDiscountMethod to:", chosenDiscountMethod.value);
+    // console.log("current chosenDiscountValue to:", discountMethodValue.value);
+
     paymentMethod.value = props.cartData.paymentMethod || 'cash';
-    console.log("props.cartData.transportCompany:", props.cartData.transportCompany);
+    // console.log("props.cartData.transportCompany:", props.cartData.transportCompany);
     transportCompany.value = props.cartData.transportCompany || props.transportCompanies[0];
-    console.log("Initialized transportCompany to:", transportCompany.value);
+    // console.log("Initialized transportCompany to:", transportCompany.value);
     amountPaidTransportCompany.value = props.cartData.amountPaidTransportCompany || 0;
     totalSurcharge.value = props.cartData.surcharge || 0;
     amountPaidByCustomer.value = props.cartData.amountPaidByCustomer || totalAmount.value - discountAmount.value + surchargeAmount.value;
@@ -531,14 +525,19 @@ const close = () => {
     // source: 'payment-modal'
   });  
 
-  emit('close'
-  );
+  emit('close');
 };
 </script>
 
 
 
 <style scoped>
+
+input, select {
+  background-color: white;
+  color: black;
+  font-size: 1rem;
+}
 .bank-holder {
     margin-top: 0.5rem;
     display: flex;
@@ -592,6 +591,29 @@ const close = () => {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
+}
+
+.confirm-missing-payment {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .confirm-missing-payment-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .confirm-missing-payment-row-2 {
+        input {
+            margin-right: 5px;
+        }
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+    }
 }
 
 .top-controls { 
@@ -686,7 +708,7 @@ input.transport-company-amount::-webkit-inner-spin-button {
     border-radius: 3px; 
     margin-right: 3px; }
 .date-input{
-    width: 6.5rem;
+    width: 8rem;
 }
 /* Payment Details Grid */
 .payment-details { display: flex; flex-direction: column; gap: 10px; }

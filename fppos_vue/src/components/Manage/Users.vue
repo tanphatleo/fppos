@@ -1,45 +1,47 @@
 <template>
   <div class="work-area">
     <div class="top-area">
-      <div class="page-name-area">Hàng Hóa</div>
+      <div class="page-name-area">Sổ Quỹ</div>
       <div class="action-area">
         <div class="other-actions">
           <div class="buttons-area">
 
-            <v-btn color="primary" @click="createNewProduct" class="create-new-btn">
+            <v-btn color="primary" @click="createNewItem" class="create-new-btn">
               Tạo mới
             </v-btn>
 
-            <v-btn color="primary" @click="toggleGroupList" class="create-new-btn create-new-btn-group" style="position:relative;">
-              Nhóm SP
+            <v-btn color="primary" @click="toggleSubList" class="create-new-btn create-new-btn-group" style="position:relative;">
+              Nhóm Users
               <div class="list-product-groups btn-group" style="position:relative;">
-                <Teleport to="body" >
-                  <div v-if="showGroupList" ref="groupListRef" class="product-group-teleport" @click.self="showGroupList = false" :style="{ position: 'fixed', maxHeight:'50vh' , overflow : 'auto', top: groupListPosition.top, left: groupListPosition.left, zIndex: 9999, background: 'white', border: '1px solid #ccc', borderRadius: '6px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', padding: '1rem', minWidth: groupListPosition.width }">
+                <Teleport to="body">
+                  <div v-if="showSubList" ref="subListRef" class="product-group-teleport" @click.self="showSubList = false" :style="{ position: 'fixed', maxHeight:'50vh' , 
+                      overflow : 'auto', top: subListPosition.top, left: subListPosition.left, zIndex: 9999, background: 'white', border: '1px solid #ccc', borderRadius: '6px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', padding: '1rem', minWidth: subListPosition.width }">
                     <ul style="margin:0; padding:0; list-style:none;">
-                      <li v-for="group in productGroups" :key="group.id" style="padding:0.5rem 0; border-bottom:1px solid #eee;">
-                        <span>{{ group.name }}</span>
-                        <button @click.stop.prevent="openAddEditProductGroup(group)" class="c-button"> 
+                      <li v-for="item in subList" :key="item.id" style="padding:0.5rem 0; border-bottom:1px solid #eee;">
+                        <span>{{ item.name }}</span>
+                        <!-- <button @click.stop.prevent="openAddEditSub(item)" class="c-button"> 
                           <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
+                        </button> -->
                       </li>
-                      <!-- li for create new -->
+                      <!-- li for create new
                       <li style="padding:0.5rem 0; border-bottom:none;">
-                        <button @click="openAddEditProductGroup(null)" style="padding:0.3rem 1rem;">+ Tạo nhóm mới</button>
-                      </li>
+                        <button @click="openAddEditSub(null)" style="padding:0.3rem 1rem;">+ Tạo mới</button>
+                      </li> -->
                     </ul>
                     <div style="text-align:right; margin-top:0.5rem;">
-                      <button @click="showGroupList = false" style="padding:0.3rem 1rem;">Đóng</button>
+                      <button @click="showSubList = false" style="padding:0.3rem 1rem;">Đóng</button>
                     </div>
                   </div>
                 </Teleport>
               </div>
             </v-btn>
 
+            
+
             <v-btn color="primary" @click="exportToCSV" class="export-btn">
               Export CSV
             </v-btn>
 
-            
             
           </div>
         </div>
@@ -62,29 +64,18 @@
             style="width: 100%;"
             multiple
           />
-          <v-select
-            v-model="productGroupFilter"
-            :items="[ ...productGroups]"
-            item-title="name"
-            item-value="id"
-            label="Nhóm sản phẩm"
-            dense
-            hide-details
-            style="width: 100%;"
-            multiple
-          />
         </div>
       </div>
       <div class="data-area">
         <v-data-table
           :headers="headers"
-          :items="filteredProducts"
+          :items="filteredItems"
           :items-per-page="pageSize"
           :page.sync="currentPage"
           class="elevation-1 "
           fixed-header
           :search="filterText"
-          @click:row="openEditProduct"
+          @click:row="openEditItem"
         >
           <template v-slot:top>
             <v-toolbar flat class="tool-bar">
@@ -110,127 +101,132 @@
           <template v-slot:item.price="{ item }">
             {{ formatPrice(item.price) }}
           </template>
-          <template v-slot:item.productGroup="{ item }">
-            <div style="display: flex; align-items: center; width: 100%;">
-              <span>{{ item.productGroup }}</span>
-              
-            </div>
-          </template>
         </v-data-table>
       </div>
     </div>
-    <AddEditProduct
-      v-if="showAddEdit"
-      :productData="selectedProduct"
-      :products="products"
-      :productGroups="productGroups"
-      @close="showAddEdit = false"
-      @saved="onProductSaved"
+    <AddEditUsers
+      v-if="showAddEditItem"
+      :item="selectedItem"
+      :user-groups="subList"
+      @close="showAddEditItem = false"
+      @saved="onItemSaved"
     />
-    <AddEditProductGroup
-      v-if="showAddEditProductGroupModal"
-      :productGroup="editingProductGroup"
-      @close="showAddEditProductGroupModal = false"
-        @saved="onProductGroupSaved"
-    />
+
+
+
   </div>
 </template>
 
 <script>
-import { ref, computed, onMounted, watch, nextTick, onBeforeUnmount } from 'vue';
+import { ref, computed, onMounted, watch, nextTick , onBeforeUnmount } from 'vue';
 import axios from 'axios';
-import AddEditProduct from './AddEditProduct.vue';
-import AddEditProductGroup from './AddEditProductGroup.vue';
+import AddEditUsers from './AddEditUsers.vue';
+
 
 export default {
-  name: 'Products',
+  name: 'Trans',
   components: {
-    AddEditProduct,
-    AddEditProductGroup
+    AddEditUsers,
   },
   setup() {
-    const showGroupList = ref(false);
-    const groupListPosition = ref({ top: '0px', left: '0px', width: '200px' }); 
-    const groupListRef = ref(null);
 
-    const handleClickOutside = (event) => {
-      if (showGroupList.value) {
-        const groupListEl = groupListRef.value;
-        if (groupListEl && !groupListEl.contains(event.target)) {
-          showGroupList.value = false;
-        }
+    const showSubList = ref(false);
+    const subListRef = ref(null);
+    const selectedSubItem = ref(null);
+    const showAddEditSub = ref(false);
+    const subList = ref([]);
+    const subListPosition = ref({ top: '0px', left: '0px', width: '0px' });
+    const fetchSubList = async () => {
+      try {
+        const response = await axios.get('/usergroups/');
+        // filter active only and not cash accounts
+        subList.value = response.data;
+        console.log('Fetched sub list:', subList.value);
+      } catch (error) {
+        console.error('Error fetching sub list:', error);
+      }
+    };  
+    const toggleSubList = () => {
+      showSubList.value = !showSubList.value;
+      if (showSubList.value) {
+        setTimeout(() => {
+          updateGroupListPosition();
+        }, 0);
       }
     };
 
-    const products = ref([]);
+    const updateGroupListPosition = () => {
+      nextTick(() => {
+        const btn = document.querySelector('.create-new-btn-group');
+        if (btn) {
+          const rect = btn.getBoundingClientRect();
+          subListPosition.value = {
+            top: `${rect.bottom + window.scrollY}px`,
+            left: `${rect.left + window.scrollX}px`,
+            width: `${rect.width}px`
+          };
+        }
+      });
+    };
+    const openAddEditSub = (item) => {
+      console.log("Open Add/Edit Sub Item:", item);
+      selectedSubItem.value = item ? { ...item } : {};
+      showAddEditSub.value = true;
+      showSubList.value = false;
+    };
+
+    const handleClickOutside = (event) => {
+      if (showSubList.value) {
+        const subListEl = subListRef.value;
+        if (subListEl && !subListEl.contains(event.target)) {
+          showSubList.value = false;
+        }
+      }
+    };
+    const onSubItemSaved = async () => {
+      console.log("Sub Item saved, refreshing sub list...");
+      await fetchSubList();
+      showAddEditSub.value = false;
+    };
+
+
+    const items = ref([]);
     const filterText = ref('');
     const currentPage = ref(1);
     const pageSize = ref(50);
-    const showAddEdit = ref(false);
-    const selectedProduct = ref({});
-    const productGroups = ref([]);
-    const showAddEditProductGroupModal = ref(false);
-    const editingProductGroup = ref(null);
+    const showAddEditItem = ref(false);
+    const selectedItem = ref({});
     const headers = [
-        { title: 'Mã', key: 'code' , headerProps: { class: 'my-custom-header-class' }},  
-        { title: 'Tên', key: 'name' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Giá', key: 'price' ,headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Nhóm', key: 'productGroup' ,headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Loại', key: 'product_type' ,headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Trạng thái', key: 'is_active' ,headerProps: { class: 'my-custom-header-class' }},
+        { title: 'id', key: 'id' , headerProps: { class: 'my-custom-header-class' }},  
+        { title: 'userName', key: 'username' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Tên', key: 'first_name' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Họ', key: 'last_name' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Nhóm', key: 'usergroups' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Kích hoạt', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
     ];
 
     const isActiveFilter = ref(null);
-    const productGroupFilter = ref(null);
-    const filteredProducts = computed(() => {
-      let result = products.value;
+    const filteredItems = computed(() => {
+      let result = items.value;
 
       if (isActiveFilter.value && isActiveFilter.value.length > 0) {
-        result = result.filter(product => isActiveFilter.value.includes(product.is_active));
-      }
-
-      if (productGroupFilter.value && productGroupFilter.value.length > 0) {
-        result = result.filter(product => {
-          // Support both id and object for product_group
-          if (product.product_group !== undefined && product.product_group !== null) {
-            return productGroupFilter.value.includes(product.product_group);
-          }
-          // fallback: try productGroup string (if present)
-          if (product.productGroup !== undefined && product.productGroup !== null) {
-            return productGroupFilter.value.some(groupId => {
-              return product.productGroup === productGroups.find(g => g.id === groupId)?.name;
-            });
-          }
-          return false;
-        });
+        result = result.filter(item => isActiveFilter.value.includes(item.is_active));
       }
 
       if (!filterText.value.trim()) return result;
 
       const search = filterText.value.toLowerCase();
-      return result.filter(product =>
-        (product.name && product.name.toLowerCase().includes(search)) ||
-        (product.productGroup && product.productGroup.toLowerCase().includes(search)) ||
-        (product.code && product.code.toLowerCase().includes(search)) ||
-        (product.product_type && product.product_type.toLowerCase().includes(search))
+      return result.filter(item =>
+        (item.name && item.name.toLowerCase().includes(search)) 
       );
     });
 
-    const fetchProducts = async () => {
+    const fetchItems = async () => {
       try {
-        const response = await axios.get('/products/');
-        products.value = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        const response = await axios.get('/users/');
+        items.value = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    const fetchProductGroups = async () => {
-      try {
-        const response = await axios.get('/productgroups/');
-        productGroups.value = response.data;
-      } catch (error) {
-        console.error('Error fetching product groups:', error);
+        console.error('Error fetching items:', error);
       }
     };
 
@@ -244,7 +240,7 @@ export default {
       // Headers
       csvRows.push(headers.map(h => h.title).join(','));
       // Data
-      filteredProducts.value.forEach(row => {
+      filteredItems.value.forEach(row => {
         csvRows.push(headers.map(h => {
           let val = row[h.key];
           if (h.key === 'price') val = formatPrice(val);
@@ -256,96 +252,45 @@ export default {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'products.csv';
+      a.download = 'data.csv';
       a.click();
       window.URL.revokeObjectURL(url);
     }
 
-    function openAddProduct() {
-      selectedProduct.value = {};
-      showAddEdit.value = true;
+    function openAddItem() {
+      selectedItem.value = {};
+      showAddEditItem.value = true;
     }
 
-    function openEditProduct(event, { item }) {
+    function openEditItem(event, { item }) {
       // 'item' is the actual data object from the row
       console.log("Clicked item:", item); 
       
       // Create a copy to avoid mutating the table data directly while editing
-      selectedProduct.value = { ...item }; 
-      showAddEdit.value = true;
+      selectedItem.value = { ...item }; 
+      showAddEditItem.value = true;
     }
 
-    function createNewProduct() {
-      selectedProduct.value = {};
-      showAddEdit.value = true;
+    function createNewItem() {
+      selectedItem.value = {};
+      showAddEditItem.value = true;
     }
 
-    async function onProductSaved() {
+    async function onItemSaved() {
 
-        console.log("Product saved, refreshing list...");
-        await fetchProducts();
-        // await fetchProducts();
-        // send post to /products/ to create new product
-        // await axios.post('/products/', selectedProduct.value)
+        console.log("Item saved, refreshing list...");
+        await fetchItems();
 
 
-        showAddEdit.value = false;
+        showAddEditItem.value = false;
       
     }
 
-    async function onProductGroupSaved() {
-
-        console.log("Product saved, refreshing list...");
-        await fetchProducts();
-        await fetchProductGroups();
-        // await fetchProducts();
-        // send post to /products/ to create new product
-        // await axios.post('/products/', selectedProduct.value)
-
-
-        showAddEdit.value = false;
-        showAddEditProductGroupModal.value = false;
-      
-    }
-
-    const openAddEditProductGroup = (item) => {
-        
-        let productGroupTrue = productGroups.value.find(pg => {
-          if (typeof item === 'object' && item !== null) {
-            return pg.id === item.id;
-          } else {
-            return pg.id === item;
-          }
-        });
-        console.log("Editing product group:", productGroupTrue);
-
-      showGroupList.value = false;
-      editingProductGroup.value = productGroupTrue;
-      showAddEditProductGroupModal.value = true;
-    };
-
-    const updateGroupListPosition = () => {
-      nextTick(() => {
-        const btn = document.querySelector('.create-new-btn-group');
-        if (btn) {
-          const rect = btn.getBoundingClientRect();
-          groupListPosition.value = {
-            top: `${rect.bottom + window.scrollY}px`,
-            left: `${rect.left + window.scrollX}px`,
-            width: `${rect.width}px`
-          };
-        }
-      });
-    };
-
-    function toggleGroupList() {
-      showGroupList.value = !showGroupList.value;
-      if (showGroupList.value) updateGroupListPosition();
-    }
+    
 
     onMounted(() => {
-      fetchProducts();
-      fetchProductGroups();
+      fetchItems();
+      fetchSubList();
       document.addEventListener('mousedown', handleClickOutside);
     });
 
@@ -354,31 +299,34 @@ export default {
     });
 
     return {
-      products,
+      items,
       filterText,
       currentPage,
       pageSize,
-      showAddEdit,
-      selectedProduct,
-      productGroups,
+      showAddEditItem,
+      selectedItem,
       headers,
-      filteredProducts,
-      productGroupFilter,
+      filteredItems,
       isActiveFilter,
       formatPrice,
       exportToCSV,
-      openAddProduct,
-      openEditProduct,
-      createNewProduct,
-      onProductSaved,
-      onProductGroupSaved,
-      openAddEditProductGroup,
-      editingProductGroup,
-      showAddEditProductGroupModal,
-      showGroupList,
-      groupListPosition,
-      toggleGroupList,
-      groupListRef,
+      openAddItem,
+      openEditItem,
+      createNewItem,
+      onItemSaved,
+
+      showSubList,
+      subList,
+      subListPosition,
+      toggleSubList,
+      fetchSubList,
+      showAddEditSub,
+      selectedSubItem,
+      openAddEditSub, 
+      subListRef,
+      onSubItemSaved,
+
+
     };
   },
 };

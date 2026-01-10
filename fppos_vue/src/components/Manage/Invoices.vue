@@ -10,6 +10,36 @@
               Tạo mới
             </v-btn>
 
+            <v-btn color="primary" @click="toggleGroupList" class="create-new-btn create-new-btn-group" style="position:relative;">
+              Phụ Phí
+              <div class="list-product-groups btn-group" style="position:relative;">
+                <Teleport to="body">
+                  <div v-if="showSurchargeList" ref="groupListRef" class="product-group-teleport" @click.self="showSurchargeList = false" :style="{ 
+                      position: 'fixed', 
+                      maxHeight:'50vh' , 
+                      overflow : 'auto', top: groupListPosition.top, 
+                      left: groupListPosition.left, zIndex: 9999, 
+                      background: 'white', border: '1px solid #ccc', borderRadius: '6px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', padding: '1rem', minWidth: groupListPosition.width }">
+                    <ul style="margin:0; padding:0; list-style:none;">
+                      <li v-for="surcharge in surchargeList" :key="surcharge.id" style="padding:0.5rem 0; border-bottom:1px solid #eee;">
+                        <span>{{ surcharge.code }}</span>
+                        <button @click.stop.prevent="openAddEditSurcharge(surcharge)" class="c-button"> 
+                          <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                      </li>
+                      <!-- li for create new -->
+                      <li style="padding:0.5rem 0; border-bottom:none;">
+                        <button @click="openAddEditSurcharge(null)" style="padding:0.3rem 1rem;">+ Tạo mới</button>
+                      </li>
+                    </ul>
+                    <div style="text-align:right; margin-top:0.5rem;">
+                      <button @click="showSurchargeList = false" style="padding:0.3rem 1rem;">Đóng</button>
+                    </div>
+                  </div>
+                </Teleport>
+              </div>
+            </v-btn>
+
             <v-btn color="primary" @click="exportToCSV" class="export-btn">
               Export CSV
             </v-btn>
@@ -81,22 +111,33 @@
       @close="showAddEdit = false"
       @saved="onCustomerSaved"
     />
+
+    <AddEditSurcharge
+      v-if="showAddEditSurchargeModal"
+      :surcharge="editingSurcharge"
+      @close="showAddEditSurchargeModal = false"
+      @saved="fetchSurcharges"
+    />
   </div>
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, nextTick, onBeforeUnmount } from 'vue';
 import axios from 'axios';
 import AddEditCustomer from './AddEditCustomer.vue';
+import AddEditSurcharge from './AddEditSurcharges.vue';
 import { useStore } from 'vuex';
 
 export default {
   name: 'Customers',
   components: {
-    AddEditCustomer
+    AddEditCustomer,
+    AddEditSurcharge,
   },
   setup() {
     const editOrNew = ref('new'); // 'new' or 'edit'
+    const groupListPosition = ref({ top: '0px', left: '0px', width: '200px' }); 
+    // const surcharges = ref([]);
     const store = useStore();
     const customers = ref([]);
     const filterText = ref('');
@@ -104,7 +145,11 @@ export default {
     const pageSize = ref(200);
     const showAddEdit = ref(false);
     const selectedCustomer = ref({});
+    const showSurchargeList = ref(false);
+    const surchargeList = ref([]);
     const wards = ref([]);
+    const showAddEditSurchargeModal = ref(false);
+    const editingSurcharge = ref(null);
     const provinces = ref([]);
     const headers = [
         { title: 'Mã', key: 'code', headerProps: { class: 'my-custom-header-class' }},
@@ -112,6 +157,63 @@ export default {
         { title: 'Số điện thoại', key: 'phone_number', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Trạng thái', key: 'is_active', headerProps: { class: 'my-custom-header-class' }},
     ];
+
+    const groupListRef = ref(null);
+
+    const toggleGroupList = () => {
+      showSurchargeList.value = !showSurchargeList.value;
+      if (showSurchargeList.value) updateGroupListPosition();
+    }
+
+    const updateGroupListPosition = () => {
+      nextTick(() => {
+        const btn = document.querySelector('.create-new-btn-group');
+        if (btn) {
+          const rect = btn.getBoundingClientRect();
+          groupListPosition.value = {
+            top: `${rect.bottom + window.scrollY}px`,
+            left: `${rect.left + window.scrollX}px`,
+            width: `${rect.width}px`
+          };
+        }
+      });
+    };
+
+    const handleClickOutside = (event) => {
+      if (showSurchargeList.value) {
+        const groupListEl = groupListRef.value;
+        if (groupListEl && !groupListEl.contains(event.target)) {
+          showSurchargeList.value = false;
+        }
+      }
+    };
+
+    onMounted(() => {
+      fetchCustomers();
+      fetchProvincesWards();
+      fetchSurcharges();
+      document.addEventListener('mousedown', handleClickOutside);
+    });
+
+    onBeforeUnmount(() => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    });
+
+    const openAddEditSurcharge = (item) => {
+        
+        let surchargeTrue = surchargeList.value.find(pg => {
+          if (typeof item === 'object' && item !== null) {
+            return pg.id === item.id;
+          } else {
+            return pg.id === item;
+          }
+        });
+        console.log("Editing surcharge:", surchargeTrue);
+
+      showSurchargeList.value = false;
+      editingSurcharge.value = surchargeTrue;
+      showAddEditSurchargeModal.value = true;
+    };
 
     const isActiveFilter = ref(null);
     const filteredCustomers = computed(() => {
@@ -161,6 +263,17 @@ export default {
       }
     };
 
+    const fetchSurcharges = async () => {
+      try {
+        const response = await axios.get('/surcharges/', {
+        });
+        surchargeList.value = response.data;
+        console.log('Fetched surcharges:', surchargeList.value);
+      } catch (error) {
+        console.error('Error fetching surcharges:', error);
+      }
+    };
+
     function createNewCustomer() {
       editOrNew.value = 'new';
       selectedCustomer.value = {};
@@ -204,11 +317,6 @@ export default {
       showAddEdit.value = false;
     }
 
-    onMounted(() => {
-      fetchCustomers();
-      fetchProvincesWards();
-    });
-
     return {
       editOrNew,
       customers,
@@ -217,16 +325,26 @@ export default {
       pageSize,
       showAddEdit,
       selectedCustomer,
+      showSurchargeList,
+      surchargeList,
       headers,
       filteredCustomers,
       isActiveFilter,
       provinces,
       wards,
+      groupListPosition,
+      groupListRef,
+      showAddEditSurchargeModal,
+      editingSurcharge,
+      // surcharges,
       exportToCSV,
       openAddCustomer,
       openEditCustomer,
       onCustomerSaved,
       createNewCustomer,
+      toggleGroupList,
+      openAddEditSurcharge,
+      fetchSurcharges,
     };
   },
 };

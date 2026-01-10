@@ -1,6 +1,6 @@
 <template>
   <div class="product-filter-cate-component">
-    <div v-if="visible" class="float-overlay" @click="close"></div>
+    <div v-if="visible" class="float-overlay" @mousedown.self=""></div>
 
     <transition name="slide-fade">
       <div v-if="visible" class="float-nav">
@@ -132,17 +132,6 @@ const props = defineProps({
   dataSource: {
     type: Array,
     default: () => [
-      { id: '1', name: 'BOX' },
-      { id: '2', name: 'BURGER' },
-      { id: '3', name: 'Cơm hộp' },
-      { id: '4', name: 'Nước mát' },
-      { id: '5', name: 'Rau củ ăn liền' },
-      { id: '6', name: 'Salad' },
-      { id: '7', name: 'Sốt' },
-      { id: '8', name: 'STEAK' },
-      { id: '9', name: 'Ức gà' },
-      { id: '10', name: 'Ức gà 100' },
-      { id: '11', name: 'Ức gà viên' },
     ]
   },
   // Pre-selected IDs
@@ -215,6 +204,11 @@ const applyFilter = () => {
 /* Basic structural styles mimicking Kendo/Bootstrap 
    assuming global styles exist, but adding scoped overrides here 
 */
+
+input {
+  background-color: white;
+  color: black;
+}
 $kv-primary: #0070F4;
 
 .no-select {

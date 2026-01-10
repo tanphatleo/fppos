@@ -51,11 +51,29 @@ export default {
         password: this.password,
       };
 
-      await axios.post('/token/login', formData)
+      // remove old token
+      this.$store.dispatch('setToken', null);
+      axios.defaults.headers.common['Authorization'] = '';
+
+      // await axios.post('/token/login', formData)
+      await axios.post('/jwt/create/', formData)
         .then(response => {
-          const token = response.data.auth_token;
+          const token = response.data.access;
           this.$store.dispatch('setToken', token);
-          axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+
+          axios.get('/who_i_am/')
+            .then(res => {
+              const userGroups_ = res.data.usergroups || [];
+              const isAdmin = userGroups_.includes('admin');
+              this.$store.dispatch('setUserAdmin', isAdmin);
+              this.$store.dispatch('setUserName', res.data.username || '');
+            })
+            .catch(err => {
+              console.error('Error fetching user info after sign-in:', err);
+            });
+
           this.$router.push('/manage'); // Redirect to manage page after sign-in
         })
         .catch(error => {
@@ -69,6 +87,12 @@ export default {
         });
     },
   },
+  beforeMount() {
+    // If already authenticated, redirect to manage page
+    if (this.$store.getters.isAuthenticated) {
+      this.$router.push('/manage');
+    }
+  }
 };
 </script>
 

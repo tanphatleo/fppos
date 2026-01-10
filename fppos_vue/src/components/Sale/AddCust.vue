@@ -1,6 +1,6 @@
 <template>
-  <div class="modal-overlay">
-    <div class="customer-window">
+  <div class="modal-overlay" @click="closeForm">
+    <div class="customer-window" @click.stop>
       <div class="window-header ">
         <span class="window-title">
           <span class="no-select">{{ props.customer ? 'Cập nhật khách hàng' : 'Thêm khách hàng' }}</span>
@@ -28,7 +28,7 @@
               <div class="col-left">
                 <div class="form-group">
                   <label class="no-select">Mã khách hàng</label>
-                  <input type="text" v-model="form.code" placeholder="Mã mặc định" :disabled="props.customer" />
+                  <input type="text" v-model="form.code" placeholder="Mã mặc định" :disabled="type!=='new'" />
                 </div>
                 <div class="form-group">
                   <label class="required no-select">Tên khách hàng</label>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group">
                   <label class="no-select">Điện thoại</label>
-                  <input type="text" v-model="form.phone" />
+                  <input type="text" v-model="form.phone_number" />
                 </div>
                 <div class="form-group">
                   <label class="no-select">Địa chỉ</label>
@@ -49,11 +49,12 @@
                     <input 
                       ref="locationInputRef"
                       type="text" 
-                      v-model="form.location" 
+                      v-model="form.province_name" 
                       placeholder="Chọn Tỉnh/TP"
                       @focus="openDropdown('location')"
                       @input="openDropdown('location')"
                       @blur="handleBlur('location')"
+                      @change="handleChangeLocation"
                     />
                     
                     <Teleport to="body">
@@ -63,11 +64,11 @@
                         :style="dropdownStyle"
                       >
                         <li 
-                          v-for="(region, index) in filteredRegions" 
-                          :key="index"
+                          v-for="region in filteredRegions" 
+                          :key="region.id"
                           @mousedown.prevent="selectLocation(region)"
                         >
-                          {{ region }}
+                          {{ region.name }}
                         </li>
                       </ul>
                     </Teleport>
@@ -80,9 +81,9 @@
                     <input 
                       ref="wardInputRef"
                       type="text" 
-                      v-model="form.ward" 
+                      v-model="form.ward_name" 
                       placeholder="Chọn Phường/Xã"
-                      :disabled="!form.location || !availableWards.length"
+                      :disabled="!form.province"
                       @focus="openDropdown('ward')"
                       @input="openDropdown('ward')"
                       @blur="handleBlur('ward')"
@@ -95,11 +96,11 @@
                         :style="dropdownStyle"
                       >
                         <li 
-                          v-for="(ward, index) in filteredWards" 
-                          :key="index"
+                          v-for="ward in filteredWards" 
+                          :key="ward.id"
                           @mousedown.prevent="selectWard(ward)"
                         >
-                          {{ ward }}
+                          {{ ward.name }}
                         </li>
                       </ul>
                     </Teleport>
@@ -109,14 +110,6 @@
               </div>
 
               <div class="col-right">
-                <div class="form-group">
-                  <label class="no-select">Nhóm</label>
-                  <select v-model="form.group">
-                    <option value="">Chọn nhóm khách hàng</option>
-                    <option value="VIP">Khách VIP</option>
-                    <option value="Wholesale">Khách buôn</option>
-                  </select>
-                </div>
 
                 <div class="form-group">
                   <label class="no-select">Ngày sinh</label>
@@ -160,10 +153,11 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, defineProps, computed, nextTick } from 'vue';
+import { ref, reactive, onMounted, defineProps, computed, nextTick, watch } from 'vue';
+import axios from 'axios';
 
 const activeTab = ref('general');
-const emit = defineEmits(['close', 'save']);
+const emit = defineEmits(['close', 'saved']);
 
 const props = defineProps({
   currentBranch: {
@@ -173,18 +167,35 @@ const props = defineProps({
   customer: {
     type: Object,
     default: null
+  }, 
+  regionList: {
+    type: Array,
+    default: () => []
+  },
+  wardList: {
+    type: Array,
+    default: () => []
+  }, 
+  type: {
+    type: String,
+    default: 'new' // or 'edit'
   }
 });
+
 
 
 const defaultForm = () => ({
   code: '',
   name: '',
-  phone: '',
+  phone_number: '',
   address: '',
-  location: '',
-  ward: '',
-  group: '',
+  location: '', // region id
+  locationName: '', // region name for display
+  ward: null, // ward id
+  ward_name: '', // ward name for display
+  province: null,
+  province_name: '',
+  // group: '',
   birthdate: '',
   gender: true,
   email: '',
@@ -193,14 +204,6 @@ const defaultForm = () => ({
 });
 
 const form = reactive(defaultForm());
-
-onMounted(() => {
-  if (props.customer) {
-    Object.assign(form, defaultForm(), props.customer);
-  } else {
-    Object.assign(form, defaultForm());
-  }
-});
 
 // --- Autocomplete Logic ---
 const showLocationList = ref(false);
@@ -235,6 +238,7 @@ const openDropdown = (type) => {
 
   nextTick(() => {
     if (type === 'location') {
+      console.log('Opening location dropdown');
       updateDropdownPosition(locationInputRef.value);
       showLocationList.value = true;
     } else if (type === 'ward') {
@@ -246,31 +250,42 @@ const openDropdown = (type) => {
 
 // --- Regions ---
 const filteredRegions = computed(() => {
-  if (!form.location) return regionList.value;
-  const query = form.location.toLowerCase();
-  return regionList.value.filter(r => r.toLowerCase().includes(query));
+  const query = form.locationName ? form.locationName.toLowerCase() : '';
+  // console.log('Filtering regions with query:', query);
+  // console.log('Total regions available:', props.regionList);
+  if (!query) return props.regionList || [];
+  return (props.regionList || []).filter(r => r.name.toLowerCase().includes(query));
 });
 
 function selectLocation(region) {
-  form.location = region;
-  form.ward = ''; 
+  form.province = region.id;
+  form.province_name = region.name;
+  form.ward = null;
+  form.ward_name = '';
   showLocationList.value = false;
 }
 
-// --- Wards ---
-const availableWards = computed(() => {
-  return wardList.value[form.location] || [];
-});
+function handleChangeLocation() {
+  // form.province_id = null;
+  form.ward_id = null;
+  form.ward = '';
+}
 
 const filteredWards = computed(() => {
-  if (!availableWards.value.length) return [];
-  if (!form.ward) return availableWards.value;
-  const query = form.ward.toLowerCase();
-  return availableWards.value.filter(w => w.toLowerCase().includes(query));
+  const queryWard = form.ward ? String(form.ward).toLowerCase() : '';
+  if (!form.province_id) return (props.wardList || []).filter(w => w.name.toLowerCase().includes(queryWard));
+
+  if (form.province_id && !queryWard) {
+    return (props.wardList || [])
+      .filter(w => w.province === form.province_id)
+      .filter(w => w.name.toLowerCase().includes(queryWard));
+  }
+  return [];
 });
 
 function selectWard(ward) {
-  form.ward = ward;
+  form.ward = ward.id;
+  form.ward_name = ward.name;
   showWardList.value = false;
 }
 
@@ -284,41 +299,74 @@ function handleBlur(type) {
 
 // --- Standard Actions ---
 
-const saveCustomer = () => {
-  if (!form.name) {
-    alert('Vui lòng nhập tên khách hàng');
-    return;
-  }
-  if (props.customer) {
-    emit('save', { ...form, id: props.customer.id }); // include id if editing
+const saveCustomer = async () => {
+  //  check if old customer or new]
+  // send request to backend /customers/ 
+
+  const customerData = { ...form };
+
+  // remove province_name and ward_name before sending
+  // customerData.address =  customerData.address + ', ' + customerData.ward_name + ', ' + customerData.province_name;
+  // delete customerData.province_name;
+  // delete customerData.ward_name;
+  
+  if (props.type === 'edit') {
+    // update 
+    delete customerData.province_name;
+    delete customerData.ward_name;
+    await axios.put(`/customers/${props.customer.id}/`, customerData)
+      .then(response => {
+        console.log("Customer updated:", response.data);
+        emit('saved', response.data);
+        emit('close');
+      })
+      .catch(error => {
+        console.error("Error updating customer:", error);
+        window.alert("Lỗi cập nhật khách hàng.", error.response.data.message || error.message);
+      });
   } else {
-    emit('save', { ...form });
+    // create new
+    // customerData.address =  customerData.address + ', ' + customerData.ward_name + ', ' + customerData.province_name;
+    delete customerData.province_name;
+    delete customerData.ward_name;
+    await axios.post('/customers/', customerData)
+      .then(response => {
+        console.log("Customer created:", response.data);
+        emit('saved', response.data);
+        emit('close');
+      })
+      .catch(error => {
+        console.error("Error creating customer:", error);
+        window.alert("Lỗi tạo khách hàng.", error.response.data.message || error.message);
+      });
   }
+   
+
 };
 
 const closeForm = () => {
   emit('close');
 };
 
-// --- DATA ---
-const regionList = ref([
-  "Tỉnh An Giang", "Tỉnh Bắc Ninh", "Tỉnh Cà Mau", "Tỉnh Cao Bằng", 
-]);
-
-const wardList = ref({
-  "Tỉnh An Giang": [
-    "Xã An Biên", "Xã An Châu", "Xã An Cư", "Xã An Minh", "Xã An Phú", "Xã Ba Chúc"
-  ],
-  "Tỉnh Bắc Ninh": [
-    "Xã An Lạc", "Xã Bảo Đài", "Phường Bắc Giang","Xã An Lạc", "Xã Bảo Đài", 
-  ],
-  "Tỉnh Cà Mau": [
-    "Xã An Trạch", "Phường An Xuyên"
-  ],
-  "Tỉnh Cao Bằng": [
-    "Xã Bạch Đằng", "Xã Bảo Lạc"
-  ]
+// Ensure locationName is synced when editing
+onMounted(() => {
+  if (props.customer) {
+    Object.assign(form, defaultForm(), props.customer);
+    if (props.customer.province) {
+      const region = props.regionList.find(r => r.id === props.customer.province);
+      if (region) form.province_name = region.name;
+    }
+    if (props.customer.ward) {
+      const ward = props.wardList.find(w => w.id === props.customer.ward);
+      if (ward) form.ward_name = ward.name;
+    }
+  } else {
+    Object.assign(form, defaultForm());
+  }
 });
+
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -330,6 +378,46 @@ const wardList = ref({
   -moz-user-select: none;
   -ms-user-select: none;
 
+}
+
+input, textarea, select {
+  background-color: white;
+  color: black;
+}
+
+
+$calendar-icon-url: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23000" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+
+input[type="date"] {
+  position: relative;
+  
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    
+    // 1. Hide the default native icon
+    background-image: none; 
+    
+    // 2. Define the mask shape using the icon
+    -webkit-mask-image: $calendar-icon-url;
+    mask-image: $calendar-icon-url;
+    
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    
+    -webkit-mask-position: center;
+    mask-position: center;
+    
+    -webkit-mask-size: 1rem;
+    mask-size: 1rem;
+
+    // 3. Set your specific color here!
+    background-color: black; 
+    // font-size: 0.5rem;
+    
+    // Adjust size if needed
+    width: 20px;
+    height: 20px;
+  }
 }
 
 * {

@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, GroupViewSet 
+from .views import UserViewSet, GroupViewSet , user_info
 from customers.views import ProvinceViewSet, WardViewSet, CustomerViewSet
 from products.views import ProductViewSet, ProductGroupViewSet
-from sales.views import InvoiceViewSet, SurchargeViewSet
+from sales.views import InvoiceViewSet, SurchargeViewSet, CustomCreateInvoice
+from logicconfig.views import LogicConfigViewSet
+from customers.views import search_customers
+from transactions.views import TransactionViewSet, AccountViewSet, TransactionTypeViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -32,11 +35,20 @@ router.register(r'products', ProductViewSet)
 router.register(r'productgroups', ProductGroupViewSet)
 router.register(r'invoices', InvoiceViewSet)
 router.register(r'surcharges', SurchargeViewSet)
+router.register(r'logicconfigs', LogicConfigViewSet)
+router.register(r'transactions', TransactionViewSet)
+router.register(r'accounts', AccountViewSet)
+router.register(r'transactiontypes', TransactionTypeViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/v1/', include('djoser.urls')),
-    path('api/v1/', include('djoser.urls.authtoken')),
+    path('api/v1/', include('djoser.urls.jwt')),
+    # path('api/v1/', include('djoser.urls.authtoken')),
     path('api/v1/', include(router.urls)),
+    path('api/v1/search_customers/', search_customers, name='search_customers'),
+    path('api/v1/custom_create_invoice/', CustomCreateInvoice.as_view(), name='custom_create_invoice'),
+    path('api/v1/who_i_am/', user_info, name='user_info'),
 ]
 

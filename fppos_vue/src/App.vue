@@ -24,8 +24,15 @@ export default {
 
     const checkTokenValidity = async () => {
       try {
-        const response = await axios.get('/usergroups');
+        const response = await axios.get('/who_i_am/');
         console.log('Token is valid:', response.data);
+
+        const userGroups_ = response.data.usergroups || [];
+        const isAdmin = userGroups_.includes('admin');
+        store.dispatch('setUserAdmin', isAdmin);
+
+        store.dispatch('setUserName', response.data.username || '');
+
       } catch (error) {
         console.error('Invalid token:', error);
         store.dispatch('removeToken'); // Clear token if invalid
@@ -38,7 +45,7 @@ export default {
         if (store.getters.isAuthenticated) {
           const token = store.getters.getToken;
           console.log('Existing token found:', token);
-          axios.defaults.headers.common['Authorization'] = `Token ${token}`; // Set default token header
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set default token header
           checkTokenValidity(); // Check token validity
           store.commit('setLoading', false); 
         } else {
@@ -47,7 +54,7 @@ export default {
         }
       });
 
-      console.log('isLoading:', store.getters.isLoading);
+      // console.log('isLoading:', store.getters.isLoading);
     });
 
     return {

@@ -1,7 +1,7 @@
 
 
 <template>
-  <div v-if="visible" class="modal-overlay-a" @mousedown="onOverlayClick" ref="overlayRef">
+  <div v-if="visible" class="modal-overlay-a" @mousedown.self="onOverlayClick" ref="overlayRef">
     <div class="modal-container" ref="modalRef">
       <div class="modal-header">
         <h3 class="title">Các khoản thu khác</h3>
@@ -35,14 +35,14 @@
                 <td class="cell-code">{{ item.code }}</td>
                 <td class="cell-name">{{ item.name }}</td>
                 <td class="cell-price text-right">
-                  <span v-if="item.value > 0">{{ formatCurrency(item.value) }}</span>
+                  <span v-if="item.value > 0">{{ formatCurrency(item.amount) }}</span>
                   <span v-else class="text-muted">-</span>
                 </td>
                 <td class="cell-price">
                   <input 
                     type="number" 
                     @focus="selectAll"
-                    v-model="item.value"
+                    v-model="item.amount"
                     :disabled="!item.selected"
                     class="form-control-sm text-right no-arrow"
                   />
@@ -61,14 +61,6 @@ import { ref, computed, watch } from 'vue';
 // --- Refs for outside click ---
 const overlayRef = ref(null);
 const modalRef = ref(null);
-
-const updateChosenSurcharges = (item) => {
-  // This function can be used to perform any additional actions
-  // when a surcharge is selected/deselected.
-    emit('update-surcharges', surchargeList.value.filter(s => s.selected));
-
-
-};
 
 const onOverlayClick = (e) => {
   // Only emit close if click is outside modal-container
@@ -90,20 +82,16 @@ const emit = defineEmits(['close', 'update-surcharges']);
 
 // --- State ---
 // Default mock data based on your HTML snapshot
-const defaultSurcharges = props.defaultSurcharges.length > 0 ? 
-  props.defaultSurcharges : [
-    { id: 1, code:'VOUCHER', name: 'Voucher', value: 3000, selected: false },
-    { id: 2, code:'POINTS', name: 'Điểm thưởng', value: 0, selected: false },
-    { id: 3, code:'OTHER', name: 'Khác', value: 0, selected: false }
-];
+const defaultSurcharges = props.defaultSurcharges
 
 const selectAll = (event) => {
   event.target.select();
 };
 
-const surchargeList = ref([...defaultSurcharges]);
+// deep copy to avoid mutating props directly
+const surchargeList = ref(JSON.parse(JSON.stringify(defaultSurcharges)));
 
-console.log("Updating surchargeList based on chosenSurcharges:", props.chosenSurcharges);
+// console.log("Updating surchargeList based on chosenSurcharges:", props.chosenSurcharges);
 // check each surcharge in chosenSurcharges and update surchargeList accordingly
 if (props.chosenSurcharges && props.chosenSurcharges.length > 0) {
     
@@ -111,7 +99,7 @@ if (props.chosenSurcharges && props.chosenSurcharges.length > 0) {
     const match = surchargeList.value.find(s => s.id === chosen.id);
     if (match) {
       match.selected = chosen.selected;
-      match.value = chosen.value;
+      match.amount = chosen.amount;
     }
   });
 }
@@ -127,7 +115,7 @@ watch(() => props.items, (newItems) => {
 // --- Computed ---
 const totalAmount = computed(() => {
   return surchargeList.value.reduce((sum, item) => {
-    return item.selected ? sum + Number(item.value) : sum;
+    return item.selected ? sum + Number(item.amount) : sum;
   }, 0);
 });
 
@@ -144,7 +132,7 @@ const toggleSelection = (item) => {
 
 
 const close = () => {
-    console.log("Closing Surcharge Modal. Selected Surcharges:", surchargeList.value.filter(s => s.selected));
+    // console.log("Closing Surcharge Modal. Selected Surcharges:", surchargeList.value.filter(s => s.selected));
   emit('close', surchargeList.value.filter(s => s.selected));
 };
 </script>

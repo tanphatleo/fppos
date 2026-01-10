@@ -28,14 +28,20 @@
                             <span>Bán hàng</span>
                         </a>
                         </li>
+                        <li class="kv-navbar-item kv-navbar-item-light">
+                          <span class="text-white"> {{ $store.getters.userName }}</span>
+                        </li>
+
                         <li
                         v-if="$store.getters.isAuthenticated" 
                         class="kv-navbar-item kv-navbar-item-light"
                         >
                         <a class="kv-nav-link" @click.prevent="handleSignOut">
+                            
                             <i class="fas fa-sign-out-alt icon-item"></i>
-                            <span></span>
+                            
                         </a>
+                        
                         </li>
                     </ul>
                 </section>
@@ -43,6 +49,10 @@
             <div class="main-area">
                 <Products v-if="activeView === 'Sản phẩm'" :isVisible="true" />
                 <Customers v-if="activeView === 'Khách hàng'" :isVisible="true" />
+                <Invoices v-if="activeView === 'Hóa Đơn'" :isVisible="true" />
+                <Settings v-if="activeView === 'Cài đặt'" :isVisible="true" />
+                <Trans v-if="activeView === 'Sổ quỹ'" :isVisible="true" />
+                <Users v-if="activeView === 'Người dùng'" :isVisible="true" />
             </div>
             
         </div>
@@ -54,12 +64,20 @@
 
 import Products from "@/components/Manage/Products.vue";
 import Customers from "@/components/Manage/Customers.vue";
+import Invoices from "@/components/Manage/Invoices.vue";
+import Settings from "@/components/Manage/Settings.vue";
+import Trans from "@/components/Manage/Trans.vue";
+import Users from "@/components/Manage/Users.vue";
 
 export default {
   name: "Manage",
   components: {
     Products,
-    Customers
+    Customers,
+    Invoices,
+    Settings,
+    Trans,  
+    Users,
   },
 
   data() {
@@ -71,13 +89,14 @@ export default {
         { Id: 4, name: "Khách hàng" },
         { Id: 5, name: "Sổ quỹ" },
         { Id: 6, name: "Cài đặt" },
+        { Id: 7, name: "Người dùng" },
       ],
-      activeView: "Khách hàng", // Define your menus data here
+      activeView: "Người dùng", // Define your menus data here
     };
   },
   mounted() {
     // Automatically click/select "Hóa Đơn" when the page loads
-    this.setActiveView("Khách hàng");
+    this.setActiveView("Người dùng");
   },
   methods: {
     setActiveView(page) {

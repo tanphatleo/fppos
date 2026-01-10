@@ -67,7 +67,7 @@
               <div class="customer-search" v-bind:class="{ 'is-hidden': focus_invoice.customer }">
                 <i class="fas fa-search"></i>
                 <input class="customer-search-input c-input" placeholder="Tìm khách hàng" @focus="search_input_focus" @blur="search_input_cust_blur" @input="search_input_change_cust"/>
-                <i class="fas fa-plus add-cust" @click="isCustomerModalOpen=!isCustomerModalOpen"></i>
+                <i class="fas fa-plus add-cust" @click="this.editOrNew = 'new'; isCustomerModalOpen = true; "></i>
                 <div class="place-holder"> </div>
                 <div class="customer-search-results is-hidden">
                   <ul v-for="customer in filteredCust" 
@@ -78,7 +78,7 @@
                     <li class="suggestions-item">
                       <div class="suggestions-item-info"> 
                         <h5><b>{{ customer.name }}</b></h5>
-                        <div class="number-blue"> {{ customer.phone }}</div>
+                        <div class="number-blue"> {{ customer.phone_number }}</div>
                       </div>
                       <div class="suggestions-item-info"> {{ customer.code }}</div>
                     </li>
@@ -87,7 +87,7 @@
               </div>
               <div class="customer-selected" v-bind:class="{ 'is-hidden': !focus_invoice.customer }">
                 <span class="customer-search-input c-input edit-cust"
-                @click="isCustomerModalOpen = true"  
+                @click="this.editOrNew = 'edit'; isCustomerModalOpen = true; "  
                 > {{ focus_invoice.customer ? focus_invoice.customer.name : '' }} 
                 </span>
                 <i class="fa fa-times add-cust" @click="remove_focus_customer"></i>
@@ -141,11 +141,15 @@
     v-if="isCustomerModalOpen" 
     :current-branch="this.branch"
     :customer="focus_invoice.customer"
+    :regionList="this.provinces"
+    :wardList="this.wards"
+    :type="this.editOrNew"
     @close="isCustomerModalOpen = false" 
     @save="handleCustomerSave"
   />
   <ProfuctFilterCate 
     v-if="isFilterModalOpen" 
+    :dataSource="this.productGroups"
     @update:visible="isFilterModalOpen = false" 
     @apply="applyProductFilter"
   />
@@ -157,7 +161,7 @@
     :default-surcharges="this.defaultSurcharges"
     :bank-accounts="this.bankAccounts"
     :transport-companies="this.transportCompanies"
-    :key="focus_invoice ? focus_invoice.id + '-' + JSON.stringify(focus_invoice) : 'no-invoice'"
+    :key="focus_invoice ? focus_invoice.id + '-' + JSON.stringify(focus_invoice) + '-' + JSON.stringify(channels) + '-' + JSON.stringify(defaultSurcharges) + '-' + JSON.stringify(bankAccounts) + '-' + JSON.stringify(transportCompanies) : 'no-invoice'"
     @close="isPaymentModalOpen = false"
     @update-cart-data="handleUpdateItem"
   />
@@ -170,6 +174,7 @@ import AddCust from '@/components/Sale/AddCust.vue';
 import Carts from '@/components/Sale/Carts.vue';
 import ProfuctFilterCate from '@/components/Sale/ProfuctFilterCate.vue';
 import Payment from '@/components/Sale/Payment.vue';
+import axios from 'axios';
 
   export default {
     name: "SaleView",
@@ -185,37 +190,21 @@ import Payment from '@/components/Sale/Payment.vue';
         products: [],
         filteredProducts: [], 
         localPendingSales: [], 
-        user: 'Nguyen Van A', 
+        user: this.$store.getters.userName, 
         branch: 'Chi nhánh Hà Nội',
         isCustomerModalOpen: false, 
         isPaymentModalOpen: false,
         focus_invoice: [],
         isFilterModalOpen: false,
         filteredCust: [],
+        provinces: [],
+        wards: [],
         productGroupFilter: [],
-        bankAccounts: [
-          { id: 2, name: 'Vietcombank' , number: '1234433153', default: true },
-          { id: 1, name: 'Techpay' , number: '541313432', default: false },
-          { id: 3, name: 'Techcombank' , number: '32541234321', default: false }
-        ],
-        transportCompanies: [
-          { id: 1, name: 'Giao hàng nhanh' },
-          { id: 2, name: 'Giao hàng tiết kiệm' },
-          { id: 3, name: 'Viettel Post' },
-          { id: 4, name: 'J&T Express' }
-        ],
-
-        channels: [
-          { id: 0, name: 'Bán trực tiếp' },
-          { id: 154207, name: 'Facebook' },
-          { id: 22649, name: 'NOW' },
-          { id: 22650, name: 'Website' }
-        ],
-        defaultSurcharges: [
-          { id: 1, code:'VOUCHER', name: 'Voucher', value: 3000, selected: false },
-          { id: 2, code:'POINTS', name: 'Điểm thưởng', value: 0, selected: false },
-          { id: 3, code:'OTHER', name: 'Khác', value: 0, selected: false }
-        ],
+        editOrNew: 'new',
+        bankAccounts: [],
+        transportCompanies: [],
+        channels: [],
+        defaultSurcharges: [],
         sampleInvoice: {
           id: 1,
           total: 0,
@@ -233,6 +222,7 @@ import Payment from '@/components/Sale/Payment.vue';
           amountPaidByCustomer: 0,
           changeDue: 0,
           amountPaidTransportCompany: 0,
+          chosenBankAccount: null,
           items: [
           ]
         }
@@ -254,7 +244,7 @@ import Payment from '@/components/Sale/Payment.vue';
       },
 
       select_focus_customer(customer) {
-        console.log("Selected customer:", customer);
+        // console.log("Selected customer:", customer);
         this.focus_invoice.customer = customer;
         this.handleUpdateItem(this.focus_invoice);
         // clear search input
@@ -262,7 +252,7 @@ import Payment from '@/components/Sale/Payment.vue';
       },
 
       applyProductFilter(filterCriteria) {
-        console.log("Applying product filter with criteria:", filterCriteria);
+        // console.log("Applying product filter with criteria:", filterCriteria);
         // window.alert("Filter applied! (Functionality to be implemented)");
         // window.alert(JSON.stringify(filterCriteria));
         this.productGroupFilter = filterCriteria;
@@ -275,55 +265,76 @@ import Payment from '@/components/Sale/Payment.vue';
       },
 
       search_input_focus(event) {
-        console.log("Input focused");
-        console.log(event);
+        // console.log("Input focused");
+        // console.log(event);
         event.target.select();
       },
 
       search_input_blur(event) {
-        console.log("Input blurred");
+        // console.log("Input blurred");
         // get element with class product-search-results and hide it
         document.querySelector('.product-search-results').classList.add('is-hidden');
-        console.log(event);
+        // console.log(event);
       }, 
 
-      search_input_change_cust(event) {
-        console.log("Input changed");
-        console.log(event);
+      async fetchSurcharges() {
+        try {
+          const response = await axios.get('/surcharges/');
+          this.defaultSurcharges = response.data.filter(surcharge => surcharge.is_active);
+          // console.log('Fetched surcharges:', this.defaultSurcharges);
+        } catch (error) {
+          console.error('Error fetching surcharges:', error);
+        }
+      },
+
+      async search_input_change_cust(event) {
+
         document.querySelector('.customer-search-results').classList.remove('is-hidden');
         const query = event.target.value.toLowerCase();
+
+        await axios.get('/search_customers/', {
+          params: {
+            query: query
+          }
+        }).then(response => {
+          this.filteredCust = response.data;
+        }).catch(error => {
+          console.error('Error searching customers:', error);
+        });
+
+
         // window.alert("Searching for customer: " + query);
-        this.filteredCust = [{
-          id: 1,
-          code: 'CUST001',
-          name: 'Nguyen Van A',
-          phone: '0909123456'
-        },
-        {
-          id: 2,
-          code: 'CUST002',
-          name: 'Tran Thi B',
-          phone: '0909876543'
-        },
-        {
-          id: 3,
-          code: 'CUST003',
-          name: 'Le Van C',
-          phone: '0912345678'
-        }
-      ];
+      //   this.filteredCust = [{
+      //     id: 1,
+      //     code: 'CUST001',
+      //     name: 'Nguyen Van A',
+      //     phone: '0909123456'
+      //   },
+      //   {
+      //     id: 2,
+      //     code: 'CUST002',
+      //     name: 'Tran Thi B',
+      //     phone: '0909876543'
+      //   },
+      //   {
+      //     id: 3,
+      //     code: 'CUST003',
+      //     name: 'Le Van C',
+      //     phone: '0912345678'
+      //   }
+      // ];
       },
 
       search_input_cust_blur(event) {
-        console.log("Input blurred");
+        // console.log("Input blurred");
         // get element with class product-search-results and hide it
         document.querySelector('.customer-search-results').classList.add('is-hidden');
-        console.log(event);
+        // console.log(event);
       },
 
       search_input_change(event) {
-        console.log("Input changed");
-        console.log(event);
+        // console.log("Input changed");
+        // console.log(event);
         document.querySelector('.product-search-results').classList.remove('is-hidden');
         const query = event.target.value.toLowerCase();
         this.filteredProducts = this.products.filter(product => 
@@ -362,8 +373,8 @@ import Payment from '@/components/Sale/Payment.vue';
 
       remove_pending_sale(event) {
         event.stopPropagation(); // prevent triggering parent click event
-        console.log("Remove pending sale");
-        console.log(event);
+        // console.log("Remove pending sale");
+        // console.log(event);
         const index = Array.from(event.currentTarget.parentNode.parentNode.children).indexOf(event.currentTarget.parentNode);
         this.localPendingSales.splice(index, 1);
         // update local storage
@@ -387,7 +398,7 @@ import Payment from '@/components/Sale/Payment.vue';
       },
 
       async  add_new_pending_sale() {
-        console.log("Add new pending sale");
+        // console.log("Add new pending sale");
         const newId = this.localPendingSales.length > 0 ? Math.max(...this.localPendingSales.map(sale => sale.id)) + 1 : 1;
         // copy sampleInvoice and set id to newId
         const newInvoice = JSON.parse(JSON.stringify(this.sampleInvoice));
@@ -410,7 +421,8 @@ import Payment from '@/components/Sale/Payment.vue';
       },
 
       async handleUpdateItem(updatedInvoice) {
-        console.log("Handling update for invoice:", updatedInvoice);
+
+        // console.log("Handling update for invoice:", updatedInvoice);
         // json partse object 
         // let parsed = JSON.stringify(updatedInvoice);
 
@@ -423,13 +435,14 @@ import Payment from '@/components/Sale/Payment.vue';
 
           // update local storage
           localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
+          console.log("Pending sales updated in local storage.", this.localPendingSales);
         }
 
         // check if focus_invoice is the updated one, if so, update it
         await this.select_pending_invoice(updatedInvoice.id, null);
 
-        console.log("Updated invoice:", this.focus_invoice);
-        console.log("Item updated in cart");
+        // console.log("Updated invoice:", this.focus_invoice);
+        // console.log("Item updated in cart");
         // Additional logic can be added here if needed
         // console.log(this.localPendingSales);
       },
@@ -454,7 +467,7 @@ import Payment from '@/components/Sale/Payment.vue';
 
       async add_product(product) {
         // window.alert("Add product to cart");
-        console.log(product);
+        // console.log(product);
         if (!product) return;
         // Check if product already exists in cart
         const existingItem = this.focus_invoice.items.find(item => item.code === product.code);
@@ -467,17 +480,9 @@ import Payment from '@/components/Sale/Payment.vue';
             name: product.name,
             price: product.price,
             quantity: 1,
-            onHand: product.stock,
-            ordered: product.orderCount,
             hasNote: false,
-            units: [{id: 1, name: 'Gói'}],
-            productType: product.productType,
-            actualProducts: [
-              {
-                code: product.code,
-                quantity: 1
-              }
-            ],
+            product_type: product.product_type,
+            package_details: product.package_details || null,
             isSerial: false,
             note: '',
             isOpenPopover: false
@@ -487,78 +492,107 @@ import Payment from '@/components/Sale/Payment.vue';
 
         await this.handleUpdateItem(this.focus_invoice);
       },
+
+
+      async fetchProducts() {
+
+        try {
+          const response = await axios.get('/products/');
+          this.products = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+          this.products = this.products.filter(product => product.is_active);
+
+        } catch (error) {
+          console.error('Error fetching products:', error);
+        }
+
+        
+      },
+
+      async fetchProductGroups() {
+        try {
+          const response = await axios.get('/productgroups/');
+          this.productGroups = response.data;
+        } catch (error) {
+          console.error('Error fetching product groups:', error);
+        }
+      },
+
+      async fetchLogicConfigs() {
+        // Fetch logic configurations from the backend
+        axios.get('/logicconfigs/')
+          .then(response => {
+            // console.log('Logic configurations response:', response.data);
+            
+            for (const config of response.data) {
+              // console.log(`Processing config - Key: ${config.key}, Value: ${JSON.parse(config.value)}`);
+              if (config.key === 'branch_name') {
+                this.branch = config.value;
+                // console.log('Branch name set to:', this.branch);
+              }
+
+              if (config.key === 'channels') {
+                this.channels = JSON.parse(config.value);
+                // console.log('Channels set to:', this.channels);
+              }
+
+              if (config.key === 'transportCompanies') {
+                this.transportCompanies = JSON.parse(config.value);
+                // console.log('Transport companies set to:', this.transportCompanies);
+              }
+
+              // Add more configuration keys as needed
+            }
+
+            // console.log('Fetched logic configurations:', this.logicConfigs);
+          })
+          .catch(error => {
+            console.error('Error fetching logic configurations:', error);
+          });
+      },
+
+      async fetchProvincesWards() {
+      try {
+        const [provincesResponse, wardsResponse] = await Promise.all([
+          axios.get('/provinces/'),
+          axios.get('/wards/')
+        ]);
+        this.provinces = provincesResponse.data;
+        this.wards = wardsResponse.data;
+      } catch (error) {
+        console.error('Error fetching provinces or wards:', error);
+      }
+      }, 
+
+      async fetchBankAccounts() {
+        try {
+          const response = await axios.get('/accounts/');
+          this.bankAccounts = response.data.filter(account => account.is_active && account.bank_name !== 'Cash');
+          // console.log('Fetched bank accounts:', this.bankAccounts);
+        } catch (error) {
+          console.error('Error fetching bank accounts:', error);
+        }
+      },
+
+
     },
     
     created() {
       // Simulate fetching products from an API
-      this.productGroups = ["Ức gà", "Sốt", "Gà"];
-      this.products = [
-        { id: 1, code: 'ABC01', name: "100g Ức gà Xông Khói", productGroup: "Ức gà", price: 30000, stock: 121, orderCount: 39, productType: 2, image: null },
-        { id: 2, code: 'ABC02', name: "Ức gà Xông Khói 150g", productGroup: "Ức gà", price: 40000, stock: 81, orderCount: 33, productType: 2, image: null },
-        { id: 3, code: 'ABC03', name: "Sốt Teriyaki 10ml - Hàng Tặng", productGroup: "Sốt", price: 0, stock: -2159, orderCount: 45, productType: 2, image: null },
-        { id: 4, code: 'ABC04', name: "Hủ Sốt Teriyaki 200ml", productGroup: "Sốt", price: 50000, stock: 0, orderCount: 1, productType: 2, image: null },
-        { id: 5, code: 'ABC05', name: "100g Ức gà Cà ri Ấn", productGroup:"Ức gà", price: 30000, stock: 60, orderCount: 45, productType: 2, image: null },
-        { id: 6, code:'ABC06', name:"Ức gà Tỏi Á 150g", productGroup:"Ức gà", price :40000 , stock : -205 , orderCount :28 , productType :2 , image :null },
-        { id: 7, code:'ABC7', name:"Ức gà Tiêu xanh", productGroup:"Ức Gà", price :35 , stock : -2159 , orderCount :45 , productType :2 , image :null },
-        { id: 8, code: 'ABC08', name: "100g Ức gà Ngũ vị", productGroup: "Gà", price: 30000, stock: 23, orderCount: 53, productType: 2, image: null },
-        { id: 9, code: 'ABC09', name: "100g Ức gà Tỏi Á", productGroup:"Gà", price: 30000, stock: -69, orderCount: 34, productType: 2, image: null },
-        { id: 10, code:'ABC10', name:"100g Ức gà Teriyaki", productGroup:"Gà", price :30000 , stock :31 , orderCount :48 , productType :2 , image :null },
-        { id: 11, code:'ABC11', name:"Ức gà Ngũ vị 150g", productGroup:"Gà", price :40000 , stock :35 , orderCount :59 , productType :2 , image :null },
-        { id: 12, code: 'ABC12', name: "Ức gà Cà ri ấn 150g", productGroup:"Gà", price: 40000, stock: 100, orderCount: 47, productType: 2, image: null },
-        { id: 13, code: 'ABC13', name: "Ức gà Teriyaki 150g", productGroup:"Gà", price: 40000, stock: 6, orderCount: 45, productType: 2, image: null },
-        { id: 14, code: 'ABC14', name: "Ức gà Tiêu xanh 150g", productGroup:"Gà", price: 40000, stock: 22, orderCount: 48, productType: 2, image: null },
-        { id: 15, code:'ABC15', name:"COMBO 6 GÓI ỨC GÀ (Mix 6 vị)", productGroup:"Gà", price :230000 , stock :-205 , orderCount :5 , productType :2 , image :null },
-        { id: 16, code:'ABC16', name:"Sốt Tiêu Đen 20ml", productGroup:"Sốt", price :5000 , stock :20 , orderCount :0 , productType :2 , image :null },
-        { id: 17, code:'ABC17', name: "Sốt Tứ Xuyên 20ml", productGroup:"Sốt", price: 5000, stock: 75, orderCount: 0, productType: 2, image: null },
-      ];
+      this.fetchProducts();
+      this.fetchProductGroups();
+      this.fetchLogicConfigs();
+      this.fetchProvincesWards() ;
+      this.fetchSurcharges();
+      this.fetchBankAccounts();
 
       // read pending sales from local storage
       const pendingSales = localStorage.getItem('pendingSales');
       if (pendingSales) {
         this.localPendingSales = JSON.parse(pendingSales);
         this.focus_invoice = this.localPendingSales[0];
-      } else {
-        this.localPendingSales = [{
-          id: 1,
-          total: 40000,
-          totalItems: 1,
-          discount: 0,
-          finalTotal: 40000,
-          note: '',
-          totalSurcharge: 0,
-          // copy this.defaultSurcharges array
-          surcharges: [],
-          paymentMethod: 'cash',
-          items: [
-            {
-              uuid: '1',
-              code: 'FP0011',
-              name: 'Ức gà Teriyaki 150g',
-              price: 40000,
-              quantity: 1,
-              onHand: 6,
-              ordered: 45,
-              hasNote: false,
-              units: [{id: 1, name: 'Gói'}],
-              productType: 2,
-              actualProducts: [
-                {
-                  code: 'FP0011',
-                  quantity: 1
-                }
-              ],
-              isSerial: false,
-              note: '',
-              isOpenPopover: false
-            }
-          ]
-        },
-        {
-          id: 2,
-          items: []
-        }
-        ];
-      }
+      } 
+
+      console.log("Pending Sales on created:", this.localPendingSales);
 
       
 

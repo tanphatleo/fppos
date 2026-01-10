@@ -28,7 +28,7 @@
               <div class="col-left">
                 <div class="form-group">
                   <label class="no-select">Mã khách hàng</label>
-                  <input type="text" v-model="form.code" placeholder="Mã mặc định" :disabled="props.customer" />
+                  <input type="text" v-model="form.code" placeholder="Mã mặc định" :disabled="type!=='new'" />
                 </div>
                 <div class="form-group">
                   <label class="required no-select">Tên khách hàng</label>
@@ -157,7 +157,7 @@ import { ref, reactive, onMounted, defineProps, computed, nextTick, watch } from
 import axios from 'axios';
 
 const activeTab = ref('general');
-const emit = defineEmits(['close', 'save']);
+const emit = defineEmits(['close', 'saved']);
 
 const props = defineProps({
   currentBranch: {
@@ -175,6 +175,10 @@ const props = defineProps({
   wardList: {
     type: Array,
     default: () => []
+  }, 
+  type: {
+    type: String,
+    default: 'new' // or 'edit'
   }
 });
 
@@ -302,28 +306,38 @@ const saveCustomer = async () => {
   const customerData = { ...form };
 
   // remove province_name and ward_name before sending
-  delete customerData.province_name;
-  delete customerData.ward_name;
-
-  if (customerData.code) {
+  // customerData.address =  customerData.address + ', ' + customerData.ward_name + ', ' + customerData.province_name;
+  // delete customerData.province_name;
+  // delete customerData.ward_name;
+  
+  if (props.type === 'edit') {
     // update 
+    delete customerData.province_name;
+    delete customerData.ward_name;
     await axios.put(`/customers/${props.customer.id}/`, customerData)
       .then(response => {
         console.log("Customer updated:", response.data);
-        emit('save', response.data);
+        emit('saved', response.data);
+        emit('close');
       })
       .catch(error => {
         console.error("Error updating customer:", error);
+        window.alert("Lỗi cập nhật khách hàng.", error.response.data.message || error.message);
       });
   } else {
     // create new
+    // customerData.address =  customerData.address + ', ' + customerData.ward_name + ', ' + customerData.province_name;
+    delete customerData.province_name;
+    delete customerData.ward_name;
     await axios.post('/customers/', customerData)
       .then(response => {
         console.log("Customer created:", response.data);
-        emit('save', response.data);
+        emit('saved', response.data);
+        emit('close');
       })
       .catch(error => {
         console.error("Error creating customer:", error);
+        window.alert("Lỗi tạo khách hàng.", error.response.data.message || error.message);
       });
   }
    
