@@ -1,38 +1,52 @@
 <template>
   <div class="modal-overlay" @mousedown.self="$emit('close')">
-    <div class="modal-content">
-      <h2>{{ productGroup ? 'Chỉnh sửa nhóm sản phẩm' : 'Tạo nhóm sản phẩm mới' }}</h2>
-      <form @submit.prevent="handleSubmit">
-        <div class="form-group">
-          <label for="name">Tên nhóm</label>
-          <input
-            id="name"
-            v-model="name"
-            type="text"
-            required
-            placeholder="Nhập tên nhóm sản phẩm"
-          />
+    <div class="product-group-window" @click.stop>
+      <div class="window-header">
+        <span class="window-title">
+          <span class="no-select">{{ item && item.id ? 'Chỉnh sửa nhóm sản phẩm' : 'Tạo nhóm sản phẩm mới' }}</span>
+        </span>
+        <div class="window-actions no-select">
+          <button @click="$emit('close')" class="close-btn">
+            <span>×</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label for="description">Mô tả</label>
-          <textarea
-            id="description"
-            v-model="description"
-            placeholder="Nhập mô tả (tuỳ chọn)"
-          ></textarea>
+      </div>
+
+      <div class="window-content">
+        <div class="tabs-nav no-select">
+          <ul>
+            <li class="active"><a href="#">Thông tin chung</a></li>
+          </ul>
         </div>
-        <div class="form-group">
-          <label for="is_active">Kích hoạt</label>
-          <select id="is_active" v-model="isActive">
-            <option :value="true">Có</option>
-            <option :value="false">Không</option>
-          </select>
+
+        <div class="form-body">
+          <div class="tab-pane">
+            <div class="form-layout">
+              <div class="col-left">
+                <div class="form-group">
+                  <label for="name">Tên nhóm</label>
+                  <input id="name" v-model="name" type="text" required />
+                </div>
+                <div class="form-group">
+                  <label for="description">Mô tả</label>
+                  <textarea id="description" v-model="description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="is_active">Kích hoạt</label>
+                  <input id="is_active" v-model="isActive" type="checkbox" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <button type="submit" class="save-btn">
-          {{ productGroup ? 'Lưu thay đổi' : 'Tạo mới' }}
-        </button>
-        <button type="button" class="cancel-btn" @click="$emit('close')">Hủy</button>
-      </form>
+
+        <div class="window-footer">
+          <button type="button" class="btn btn-outline" @click="$emit('close')">Hủy</button>
+          <button type="button" class="btn btn-primary" @click="handleSubmit">
+            {{ item && item.id ? 'Lưu' : 'Tạo mới' }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -44,19 +58,19 @@ import axios from 'axios';
 export default {
   name: 'AddEditProductGroup',
   props: {
-    productGroup: {
+    item: {
       type: Object,
       default: null
     }
   },
   emits: ['close', 'saved'],
   setup(props, { emit }) {
-    const { productGroup } = toRefs(props);
-    const name = ref(productGroup.value ? productGroup.value.name : '');
-    const description = ref(productGroup.value ? productGroup.value.description : '');
-    const isActive = ref(productGroup.value && productGroup.value.is_active !== undefined ? productGroup.value.is_active : true);
+    const { item } = toRefs(props);
+    const name = ref(item.value ? item.value.name : '');
+    const description = ref(item.value ? item.value.description : '');
+    const isActive = ref(item.value && item.value.is_active !== undefined ? item.value.is_active : true);
 
-    watch(productGroup, (newVal) => {
+    watch(item, (newVal) => {
       name.value = newVal ? newVal.name : '';
       description.value = newVal ? newVal.description : '';
       isActive.value = newVal && newVal.is_active !== undefined ? newVal.is_active : true;
@@ -65,17 +79,17 @@ export default {
     async function handleSubmit() {
 
         // check if editing or creating
-        if (productGroup.value && productGroup.value.id) {
+        if (item.value && item.value.id) {
           // Editing existing product group
           const payload = {
-            id: productGroup.value.id,
+            id: item.value.id,
             name: name.value,
             description: description.value,
             is_active: isActive.value
           };
 
           // send api request to update
-          await axios.put(`/productgroups/${productGroup.value.id}/`, payload)
+          await axios.put(`/productgroups/${item.value.id}/`, payload)
             .then(response => {
               console.log("Product group updated:", response.data);
             })
@@ -109,99 +123,129 @@ export default {
       name,
       description,
       isActive,
-      productGroup,
+      item,
       handleSubmit
     };
   }
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$kv-primary: #0070F4;
 
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  text-align: left;
+}
 
-textarea , input, select {
-  background-color: #f9f9f9;
+input, select, textarea {
+  background-color: white;
   color: black;
-} 
+  border-radius: 0.3rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: $kv-primary;
+  outline: none;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  flex-grow: 0;
+}
+
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   background: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
 }
-
-.modal-content {
+.product-group-window {
   background: #fff;
-  border-radius: 10px;
+  width: 35rem;
+  max-width: 95vw;
   box-shadow: 0 2px 16px rgba(0,0,0,0.2);
-  padding: 1rem;
-  min-width: 350px;
-  max-width: 90vw;
-  min-height: 100px;
-  max-height: 90vh;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
+}
+
+.window-header {
+  background-color: $kv-primary;
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-.form-group {
-  margin-bottom: 1rem;
-  width: 100%;
-  input {
-    width: 30rem;
-  }
-}
-
-label {
-  display: block;
-  margin-bottom: 0.5rem;
+.window-title {
   font-weight: bold;
+  font-size: 15px;
 }
 
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.save-btn {
-  margin-top: 1rem;
-  padding: 0.5rem 1.5rem;
-  background: #0070F4;
-  color: #fff;
+.close-btn {
+  background: none;
   border: none;
-  border-radius: 5px;
-  font-size: 1rem;
+  color: white;
+  font-size: 20px;
   cursor: pointer;
-  transition: background 0.2s;
-}
-.save-btn:hover {
-  background: #0056b3;
+  line-height: 1;
 }
 
-.cancel-btn {
-  margin-top: 1.5rem;
-  padding: 0.5rem 1.5rem;
-  background: #e74c3c;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-  margin-left: 1rem;
+.tabs-nav {
+  background: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+  padding: 0 10px;
 }
-.cancel-btn:hover {
-  background: #c0392b;
+
+.tabs-nav ul { list-style: none; padding: 0; margin: 0; display: flex; }
+.tabs-nav li.active a { background: #fff; border-color: #ddd; border-bottom-color: #fff; color: #000; font-weight: 600; margin-bottom: -1px; }
+.tabs-nav a { display: block; padding: 10px 15px; text-decoration: none; color: #333; border: 1px solid transparent; border-bottom: none; border-radius: 4px 4px 0 0; }
+
+.window-content { display: flex; flex-direction: column; }
+
+.form-body { padding: 20px; background: #fff; max-height: 70vh; overflow-y: auto; }
+.form-layout { display: flex; gap: 20px; }
+.col-left, .col-right { flex: 1; }
+
+.form-group {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin-bottom: 12px;
 }
+
+.form-group label {
+  width: 9rem;
+  color: #333;
+  font-weight: 500;
+  flex-shrink: 0;
+  padding-right: 1em;
+}
+
+.window-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #ddd;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn { padding: 8px 16px; border-radius: 3px; cursor: pointer; font-weight: 500; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 5px; }
+.btn-outline { background: white; border-color: $kv-primary; color: $kv-primary; }
+.btn-primary { background: $kv-primary; color: white; }
+.btn-primary:hover { background: #0056b3; }
+.no-select { user-select: none; }
 </style>

@@ -7,7 +7,14 @@ from .serializers import CustomerSerializer, ProvinceSerializer, WardSerializer
 from django.db import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.filters import SearchFilter
 
+
+class StandardResultsSetPagination(PageNumberPagination):
+    page_size = 50
+    page_size_query_param = 'page_size'
+    max_page_size = 200
 
 class ProvinceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -21,8 +28,20 @@ class WardViewSet(viewsets.ModelViewSet):
 
 class CustomerViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
-    queryset = Customer.objects.all().order_by('-created_at')
+    queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    pagination_class = StandardResultsSetPagination
+    filter_backends = [SearchFilter]
+    search_fields = ['name', 'code', 'phone_number', 'email']
+
+    def get_queryset(self):
+        queryset = Customer.objects.all().order_by('-created_at')
+        is_active_params = self.request.query_params.getlist('is_active[]')
+        if is_active_params:
+            # Convert string 'true'/'false' to boolean
+            is_active_bools = [val.lower() in ['true', '1'] for val in is_active_params]
+            queryset = queryset.filter(is_active__in=is_active_bools)
+        return queryset
 
 @api_view(['GET'])
 def search_customers(request):

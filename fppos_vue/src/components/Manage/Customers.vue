@@ -5,69 +5,54 @@
       <div class="action-area">
         <div class="other-actions">
           <div class="buttons-area">
-
-            <v-btn color="primary" @click="createNewCustomer" class="create-new-btn">
+            <button @click="createNewCustomer" class="btn btn-primary">
               Tạo mới
-            </v-btn>
-
-            <v-btn color="primary" @click="exportToCSV" class="export-btn">
+            </button>
+            <button @click="exportToCSV" class="btn btn-secondary">
+              <i class="fa-solid fa-file-excel" style="margin-right: 0.5rem;"></i>
               Export CSV
-            </v-btn>
-
+            </button>
           </div>
         </div>
       </div>
     </div>
     <div class="bottom-area">
       <div class="filter-area">
-        <div class="filters" style="display: flex; align-items: center; gap: 1rem;">
-          <v-select
-            v-model="isActiveFilter"
-            :items="[
-              { title: 'Kích hoạt', value: true },
-              { title: 'Không kích hoạt', value: false }
-            ]"
-            item-title="title"
-            item-value="value"
-            label="Trạng thái"
-            dense
-            hide-details
-            style="width: 100%;"
-            multiple
-          />
+        <div class="filters">
+          <div class="form-group">
+            <label>Trạng thái</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" v-model="isActiveFilter" :value="true" /> Kích hoạt</label>
+              <label><input type="checkbox" v-model="isActiveFilter" :value="false" /> Không kích hoạt</label>
+            </div>
+          </div>
         </div>
       </div>
       <div class="data-area">
         <v-data-table
           :headers="headers"
-          :items="filteredCustomers"
+          :items="customers"
           :items-per-page="pageSize"
           :page.sync="currentPage"
           class="elevation-1 "
+          :server-items-length="totalCustomers"
           fixed-header
-          :search="filterText"
           @click:row="openEditCustomer"
         >
           <template v-slot:top>
-            <v-toolbar flat class="tool-bar">
-                <v-text-field
-                    v-model="filterText"
-                    label="Tìm khách hàng"
-                    dense
-                    hide-details
-                    solo
-                    class="customer-search-input c-input"
-                />
-                <v-select
-                    v-model="pageSize"
-                    :items="[5, 10, 20, 50,100, 200]"
-                    label="Rows per page"
-                    class="page-size-holder"
-                    dense
-                    hide-details
-                    style="max-width: 120px"
-                />
-            </v-toolbar>
+            <div class="datatable-toolbar">
+              <input
+                v-model="filterText"
+                placeholder="Tìm kiếm..."
+                class="search-input"
+              />
+              <select
+                v-model="pageSize"
+                class="page-size-select"
+              >
+                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
+              </select>
+            </div>
           </template>
         </v-data-table>
       </div>
@@ -85,7 +70,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch  } from 'vue';
 import axios from 'axios';
 import AddEditCustomer from './AddEditCustomer.vue';
 import { useStore } from 'vuex';
@@ -101,11 +86,12 @@ export default {
     const customers = ref([]);
     const filterText = ref('');
     const currentPage = ref(1);
-    const pageSize = ref(200);
+    const pageSize = ref(50);
     const showAddEdit = ref(false);
     const selectedCustomer = ref({});
     const wards = ref([]);
     const provinces = ref([]);
+    const totalCustomers = ref(0);
     const headers = [
         { title: 'Mã', key: 'code', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Tên', key: 'name', headerProps: { class: 'my-custom-header-class' }},
@@ -113,39 +99,28 @@ export default {
         { title: 'Trạng thái', key: 'is_active', headerProps: { class: 'my-custom-header-class' }},
     ];
 
-    const isActiveFilter = ref(null);
-    const filteredCustomers = computed(() => {
-      let result = customers.value;
-
-      if (isActiveFilter.value && isActiveFilter.value.length > 0) {
-        result = result.filter(customer => isActiveFilter.value.includes(customer.is_active));
-      }
-
-      if (!filterText.value.trim()) return result;
-
-      const search = filterText.value.toLowerCase();
-      return result.filter(customer =>
-        (customer.name && customer.name.toLowerCase().includes(search)) ||
-        (customer.email && customer.email.toLowerCase().includes(search)) ||
-        (customer.phone && customer.phone.toLowerCase().includes(search))
-      );
-    });
+    const isActiveFilter = ref([]);
 
     const fetchCustomers = async () => {
-      store.commit('setLoading', true);
+      // store.commit('setLoading', true);
       try {
-        const response = await axios.get('/customers/', {
-          params: {
-            _limit: 500,
-            _sort: 'created_at',
-            _order: 'desc'
-          }
-        });
-        customers.value = response.data;
+        const params = {
+          page: currentPage.value,
+          page_size: pageSize.value,
+        };
+        if (filterText.value) {
+          params.search = filterText.value;
+        }
+        if (isActiveFilter.value.length > 0) {
+          params['is_active[]'] = isActiveFilter.value;
+        }
+        const response = await axios.get('/customers/', { params });
+        customers.value = response.data.results;
+        totalCustomers.value = response.data.count;
       } catch (error) {
         console.error('Error fetching customers:', error);
       }
-      store.commit('setLoading', false);
+      // store.commit('setLoading', false);
     };
 
     const fetchProvincesWards = async () => {
@@ -170,7 +145,7 @@ export default {
     function exportToCSV() {
       const csvRows = [];
       csvRows.push(headers.map(h => h.title).join(','));
-      filteredCustomers.value.forEach(row => {
+      customers.value.forEach(row => {
         csvRows.push(headers.map(h => {
           let val = row[h.key];
           return '"' + (val !== undefined ? String(val).replace(/"/g, '""') : '') + '"';
@@ -204,6 +179,8 @@ export default {
       showAddEdit.value = false;
     }
 
+    watch([currentPage, pageSize, filterText, isActiveFilter], fetchCustomers, { deep: true });
+
     onMounted(() => {
       fetchCustomers();
       fetchProvincesWards();
@@ -218,10 +195,10 @@ export default {
       showAddEdit,
       selectedCustomer,
       headers,
-      filteredCustomers,
       isActiveFilter,
       provinces,
       wards,
+      totalCustomers,
       exportToCSV,
       openAddCustomer,
       openEditCustomer,
@@ -234,6 +211,79 @@ export default {
 
 <style lang="scss" scoped>
   $kv-primary-color: #0070F4;
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.0892857143em;
+}
+
+.btn-outline {
+  background: white;
+  border-color: $kv-primary-color;
+  color: $kv-primary-color;
+}
+
+.btn-primary {
+  background: $kv-primary-color;
+  color: white;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+input, select {
+  background-color: white;
+  color: black;
+  border-radius: 0.3rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: $kv-primary-color;
+  outline: none;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  flex-grow: 0;
+}
+
+.datatable-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+
+  .search-input {
+    width: 300px;
+  }
+
+  .page-size-select {
+    width: 120px;
+  }
+}
+
+
 .work-area {
   width: 100rem;
   display: flex;
@@ -269,23 +319,8 @@ export default {
                 flex: 1;
 
                 .buttons-area {
-                    display: flex;
-                    flex-direction: row;
-                    // padding: 1rem;
-                    .create-new-btn {
-                        margin-right: 0.5rem;
-                        padding: 0.5rem;
-                        // no shadow
-                        border: none;
-                        color: $kv-primary-color;
-                        border: #0070F4 1px solid;
-
-
-                    }
-
-                    .export-btn {
-                        padding: 0.5rem;
-                    }
+                  display: flex;
+                  gap: 0.5rem;
                 }
             }
     }
@@ -301,12 +336,31 @@ export default {
       width: 15rem;
       margin: 0.3rem;
       border-radius: 0.5rem;
-      background-color: rgb(214, 214, 214);
+      background-color: #f9f9f9;
+      padding: 1rem;
 
       .filters {
-        padding: 0.5rem;
         display: flex;
         flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        label {
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+          text-align: left;
+        }
+      }
+
+      .checkbox-group label {
+        display: flex;
+        align-items: center;
+        font-weight: normal;
+        margin-bottom: 0.5rem;
+        input { margin-right: 0.5rem; }
       }
     }
 
@@ -317,22 +371,6 @@ export default {
 
       .v-table {
         background-color: rgb(243, 243, 243) !important;
-      }
-
-      .c-input {
-        height: auto !important;
-        width: 20rem;
-        color: black;
-        border-top-left-radius: 0.5rem !important;
-      }
-
-      .page-size-holder {
-        color: black;
-      }
-
-      .tool-bar {
-        background-color: rgba(255, 0, 0, 0) !important;
-        margin-bottom: 0.3rem;
       }
 
       .elevation-1 {

@@ -1,18 +1,19 @@
 <template>
   <div class="work-area">
     <div class="top-area">
-      <div class="page-name-area">Sổ Quỹ</div>
+      <div class="page-name-area">Người dùng</div>
       <div class="action-area">
         <div class="other-actions">
           <div class="buttons-area">
 
-            <v-btn color="primary" @click="createNewItem" class="create-new-btn">
+            <button @click="createNewItem" class="btn btn-primary">
               Tạo mới
-            </v-btn>
+            </button>
 
-            <v-btn color="primary" @click="toggleSubList" class="create-new-btn create-new-btn-group" style="position:relative;">
+            <button @click="toggleSubList" class="btn btn-outline create-new-btn-group">
               Nhóm Users
-              <div class="list-product-groups btn-group" style="position:relative;">
+            </button>
+              <div class="list-product-groups btn-group" style="position:relative;" >
                 <Teleport to="body">
                   <div v-if="showSubList" ref="subListRef" class="product-group-teleport" @click.self="showSubList = false" :style="{ position: 'fixed', maxHeight:'50vh' , 
                       overflow : 'auto', top: subListPosition.top, left: subListPosition.left, zIndex: 9999, background: 'white', border: '1px solid #ccc', borderRadius: '6px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', padding: '1rem', minWidth: subListPosition.width }">
@@ -34,36 +35,25 @@
                   </div>
                 </Teleport>
               </div>
-            </v-btn>
 
-            
-
-            <v-btn color="primary" @click="exportToCSV" class="export-btn">
+            <button @click="exportToCSV" class="btn btn-secondary">
+              <i class="fa-solid fa-file-excel" style="margin-right: 0.5rem;"></i>
               Export CSV
-            </v-btn>
-
-            
+            </button>
           </div>
         </div>
       </div>
     </div>
     <div class="bottom-area">
       <div class="filter-area">
-        <div class="filters" style="display: flex; align-items: center; gap: 1rem;">
-          <v-select
-            v-model="isActiveFilter"
-            :items="[
-              { title: 'Kích hoạt', value: true },
-              { title: 'Không kích hoạt', value: false }
-            ]"
-            item-title="title"
-            item-value="value"
-            label="Trạng thái"
-            dense
-            hide-details
-            style="width: 100%;"
-            multiple
-          />
+        <div class="filters">
+          <div class="form-group">
+            <label>Trạng thái</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" v-model="isActiveFilter" :value="true" /> Kích hoạt</label>
+              <label><input type="checkbox" v-model="isActiveFilter" :value="false" /> Không kích hoạt</label>
+            </div>
+          </div>
         </div>
       </div>
       <div class="data-area">
@@ -78,25 +68,19 @@
           @click:row="openEditItem"
         >
           <template v-slot:top>
-            <v-toolbar flat class="tool-bar">
-              <v-text-field
+            <div class="datatable-toolbar">
+              <input
                 v-model="filterText"
-                label="Tìm hàng hóa"
-                dense
-                hide-details
-                solo
-                class="product-search-input c-input"
+                placeholder="Tìm kiếm..."
+                class="search-input"
               />
-              <v-select
+              <select
                 v-model="pageSize"
-                :items="[5, 10, 20, 50,100, 200]"
-                label="Rows per page"
-                class="page-size-holder"
-                dense
-                hide-details
-                style="max-width: 120px"
-              />
-            </v-toolbar>
+                class="page-size-select"
+              >
+                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
+              </select>
+            </div>
           </template>
           <template v-slot:item.price="{ item }">
             {{ formatPrice(item.price) }}
@@ -205,7 +189,7 @@ export default {
         { title: 'Kích hoạt', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
     ];
 
-    const isActiveFilter = ref(null);
+    const isActiveFilter = ref([]);
     const filteredItems = computed(() => {
       let result = items.value;
 
@@ -335,6 +319,79 @@ export default {
 <style lang="scss" scoped>
 $back-ground-color: rgb(165, 165, 165);
 $kv-primary-color: #0070F4;
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.0892857143em;
+}
+
+.btn-outline {
+  background: white;
+  border-color: $kv-primary-color;
+  color: $kv-primary-color;
+}
+
+.btn-primary {
+  background: $kv-primary-color;
+  color: white;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+input, select {
+  background-color: white;
+  color: black;
+  border-radius: 0.3rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: $kv-primary-color;
+  outline: none;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  flex-grow: 0;
+}
+
+.datatable-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+
+  .search-input {
+    width: 300px;
+  }
+
+  .page-size-select {
+    width: 120px;
+  }
+}
+
+
 .work-area {
     width: 100rem;
     // background-color: rgb(96, 96, 96);
@@ -377,23 +434,8 @@ $kv-primary-color: #0070F4;
                 flex: 1;
 
                 .buttons-area {
-                    display: flex;
-                    flex-direction: row;
-                    // padding: 1rem;
-                    .create-new-btn {
-                        margin-right: 0.5rem;
-                        padding: 0.5rem;
-                        // no shadow
-                        border: none;
-                        color: $kv-primary-color;
-                        border: #0070F4 1px solid;
-
-
-                    }
-
-                    .export-btn {
-                        padding: 0.5rem;
-                    }
+                  display: flex;
+                  gap: 0.5rem;
                 }
             }
 
@@ -411,14 +453,31 @@ $kv-primary-color: #0070F4;
             width: 15rem;
             margin: 0.3rem;
             border-radius: 0.5rem;
-            background-color: rgb(214, 214, 214);
-
+            background-color: #f9f9f9;
+            padding: 1rem;
 
             .filters {
-                padding: 0.5rem;
                 display: flex;
                 flex-direction: column;
-                // background-color: rgb(180, 180, 180);
+                gap: 1.5rem;
+            }
+
+            .form-group {
+              display: flex;
+              flex-direction: column;
+              label {
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+                text-align: left;
+              }
+            }
+
+            .checkbox-group label {
+              display: flex;
+              align-items: center;
+              font-weight: normal;
+              margin-bottom: 0.5rem;
+              input { margin-right: 0.5rem; }
             }
         }
 
@@ -430,27 +489,6 @@ $kv-primary-color: #0070F4;
 
             .v-table{
                 background-color: rgb(243, 243, 243) !important;
-            }
-            
-            .c-input{
-                // padding;
-                height: auto !important;
-                width: 20rem;
-                // background-color: $back-ground-color !important;
-                color: black;
-                border-top-left-radius: 0.5rem !important;
-            }
-
-            .page-size-holder{
-                // background-color: $back-ground-color !important;
-                color: black;
-            }
-
-            .tool-bar{
-                background-color: rgba(255, 0, 0, 0) !important;
-                margin-bottom: 0.3rem;
-                
-               
             }
 
             .elevation-1{

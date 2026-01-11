@@ -1,87 +1,84 @@
 <template>
   <div class="modal-overlay" @mousedown.self="$emit('close')">
-    <div class="modal-content">
-      <h2>{{ !!item.username ? 'Cập nhật người dùng' : 'Thêm người dùng mới' }}</h2>
-      <form @submit.prevent="handleSubmit">
-        
-        <div class="form-group">
-          <label for="username">Tên đăng nhập <span class="required">*</span></label>
-          <input
-            id="username"
-            v-model="form.username"
-            type="text"
-            required
-            :disabled="!!item.username" 
-            placeholder="Ví dụ: admin"
-          />
+    <div class="user-window" @click.stop>
+      <div class="window-header">
+        <span class="window-title">
+          <span class="no-select">{{ item && item.id ? 'Cập nhật người dùng' : 'Thêm người dùng mới' }}</span>
+        </span>
+        <div class="window-actions no-select">
+          <button @click="$emit('close')" class="close-btn">
+            <span>×</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="window-content">
+        <div class="tabs-nav no-select">
+          <ul>
+            <li class="active"><a href="#">Thông tin chung</a></li>
+          </ul>
+        </div>
+
+        <div class="form-body">
+          <div class="tab-pane">
+            <div class="form-layout">
+              <div class="col-left">
+                <div class="form-group">
+                  <label for="username">Tên đăng nhập <span class="required">*</span></label>
+                  <input id="username" v-model="form.username" type="text" required :disabled="!!item.id" placeholder="Ví dụ: admin" />
+                </div>
+
+                <div class="form-group">
+                  <label for="password">Mật khẩu <span v-if="!item.id" class="required">*</span></label>
+                  <input id="password" v-model="form.password" type="password" :required="!item.id" placeholder="Nhập mật khẩu" autocomplete="new-password" />
+                  <small v-if="item.id" class="field-note">Để trống nếu không muốn đổi mật khẩu</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="lastName">Họ</label>
+                  <input id="lastName" v-model="form.last_name" type="text" placeholder="Họ" />
+                </div>
+
+                <div class="form-group">
+                  <label for="firstName">Tên</label>
+                  <input id="firstName" v-model="form.first_name" type="text" placeholder="Tên" />
+                </div>
+                 <div class="form-group">
+                  <label for="email">Email</label>
+                  <input id="email" v-model="form.email" type="email" placeholder="Email" />
+                </div>
+              </div>
+
+              <div class="col-right">
+                <div class="form-group-column">
+                  <label>Nhóm quyền</label>
+                  <div class="checkbox-container">
+                    <div v-for="group in userGroups" :key="group.id" class="checkbox-item">
+                      <label :for="'group-' + group.id" class="checkbox-label">
+                        <input type="checkbox" :id="'group-' + group.id" :value="group.id" v-model="form.groups" />
+                        {{ group.name }}
+                      </label>
+                    </div>
+                    <div v-if="userGroups.length === 0" class="empty-text">Chưa có nhóm nào.</div>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 1rem;">
+                  <label for="is_active">Kích hoạt</label>
+                  <input id="is_active" type="checkbox" v-model="form.is_active" />
+                </div>
+              </div>
+            </div>
           </div>
-
-        <div class="form-group">
-          <label for="password">Mật khẩu <span v-if="!item" class="required">*</span></label>
-          <input
-            id="password"
-            v-model="form.password"
-            type="password"
-            :required="!item"
-            placeholder="Nhập mật khẩu"
-            autocomplete="new-password"
-          />
-          <small v-if="!!item.username" style="color: #666; font-size: 0.8rem;">Để trống nếu không muốn đổi mật khẩu</small>
         </div>
 
-        <div class="name-row">
-            <div class="form-group half">
-            <label for="firstName">Họ</label>
-            <input
-                id="firstName"
-                v-model="form.last_name"
-                type="text"
-                placeholder="Họ"
-            />
-            </div>
-            <div class="form-group half">
-            <label for="lastName">Tên</label>
-            <input
-                id="lastName"
-                v-model="form.first_name"
-                type="text"
-                placeholder="Tên"
-            />
-            </div>
+        <div class="window-footer">
+          <button type="button" class="btn btn-outline" @click="$emit('close')">Hủy</button>
+          <button type="button" class="btn btn-primary" @click="handleSubmit">
+            {{ item && item.id ? 'Lưu' : 'Tạo mới' }}
+          </button>
         </div>
-
-        <div class="form-group">
-          <label>Nhóm quyền</label>
-          <div class="checkbox-container">
-            <div v-for="group in userGroups" :key="group.id" class="checkbox-item">
-              <label :for="'group-' + group.id" class="checkbox-label">
-                <input 
-                  type="checkbox" 
-                  :id="'group-' + group.id" 
-                  :value="group.id" 
-                  v-model="form.groups"
-                >
-                {{ group.name }}
-              </label>
-            </div>
-          </div>
-          <div v-if="userGroups.length === 0" class="empty-text">Chưa có nhóm nào.</div>
-        </div>
-
-        <div class="form-group checkbox-item">
-             <label class="checkbox-label">
-                <input type="checkbox" v-model="form.is_active">
-                Kích hoạt (Active)
-             </label>
-        </div>
-
-        <div class="actions">
-            <button type="submit" class="save-btn">
-            {{ item ? 'Lưu thay đổi' : 'Tạo mới' }}
-            </button>
-            <button type="button" class="cancel-btn" @click="$emit('close')">Hủy</button>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -121,7 +118,7 @@ export default {
     const initForm = (data) => {
         if (data) {
             form.username = data.username || '';
-            form.first_name = data.first_name || '';
+            form.first_name = data.first_name || ''; // Note: Django uses first_name for "Tên"
             form.last_name = data.last_name || '';
             form.email = data.email || '';
             form.groups = data.groups || []; // Takes the array of IDs from props
@@ -191,161 +188,163 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+$kv-primary: #0070F4;
 
-<style scoped>
-/* Base Reset */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  text-align: left;
 }
 
-textarea, input, select {
-  background-color: #f9f9f9;
+input, select, textarea {
+  background-color: white;
   color: black;
-} 
+  border-radius: 0.3rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: $kv-primary;
+  outline: none;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  flex-grow: 0;
+}
+
+input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
 
 .required {
-    color: red;
+  color: red;
 }
 
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   background: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
 }
-
-.modal-content {
+.user-window {
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
-  padding: 1.5rem;
-  width: 500px; /* Wider for user form */
+  width: 60rem;
   max-width: 95vw;
-  max-height: 90vh;
-  overflow-y: auto; /* Handle scrolling on small screens */
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
 }
 
-h2 {
-    margin-top: 0;
-    text-align: center;
-    color: #333;
+.window-header {
+  background-color: $kv-primary;
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Form Layout */
+.window-title { font-weight: bold; font-size: 15px; }
+.close-btn { background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1; }
+
+.tabs-nav { background: #f0f0f0; border-bottom: 1px solid #ddd; padding: 0 10px; }
+.tabs-nav ul { list-style: none; padding: 0; margin: 0; display: flex; }
+.tabs-nav li.active a { background: #fff; border-color: #ddd; border-bottom-color: #fff; color: #000; font-weight: 600; margin-bottom: -1px; }
+.tabs-nav a { display: block; padding: 10px 15px; text-decoration: none; color: #333; border: 1px solid transparent; border-bottom: none; border-radius: 4px 4px 0 0; }
+
+.window-content { display: flex; flex-direction: column; }
+
+.form-body { padding: 20px; background: #fff; max-height: 70vh; overflow-y: auto; }
+.form-layout { display: flex; gap: 20px; }
+.col-left, .col-right { flex: 1; }
+
 .form-group {
-  margin-bottom: 1rem;
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  margin-bottom: 12px;
 }
 
-.name-row {
-    display: flex;
-    gap: 10px;
+.form-group-column {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
 }
 
-.half {
-    flex: 1;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-weight: bold;
-  font-size: 0.9rem;
+.form-group label, .form-group-column label {
+  width: 9rem;
   color: #333;
+  font-weight: 500;
+  flex-shrink: 0;
+  padding-right: 1em;
+  margin-bottom: 0.5rem;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea,
-select {
+.form-group-column label {
+  width: auto;
+}
+
+.field-note {
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
   width: 100%;
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
+  text-align: right;
 }
 
-input:disabled {
-    background-color: #e9ecef;
-    cursor: not-allowed;
-}
-
-/* Checkbox Styling */
 .checkbox-container {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 4px;
-    background: #f9f9f9;
-    max-height: 150px;
-    overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  background: #f9f9f9;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
-.checkbox-item {
-    margin-bottom: 5px;
-}
-
-/* Make checkbox label inline and clickable */
 .checkbox-label {
-    font-weight: normal;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    margin-bottom: 0;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 8px;
 }
 
 .checkbox-label input {
-    width: auto;
-    margin-right: 8px;
+  width: auto;
+  margin-right: 8px;
 }
 
 .empty-text {
-    font-size: 0.85rem;
-    color: #777;
-    font-style: italic;
+  font-size: 0.85rem;
+  color: #777;
+  font-style: italic;
 }
 
-/* Buttons */
-.actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1.5rem;
-    gap: 10px;
+.window-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #ddd;
+  background: #f5f5f5;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-.save-btn {
-  padding: 0.5rem 1.5rem;
-  background: #0070F4;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.save-btn:hover {
-  background: #0056b3;
-}
-
-.cancel-btn {
-  padding: 0.5rem 1.5rem;
-  background: #e74c3c;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.cancel-btn:hover {
-  background: #c0392b;
-}
+.btn { padding: 8px 16px; border-radius: 3px; cursor: pointer; font-weight: 500; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 5px; }
+.btn-outline { background: white; border-color: $kv-primary; color: $kv-primary; }
+.btn-primary { background: $kv-primary; color: white; }
+.btn-primary:hover { background: #0056b3; }
+.no-select { user-select: none; }
 </style>

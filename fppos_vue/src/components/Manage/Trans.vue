@@ -5,14 +5,17 @@
       <div class="action-area">
         <div class="other-actions">
           <div class="buttons-area">
-
-            <v-btn color="primary" @click="createNewItem" class="create-new-btn">
-              Tạo mới
-            </v-btn>
+            <button @click="createNewItem('DR')" class="btn btn-primary">
+              Phiếu Thu
+            </button>
+            <button @click="createNewItem('CR')" class="btn btn-primary">
+              Phiếu Chi
+            </button>
               
 
-            <v-btn color="primary" @click="toggleSubList" class="create-new-btn create-new-btn-group" style="position:relative;">
+            <button @click="toggleSubList" class="btn btn-outline create-new-btn-group">
               Bank Accounts
+            </button>
               <div class="list-product-groups btn-group" style="position:relative;">
                 <Teleport to="body">
                   <div v-if="showSubList" ref="subListRef" class="product-group-teleport" @click.self="showSubList = false" :style="{ position: 'fixed', maxHeight:'50vh' , 
@@ -35,11 +38,11 @@
                   </div>
                 </Teleport>
               </div>
-            </v-btn>
 
-            <v-btn color="primary" @click="toggleSubList2" class="create-new-btn create-new-btn-group-2" style="position:relative;">
+            <button @click="toggleSubList2" class="btn btn-outline create-new-btn-group-2">
               Loại Giao Dịch
-              <div class="list-product-groups btn-group" style="position:relative;">
+            </button>
+              <div class="list-product-groups btn-group" style="position:relative;" >
                 <Teleport to="body">
                   <div v-if="showSubList2" ref="subListRef2" class="product-group-teleport" @click.self="showSubList2 = false" :style="{ position: 'fixed', maxHeight:'50vh' , 
                       overflow : 'auto', top: subListPosition2.top, left: subListPosition2.left, zIndex: 9999, background: 'white', border: '1px solid #ccc', borderRadius: '6px', boxShadow: '0 2px 8px rgba(0,0,0,0.15)', padding: '1rem', minWidth: subListPosition2.width }">
@@ -61,12 +64,11 @@
                   </div>
                 </Teleport>
               </div>
-            </v-btn>
 
-            <v-btn color="primary" @click="exportToCSV" class="export-btn">
-              Export CSV
-            </v-btn>
-
+            <button @click="exportToExcel" class="btn btn-secondary">
+              <i class="fa-solid fa-file-excel" style="margin-right: 0.5rem;"></i>
+              Export Excel
+            </button>
             
           </div>
         </div>
@@ -74,42 +76,22 @@
     </div>
     <div class="bottom-area">
       <div class="filter-area">
-        <div class="filters" style="display: flex; align-items: center; gap: 1rem;">
-          <v-select
-            v-model="isActiveFilter"
-            :items="[
-              { title: 'Kích hoạt', value: true },
-              { title: 'Không kích hoạt', value: false }
-            ]"
-            item-title="title"
-            item-value="value"
-            label="Trạng thái"
-            dense
-            hide-details
-            style="width: 100%;"
-            multiple
-          />
-
-          <v-text-field
-            v-model="dateFrom"
-            label="Từ ngày"
-            type="date"
-            dense
-            hide-details
-            style="width: 100%;"
-          />
-          
-          <v-text-field
-            v-model="dateTo"
-            label="Đến ngày"
-            type="date"
-            dense
-            hide-details
-            style="width: 100%;"
-          />
-
-
-
+        <div class="filters">
+          <div class="form-group">
+            <label>Trạng thái</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" v-model="isActiveFilter" :value="true" /> Kích hoạt</label>
+              <label><input type="checkbox" v-model="isActiveFilter" :value="false" /> Không kích hoạt</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Từ ngày</label>
+            <input type="date" v-model="dateFrom" />
+          </div>
+          <div class="form-group">
+            <label>Đến ngày</label>
+            <input type="date" v-model="dateTo" />
+          </div>
         </div>
       </div>
       <div class="data-area">
@@ -124,25 +106,19 @@
           @click:row="openEditItem"
         >
           <template v-slot:top>
-            <v-toolbar flat class="tool-bar">
-              <v-text-field
+            <div class="datatable-toolbar">
+              <input
                 v-model="filterText"
-                label="Tìm hàng hóa"
-                dense
-                hide-details
-                solo
-                class="product-search-input c-input"
+                placeholder="Tìm kiếm..."
+                class="search-input"
               />
-              <v-select
+              <select
                 v-model="pageSize"
-                :items="[5, 10, 20, 50,100, 200]"
-                label="Rows per page"
-                class="page-size-holder"
-                dense
-                hide-details
-                style="max-width: 120px"
-              />
-            </v-toolbar>
+                class="page-size-select"
+              >
+                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
+              </select>
+            </div>
           </template>
           <template v-slot:item.amount="{ item }">
             {{ formatPrice( parseInt(item.amount)  ) }}
@@ -156,6 +132,8 @@
     <AddEditTrans
       v-if="showAddEditItem"
       :item="selectedItem"
+      :accounts="allAccounts"
+      :transaction-types="subList2"
       @close="showAddEditItem = false"
       @saved="onItemSaved"
     />
@@ -196,10 +174,12 @@ export default {
     const selectedSubItem = ref(null);
     const showAddEditSub = ref(false);
     const subList = ref([]);
+    const allAccounts = ref([]);
     const subListPosition = ref({ top: '0px', left: '0px', width: '0px' });
     const fetchSubList = async () => {
       try {
         const response = await axios.get('/accounts/');
+        allAccounts.value = response.data.filter(item => item.is_active);
         // filter active only and not cash accounts
         subList.value = response.data.filter(item => item.is_active && !item.bank_name.toLowerCase().includes('cash'));
       } catch (error) {
@@ -314,10 +294,6 @@ export default {
       showAddEditSub2.value = false;
     };
 
-
-
-
-
     const items = ref([]);
     const filterText = ref('');
     const currentPage = ref(1);
@@ -334,7 +310,7 @@ export default {
         { title: 'Trạng Thái', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
     ];
 
-    const isActiveFilter = ref(null);
+    const isActiveFilter = ref([]);
     const filteredItems = computed(() => {
       let result = items.value;
 
@@ -346,13 +322,20 @@ export default {
 
       const search = filterText.value.toLowerCase();
       return result.filter(item =>
-        (item.name && item.name.toLowerCase().includes(search)) 
+        (item.description && item.description.toLowerCase().includes(search))
       );
     });
 
     const fetchItems = async () => {
       try {
-        const response = await axios.get('/transactions/');
+        const params = {};
+        if (dateFrom.value) {
+          params.dateFrom = dateFrom.value;
+        }
+        if (dateTo.value) {
+          params.dateTo = dateTo.value;
+        }
+        const response = await axios.get('/transactions/', { params });
         items.value = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       } catch (error) {
         console.error('Error fetching items:', error);
@@ -364,26 +347,26 @@ export default {
       return value.toLocaleString('en-US', { style: 'currency', currency: 'VND', minimumFractionDigits: 0 });
     };
 
-    function exportToCSV() {
-      const csvRows = [];
-      // Headers
-      csvRows.push(headers.map(h => h.title).join(','));
-      // Data
-      filteredItems.value.forEach(row => {
-        csvRows.push(headers.map(h => {
-          let val = row[h.key];
-          if (h.key === 'price') val = formatPrice(val);
-          return '"' + (val !== undefined ? String(val).replace(/"/g, '""') : '') + '"';
-        }).join(','));
-      });
-      const csvString = csvRows.join('\n');
-      const blob = new Blob([csvString], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'data.csv';
-      a.click();
-      window.URL.revokeObjectURL(url);
+    async function exportToExcel() {
+      try {
+        const params = {
+          export: 'true',
+          dateFrom: dateFrom.value,
+          dateTo: dateTo.value,
+        };
+        const response = await axios.get('/transactions/', { params, responseType: 'blob' });
+        
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        const filename = `transactions_${dateFrom.value}_to_${dateTo.value}.xlsx`;
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      } catch (error) {
+        console.error('Error exporting to Excel:', error);
+      }
     }
 
     function openAddItem() {
@@ -400,8 +383,8 @@ export default {
       showAddEditItem.value = true;
     }
 
-    function createNewItem() {
-      selectedItem.value = {};
+    function createNewItem(type) {
+      selectedItem.value = { debit_or_credit: type };
       showAddEditItem.value = true;
     }
 
@@ -415,7 +398,7 @@ export default {
       
     }
 
-    
+    watch([dateFrom, dateTo], fetchItems);
 
     onMounted(() => {
       fetchItems();
@@ -441,7 +424,7 @@ export default {
       filteredItems,
       isActiveFilter,
       formatPrice,
-      exportToCSV,
+      exportToExcel,
       openAddItem,
       openEditItem,
       createNewItem,
@@ -457,6 +440,7 @@ export default {
       openAddEditSub, 
       subListRef,
       onSubItemSaved,
+      allAccounts,
 
 
       showSubList2,
@@ -483,6 +467,79 @@ export default {
 <style lang="scss" scoped>
 $back-ground-color: rgb(165, 165, 165);
 $kv-primary-color: #0070F4;
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.0892857143em;
+}
+
+.btn-outline {
+  background: white;
+  border-color: $kv-primary-color;
+  color: $kv-primary-color;
+}
+
+.btn-primary {
+  background: $kv-primary-color;
+  color: white;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+input, select {
+  background-color: white;
+  color: black;
+  border-radius: 0.3rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: $kv-primary-color;
+  outline: none;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  flex-grow: 0;
+}
+
+.datatable-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+
+  .search-input {
+    width: 300px;
+  }
+
+  .page-size-select {
+    width: 120px;
+  }
+}
+
+
 .work-area {
     width: 100rem;
     // background-color: rgb(96, 96, 96);
@@ -525,23 +582,8 @@ $kv-primary-color: #0070F4;
                 flex: 1;
 
                 .buttons-area {
-                    display: flex;
-                    flex-direction: row;
-                    // padding: 1rem;
-                    .create-new-btn {
-                        margin-right: 0.5rem;
-                        padding: 0.5rem;
-                        // no shadow
-                        border: none;
-                        color: $kv-primary-color;
-                        border: #0070F4 1px solid;
-
-
-                    }
-
-                    .export-btn {
-                        padding: 0.5rem;
-                    }
+                  display: flex;
+                  gap: 0.5rem;
                 }
             }
 
@@ -559,14 +601,31 @@ $kv-primary-color: #0070F4;
             width: 15rem;
             margin: 0.3rem;
             border-radius: 0.5rem;
-            background-color: rgb(214, 214, 214);
-
+            background-color: #f9f9f9;
+            padding: 1rem;
 
             .filters {
-                padding: 0.5rem;
                 display: flex;
                 flex-direction: column;
-                // background-color: rgb(180, 180, 180);
+                gap: 1.5rem;
+            }
+
+            .form-group {
+              display: flex;
+              flex-direction: column;
+              label {
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+                text-align: left;
+              }
+            }
+
+            .checkbox-group label {
+              display: flex;
+              align-items: center;
+              font-weight: normal;
+              margin-bottom: 0.5rem;
+              input { margin-right: 0.5rem; }
             }
         }
 
@@ -578,27 +637,6 @@ $kv-primary-color: #0070F4;
 
             .v-table{
                 background-color: rgb(243, 243, 243) !important;
-            }
-            
-            .c-input{
-                // padding;
-                height: auto !important;
-                width: 20rem;
-                // background-color: $back-ground-color !important;
-                color: black;
-                border-top-left-radius: 0.5rem !important;
-            }
-
-            .page-size-holder{
-                // background-color: $back-ground-color !important;
-                color: black;
-            }
-
-            .tool-bar{
-                background-color: rgba(255, 0, 0, 0) !important;
-                margin-bottom: 0.3rem;
-                
-               
             }
 
             .elevation-1{
