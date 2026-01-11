@@ -1,32 +1,30 @@
 <template>
   <div class="modal-overlay" @mousedown.self="$emit('close')">
     <div class="modal-content">
-      <h2>{{ item ? 'Chỉnh sửa cấu hình' : 'Tạo cấu hình mới' }}</h2>
+      <h2>{{ item ? 'Edit Transaction' : 'Add Transaction' }}</h2>
       <form @submit.prevent="handleSubmit">
         <div class="form-group">
-          <label for="key">Key</label>
-          <input
-            id="key"
-            v-model="key"
-            type="text"
-            required
-            placeholder="Nhập key (ví dụ: branch_name)"
-          />
+          <label for="type">Transaction type</label>
+          <select id="type" v-model="type" required>
+            <option value="Credit">Credit</option>
+            <option value="Debit">Debit</option>
+          </select>
         </div>
         <div class="form-group">
-          <label for="value">Value</label>
-          <input
-            id="value"
-            v-model="value"
-            type="text"
-            required
-            placeholder='Nhập value (ví dụ: "Chi nhánh SG")'
-          />
+          <label for="amount">Amount</label>
+          <input id="amount" v-model="amount" type="number" min="0" step="0.01" required />
         </div>
-        <button type="submit" class="save-btn">
-          {{ item ? 'Lưu thay đổi' : 'Tạo mới' }}
-        </button>
-        <button type="button" class="cancel-btn" @click="$emit('close')">Hủy</button>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" v-model="description" rows="3"></textarea>
+        </div>
+        <div class="form-group" style="display: flex; align-items: center;">
+          <label for="is_active" style="margin-bottom: 0; min-width: 6rem;">Is active</label>
+          <input id="is_active" v-model="isActive" type="checkbox" style="width: auto; margin-left: 0.5rem;" />
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="submit" class="save-btn">POST</button>
+        </div>
       </form>
     </div>
   </div>
@@ -36,73 +34,65 @@
 import { ref, watch, toRefs } from 'vue';
 import axios from 'axios';
 
+
 export default {
-  name: 'AddEditSettings',
+  name: 'AddEditTrans',
   props: {
     item: {
       type: Object,
       default: null
+    },
+    transactionTypes: {
+      type: Array,
+      default: () => []
     }
   },
   emits: ['close', 'saved'],
   setup(props, { emit }) {
     const { item } = toRefs(props);
-    const key = ref(item.value ? item.value.key : '');
-    const value = ref(item.value ? item.value.value : '');
-    const isActive = ref(item.value && item.value.is_active !== undefined ? item.value.is_active : true);
+    const type = ref(item.value ? item.value.type : 'Credit');
+    const amount = ref(item.value ? item.value.amount : '');
+    const description = ref(item.value ? item.value.description : '');
+    const isActive = ref(item.value && item.value.is_active !== undefined ? item.value.is_active : false);
 
     watch(item, (newVal) => {
-      key.value = newVal ? newVal.key : '';
-      value.value = newVal ? newVal.value : '';
-      isActive.value = newVal && newVal.is_active !== undefined ? newVal.is_active : true;
+      type.value = newVal ? newVal.type : 'Credit';
+      amount.value = newVal ? newVal.amount : '';
+      description.value = newVal ? newVal.description : '';
+      isActive.value = newVal && newVal.is_active !== undefined ? newVal.is_active : false;
     });
 
     async function handleSubmit() {
-
-        // check if editing or creating
-        if (item.value && item.value.id) {
-          // Editing existing product group
-          const payload = {
-            id: item.value.id,
-            key: key.value,
-            value: value.value,
-            is_active: isActive.value
-          };
-
-          // send api request to update
-          await axios.put(`/logicconfigs/${item.value.id}/`, payload)
-            .then(response => {
-              console.log("Product group updated:", response.data);
-            })
-            .catch(error => {
-              console.error("Error updating product group:", error);
-            });
-
-          emit('saved', payload);
-          return;
-        } else {
-          // Creating new product group
-            const payload = {
-              key: key.value,
-              value: value.value,
-              is_active: isActive.value
-            };
-
-            // send api request to create
-            await axios.post('/logicconfigs/', payload)
-              .then(response => {
-                console.log("Product group created:", response.data);
-              })
-              .catch(error => {
-                console.error("Error creating product group:", error);
-              });
-        emit('saved', payload);
+      const payload = {
+        type: type.value,
+        amount: amount.value,
+        description: description.value,
+        is_active: isActive.value
+      };
+      // If editing, send PUT; else POST
+      if (item.value && item.value.id) {
+        await axios.put(`/transactions/${item.value.id}/`, payload)
+          .then(response => {
+            emit('saved', response.data);
+          })
+          .catch(error => {
+            console.error('Error updating transaction:', error);
+          });
+      } else {
+        await axios.post('/transactions/', payload)
+          .then(response => {
+            emit('saved', response.data);
+          })
+          .catch(error => {
+            console.error('Error creating transaction:', error);
+          });
       }
-    };
+    }
 
     return {
-      key,
-      value,
+      type,
+      amount,
+      description,
       isActive,
       item,
       handleSubmit

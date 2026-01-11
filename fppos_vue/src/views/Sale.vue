@@ -1,6 +1,6 @@
 <template>
   
-  <div style="height: 100%;">
+  <div style="height: 100%; " >
     <div class="home-page " style="height: 100%;">
       <div class="page-header">
         <div class="header-left">
@@ -50,6 +50,8 @@
         <div class="header-right">
           <div class="user-name"> {{ this.branch }}</div>
           <div class="user-name"> {{ this.user }}</div>
+          <div style="text-align: center; margin: 1rem 0;">
+        </div>
           <div class="menu-toggle"> 
             <menu_toggle/>
           </div>
@@ -64,7 +66,7 @@
         <div class="shortcut-box">
           <div class="shortcut-box-header">
             <div class="search_filter-control">
-              <div class="customer-search" v-bind:class="{ 'is-hidden': focus_invoice.customer }">
+              <div class="customer-search" v-bind:class="{ 'is-hidden': focus_invoice && focus_invoice.customer }">
                 <i class="fas fa-search"></i>
                 <input class="customer-search-input c-input" placeholder="Tìm khách hàng" @focus="search_input_focus" @blur="search_input_cust_blur" @input="search_input_change_cust"/>
                 <i class="fas fa-plus add-cust" @click="this.editOrNew = 'new'; isCustomerModalOpen = true; "></i>
@@ -85,10 +87,10 @@
                   </ul>
                 </div>
               </div>
-              <div class="customer-selected" v-bind:class="{ 'is-hidden': !focus_invoice.customer }">
+              <div class="customer-selected" v-bind:class="{ 'is-hidden': !focus_invoice || !focus_invoice.customer }">
                 <span class="customer-search-input c-input edit-cust"
                 @click="this.editOrNew = 'edit'; isCustomerModalOpen = true; "  
-                > {{ focus_invoice.customer ? focus_invoice.customer.name : '' }} 
+                > {{ focus_invoice && focus_invoice.customer ? focus_invoice.customer.name : '' }} 
                 </span>
                 <i class="fa fa-times add-cust" @click="remove_focus_customer"></i>
                 <div class="place-holder"> </div>
@@ -125,9 +127,10 @@
           </div>
           <div class="payment-action no-select">
             <button class="payment-button"
-            @click="openPaymentModal">
-              Thanh toán
-            </button>
+                        :disabled="!focus_invoice.totalItems"
+                        @click="openPaymentModal">
+                          Thanh toán
+                        </button>
           </div>
 
         </div>
@@ -161,10 +164,18 @@
     :default-surcharges="this.defaultSurcharges"
     :bank-accounts="this.bankAccounts"
     :transport-companies="this.transportCompanies"
+    
     :key="focus_invoice ? focus_invoice.id + '-' + JSON.stringify(focus_invoice) + '-' + JSON.stringify(channels) + '-' + JSON.stringify(defaultSurcharges) + '-' + JSON.stringify(bankAccounts) + '-' + JSON.stringify(transportCompanies) : 'no-invoice'"
     @close="isPaymentModalOpen = false"
     @update-cart-data="handleUpdateItem"
+    @complete-payment="handleCompletePayment"
   />
+
+
+  <!-- Print Button -->
+  
+
+  
 
 </template>
 <script>
@@ -174,6 +185,10 @@ import AddCust from '@/components/Sale/AddCust.vue';
 import Carts from '@/components/Sale/Carts.vue';
 import ProfuctFilterCate from '@/components/Sale/ProfuctFilterCate.vue';
 import Payment from '@/components/Sale/Payment.vue';
+import AlertModule from '@/components/common/AlertModule.vue';
+
+import { createApp } from 'vue';
+
 import axios from 'axios';
 
   export default {
@@ -183,10 +198,12 @@ import axios from 'axios';
       AddCust,
       Carts, 
       ProfuctFilterCate,
-      Payment
+      Payment,
+      AlertModule
     },
     data() {
       return {
+        testPrint: {},
         products: [],
         filteredProducts: [], 
         localPendingSales: [], 
@@ -194,7 +211,7 @@ import axios from 'axios';
         branch: 'Chi nhánh Hà Nội',
         isCustomerModalOpen: false, 
         isPaymentModalOpen: false,
-        focus_invoice: [],
+        focus_invoice: {},
         isFilterModalOpen: false,
         filteredCust: [],
         provinces: [],
@@ -216,7 +233,8 @@ import axios from 'axios';
           totalSurcharge: 0,
           surcharges: [],
           paymentMethod: 'cash',
-          chosenDiscountMethod: null,
+          paymentAccount: 1, // default to Cash account
+          chosenDiscountMethod: 'VND',
           discountMethodValue: 0,
           transportCompany: null,
           amountPaidByCustomer: 0,
@@ -230,6 +248,53 @@ import axios from 'axios';
     },
     
     methods: {
+
+      triggerAlert(message, duration=30000) {
+        const alertContainer = document.createElement('div');
+        document.body.appendChild(alertContainer);
+
+        const alertApp = createApp(AlertModule, { message, duration });
+        alertApp.mount(alertContainer);
+
+        // Remove the alert from DOM after it's closed
+        setTimeout(() => {
+          alertApp.unmount();
+          document.body.removeChild(alertContainer);
+        }, duration + 1000); // Extra second to ensure it's unmounted after duration
+      },
+      
+      handleCompletePayment (payload) {
+        console.log("Payment completed with payload:", payload);
+        
+        // Clear the current focus invoice
+        // this.focus_invoice = null;
+
+        // Remove the paid invoice from localPendingSales
+        this.localPendingSales = this.localPendingSales.filter(sale => sale.id !== this.focus_invoice.id);
+        this.focus_invoice = {};
+
+        // Update local storage
+        localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
+
+        // Select the first pending sale if available
+        if (this.localPendingSales.length > 0) {
+          this.select_pending_invoice(this.localPendingSales[0].id, null);
+        } else {
+          // If no pending sales left, create a new one
+          this.localPendingSales.push(this.sampleInvoice);
+          localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
+          this.select_pending_invoice(this.localPendingSales[0].id, null);
+          this.focus_invoice = this.localPendingSales[0];
+
+        }
+
+        // close 
+        this.isPaymentModalOpen = false;
+        
+        const mess_ = "Tạo hóa đơn #" + payload.code + " thành công!";
+        this.triggerAlert(mess_, 5000);
+        
+      },
 
       openPaymentModal() {
         this.focus_invoice = JSON.parse(JSON.stringify(this.focus_invoice));
@@ -381,7 +446,7 @@ import axios from 'axios';
 
         // check if localPendingSales is empty
         if (this.localPendingSales.length === 0) {
-          this.focus_invoice = null;
+          this.focus_invoice = {};
           localStorage.removeItem('selected_invoice_id');
 
           // add a new pending sale
@@ -585,12 +650,28 @@ import axios from 'axios';
       this.fetchSurcharges();
       this.fetchBankAccounts();
 
+      axios.get('/invoices/5/')
+        .then(response => {
+          this.testPrint = response.data;
+          console.log('Fetched test invoice for printing:', this.testPrint);
+          // console.log('Fetched test invoice for printing:', this.testPrint);
+        })
+        .catch(error => {
+          console.error('Error fetching test invoice:', error);
+        });
+
       // read pending sales from local storage
       const pendingSales = localStorage.getItem('pendingSales');
       if (pendingSales) {
         this.localPendingSales = JSON.parse(pendingSales);
         this.focus_invoice = this.localPendingSales[0];
-      } 
+      } else {
+        // if no pending sales, create a new one
+        this.localPendingSales.push(this.sampleInvoice);
+        this.focus_invoice = this.localPendingSales[0];
+      }
+
+
 
       console.log("Pending Sales on created:", this.localPendingSales);
 
@@ -1149,6 +1230,11 @@ $main-bg-color: rgb(253, 253, 253);
           font-size: 1.2rem;
           font-weight: bold;
           cursor: pointer;
+        }
+
+        .payment-button:disabled {
+          background-color: gray;
+          cursor: not-allowed;
         }
       }
       

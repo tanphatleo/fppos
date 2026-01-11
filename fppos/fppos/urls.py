@@ -20,7 +20,7 @@ from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, GroupViewSet , user_info
 from customers.views import ProvinceViewSet, WardViewSet, CustomerViewSet
 from products.views import ProductViewSet, ProductGroupViewSet
-from sales.views import InvoiceViewSet, SurchargeViewSet, CustomCreateInvoice
+from sales.views import InvoiceViewSet, SurchargeViewSet
 from logicconfig.views import LogicConfigViewSet
 from customers.views import search_customers
 from transactions.views import TransactionViewSet, AccountViewSet, TransactionTypeViewSet
@@ -48,7 +48,6 @@ urlpatterns = [
     # path('api/v1/', include('djoser.urls.authtoken')),
     path('api/v1/', include(router.urls)),
     path('api/v1/search_customers/', search_customers, name='search_customers'),
-    path('api/v1/custom_create_invoice/', CustomCreateInvoice.as_view(), name='custom_create_invoice'),
     path('api/v1/who_i_am/', user_info, name='user_info'),
 ]
 

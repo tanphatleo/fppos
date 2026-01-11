@@ -70,7 +70,8 @@ export default {
       this.isOpen = false; // Close after click
     },
     logout() {
-      console.log("Logging out...");
+      this.$store.dispatch('removeToken'); // Clear token from Vuex store
+      this.$router.push('/signin'); // Redirect to SignIn page
     }
   }
 }

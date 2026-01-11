@@ -10,7 +10,7 @@
                 <div class="control-group">
 
                     <select v-model="selectedChannel" class="form-select custom-select">
-                    <option v-for="c in channels" :key="c.id" :value="c.id">{{ c.name }}</option>
+                    <option v-for="c in channels" :key="c.name" :value="c.name">{{ c.name }}</option>
                     </select>
 
                 </div>
@@ -30,6 +30,9 @@
 
         <div class="customer-info">
           <span class="customer-name font-bold">{{ props.cartData?.customer?.name || 'Khách lẻ' }}</span>
+          <span class="customer-name"> {{ props.cartData?.customer?.address || '' }} </span>
+          
+          
           <div v-if="props.cartData?.customer" class="customer-stats">
             <span class="tag debt" v-if="props.cartData.customer.debt">
               Nợ: {{ formatCurrency(props.cartData.customer.debt) }}
@@ -88,6 +91,7 @@
                 v-model="amountPaidDisplay" 
                 @focus="selectAll"
                 @keypress="onlyNumbers"
+                @change="handleUpdateAmountPaidCustomer"
                 :disabled="paymentMethod=='receivable'"
                 class="value-input font-bold text-right customer-payment-input"
                 placeholder="0"
@@ -108,12 +112,13 @@
 
             </div>
             <div v-if="paymentMethod === 'transfer'" class="bank-holder">
-              <select class="form-select custom-select">
+              <select class="form-select custom-select" v-model="paymentAccount" @change="handleUpdatePaymentAccount">
                 <option 
                   v-for="account in props.bankAccounts" 
                   :key="account.id" 
                   :value="account.id"
                   :selected="account.default"
+                  :class="{ 'd-none': account.bank_name.toLowerCase().includes('cash') }"
                   >
                     {{ account.bank_name  + ' - ' + account.account_number }}
                 </option>
@@ -173,18 +178,26 @@
   </div>
 
   <Surcharge 
-    v-if="true" 
+    v-if="surchargesOpen" 
     :visible="surchargesOpen" 
     :default-surcharges="props.defaultSurcharges"
-    :chosen-surcharges="props.cartData.surcharges || []"
+    :chosen-surcharges="props?.cartData?.surcharges || []"
     @close="handleUpdateSurcharges" 
     />
+
+  <PrintInvoice 
+    v-if="toPrint.id"
+    :order="toPrint" 
+    :key="'print-invoice-' + toPrint.id + '-' + JSON.stringify(toPrint)"
+  />
 
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch, onBeforeUnmount } from 'vue';
+import { ref, computed, onMounted, watch, onBeforeUnmount, nextTick } from 'vue';
+import axios from 'axios';
 import Surcharge from './Surcharge.vue';
+import PrintInvoice from '@/components/Sale/PrintInvoice.vue';
 
 // --- Props & Emits ---
 const props = defineProps({
@@ -194,9 +207,10 @@ const props = defineProps({
   defaultSurcharges: { type: Array, default: () => [] },
   bankAccounts: { type: Array, default: () => [] },
   transportCompanies: { type: Array, default: () => [] },
+  // focusCustomer: { type: Object, default: null }
 });
 
-
+const toPrint = ref({});
 
 // console.log("Payment Component Props:", props);
 // console.log("Payment Component Props:", props);
@@ -229,7 +243,8 @@ const handleUpdateSurcharges = (surcharges) => {
     // console.log(" handleUpdateSurcharges Selected Surcharges:", surcharges);
     surchargesOpen.value = false;
 
-    totalSurcharge.value = surcharges.reduce((sum, s) => sum + s.amount, 0);
+    totalSurcharge.value = surcharges.reduce((sum, s) => 
+    sum + (isNaN(Number(s.amount)) ? 0 : Number(s.amount)), 0);
 
     emit('update-cart-data', {
         ...props.cartData,
@@ -283,13 +298,51 @@ const checkAndUpdateDiscount = (event) => {
 
 const handlePaymentMethodChange = () => {
 //   if method is 'receivable', set amountPaidByCustomer to 0 and disable input
+    console.log("handlePaymentMethodChange called, new method:", paymentMethod.value);
     if (paymentMethod.value === 'receivable') {
         amountPaidByCustomer.value = 0;
+        confirm_miss_payment.value = false;
+
+        emit('update-cart-data', {
+        ...props.cartData,
+        amountPaidByCustomer: 0,
+        paymentMethod: paymentMethod.value,
+        paymentAccount: paymentAccount.value
+        // return;
+    });
     }
 
     if (paymentMethod.value !== 'receivable' && amountPaidByCustomer.value !== finalTotal.value) {
         amountPaidByCustomer.value = finalTotal.value;
     }
+
+    if (paymentMethod.value !== 'cash') {
+        paymentAccount.value = 1; // default to Cash account
+    }
+
+    if (paymentMethod.value === 'transfer') {
+        // Select first non-cash account
+        const nonCashAccount = props.bankAccounts.find(acc => !acc.bank_name.toLowerCase().includes('cash'));
+        if (nonCashAccount) {
+            paymentAccount.value = nonCashAccount.id;
+        }
+    }
+
+    emit('update-cart-data', {
+        ...props.cartData,
+        amountPaidByCustomer: amountPaidByCustomer.value,
+        paymentMethod: paymentMethod.value,
+        paymentAccount: paymentAccount.value
+    });
+};
+
+const handleUpdatePaymentAccount = () => {
+    console.log("handleUpdatePaymentAccount called, new account ID:", paymentAccount.value);
+
+    emit('update-cart-data', {
+        ...props.cartData,
+        paymentAccount: paymentAccount.value
+    });
 };
 
 const amountPaidDisplay = computed({
@@ -310,6 +363,14 @@ const amountPaidDisplay = computed({
   }
 });
 
+const handleUpdateAmountPaidCustomer = () => {
+    console.log("handleUpdateAmountPaidCustomer called, new amount:", amountPaidByCustomer.value);
+
+    emit('update-cart-data', {
+        ...props.cartData,
+        amountPaidByCustomer: amountPaidByCustomer.value
+    });
+};
 
 
 const amountPaidTransportCompanyDisplay = computed({
@@ -353,15 +414,11 @@ const selectAll = (event) => {
 const surchargesOpen = ref(false);
 // --- State ---
 // Dropdown Data (Mocking the options from your HTML)
-const sellers = ref([
-  { id: 36934, name: 'Fitpack Hà Nội' },
-  { id: 39480, name: 'Bán hàng HN' }
-]);
 
 const selectedSeller = ref(36934);
 
 const channels = props.channels || [];
-const selectedChannel = ref(0);
+const selectedChannel = ref('');
 
 
 function getTodayDateStr() {
@@ -420,9 +477,11 @@ const amountPaidByCustomer = ref(0); // "Khách thanh toán"
 const amountPaidTransportCompany = ref(0); // "Phí ship mình trả"
 const discountMethodValue = ref(0);
 const chosenDiscountMethod = ref('VND');
+
 // console.log("Initialized chosenDiscountMethod to:", chosenDiscountMethod.value);
 const totalSurcharge = ref(0);
 const transportCompany = ref(null);
+const paymentAccount = ref(1); // default to Cash account
 // const 
 // Payment Methods
 const paymentMethod = ref('cash'); // 'cash', 'card', 'transfer'
@@ -461,7 +520,7 @@ watch(() => props.visible, (val) => {
 onMounted(() => {
   // Initialize with data passed from parent
   if (props.cartData) {
-
+    console.log("Initializing Payment Modal with cartData:", props.cartData);
     // const deepCartData = JSON.parse(JSON.stringify(props.cartData));
     totalAmount.value = props.cartData.total ;
      // Auto-fill full amount
@@ -469,33 +528,65 @@ onMounted(() => {
     surchargeAmount.value = props.cartData.surcharge || 0;
     discountMethodValue.value = props.cartData.discountMethodValue || 0;
     chosenDiscountMethod.value = props.cartData.chosenDiscountMethod || 'VND';
+    selectedChannel.value = props.cartData.channel || (channels.length > 0 ? channels[0].name : '');
     // console.log("current chosenDiscountMethod to:", chosenDiscountMethod.value);
     // console.log("current chosenDiscountValue to:", discountMethodValue.value);
 
     paymentMethod.value = props.cartData.paymentMethod || 'cash';
+    paymentAccount.value = props.cartData.paymentAccount || 1;
+    console.log("Initialized paymentMethod to:", paymentMethod.value);
+    console.log("Initialized paymentAccount to:", paymentAccount.value);
     // console.log("props.cartData.transportCompany:", props.cartData.transportCompany);
     transportCompany.value = props.cartData.transportCompany || props.transportCompanies[0];
     // console.log("Initialized transportCompany to:", transportCompany.value);
     amountPaidTransportCompany.value = props.cartData.amountPaidTransportCompany || 0;
     totalSurcharge.value = props.cartData.surcharge || 0;
+    if (paymentMethod.value === 'receivable') {
+        amountPaidByCustomer.value = 0;
+    } else {
     amountPaidByCustomer.value = props.cartData.amountPaidByCustomer || totalAmount.value - discountAmount.value + surchargeAmount.value;
+    }
   }
   purchaseDate.value = getTodayDateStr();
   purchaseTime.value = getNowTimeStr();
 });
 
+const printInvoice = () => {
+      window.print();
+    };
+
 // --- Actions ---
-const handlePayment = () => {
-  const payload = {
-    sellerId: selectedSeller.value,
-    channelId: selectedChannel.value,
-    date: `${purchaseDate.value} ${purchaseTime.value}`,
-    paymentMethod: paymentMethod.value,
-    total: finalTotal.value,
-    paid: amountPaidByCustomer.value,
-    customer: props.cartData?.customer
-  };
+const handlePayment = async () => {
+  const payload = props.cartData ? { ...props.cartData } : {};
   
+  await axios.post('/invoices/', {
+    ...payload,
+    amount_paid_by_customer: amountPaidByCustomer.value,
+    amount_paid_transport_company: amountPaidTransportCompany.value,
+    payment_method: paymentMethod.value, 
+    payment_account: paymentAccount.value,
+    channel: selectedChannel.value,
+    transport_company: transportCompany.value.name || '',
+    amount_paid_transport_company: amountPaidTransportCompany.value,
+    date: getTodayDateStr(),
+    time: getNowTimeStr(),
+    delivery_address: props.cartData.customer ? props.cartData.customer.address : '',
+    customer: props.cartData.customer ? props.cartData.customer.id : 1,
+  }).then(async response => {
+    console.log("Payment processed successfully:", response.data);
+    payload.paymentConfirmation = response.data;
+
+    toPrint.value = response.data;
+    await nextTick();
+    printInvoice();
+
+    emit('complete-payment', response.data);
+
+  }).catch(error => {
+    console.error("Error processing payment:", error);
+    // Handle error (e.g., show notification)
+  });
+
   emit('complete-payment', payload);
 };
 
@@ -589,8 +680,17 @@ input, select {
 /* Top Controls */
 .customer-info{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin-bottom: 1rem;
+
+    .customer-name {
+        font-size: 1rem;
+        display: flex;
+        justify-content: flex-start;
+        text-align: left;
+    }
+
 }
 
 .confirm-missing-payment {

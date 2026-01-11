@@ -33,7 +33,7 @@
                   />
                 </td>
                 <td class="cell-code">{{ item.code }}</td>
-                <td class="cell-name">{{ item.name }}</td>
+                <td class="cell-name">{{ item.description }}</td>
                 <td class="cell-price text-right">
                   <span v-if="item.value > 0">{{ formatCurrency(item.amount) }}</span>
                   <span v-else class="text-muted">-</span>
@@ -114,8 +114,14 @@ watch(() => props.items, (newItems) => {
 
 // --- Computed ---
 const totalAmount = computed(() => {
+  console.log("Calculating totalAmount from surchargeList:", surchargeList.value);
   return surchargeList.value.reduce((sum, item) => {
-    return item.selected ? sum + Number(item.amount) : sum;
+    // if item.amount undefined or NaN, treat as 0
+    const amount = isNaN(Number(item.amount)) ? 0 : Number(item.amount);
+
+    return sum + (item.selected ? amount : 0);
+
+    // return item.selected ? sum + Number(item.amount) : sum;
   }, 0);
 });
 

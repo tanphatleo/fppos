@@ -15,17 +15,22 @@ class Invoice(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    delivery_address = models.TextField()  # Change to a text field to save address as plain text
+    delivery_address = models.TextField(blank=True, null=True)  # Change to a text field to save address as plain text
     note = models.TextField(blank=True, null=True)
     discount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     total_surcharge = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     surcharges = models.JSONField(blank=True, null=True)  # JSON field for surcharge details
     payment_method = models.TextField(blank=True, null=True)
+    payment_account = models.ForeignKey('transactions.Account', on_delete=models.SET_NULL, null=True, blank=True)
     discount_method_value = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     transport_company = models.TextField(blank=True, null=True)
     amount_paid_transport_company = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    amount_paid_by_customer = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     items = models.JSONField(blank=True, null=True)  # JSON field to store invoice items
+    channel = models.CharField(max_length=50, blank=True, null=True)
+    created_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='created_invoices')
+    updated_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='updated_invoices')
     # items_full = models.JSONField(blank=True, null=True)  # JSON field to store full invoice items details
     # combo_info = models.JSONField(blank=True, null=True)  # JSON field to store combo information
     def __str__(self):

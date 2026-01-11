@@ -9,6 +9,7 @@
             <v-btn color="primary" @click="createNewItem" class="create-new-btn">
               Tạo mới
             </v-btn>
+              
 
             <v-btn color="primary" @click="toggleSubList" class="create-new-btn create-new-btn-group" style="position:relative;">
               Bank Accounts
@@ -45,7 +46,7 @@
                     <ul style="margin:0; padding:0; list-style:none;">
                       <li v-for="item in subList2" :key="item.id" style="padding:0.5rem 0; border-bottom:1px solid #eee;">
                         <span>{{ item.name }}</span>
-                        <button v-if="item.id > 2" @click.stop.prevent="openAddEditSub2  (item)" class="c-button"> 
+                        <button v-if="item.id > 3" @click.stop.prevent="openAddEditSub2  (item)" class="c-button"> 
                           <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                       </li>
@@ -88,6 +89,27 @@
             style="width: 100%;"
             multiple
           />
+
+          <v-text-field
+            v-model="dateFrom"
+            label="Từ ngày"
+            type="date"
+            dense
+            hide-details
+            style="width: 100%;"
+          />
+          
+          <v-text-field
+            v-model="dateTo"
+            label="Đến ngày"
+            type="date"
+            dense
+            hide-details
+            style="width: 100%;"
+          />
+
+
+
         </div>
       </div>
       <div class="data-area">
@@ -122,13 +144,16 @@
               />
             </v-toolbar>
           </template>
-          <template v-slot:item.price="{ item }">
-            {{ formatPrice(item.price) }}
+          <template v-slot:item.amount="{ item }">
+            {{ formatPrice( parseInt(item.amount)  ) }}
+          </template>
+          <template v-slot:item.debit_or_credit="{item}">
+            {{ item.debit_or_credit == 'DR' ? 'Thu' : 'Chi' }}
           </template>
         </v-data-table>
       </div>
     </div>
-    <AddEditSettings
+    <AddEditTrans
       v-if="showAddEditItem"
       :item="selectedItem"
       @close="showAddEditItem = false"
@@ -153,14 +178,14 @@
 <script>
 import { ref, computed, onMounted, watch, nextTick , onBeforeUnmount } from 'vue';
 import axios from 'axios';
-import AddEditSettings from './AddEditSettings.vue';
+import AddEditTrans from './AddEditTrans.vue';
 import AddEditAccounts from './AddEditAccounts.vue';
 import AddEditTransactionType from './AddEditTransactionType.vue';
 
 export default {
   name: 'Trans',
   components: {
-    AddEditSettings,
+    AddEditTrans,
     AddEditAccounts,
     AddEditTransactionType
   },
@@ -231,6 +256,13 @@ export default {
     const selectedSubItem2 = ref(null);
     const showAddEditSub2 = ref(false);
     const subList2 = ref([]);
+    // Datepicker filter state
+    // date from default to last 30 days
+    const dateFrom = ref(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().substr(0, 10));
+
+    // dateTo default to today
+    const dateTo = ref(new Date().toISOString().substr(0, 10));
+
     const subListPosition2 = ref({ top: '0px', left: '0px', width: '0px' });
     const fetchSubList2 = async () => {
       try {
@@ -293,10 +325,13 @@ export default {
     const showAddEditItem = ref(false);
     const selectedItem = ref({});
     const headers = [
-        { title: 'id', key: 'id' , headerProps: { class: 'my-custom-header-class' }},  
-        { title: 'Mã', key: 'key' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Nội Dung', key: 'value' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Kích Hoạt', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Thu/Chi', key: 'debit_or_credit' , headerProps: { class: 'my-custom-header-class' }},  
+        { title: 'Mã', key: 'id' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Nội Dung', key: 'description' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Loại', key: 'transaction_type_name' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Số Tiền', key: 'amount' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Ngày Tạo', key: 'date' , headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Trạng Thái', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
     ];
 
     const isActiveFilter = ref(null);
@@ -317,7 +352,7 @@ export default {
 
     const fetchItems = async () => {
       try {
-        const response = await axios.get('/logicconfigs/');
+        const response = await axios.get('/transactions/');
         items.value = response.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       } catch (error) {
         console.error('Error fetching items:', error);
@@ -434,6 +469,10 @@ export default {
       openAddEditSub2,
       subListRef2,
       onSubItemSaved2,
+
+
+      dateFrom,
+      dateTo,
 
 
     };

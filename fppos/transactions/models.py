@@ -23,7 +23,7 @@ class TransactionType(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
-    transaction_type = models.CharField(max_length=2, choices=TRANSACTION_TYPE_CHOICES)
+    debit_or_credit = models.CharField(max_length=2, choices=TRANSACTION_TYPE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -32,13 +32,14 @@ class TransactionType(models.Model):
 
 
 class Transaction(models.Model):
-    TRANSACTION_TYPE_CHOICES = [
-        ('CR', 'Credit'),
-        ('DR', 'Debit'),
-    ]
     id = models.AutoField(primary_key=True)
-    transaction_type = models.CharField(max_length=2, choices=TRANSACTION_TYPE_CHOICES)
+    transaction_type = models.ForeignKey(TransactionType, on_delete=models.CASCADE)
+    debit_or_credit = models.CharField(max_length=2, choices=TransactionType.TRANSACTION_TYPE_CHOICES)
     amount = models.DecimalField(max_digits=10, decimal_places=0)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    ref = models.CharField(max_length=100, blank=True, null=True)
+    ref_model = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

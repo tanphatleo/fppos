@@ -8,7 +8,8 @@
                             v-for="m in this.menus"
                             :key="m.Id"
                             class="kv-navbar-item kv-dropdown kv-menu-item"
-                            :class="{ 'active': activeView === m.name }"
+                            :class="{ 'active': activeView === m.name , 'd-none': m.require_admin && !$store.getters.userAdmin }"
+                     
                         >
                             <a
                                 @click.prevent="setActiveView(m.name)"
@@ -23,13 +24,13 @@
                         <li
                         class="kv-navbar-item kv-navbar-item-light"
                         >
-                        <a class="kv-nav-link" @click.prevent="setActiveView('sale')">
+                        <a class="kv-nav-link" href="/sale/">
                             <i class="fas fa-cart-shopping icon-item"></i>
                             <span>Bán hàng</span>
                         </a>
                         </li>
                         <li class="kv-navbar-item kv-navbar-item-light">
-                          <span class="text-white"> {{ $store.getters.userName }}</span>
+                          <span class="text-white"> {{ $store.getters.userName  }}</span>
                         </li>
 
                         <li
@@ -83,20 +84,20 @@ export default {
   data() {
     return {
       menus: [
-        { Id: 1, name: "Hóa Đơn" },
-        { Id: 2, name: "Mua hàng" },
-        { Id: 3, name: "Sản phẩm" },
-        { Id: 4, name: "Khách hàng" },
-        { Id: 5, name: "Sổ quỹ" },
-        { Id: 6, name: "Cài đặt" },
-        { Id: 7, name: "Người dùng" },
+        { Id: 1, name: "Hóa Đơn" , require_admin : false},
+        { Id: 2, name: "Mua hàng" , require_admin : false},
+        { Id: 3, name: "Sản phẩm" , require_admin : true},
+        { Id: 4, name: "Khách hàng" , require_admin : true},
+        { Id: 5, name: "Sổ quỹ" , require_admin : false},
+        { Id: 6, name: "Cài đặt" , require_admin : true},
+        { Id: 7, name: "Người dùng" , require_admin : true},
       ],
-      activeView: "Người dùng", // Define your menus data here
+      activeView: "Sổ quỹ", // Define your menus data here
     };
   },
   mounted() {
     // Automatically click/select "Hóa Đơn" when the page loads
-    this.setActiveView("Người dùng");
+    this.setActiveView("Sổ quỹ");
   },
   methods: {
     setActiveView(page) {
