@@ -55,7 +55,7 @@
                       <label for="node-all" class="k-checkbox-label"></label>
                     </span>
                     
-                    <span class="k-in"><span>Tất cả</span></span>
+                    <span class="k-in"><span @click="onToggleAllClick" class="cate-item no-select">Tất cả</span></span>
                   </div>
 
                   <ul class="k-group" v-show="isExpanded">
@@ -63,7 +63,7 @@
                       v-for="(item, index) in filteredList" 
                       :key="item.name" 
                       role="treeitem" 
-                      class="k-item adjusted-k-item"
+                      class="k-item adjusted-k-item no-select"
                       :class="{ 'k-last': index === filteredList.length - 1 }"
                     >
                     <div class="k-top k-bot fixed-cate-align">
@@ -80,7 +80,7 @@
                           >
                           <label :for="'node-' + item.name" class="k-checkbox-label"></label>
                         </span>
-                        <span class="k-in cate-item">
+                        <span class="k-in cate-item" @click="toggleSelection(item.name)">
                           <span>{{ item.name }}</span>
                         </span>
                       </div>
@@ -182,6 +182,23 @@ const toggleAll = (e) => {
     selectedIds.value = filteredList.value.map(item => item.name);
   } else {
     selectedIds.value = [];
+  }
+};
+
+const onToggleAllClick = () => {
+  if (isAllSelected.value) {
+    selectedIds.value = [];
+  } else {
+    selectedIds.value = filteredList.value.map(item => item.name);
+  }
+};
+
+const toggleSelection = (itemName) => {
+  const index = selectedIds.value.indexOf(itemName);
+  if (index > -1) {
+    selectedIds.value.splice(index, 1);
+  } else {
+    selectedIds.value.push(itemName);
   }
 };
 
@@ -350,6 +367,10 @@ $kv-primary: #0070F4;
 }
 
 .cursor-pointer {
+  cursor: pointer;
+}
+
+.cate-item {
   cursor: pointer;
 }
 

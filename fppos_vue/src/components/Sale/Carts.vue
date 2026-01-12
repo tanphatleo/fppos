@@ -4,7 +4,7 @@
       <p>Chưa có sản phẩm nào trong giỏ hàng</p>
     </div>
 
-    <div class="carts-list" :class="{ 'show-duplicate-item': displayOptions.duplicateCartItem }">
+    <div class="carts-list no-select" :class="{ 'show-duplicate-item': displayOptions.duplicateCartItem }">
       
       <div 
         v-for="(item, index) in cartItems" 

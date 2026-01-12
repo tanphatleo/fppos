@@ -53,8 +53,12 @@
           class="elevation-1 "
           :server-items-length="totalCustomers"
           fixed-header
-          @click:row="openEditCustomer"
         >
+          <template v-slot:item.actions="{ item }">
+            <button class="c-button" @click="openEditCustomer($event, { item })">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </template>
        
         </v-data-table>
       </div>
@@ -95,6 +99,7 @@ export default {
     const provinces = ref([]);
     const totalCustomers = ref(0);
     const headers = [
+        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' } },
         { title: 'Mã', key: 'code', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Tên', key: 'name', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Số điện thoại', key: 'phone_number', headerProps: { class: 'my-custom-header-class' }},
@@ -464,5 +469,28 @@ table {
     width: 0;
 }
 
+.checkbox-group {
+  label {
+    user-select: none;
+    cursor: pointer;
+  }
+}
+
+.multiselect-item label {
+    user-select: none;
+    cursor: pointer;
+}
+
+.product-group-teleport span {
+    user-select: none;
+    cursor: default;
+    
+}
+
+.product-group-teleport li {
+      display: flex;
+      justify-content: space-between;
+  
+}
 
 </style>

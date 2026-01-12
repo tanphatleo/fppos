@@ -108,7 +108,7 @@
                   :key="product.id" 
                   :data-product-id="product.id"
                   class="product-item is-hidden"
-                  :class="{ 'is-not-hidden': productGroupFilter.length === 0 || productGroupFilter.includes(product.productGroup) }"
+                  :class="{ 'is-not-hidden': (product.is_active) && (productGroupFilter.length === 0 || productGroupFilter.includes(product.productGroup)) && (searchQuery === '' || product.name.toLowerCase().includes(searchQuery) || product.code.toLowerCase().includes(searchQuery)) }"
                   @click="add_product(product)"
                 >
                   <div class="product-card-top">  
@@ -221,6 +221,7 @@ import axios from 'axios';
         transportCompanies: [],
         channels: [],
         defaultSurcharges: [],
+        searchQuery: '',
         sampleInvoice: {
           id: 1,
           total: 0,
@@ -412,9 +413,10 @@ import axios from 'axios';
         // console.log(event);
         document.querySelector('.product-search-results').classList.remove('is-hidden');
         const query = event.target.value.toLowerCase();
+        this.searchQuery = query;
         this.filteredProducts = this.products.filter(product => 
           product.name.toLowerCase().includes(query) || 
-          product.code.toLowerCase().includes(query)
+          product.code.toLowerCase().includes(query) 
         );
       }, 
 

@@ -63,8 +63,12 @@
           class="elevation-1 "
           fixed-header
           :search="filterText"
-          @click:row="openEditItem"
         >
+          <template v-slot:item.actions="{ item }">
+            <button class="c-button" @click="openEditItem($event, { item })">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </template>
           <template v-slot:item.total_amount="{ item }">
             {{ formatPrice(item.total_amount) }}
           </template>
@@ -108,6 +112,7 @@ export default {
     const dateTo = ref(getLocalDateISO(new Date()));
     
     const headers = [
+        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' } },
         { title: 'Mã đơn', key: 'code' , headerProps: { class: 'my-custom-header-class' }},
         { title: 'Nhà cung cấp', key: 'supplier' , headerProps: { class: 'my-custom-header-class' }},
         { title: 'Ngày nhập', key: 'date' , headerProps: { class: 'my-custom-header-class' }},
@@ -495,4 +500,28 @@ table {
     margin-left: 0.5rem;
 }
 
+.checkbox-group {
+  label {
+    user-select: none;
+    cursor: pointer;
+  }
+}
+
+
+.multiselect-item label {
+    user-select: none;
+    cursor: pointer;
+}
+
+.product-group-teleport span {
+    user-select: none;
+    cursor: default;
+    
+}
+
+.product-group-teleport li {
+      display: flex;
+      justify-content: space-between;
+  
+}
 </style>

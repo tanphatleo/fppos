@@ -101,8 +101,12 @@
           class="elevation-1 "
           fixed-header
           :search="filterText"
-          @click:row="openEditProduct"
         >
+          <template v-slot:item.actions="{ item }">
+            <button class="c-button" @click="openEditProduct($event, { item })">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </template>
           <template v-slot:item.price="{ item }">
             {{ formatPrice(item.price) }}
           </template>
@@ -176,6 +180,7 @@ export default {
     const showAddEditProductGroupModal = ref(false);
     const editingProductGroup = ref(null);
     const headers = [
+        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' } },
         { title: 'Mã', key: 'code' , headerProps: { class: 'my-custom-header-class' }},  
         { title: 'Tên', key: 'name' , headerProps: { class: 'my-custom-header-class' }},
         { title: 'Giá', key: 'price' ,headerProps: { class: 'my-custom-header-class' }},
@@ -752,4 +757,28 @@ table {
     margin-left: 0.5rem;
 }
 
+.checkbox-group {
+  label {
+    user-select: none;
+    cursor: pointer;
+  }
+}
+
+
+.multiselect-item label {
+    user-select: none;
+    cursor: pointer;
+}
+
+.product-group-teleport span {
+    user-select: none;
+    cursor: default;
+    
+}
+
+.product-group-teleport li {
+      display: flex;
+      justify-content: space-between;
+  
+}
 </style>

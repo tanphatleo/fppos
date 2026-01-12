@@ -81,8 +81,12 @@
           class="elevation-1 "
           fixed-header
           :search="filterText"
-          @click:row="openEditItem"
         >
+          <template v-slot:item.actions="{ item }">
+            <button class="c-button" @click="openEditItem($event, { item })">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </template>
           <template v-slot:item.price="{ item }">
             {{ formatPrice(item.price) }}
           </template>
@@ -182,6 +186,7 @@ export default {
     const showAddEditItem = ref(false);
     const selectedItem = ref({});
     const headers = [
+        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' } },
         { title: 'id', key: 'id' , headerProps: { class: 'my-custom-header-class' }},  
         { title: 'userName', key: 'username' , headerProps: { class: 'my-custom-header-class' }},
         { title: 'Tên', key: 'first_name' , headerProps: { class: 'my-custom-header-class' }},
@@ -588,6 +593,30 @@ table {
 
 .c-button{
     margin-left: 0.5rem;
+}
+
+.checkbox-group {
+  label {
+    user-select: none;
+    cursor: pointer;
+  }
+}
+
+.multiselect-item label {
+    user-select: none;
+    cursor: pointer;
+}
+
+.product-group-teleport span {
+    user-select: none;
+    cursor: default;
+    
+}
+
+.product-group-teleport li {
+      display: flex;
+      justify-content: space-between;
+  
 }
 
 </style>

@@ -3,7 +3,7 @@
     <div class="purchase-window" @click.stop style="width: 70rem; max-width: 95vw;">
       <div class="window-header">
         <span class="window-title">
-          <span class="no-select">{{ item && item.id ? 'Chỉnh sửa đơn nhập hàng' : 'Tạo đơn nhập hàng mới' }}</span>
+          <span class="no-select">{{ item && item.id ? 'Chỉnh sửa đơn nhập hàng: ' + item.code : 'Tạo đơn nhập hàng mới' }}</span>
         </span>
         <div class="window-actions no-select">
           <button @click="$emit('close')" class="close-btn">
@@ -66,7 +66,7 @@
                         <button class="btn btn-outline" @click="downloadTemplate" title="Download Template" style="margin-right: 1rem;">
                           Tải template Excel
                       </button>
-                      <button v-if="showImportButton" class="btn btn-outline" @click="triggerImport" title="Import Excel">
+                      <button v-if="showImportButton && !(item && item.id)" class="btn btn-outline" @click="triggerImport" title="Import Excel">
                           Nhập từ Excel
                       </button>
                       <input type="file" ref="fileInput" style="display: none" @change="handleFileUpload" accept=".xlsx, .xls" />

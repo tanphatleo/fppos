@@ -201,3 +201,12 @@ $kv-primary-color: #0070F4;
 
 }
 </style>
+
+<style>
+    .v-table__wrapper {
+        user-select: none;
+    }
+    .v-table__wrapper * {
+        user-select: text;
+    }
+</style>
