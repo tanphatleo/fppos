@@ -54,6 +54,7 @@
                 <Settings v-if="activeView === 'Cài đặt'" :isVisible="true" />
                 <Trans v-if="activeView === 'Sổ quỹ'" :isVisible="true" />
                 <Users v-if="activeView === 'Người dùng'" :isVisible="true" />
+                <Purchases v-if="activeView === 'Mua hàng'" :isVisible="true" />
             </div>
             
         </div>
@@ -69,6 +70,7 @@ import Invoices from "@/components/Manage/Invoices.vue";
 import Settings from "@/components/Manage/Settings.vue";
 import Trans from "@/components/Manage/Trans.vue";
 import Users from "@/components/Manage/Users.vue";
+import Purchases from "@/components/Manage/Purchases.vue";
 
 export default {
   name: "Manage",
@@ -79,6 +81,7 @@ export default {
     Settings,
     Trans,  
     Users,
+    Purchases,
   },
 
   data() {
@@ -92,12 +95,12 @@ export default {
         { Id: 6, name: "Cài đặt" , require_admin : true},
         { Id: 7, name: "Người dùng" , require_admin : true},
       ],
-      activeView: "Hóa Đơn", // Define your menus data here
+      activeView: "Mua hàng", // Define your menus data here
     };
   },
   mounted() {
     // Automatically click/select "Hóa Đơn" when the page loads
-    this.setActiveView("Hóa Đơn");
+    this.setActiveView("Mua hàng");
   },
   methods: {
     setActiveView(page) {

@@ -3,7 +3,7 @@
     <div class="transaction-window" @click.stop style="border-radius: 0.5rem;">
       <div class="window-header">
         <span class="window-title">
-          <span class="no-select">{{ (item && item.id ? 'Sửa ' : 'Lập ' ) + (debit_or_credit === 'DR' ? 'Phiếu Thu' : 'Phiếu Chi')}}</span>
+          <span class="no-select">{{ (item && item.id ? 'Sửa ' : 'Lập ' ) + (debit_or_credit === 'DR' ? 'Phiếu Thu' : 'Phiếu Chi') }}</span>
         </span>
         <div class="window-actions no-select">
           <button @click="$emit('close')" class="close-btn">
@@ -256,7 +256,7 @@ input , select, textarea {
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 /* Header */
@@ -267,7 +267,6 @@ input , select, textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .window-title {
@@ -367,7 +366,6 @@ input[type="checkbox"] {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  border-radius: 0 0 0.5rem 0.5rem;
 }
 
 .btn {

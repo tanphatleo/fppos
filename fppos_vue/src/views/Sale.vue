@@ -551,7 +551,6 @@ import axios from 'axios';
           existingItem.quantity += 1; // Increment quantity
         } else {
           this.focus_invoice.items.push({
-            uuid: Date.now().toString(),
             code: product.code,
             name: product.name,
             price: product.price,
@@ -559,7 +558,6 @@ import axios from 'axios';
             hasNote: false,
             product_type: product.product_type,
             package_details: product.package_details || null,
-            isSerial: false,
             note: '',
             isOpenPopover: false
           });

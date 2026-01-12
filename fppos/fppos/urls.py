@@ -20,7 +20,8 @@ from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, GroupViewSet , user_info
 from customers.views import ProvinceViewSet, WardViewSet, CustomerViewSet
 from products.views import ProductViewSet, ProductGroupViewSet
-from sales.views import InvoiceViewSet, SurchargeViewSet
+from sales.views import InvoiceViewSet, SurchargeViewSet, process_shopee, download_purchase_template
+from purchases.views import PurchaseViewSet
 from logicconfig.views import LogicConfigViewSet
 from customers.views import search_customers
 from transactions.views import TransactionViewSet, AccountViewSet, TransactionTypeViewSet
@@ -39,6 +40,7 @@ router.register(r'logicconfigs', LogicConfigViewSet)
 router.register(r'transactions', TransactionViewSet)
 router.register(r'accounts', AccountViewSet)
 router.register(r'transactiontypes', TransactionTypeViewSet)
+router.register(r'purchases', PurchaseViewSet)
 
 
 urlpatterns = [
@@ -49,5 +51,6 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('api/v1/search_customers/', search_customers, name='search_customers'),
     path('api/v1/who_i_am/', user_info, name='user_info'),
+    path('api/v1/process_shopee/', process_shopee, name='process_shopee'),
+    path('api/v1/download_purchase_template/', download_purchase_template, name='download_purchase_template'),
 ]
-

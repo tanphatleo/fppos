@@ -21,8 +21,10 @@
         </div>
         <div class="other-actions">
           <div class="buttons-area">
-
-            <button @click="toggleGroupList" class="btn btn-outline create-new-btn-group">
+            <button @click="triggerImportShopee" class="btn btn-primary" style="margin-right: 0.5rem;">
+              Import SP
+            </button>
+            <button @click="toggleGroupList" class="btn btn-outline create-new-btn-group" style="margin-right: 0.5rem;">
               Phụ Phí
             </button>
               <div class="list-product-groups btn-group" style="position:relative;" >
@@ -57,6 +59,8 @@
               Export CSV
             </button>
 
+            
+            <input type="file" ref="fileInputShopee" style="display: none" @change="handleFileUploadShopee" />
           </div>
         </div>
       </div>
@@ -140,6 +144,9 @@
           <template v-slot:item.final_total="{ item }">
             {{ formatPrice(item.final_total) }}
           </template>
+          <template v-slot:item.created_at="{ item }">
+            {{ formatDateTime(item.created_at) }}
+          </template>
         </v-data-table>
       </div>
     </div>
@@ -198,6 +205,38 @@ export default {
     const uniqueChannels = ref([]);
     const showChannelFilterDropdown = ref(false);
     const channelFilterDropdownRef = ref(null);
+    const fileInputShopee = ref(null);
+
+    const triggerImportShopee = () => {
+      if (fileInputShopee.value) {
+        fileInputShopee.value.click();
+      }
+    };
+
+    const handleFileUploadShopee = async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      store.commit('setLoading', true);
+      try {
+        await axios.post('/process_shopee/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        await fetchInvoices();
+        window.alert("Import thành công!");
+      } catch (error) {
+        console.error("Error importing shopee file:", error);
+        window.alert("Lỗi import file: " + (error.response?.data?.message || error.message));
+      } finally {
+        store.commit('setLoading', false);
+        event.target.value = null;
+      }
+    };
 
     const channels = ref([]);
     const getLocalDateISO = (date) => {
@@ -213,6 +252,7 @@ export default {
         { title: 'Ngày', key: 'date', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Người bán', key: 'seller', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Trạng thái', key: 'is_active', headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Thời gian tạo', key: 'created_at', headerProps: { class: 'my-custom-header-class' }},
     ];
 
     const groupListRef = ref(null);
@@ -362,6 +402,21 @@ export default {
       return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numericValue);
     };
 
+
+    const formatDateTime = (dateString) => { // format YYYY-MM-DD HH:mm:ss
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+    };
+
     const fetchChannels = async () => {
       try {
         const response = await axios.get('/logicconfigs/');
@@ -404,23 +459,29 @@ export default {
       showAddEdit.value = true;
     };
 
-    function exportToCSV() {
-      const csvRows = [];
-      csvRows.push(headers.map(h => h.title).join(','));
-      filteredInvoices.value.forEach(row => {
-        csvRows.push(headers.map(h => {
-          let val = row[h.key];
-          return '"' + (val !== undefined ? String(val).replace(/"/g, '""') : '') + '"';
-        }).join(','));
-      });
-      const csvString = csvRows.join('\n');
-      const blob = new Blob([csvString], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'customers.csv';
-      a.click();
-      window.URL.revokeObjectURL(url);
+    async function exportToCSV() {
+      store.commit('setLoading', true);
+      try {
+        const response = await axios.get('/invoices/', {
+          params: {
+            dateFrom: dateFrom.value,
+            dateTo: dateTo.value,
+            export: 'true'
+          },
+          responseType: 'blob'
+        });
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'invoices.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Error exporting invoices:', error);
+      }
+      store.commit('setLoading', false);
     }
 
     function openAddCustomer() {
@@ -500,6 +561,7 @@ export default {
       allChannelsSelected,
       // surcharges,
       formatPrice,
+      formatDateTime,
       exportToCSV,
       openAddCustomer,
       openEditInvoice,
@@ -510,6 +572,9 @@ export default {
       fetchSurcharges,
       dateFrom,
       dateTo,
+      fileInputShopee,
+      triggerImportShopee,
+      handleFileUploadShopee,
     };
   },
 };
@@ -526,7 +591,7 @@ export default {
   border: 1px solid transparent;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  // gap: 5px;
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.0892857143em;
@@ -627,7 +692,7 @@ input[type="checkbox"] {
 
                 .buttons-area {
                   display: flex;
-                  gap: 0.5rem;
+                  // gap: 0.5rem;
                 }
             }
     }

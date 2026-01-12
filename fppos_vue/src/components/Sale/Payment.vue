@@ -248,7 +248,7 @@ const handleUpdateSurcharges = (surcharges) => {
     emit('update-cart-data', {
         ...props.cartData,
         surcharges: surcharges,
-        surcharge: totalSurcharge.value
+        totalSurcharge: totalSurcharge.value
     });
 };
 
@@ -301,7 +301,7 @@ const handlePaymentMethodChange = () => {
         ...props.cartData,
         amountPaidByCustomer: 0,
         paymentMethod: paymentMethod.value,
-        paymentAccount: paymentAccount.value
+        paymentAccount: null
         // return;
     });
     }
@@ -310,7 +310,7 @@ const handlePaymentMethodChange = () => {
         amountPaidByCustomer.value = finalTotal.value;
     }
 
-    if (paymentMethod.value !== 'cash') {
+    if (paymentMethod.value === 'cash') {
         paymentAccount.value = 1; // default to Cash account
     }
 
@@ -461,7 +461,7 @@ function openDatePicker(event) {
 const confirm_miss_payment = ref(false);
 const totalAmount = ref(0); // Will load from props
 const discountAmount = ref(0);
-const surchargeAmount = ref(0);
+// const surchargeAmount = ref(0);
 const amountPaidByCustomer = ref(0); // "Khách thanh toán"
 const amountPaidTransportCompany = ref(0); // "Phí ship mình trả"
 const discountMethodValue = ref(0);
@@ -483,7 +483,7 @@ const paymentMethods = [
 
 // 1. Calculate the final amount the customer needs to pay
 const finalTotal = computed(() => {
-  return totalAmount.value - discountAmount.value + surchargeAmount.value;
+  return totalAmount.value - discountAmount.value + totalSurcharge.value;
 });
 
 // 2. Calculate "Tiền thừa" (Change due) or "Còn thiếu" (Remaining)
@@ -504,7 +504,7 @@ onMounted(() => {
     totalAmount.value = props.cartData.total ;
      // Auto-fill full amount
     discountAmount.value = props.cartData.discount || 0;
-    surchargeAmount.value = props.cartData.surcharge || 0;
+    // surchargeAmount.value = props.cartData.surcharge || 0;
     discountMethodValue.value = props.cartData.discountMethodValue || 0;
     chosenDiscountMethod.value = props.cartData.chosenDiscountMethod || 'VND';
     selectedChannel.value = props.cartData.channel || (channels.length > 0 ? channels[0].name : '');
@@ -521,7 +521,7 @@ onMounted(() => {
     if (paymentMethod.value === 'receivable') {
         amountPaidByCustomer.value = 0;
     } else {
-    amountPaidByCustomer.value = props.cartData.amountPaidByCustomer || totalAmount.value - discountAmount.value + surchargeAmount.value;
+    amountPaidByCustomer.value = props.cartData.amountPaidByCustomer || totalAmount.value - discountAmount.value + totalSurcharge.value;
     }
   }
   purchaseDate.value = getTodayDateStr();
@@ -535,16 +535,27 @@ const printInvoice = () => {
 // --- Actions ---
 const handlePayment = async () => {
   const payload = props.cartData ? { ...props.cartData } : {};
+
+  if (paymentMethod.value === 'receivable') {
+    amountPaidByCustomer.value = 0;
+    paymentAccount.value = null;
+  } 
+
+  if (paymentMethod.value === 'cash') {
+    paymentAccount.value = 1; // default to Cash account
+  }
   
   await axios.post('/invoices/', {
     ...payload,
     amount_paid_by_customer: amountPaidByCustomer.value,
     amount_paid_transport_company: amountPaidTransportCompany.value,
+    surcharges: props.cartData.surcharges || [],
+    total_surcharge: totalSurcharge.value,
     final_total: finalTotal.value,
     payment_method: paymentMethod.value, 
     payment_account: paymentAccount.value,
     channel: selectedChannel.value,
-    transport_company: transportCompany.value.name || '',
+    transport_company: transportCompany.value?.name || '',
     amount_paid_transport_company: amountPaidTransportCompany.value,
     date: getTodayDateStr(),
     time: getNowTimeStr(),
@@ -569,15 +580,15 @@ const handlePayment = async () => {
 const close = () => {
   emit('update-cart-data', {
     ...props.cartData,
+    discount: discountAmount.value,
     amountPaidByCustomer: amountPaidByCustomer.value,
     amountPaidTransportCompany: amountPaidTransportCompany.value,
     paymentMethod: paymentMethod.value, 
+    paymentAccount: paymentAccount.value,
     selectedChannel: selectedChannel.value,
     selectedSeller: selectedSeller.value,
     transportCompany: transportCompany.value,
     amountPaidTransportCompany: amountPaidTransportCompany.value,
-    
-    // source: 'payment-modal'
   });  
 
   emit('close');

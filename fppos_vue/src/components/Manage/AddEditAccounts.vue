@@ -189,6 +189,7 @@ input[type="checkbox"] {
   border-radius: 4px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .window-header {

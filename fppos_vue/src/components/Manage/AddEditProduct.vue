@@ -61,11 +61,30 @@
                 <div class="combo-area">
                   <label style="font-weight: bold; margin-bottom: 1rem; display: block;">Sản phẩm thành phần</label>
                   <div v-for="(item, idx) in comboItems" :key="idx" class="combo-item-row">
-                    <select v-model="item.code" class="combo-product-select">
-                      <option v-for="p in normalProducts" :key="p.code" :value="p.code">
-                        {{ p.name }} ({{ p.code }})
-                      </option>
-                    </select>
+                    <div class="combo-item-input-wrapper" style="position: relative; flex: 1;">
+                      <input 
+                          type="text" 
+                          v-model="item.searchText" 
+                          @focus="item.isOpen = true"
+                          @blur="handleBlur(item)"
+                          placeholder="Tìm sản phẩm..."
+                          class="combo-product-input" 
+                          style="width: 100%;"
+                      />
+                      <div v-if="item.isOpen" class="combo-dropdown">
+                          <div 
+                              v-for="p in filterProducts(item.searchText)" 
+                              :key="p.code" 
+                              class="combo-dropdown-item"
+                              @click="selectComboProduct(item, p)"
+                          >
+                              {{ p.name }} ({{ p.code }})
+                          </div>
+                          <div v-if="filterProducts(item.searchText).length === 0" class="combo-dropdown-item" style="color: #999; cursor: default;">
+                              Không tìm thấy
+                          </div>
+                      </div>
+                    </div>
                     <input type="number" v-model.number="item.quantity" min="1" class="combo-quantity-input" />
                     <button @click="removeComboItem(idx)" class="btn-remove-combo">×</button>
                   </div>
@@ -141,11 +160,17 @@ watch(() => props.productData, (newVal) => {
     // If editing a combo, load combo items from package_details
     console.log("Loaded product package_details:", product);
     if (product.value.product_type === 'combo' && Array.isArray(product.value.package_details)) {
-      comboItems.value = product.value.package_details.map(item => ({
-        code: item.code,
-        name: item.name,
-        quantity: item.quantity
-      }));
+      comboItems.value = product.value.package_details.map(item => {
+        const found = props.products.find(p => p.code === item.code);
+        const name = found ? found.name : (item.name || item.code);
+        return {
+          code: item.code,
+          name: name,
+          quantity: item.quantity,
+          searchText: name ? `${name} (${item.code})` : item.code,
+          isOpen: false
+        };
+      });
     } else {
       comboItems.value = [];
     }
@@ -172,7 +197,7 @@ watch(() => product.value.product_type, (type) => {
 });
 
 function addComboItem() {
-  comboItems.value.push({ product: null, quantity: 1 });
+  comboItems.value.push({ code: '', name: '', quantity: 1, searchText: '', isOpen: false });
 }
 function removeComboItem(idx) {
   comboItems.value.splice(idx, 1);
@@ -186,6 +211,28 @@ function onlyNumbers(event) {
   if (event.data && !/^\d+$/.test(event.data)) {
     event.preventDefault();
   }
+}
+
+function filterProducts(text) {
+  if (!text) return normalProducts.value;
+  const lower = text.toLowerCase();
+  return normalProducts.value.filter(p => 
+    (p.name && p.name.toLowerCase().includes(lower)) || 
+    (p.code && p.code.toLowerCase().includes(lower))
+  );
+}
+
+function selectComboProduct(item, p) {
+  item.code = p.code;
+  item.name = p.name;
+  item.searchText = `${p.name} (${p.code})`;
+  item.isOpen = false;
+}
+
+function handleBlur(item) {
+  setTimeout(() => {
+    item.isOpen = false;
+  }, 200);
 }
 
 async function saveProduct() {
@@ -265,9 +312,10 @@ input[type="checkbox"] {
   background: #fff;
   max-width: 95vw;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  border-radius: 0.5rem;
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .window-header {
@@ -277,7 +325,6 @@ input[type="checkbox"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .window-title {
@@ -369,7 +416,6 @@ input[type="checkbox"] {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  border-radius: 0 0 0.5rem 0.5rem;
 }
 
 .btn {
@@ -439,5 +485,26 @@ input[type="checkbox"] {
   font-weight: bold;
   line-height: 24px;
   text-align: center;
+}
+
+.combo-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.combo-dropdown-item {
+  padding: 8px 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #f0f0f0;
+  }
 }
 </style>
