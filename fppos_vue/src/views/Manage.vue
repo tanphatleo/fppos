@@ -175,6 +175,7 @@ $kv-primary-color: #0070F4;
             .kv-navbar-item {
                 margin-right: 20px;
                 padding: 0.5rem 0.5rem 0.3rem 0.5rem;
+                user-select: none;
                 a {
                     text-decoration: none;
                     color: #333;

@@ -12,7 +12,7 @@ class Purchase(models.Model):
     code = models.CharField(max_length=20, unique=True, blank=True)
     supplier = models.CharField(max_length=255)
     date = models.DateField()
-    total_amount = models.IntegerField(blank=True, null=True)
+    # total_amount = models.IntegerField(blank=True, null=True)
     items = models.JSONField(default=list)  # List of items in JSON format
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

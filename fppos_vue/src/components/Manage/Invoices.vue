@@ -355,7 +355,7 @@ export default {
       showAddEditSurchargeModal.value = true;
     };
 
-    const isActiveFilter = ref([]);
+    const isActiveFilter = ref([true]);
     const filteredInvoices = computed(() => {
       let result = invoices.value;
 

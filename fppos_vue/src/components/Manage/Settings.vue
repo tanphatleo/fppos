@@ -94,7 +94,7 @@ export default {
         { title: 'Kích Hoạt', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
     ];
 
-    const isActiveFilter = ref([]);
+    const isActiveFilter = ref([true]);
     const filteredItems = computed(() => {
       let result = items.value;
 

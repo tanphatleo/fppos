@@ -65,7 +65,7 @@
                     <ul style="margin:0; padding:0; list-style:none;">
                       <li v-for="item in subList2" :key="item.id" style="padding:0.5rem 0; border-bottom:1px solid #eee;">
                         <span>{{ item.name }}</span>
-                        <button v-if="item.id > 3" @click.stop.prevent="openAddEditSub2  (item)" class="c-button"> 
+                        <button v-if="item.id > 4" @click.stop.prevent="openAddEditSub2  (item)" class="c-button"> 
                           <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                       </li>
@@ -443,7 +443,7 @@ export default {
         { title: 'Trạng Thái', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
     ];
 
-    const isActiveFilter = ref([]);
+    const isActiveFilter = ref([true]);
     const debitCreditFilter = ref([]);
     const filteredItems = computed(() => {
       let result = items.value;

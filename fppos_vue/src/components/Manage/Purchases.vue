@@ -38,6 +38,14 @@
       <div class="filter-area">
         <div class="filters">
           <div class="form-group">
+            <label>Từ ngày</label>
+            <input type="date" v-model="dateFrom" @click="$event.target.showPicker()" />
+          </div>
+          <div class="form-group">
+            <label>Đến ngày</label>
+            <input type="date" v-model="dateTo" @click="$event.target.showPicker()" />
+          </div>
+          <div class="form-group">
             <label>Trạng thái</label>
             <div class="checkbox-group">
               <label><input type="checkbox" v-model="isActiveFilter" :value="true" /> Kích hoạt</label>
@@ -76,7 +84,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import axios from 'axios';
 import AddEditPurchase from './AddEditPurchase.vue';
 
@@ -92,6 +100,12 @@ export default {
     const pageSize = ref(50);
     const showAddEditItem = ref(false);
     const selectedItem = ref({});
+
+    const getLocalDateISO = (date) => {
+      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+    };
+    const dateFrom = ref(getLocalDateISO(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)));
+    const dateTo = ref(getLocalDateISO(new Date()));
     
     const headers = [
         { title: 'Mã đơn', key: 'code' , headerProps: { class: 'my-custom-header-class' }},
@@ -101,7 +115,7 @@ export default {
         { title: 'Kích hoạt', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
     ];
 
-    const isActiveFilter = ref([]);
+    const isActiveFilter = ref([true]);
     const filteredItems = computed(() => {
       let result = items.value;
 
@@ -120,7 +134,12 @@ export default {
 
     const fetchItems = async () => {
       try {
-        const response = await axios.get('/purchases/');
+        const response = await axios.get('/purchases/', {
+          params: {
+            dateFrom: dateFrom.value,
+            dateTo: dateTo.value
+          }
+        });
         // Sort by date descending
         items.value = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
       } catch (error) {
@@ -140,26 +159,27 @@ export default {
         return date.toLocaleDateString('vi-VN');
     }
 
-    function exportToCSV() {
-      const csvRows = [];
-      // Headers
-      csvRows.push(headers.map(h => h.title).join(','));
-      // Data
-      filteredItems.value.forEach(row => {
-        csvRows.push(headers.map(h => {
-          let val = row[h.key];
-          if (h.key === 'total_amount') val = formatPrice(val);
-          return '"' + (val !== undefined ? String(val).replace(/"/g, '""') : '') + '"';
-        }).join(','));
-      });
-      const csvString = csvRows.join('\n');
-      const blob = new Blob([csvString], { type: 'text/csv' });
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'purchases.csv';
-      a.click();
-      window.URL.revokeObjectURL(url);
+    async function exportToCSV() {
+      try {
+        const response = await axios.get('/purchases/', {
+          params: {
+            dateFrom: dateFrom.value,
+            dateTo: dateTo.value,
+            export: 'true'
+          },
+          responseType: 'blob'
+        });
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'purchases.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Error exporting purchases:', error);
+      }
     }
 
     function openAddItem() {
@@ -184,6 +204,8 @@ export default {
         showAddEditItem.value = false;
     }
 
+    watch([dateFrom, dateTo], fetchItems);
+
     onMounted(() => {
       fetchItems();
     });
@@ -205,6 +227,8 @@ export default {
       openEditItem,
       createNewItem,
       onItemSaved,
+      dateFrom,
+      dateTo,
     };
   },
 };

@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.decorators import api_view, parser_classes
+from rest_framework.decorators import api_view, parser_classes, action
 from rest_framework.parsers import MultiPartParser
 import json
 import pandas as pd
@@ -138,6 +138,11 @@ class InvoiceViewSet(viewsets.ModelViewSet):
             return response
 
         return super().list(request, *args, **kwargs)
+
+    @action(detail=False, methods=['delete'])
+    def delete_all(self, request):
+        Invoice.objects.all().delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

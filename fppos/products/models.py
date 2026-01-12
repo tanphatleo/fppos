@@ -30,3 +30,19 @@ class ProductGroup(models.Model):
 
     def __str__(self):
         return self.name
+
+class DateEndInventory(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateField()
+    items = models.JSONField(default=list)  # List of items in JSON format
+    is_active = models.BooleanField(default=True)
+    created_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='date_end_inventories_created')
+    updated_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='date_end_inventories_updated')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return f"Date End Inventory - {self.date}"
+
+    

@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                   <label for="transaction_type">Loại (Thu/Chi)</label>
-                  <select id="transaction_type" v-model="transaction_type" required>
+                  <select id="transaction_type" v-model="debit_or_credit" required>
                     <option value="DR">Thu</option>
                     <option value="CR">Chi</option>
                   </select>
@@ -74,14 +74,14 @@ export default {
   setup(props, { emit }) {
     const { item } = toRefs(props);
     const name = ref(item.value ? item.value.name : '');
-    const transaction_type = ref(item.value ? item.value.transaction_type : 'DR');
+    const debit_or_credit = ref(item.value ? item.value.debit_or_credit : 'DR');
     const description = ref(item.value ? item.value.description : '');
     const is_active = ref(item.value && item.value.is_active !== undefined ? item.value.is_active : true);
 
     watch(item, (newVal) => {
       name.value = newVal ? newVal.name : '';
       description.value = newVal ? newVal.description : '';
-      transaction_type.value = newVal ? newVal.transaction_type : 'DR';
+      debit_or_credit.value = newVal ? newVal.debit_or_credit : 'DR';
       is_active.value = newVal && newVal.is_active !== undefined ? newVal.is_active : true;
     });
 
@@ -94,7 +94,7 @@ export default {
             id: item.value.id,
             name: name.value,
             description: description.value,
-            transaction_type: transaction_type.value,
+            debit_or_credit: debit_or_credit.value,
             is_active: is_active.value
           };
 
@@ -114,7 +114,7 @@ export default {
           const payload = {
             name: name.value,
             description: description.value,
-            transaction_type: transaction_type.value,
+            debit_or_credit: debit_or_credit.value,
             is_active: is_active.value
           };
 
@@ -134,7 +134,7 @@ export default {
       return {
         name,
         description,
-        transaction_type,
+        debit_or_credit,
         is_active,
         item,
         handleSubmit

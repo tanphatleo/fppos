@@ -20,7 +20,6 @@ class PurchaseViewSet(viewsets.ModelViewSet):
                     'Code': purchase.code,
                     'Supplier': purchase.supplier,
                     'Date': purchase.date,
-                    'Total Amount': purchase.total_amount,
                     'Is Active': purchase.is_active,
                     'Created At': purchase.created_at.replace(tzinfo=None) if purchase.created_at else None,
                     'Updated At': purchase.updated_at.replace(tzinfo=None) if purchase.updated_at else None,
@@ -33,8 +32,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
                         row.update({
                             'Item Code': item.get('code', ''),
                             'Item Name': item.get('name', ''),
-                            'Item Quantity': item.get('quantity', 0),
-                            'Item Price': item.get('price', 0),
+                            'Item Quantity': item.get('quantity', 0)
                         })
                         data.append(row)
                 else:

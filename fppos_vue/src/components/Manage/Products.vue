@@ -184,7 +184,7 @@ export default {
         { title: 'Trạng thái', key: 'is_active' ,headerProps: { class: 'my-custom-header-class' }},
     ];
 
-    const isActiveFilter = ref([]);
+    const isActiveFilter = ref([true]);
     const productGroupFilter = ref([]);
 
     const selectedGroupNames = computed(() => {
