@@ -30,7 +30,7 @@
                         </a>
                         </li>
                         <li class="kv-navbar-item kv-navbar-item-light">
-                          <span class="text-white"> {{ $store.getters.userName  }}</span>
+                          <span class="text-white"> {{ $store.getters.userName  + ($store.getters.userSuperadmin ? ' (Superadmin)' : '') }}</span>
                         </li>
 
                         <li
@@ -92,12 +92,12 @@ export default {
         { Id: 6, name: "Cài đặt" , require_admin : true},
         { Id: 7, name: "Người dùng" , require_admin : true},
       ],
-      activeView: "Sổ quỹ", // Define your menus data here
+      activeView: "Hóa Đơn", // Define your menus data here
     };
   },
   mounted() {
     // Automatically click/select "Hóa Đơn" when the page loads
-    this.setActiveView("Sổ quỹ");
+    this.setActiveView("Hóa Đơn");
   },
   methods: {
     setActiveView(page) {

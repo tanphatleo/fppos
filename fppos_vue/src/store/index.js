@@ -7,6 +7,7 @@ export default createStore({
     isLoading: false, // Add isLoading state
     user_admin: false, // Add user_admin state
     user_name : '', // Add user_name state
+    user_superadmin: false, // Add user_superadmin state
   },
   getters: {
     isAuthenticated: (state) => state.isAuthenticated,
@@ -14,6 +15,7 @@ export default createStore({
     isLoading: (state) => state.isLoading, // Getter for isLoading
     userAdmin: (state) => state.user_admin, // Getter for user_admin
     userName: (state) => state.user_name, // Getter for user_name
+    userSuperadmin: (state) => state.user_superadmin, // Getter for user_superadmin
   },
   mutations: {
     setAuthentication(state, status) {
@@ -34,6 +36,9 @@ export default createStore({
     setUserName(state, name) {
       state.user_name = name;
     },
+    setUserSuperadmin(state, status) {
+      state.user_superadmin = !!status;
+    },
   },
   actions: {
     checkAuthentication({ commit }) {
@@ -46,6 +51,7 @@ export default createStore({
         commit('clearToken');
         commit('setAuthentication', false);
       }
+      commit('setLoading', false); // Set loading to false
     },
 
     setUserAdmin({ commit }, status) {
@@ -54,6 +60,10 @@ export default createStore({
     
     setUserName({ commit }, name) {
       commit('setUserName', name);
+    },
+
+    setUserSuperadmin({ commit }, status) {
+      commit('setUserSuperadmin', status);
     },
 
     setToken({ commit }, token) {

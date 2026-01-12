@@ -3,13 +3,29 @@
     <div class="top-area">
       <div class="page-name-area">Hàng Hóa</div>
       <div class="action-area">
+        <div class="page-actions">
+          <div class="datatable-toolbar">
+              <input
+                v-model="filterText"
+                placeholder="Tìm kiếm..."
+                class="search-input"
+                style="margin-right: 1rem;"
+              />
+              <select
+                v-model="pageSize"
+                class="page-size-select"
+              >
+                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
+              </select>
+            </div>
+        </div>
         <div class="other-actions">
           <div class="buttons-area">
-            <button @click="createNewProduct" class="btn btn-primary">
+            <button @click="createNewProduct" class="btn btn-primary" style="margin-right: 0.5rem;">
               Tạo mới
             </button>
 
-            <button @click="toggleGroupList" class="btn btn-outline create-new-btn-group">
+            <button @click="toggleGroupList" class="btn btn-outline create-new-btn-group" style="margin-right: 0.5rem;">
               Nhóm SP
             </button>
               <div class="list-product-groups btn-group" style="position:relative;">
@@ -87,21 +103,6 @@
           :search="filterText"
           @click:row="openEditProduct"
         >
-          <template v-slot:top>
-            <div class="datatable-toolbar">
-              <input
-                v-model="filterText"
-                placeholder="Tìm kiếm..."
-                class="search-input"
-              />
-              <select
-                v-model="pageSize"
-                class="page-size-select"
-              >
-                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
-              </select>
-            </div>
-          </template>
           <template v-slot:item.price="{ item }">
             {{ formatPrice(item.price) }}
           </template>
@@ -426,7 +427,7 @@ $kv-primary-color: #0070F4;
   border: 1px solid transparent;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  // gap: 5px;
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.0892857143em;
@@ -476,9 +477,9 @@ input[type="checkbox"] {
 .datatable-toolbar {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #eee;
+  padding: 0.5rem;
+  // background-color: #f9f9f9;
+  // border-bottom: 1px solid #eee;
 
   .search-input {
     width: 300px;
@@ -530,10 +531,11 @@ input[type="checkbox"] {
                 flex-direction: row;
                 justify-content: flex-end;
                 flex: 1;
+                padding: 0.5rem;
 
                 .buttons-area {
                   display: flex;
-                  gap: 0.5rem;
+                  // gap: 0.5rem;
                 }
             }
 
@@ -611,6 +613,12 @@ input[type="checkbox"] {
               max-height: 200px;
               overflow-y: auto;
               box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+              &::-webkit-scrollbar {
+                display: none;
+              }
+              -ms-overflow-style: none;
+              scrollbar-width: none;
             }
 
             .multiselect-item {
@@ -641,7 +649,7 @@ input[type="checkbox"] {
             }
 
             .elevation-1{
-                height: calc(100vh - 7rem);
+                height: calc(100vh - 7.8rem);
                 background-color: white;
                 color: black;
 
@@ -650,6 +658,14 @@ input[type="checkbox"] {
            
         }
     }
+}
+
+.product-group-teleport {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 </style>

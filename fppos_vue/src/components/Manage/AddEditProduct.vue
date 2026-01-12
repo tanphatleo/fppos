@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                   <label>Loại</label>
-                  <select v-model="product.product_type" :disabled="!!product.id">
+                  <select v-model="product.product_type" :disabled="!!product.id && !store.getters.userSuperadmin">
                     <option value="normal">Thường</option>
                     <option value="combo">Combo</option>
                   </select>
@@ -76,7 +76,7 @@
           </div>
         </div>
         <div class="window-footer">
-          <button type="button" class="btn btn-outline" @click="$emit('close')">Hủy</button>
+          <button type="button" class="btn btn-outline" @click="$emit('close')">Đóng</button>
           <button type="button" class="btn btn-primary" @click="saveProduct">Lưu</button>
         </div>
       </div>
@@ -87,6 +87,7 @@
 <script setup>
 import { ref, watch, computed } from 'vue';
 import axios from 'axios';
+import store from '@/store';
 
 const props = defineProps({
   productData: {

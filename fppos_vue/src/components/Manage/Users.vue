@@ -3,6 +3,22 @@
     <div class="top-area">
       <div class="page-name-area">Người dùng</div>
       <div class="action-area">
+        <div class="page-actions">
+          <div class="datatable-toolbar">
+              <input
+                v-model="filterText"
+                placeholder="Tìm kiếm..."
+                class="search-input"
+                style="margin-right: 1rem;"
+              />
+              <select
+                v-model="pageSize"
+                class="page-size-select"
+              >
+                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
+              </select>
+            </div>
+        </div>
         <div class="other-actions">
           <div class="buttons-area">
 
@@ -67,21 +83,6 @@
           :search="filterText"
           @click:row="openEditItem"
         >
-          <template v-slot:top>
-            <div class="datatable-toolbar">
-              <input
-                v-model="filterText"
-                placeholder="Tìm kiếm..."
-                class="search-input"
-              />
-              <select
-                v-model="pageSize"
-                class="page-size-select"
-              >
-                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
-              </select>
-            </div>
-          </template>
           <template v-slot:item.price="{ item }">
             {{ formatPrice(item.price) }}
           </template>
@@ -378,9 +379,9 @@ input[type="checkbox"] {
 .datatable-toolbar {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #eee;
+  padding: 0.5rem;
+  // background-color: #f9f9f9;
+  // border-bottom: 1px solid #eee;
 
   .search-input {
     width: 300px;
@@ -432,6 +433,7 @@ input[type="checkbox"] {
                 flex-direction: row;
                 justify-content: flex-end;
                 flex: 1;
+                padding: 0.5rem;
 
                 .buttons-area {
                   display: flex;
@@ -492,7 +494,7 @@ input[type="checkbox"] {
             }
 
             .elevation-1{
-                height: calc(100vh - 7rem);
+                height: calc(100vh - 7.8rem);
                 background-color: white;
                 color: black;
 

@@ -3,17 +3,33 @@
     <div class="top-area">
       <div class="page-name-area">Sổ Quỹ</div>
       <div class="action-area">
+        <div class="page-actions">
+          <div class="datatable-toolbar">
+              <input
+                v-model="filterText"
+                placeholder="Tìm kiếm..."
+                class="search-input"
+                style="margin-right: 1rem;"
+              />
+              <select
+                v-model="pageSize"
+                class="page-size-select"
+              >
+                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
+              </select>
+            </div>
+        </div>
         <div class="other-actions">
           <div class="buttons-area">
-            <button @click="createNewItem('DR')" class="btn btn-primary">
+            <button @click="createNewItem('DR')" class="btn btn-primary" style="margin-right: 0.5rem;">
               Phiếu Thu
             </button>
-            <button @click="createNewItem('CR')" class="btn btn-primary">
+            <button @click="createNewItem('CR')" class="btn btn-primary" style="margin-right: 0.5rem;">
               Phiếu Chi
             </button>
               
 
-            <button @click="toggleSubList" class="btn btn-outline create-new-btn-group">
+            <button @click="toggleSubList" class="btn btn-outline create-new-btn-group" style="margin-right: 0.5rem;">
               Bank Accounts
             </button>
               <div class="list-product-groups btn-group" style="position:relative;">
@@ -39,7 +55,7 @@
                 </Teleport>
               </div>
 
-            <button @click="toggleSubList2" class="btn btn-outline create-new-btn-group-2">
+            <button @click="toggleSubList2" class="btn btn-outline create-new-btn-group-2" style="margin-right: 0.5rem;">
               Loại Giao Dịch
             </button>
               <div class="list-product-groups btn-group" style="position:relative;" >
@@ -78,6 +94,14 @@
       <div class="filter-area">
         <div class="filters">
           <div class="form-group">
+            <label>Từ ngày</label>
+            <input type="date" v-model="dateFrom" @click="$event.target.showPicker()" />
+          </div>
+          <div class="form-group">
+            <label>Đến ngày</label>
+            <input type="date" v-model="dateTo" @click="$event.target.showPicker()" />
+          </div>
+          <div class="form-group">
             <label>Trạng thái</label>
             <div class="checkbox-group">
               <label><input type="checkbox" v-model="isActiveFilter" :value="true" /> Kích hoạt</label>
@@ -85,12 +109,56 @@
             </div>
           </div>
           <div class="form-group">
-            <label>Từ ngày</label>
-            <input type="date" v-model="dateFrom" />
+            <label>Loại phiếu</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" v-model="debitCreditFilter" value="DR" /> Phiếu thu</label>
+              <label><input type="checkbox" v-model="debitCreditFilter" value="CR" /> Phiếu chi</label>
+            </div>
           </div>
           <div class="form-group">
-            <label>Đến ngày</label>
-            <input type="date" v-model="dateTo" />
+            <label>Chi tiết loại thu/chi</label>
+            <div class="multiselect-dropdown" ref="transactionTypeFilterDropdownRef">
+              <button @click="toggleTransactionTypeFilterDropdown" class="multiselect-toggle">
+                {{ selectedTransactionTypeNames }}
+              </button>
+              <div v-if="showTransactionTypeFilterDropdown" class="multiselect-menu">
+                <div class="multiselect-item">
+                  <label>
+                    <input type="checkbox" v-model="allTransactionTypesSelected" style="margin-right: 0.5rem;"/>
+                    Tất cả
+                  </label>
+                </div>
+                <div v-for="tt in filteredTransactionTypesForFilter" :key="tt.id" class="multiselect-item">
+                  <label>
+                    <input type="checkbox" v-model="transactionTypeFilter" :value="tt.id" style="margin-right: 0.5rem;"/>
+                    {{ tt.name }}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Tài khoản</label>
+            <div class="multiselect-dropdown" ref="bankAccountFilterDropdownRef">
+              <button @click="toggleBankAccountFilterDropdown" class="multiselect-toggle">
+                {{ selectedBankAccountNames }}
+              </button>
+              <div v-if="showBankAccountFilterDropdown" class="multiselect-menu">
+                <div class="multiselect-item">
+                  <label>
+                    <input type="checkbox" v-model="allBankAccountsSelected" style="margin-right: 0.5rem;"/>
+                    Tất cả
+                  </label>
+                </div>
+                <div v-for="acc in allAccounts" :key="acc.id" class="multiselect-item">
+                  <label>
+                    <input type="checkbox" v-model="bankAccountFilter" :value="acc.id" style="margin-right: 0.5rem;"/>
+                    {{ acc.bank_name }} - {{ acc.account_number }}
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -105,26 +173,11 @@
           :search="filterText"
           @click:row="openEditItem"
         >
-          <template v-slot:top>
-            <div class="datatable-toolbar">
-              <input
-                v-model="filterText"
-                placeholder="Tìm kiếm..."
-                class="search-input"
-              />
-              <select
-                v-model="pageSize"
-                class="page-size-select"
-              >
-                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
-              </select>
-            </div>
-          </template>
           <template v-slot:item.amount="{ item }">
             {{ formatPrice( parseInt(item.amount)  ) }}
           </template>
           <template v-slot:item.debit_or_credit="{item}">
-            {{ item.debit_or_credit == 'DR' ? 'Thu' : 'Chi' }}
+            {{ item.debit_or_credit == 'DR' ? 'Phiếu Thu' : 'Phiếu Chi' }}
           </template>
         </v-data-table>
       </div>
@@ -175,6 +228,73 @@ export default {
     const showAddEditSub = ref(false);
     const subList = ref([]);
     const allAccounts = ref([]);
+    const bankAccountFilter = ref([]);
+    const showBankAccountFilterDropdown = ref(false);
+    const bankAccountFilterDropdownRef = ref(null);
+    const transactionTypeFilter = ref([]);
+    const showTransactionTypeFilterDropdown = ref(false);
+    const transactionTypeFilterDropdownRef = ref(null);
+
+    const toggleTransactionTypeFilterDropdown = () => {
+      showTransactionTypeFilterDropdown.value = !showTransactionTypeFilterDropdown.value;
+    };
+
+    const filteredTransactionTypesForFilter = computed(() => {
+      if (!debitCreditFilter.value || debitCreditFilter.value.length === 0) {
+        return subList2.value;
+      }
+      return subList2.value.filter(tt => debitCreditFilter.value.includes(tt.debit_or_credit));
+    });
+
+    const selectedTransactionTypeNames = computed(() => {
+      if (!transactionTypeFilter.value || transactionTypeFilter.value.length === 0) return 'Tất cả';
+      if (transactionTypeFilter.value.length > 1) return `${transactionTypeFilter.value.length} loại đã chọn`;
+      const tt = subList2.value.find(t => t.id === transactionTypeFilter.value[0]);
+      return tt ? tt.name : 'Chọn loại';
+    });
+
+    const allTransactionTypesSelected = computed({
+      get: () => {
+        const visibleIDs = filteredTransactionTypesForFilter.value.map(tt => tt.id);
+        return visibleIDs.length > 0 && visibleIDs.every(id => transactionTypeFilter.value.includes(id));
+      },
+      set: (value) => {
+        const visibleIDs = filteredTransactionTypesForFilter.value.map(tt => tt.id);
+        if (value) {
+          const newSelection = [...transactionTypeFilter.value];
+          visibleIDs.forEach(id => {
+            if (!newSelection.includes(id)) newSelection.push(id);
+          });
+          transactionTypeFilter.value = newSelection;
+        } else {
+          transactionTypeFilter.value = transactionTypeFilter.value.filter(id => !visibleIDs.includes(id));
+        }
+      }
+    });
+
+    const toggleBankAccountFilterDropdown = () => {
+      showBankAccountFilterDropdown.value = !showBankAccountFilterDropdown.value;
+    };
+
+    const selectedBankAccountNames = computed(() => {
+      if (!bankAccountFilter.value || bankAccountFilter.value.length === 0) return 'Tất cả';
+      if (bankAccountFilter.value.length === allAccounts.value.length) return 'Tất cả';
+      if (bankAccountFilter.value.length > 1) return `${bankAccountFilter.value.length} tài khoản đã chọn`;
+      const acc = allAccounts.value.find(a => a.id === bankAccountFilter.value[0]);
+      return acc ? `${acc.bank_name} - ${acc.account_number}` : 'Chọn tài khoản';
+    });
+
+    const allBankAccountsSelected = computed({
+      get: () => allAccounts.value.length > 0 && bankAccountFilter.value.length === allAccounts.value.length,
+      set: (value) => {
+        if (value) {
+          bankAccountFilter.value = allAccounts.value.map(a => a.id);
+        } else {
+          bankAccountFilter.value = [];
+        }
+      }
+    });
+
     const subListPosition = ref({ top: '0px', left: '0px', width: '0px' });
     const fetchSubList = async () => {
       try {
@@ -222,6 +342,16 @@ export default {
           showSubList.value = false;
         }
       }
+      if (showBankAccountFilterDropdown.value) {
+        if (bankAccountFilterDropdownRef.value && !bankAccountFilterDropdownRef.value.contains(event.target)) {
+          showBankAccountFilterDropdown.value = false;
+        }
+      }
+      if (showTransactionTypeFilterDropdown.value) {
+        if (transactionTypeFilterDropdownRef.value && !transactionTypeFilterDropdownRef.value.contains(event.target)) {
+          showTransactionTypeFilterDropdown.value = false;
+        }
+      }
     };
     const onSubItemSaved = async () => {
       console.log("Sub Item saved, refreshing sub list...");
@@ -237,11 +367,14 @@ export default {
     const showAddEditSub2 = ref(false);
     const subList2 = ref([]);
     // Datepicker filter state
+    const getLocalDateISO = (date) => {
+      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+    };
     // date from default to last 30 days
-    const dateFrom = ref(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().substr(0, 10));
+    const dateFrom = ref(getLocalDateISO(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)));
 
     // dateTo default to today
-    const dateTo = ref(new Date().toISOString().substr(0, 10));
+    const dateTo = ref(getLocalDateISO(new Date()));
 
     const subListPosition2 = ref({ top: '0px', left: '0px', width: '0px' });
     const fetchSubList2 = async () => {
@@ -311,11 +444,24 @@ export default {
     ];
 
     const isActiveFilter = ref([]);
+    const debitCreditFilter = ref([]);
     const filteredItems = computed(() => {
       let result = items.value;
 
       if (isActiveFilter.value && isActiveFilter.value.length > 0) {
         result = result.filter(item => isActiveFilter.value.includes(item.is_active));
+      }
+
+      if (debitCreditFilter.value && debitCreditFilter.value.length > 0) {
+        result = result.filter(item => debitCreditFilter.value.includes(item.debit_or_credit));
+      }
+
+      if (transactionTypeFilter.value && transactionTypeFilter.value.length > 0) {
+        result = result.filter(item => transactionTypeFilter.value.includes(item.transaction_type));
+      }
+
+      if (bankAccountFilter.value && bankAccountFilter.value.length > 0) {
+        result = result.filter(item => bankAccountFilter.value.includes(item.account));
       }
 
       if (!filterText.value.trim()) return result;
@@ -423,6 +569,7 @@ export default {
       headers,
       filteredItems,
       isActiveFilter,
+      debitCreditFilter,
       formatPrice,
       exportToExcel,
       openAddItem,
@@ -458,7 +605,20 @@ export default {
       dateFrom,
       dateTo,
 
+      bankAccountFilter,
+      showBankAccountFilterDropdown,
+      bankAccountFilterDropdownRef,
+      toggleBankAccountFilterDropdown,
+      selectedBankAccountNames,
+      allBankAccountsSelected,
 
+      transactionTypeFilter,
+      showTransactionTypeFilterDropdown,
+      transactionTypeFilterDropdownRef,
+      toggleTransactionTypeFilterDropdown,
+      filteredTransactionTypesForFilter,
+      selectedTransactionTypeNames,
+      allTransactionTypesSelected,
     };
   },
 };
@@ -476,7 +636,7 @@ $kv-primary-color: #0070F4;
   border: 1px solid transparent;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  // gap: 5px;
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.0892857143em;
@@ -526,9 +686,9 @@ input[type="checkbox"] {
 .datatable-toolbar {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #eee;
+  padding: 0.5rem;
+  // background-color: #f9f9f9;
+  // border-bottom: 1px solid #eee;
 
   .search-input {
     width: 300px;
@@ -580,10 +740,11 @@ input[type="checkbox"] {
                 flex-direction: row;
                 justify-content: flex-end;
                 flex: 1;
+                padding: 0.5rem;
 
                 .buttons-area {
                   display: flex;
-                  gap: 0.5rem;
+                  // gap: 0.5rem;
                 }
             }
 
@@ -627,6 +788,63 @@ input[type="checkbox"] {
               margin-bottom: 0.5rem;
               input { margin-right: 0.5rem; }
             }
+
+            .multiselect-dropdown {
+              position: relative;
+              width: 100%;
+            }
+
+            .multiselect-toggle {
+              width: 100%;
+              background-color: white;
+              color: black;
+              border-radius: 0.3rem;
+              border: 1px solid #ccc;
+              padding: 6px 10px;
+              font-size: 1rem;
+              text-align: left;
+              cursor: pointer;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            .multiselect-menu {
+              position: absolute;
+              top: 100%;
+              left: 0;
+              right: 0;
+              background: white;
+              border: 1px solid #ccc;
+              border-top: none;
+              border-radius: 0 0 0.3rem 0.3rem;
+              z-index: 10;
+              max-height: 200px;
+              overflow-y: auto;
+              box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+              &::-webkit-scrollbar {
+                display: none;
+              }
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+            }
+
+            .multiselect-item {
+              padding: 8px 12px;
+              cursor: pointer;
+              
+              label {
+                display: flex;
+                align-items: center;
+                font-weight: normal;
+                width: 100%;
+                margin-bottom: 0;
+              }
+            }
+            .multiselect-item:hover {
+              background-color: #f0f0f0;
+            }
         }
 
         .data-area {
@@ -640,7 +858,7 @@ input[type="checkbox"] {
             }
 
             .elevation-1{
-                height: calc(100vh - 7rem);
+                height: calc(100vh - 7.8rem);
                 background-color: white;
                 color: black;
 

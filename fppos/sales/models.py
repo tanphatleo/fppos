@@ -1,3 +1,5 @@
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.db import models
 from django.contrib.postgres.fields import JSONField
 from django.db.models.signals import pre_save
@@ -31,10 +33,16 @@ class Invoice(models.Model):
     channel = models.CharField(max_length=50, blank=True, null=True)
     created_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='created_invoices')
     updated_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='updated_invoices')
-    # items_full = models.JSONField(blank=True, null=True)  # JSON field to store full invoice items details
-    # combo_info = models.JSONField(blank=True, null=True)  # JSON field to store combo information
     def __str__(self):
         return self.code
+
+
+# Signal: When Invoice is set to inactive, set all related Transactions to inactive
+@receiver(post_save, sender=Invoice)
+def set_transactions_inactive_when_invoice_inactive(sender, instance, **kwargs):
+    if instance.is_active is False:
+        from transactions.models import Transaction
+        Transaction.objects.filter(invoice=instance, is_active=True).update(is_active=False)
 
 @receiver(pre_save, sender=Invoice)
 def generate_invoice_code(sender, instance, **kwargs):

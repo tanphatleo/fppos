@@ -30,7 +30,8 @@ export default {
         const userGroups_ = response.data.usergroups || [];
         const isAdmin = userGroups_.includes('admin');
         store.dispatch('setUserAdmin', isAdmin);
-
+        const isSuperadmin = userGroups_.includes('super_user');
+        store.dispatch('setUserSuperadmin', isSuperadmin);
         store.dispatch('setUserName', response.data.username || '');
 
       } catch (error) {

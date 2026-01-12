@@ -13,66 +13,59 @@ from transactions.models import Transaction, TransactionType, Account
 
 
 class InvoiceViewSet(viewsets.ModelViewSet):
-    queryset = Invoice.objects.all()
+    queryset = Invoice.objects.all().order_by('-created_at')
 
     serializer_class = InvoiceSerializer
 
     def create(self, request, *args, **kwargs):
-        # print('Received payload:', request.data)      
+        # add creating user to the request data
+        request.data['created_by'] = request.user.id
 
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        invoice_instance = serializer.save()
 
-        # create customer payment transaction 
-        # check if payment method is provided in the payload
+        # Create customer payment transaction
         payment_method = request.data.get('payment_method')
+        amount_paid_by_customer = request.data.get('amount_paid_by_customer', 0)
 
-        # create the invoice
-        invoice = super().create(request, *args, **kwargs)
+        if payment_method and amount_paid_by_customer and int(amount_paid_by_customer) > 0:
+            account_id = None
+            description_verb = ''
+            if payment_method == 'cash':
+                account_id = 1  # Assuming 1 is the ID for Cash Account
+                description_verb = 'tiền mặt'
+            elif payment_method == 'transfer':
+                account_id = request.data.get('payment_account')
+                description_verb = 'chuyển khoản'
 
-        # print(f'Processing payment method: {invoice.data}')
-        if payment_method == 'cash':
-            # print('Processing cash payment...')
-            Transaction.objects.create(
-                transaction_type=TransactionType.objects.get(id=2),  # assuming 2 is the ID for Thu tiền từ khách hàng
-                debit_or_credit='DR',
-                amount=request.data.get('amount_paid_by_customer', 0),
-                ref = invoice.data.get('code'),
-                ref_model = 'Invoice',
-                account=Account.objects.get(id=1),  # assuming 1 is the ID for Cash Account
-                description='Thanh toán tiền mặt cho hóa đơn ' + invoice.data.get('code')
-            )
-            # Add logic for cash payment processing if needed
-        elif payment_method == 'transfer':
-            # print('Processing transfer payment...')
-            Transaction.objects.create(
-                transaction_type=TransactionType.objects.get(id=2),  # assuming 2 is the ID for Thu tiền từ khách hàng
-                debit_or_credit='DR',
-                amount=request.data.get('amount_paid_by_customer', 0),
-                ref = invoice.data.get('code'),
-                ref_model = 'Invoice',
-                account=Account.objects.get(id=request.data.get('payment_account')),  # get account from request data
-                description='Thanh toán chuyển khoản cho hóa đơn ' + invoice.data.get('code')
-            )
-            # Add logic for transfer payment processing if needed
+            if account_id:
+                Transaction.objects.create(
+                    transaction_type=TransactionType.objects.get(id=2),  # Assuming 2 is 'Thu tiền từ khách hàng'
+                    debit_or_credit='DR',
+                    amount=amount_paid_by_customer,
+                    invoice=invoice_instance,
+                    account=Account.objects.get(id=account_id),
+                    description=f'Thanh toán {description_verb} cho hóa đơn {invoice_instance.code}'
+                )
 
-        # check if amount_paid_transport_company is provided in the payload
+        # Create transport fee payment transaction
         amount_paid_transport_company = request.data.get('amount_paid_transport_company')
-        if (amount_paid_transport_company is not None and 
-            int(amount_paid_transport_company) > 0 ):
-            # print(f'Amount paid to transport company: {amount_paid_transport_company}')
-            # Add logic for handling transport company payment if needed
-            Transaction.objects.create(
-                transaction_type=TransactionType.objects.get(id=3),  # assuming 3 is the ID for Chi tiền cho công ty vận chuyển
-                debit_or_credit='CR',
-                amount=amount_paid_transport_company,
-                ref = invoice.data.get('code'),
-                ref_model = 'Invoice',
-                account=Account.objects.get(id=request.data.get('transport_company_payment_account')),
-                description='Thanh toán cho công ty vận chuyển cho hóa đơn ' + invoice.data.get('code')
-            )
-            
-
-        # create the invoice
-        return invoice
+        if (amount_paid_transport_company is not None and int(amount_paid_transport_company) > 0):
+            transport_account_id = request.data.get('transport_company_payment_account')
+            if transport_account_id:
+                Transaction.objects.create(
+                    transaction_type=TransactionType.objects.get(id=3),  # Assuming 3 is 'Chi tiền cho công ty vận chuyển'
+                    debit_or_credit='CR',
+                    amount=amount_paid_transport_company,
+                    invoice=invoice_instance,
+                    account=Account.objects.get(id=transport_account_id),
+                    description='Thanh toán cho công ty vận chuyển cho hóa đơn ' + invoice_instance.code
+                )
+        
+        headers = self.get_success_headers(serializer.data)
+        # Re-fetch and serialize the instance to include the newly created transactions
+        return Response(self.get_serializer(invoice_instance).data, status=status.HTTP_201_CREATED, headers=headers)
 
     def update(self, request, *args, **kwargs):
         print('Received payload:', request.data)

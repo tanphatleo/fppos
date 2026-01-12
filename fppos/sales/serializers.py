@@ -5,7 +5,7 @@ from .models import Invoice, Surcharge
 class InvoiceSerializer(serializers.ModelSerializer):
     customer_name = serializers.SerializerMethodField(read_only=True)
     customer_phone_number = serializers.SerializerMethodField(read_only=True)
-
+    seller = serializers.CharField(source='created_by.username', read_only=True)
     class Meta:
         model = Invoice
         fields = '__all__'
@@ -18,6 +18,9 @@ class InvoiceSerializer(serializers.ModelSerializer):
     def get_customer_phone_number(self, obj):
         # Assumes Invoice has a FK to Customer as 'customer' and Customer has 'phone_number'
         return getattr(obj.customer, 'phone_number', None)
+    
+    def get_seller(self, obj):
+        return getattr(obj.created_by, 'username', None)
 
 class SurchargeSerializer(serializers.ModelSerializer):
     class Meta:

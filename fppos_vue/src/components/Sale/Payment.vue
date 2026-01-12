@@ -159,7 +159,7 @@
           </div>
 
           <div class="row">
-            <label for=""> Phí ship mình trả</label>
+            <label for=""> Phí ship mình trả tiền mặt</label>
             <input 
                 v-model="amountPaidTransportCompanyDisplay" 
                 @focus="selectAll"
@@ -238,7 +238,6 @@ const onlyNumbersandPer = (event) => {
 };
 
 const handleUpdateSurcharges = (surcharges) => {
-    console.log(" handleUpdateSurcharges called " );
     // Calculate total surcharge amount
     // console.log(" handleUpdateSurcharges Selected Surcharges:", surcharges);
     surchargesOpen.value = false;
@@ -264,11 +263,7 @@ const onlyNumbers = (event) => {
 
 const checkAndUpdateDiscount = (event) => {
     // If input ends with %, treat as percentage
-    console.log("checkAndUpdateDiscount called");
-
     const input = discountMethodValueDisplay.value;
-    console.log("Input value:", discountMethodValueDisplay);  
-    console.log("Raw input string:", input);
     if (input.endsWith('%')) {
         const percentStr = input.slice(0, -1).trim();
         // console.log("Percentage discount detected:", percentStr);
@@ -298,7 +293,6 @@ const checkAndUpdateDiscount = (event) => {
 
 const handlePaymentMethodChange = () => {
 //   if method is 'receivable', set amountPaidByCustomer to 0 and disable input
-    console.log("handlePaymentMethodChange called, new method:", paymentMethod.value);
     if (paymentMethod.value === 'receivable') {
         amountPaidByCustomer.value = 0;
         confirm_miss_payment.value = false;
@@ -337,8 +331,6 @@ const handlePaymentMethodChange = () => {
 };
 
 const handleUpdatePaymentAccount = () => {
-    console.log("handleUpdatePaymentAccount called, new account ID:", paymentAccount.value);
-
     emit('update-cart-data', {
         ...props.cartData,
         paymentAccount: paymentAccount.value
@@ -364,8 +356,6 @@ const amountPaidDisplay = computed({
 });
 
 const handleUpdateAmountPaidCustomer = () => {
-    console.log("handleUpdateAmountPaidCustomer called, new amount:", amountPaidByCustomer.value);
-
     emit('update-cart-data', {
         ...props.cartData,
         amountPaidByCustomer: amountPaidByCustomer.value
@@ -401,7 +391,6 @@ const discountMethodValueDisplay = computed({
     set: (newValue) => {
       // allow only numbers and % at the end
         const sanitized = newValue.replace(/[^\d%]/g, '');
-        console.log("Sanitized discount input:", sanitized);
         discountMethodValue.value = sanitized;
     }
 });
@@ -509,19 +498,9 @@ const formatCurrency = (value) => {
 
 // --- Lifecycle ---
 
-watch(() => props.visible, (val) => {
-  if (val) {
-    // console.log('Payment.vue props when visible:', JSON.parse(JSON.stringify(props)));
-    purchaseDate.value = getTodayDateStr();
-    purchaseTime.value = getNowTimeStr();
-  }
-});
-
 onMounted(() => {
   // Initialize with data passed from parent
   if (props.cartData) {
-    console.log("Initializing Payment Modal with cartData:", props.cartData);
-    // const deepCartData = JSON.parse(JSON.stringify(props.cartData));
     totalAmount.value = props.cartData.total ;
      // Auto-fill full amount
     discountAmount.value = props.cartData.discount || 0;
@@ -534,8 +513,6 @@ onMounted(() => {
 
     paymentMethod.value = props.cartData.paymentMethod || 'cash';
     paymentAccount.value = props.cartData.paymentAccount || 1;
-    console.log("Initialized paymentMethod to:", paymentMethod.value);
-    console.log("Initialized paymentAccount to:", paymentAccount.value);
     // console.log("props.cartData.transportCompany:", props.cartData.transportCompany);
     transportCompany.value = props.cartData.transportCompany || props.transportCompanies[0];
     // console.log("Initialized transportCompany to:", transportCompany.value);
@@ -563,6 +540,7 @@ const handlePayment = async () => {
     ...payload,
     amount_paid_by_customer: amountPaidByCustomer.value,
     amount_paid_transport_company: amountPaidTransportCompany.value,
+    final_total: finalTotal.value,
     payment_method: paymentMethod.value, 
     payment_account: paymentAccount.value,
     channel: selectedChannel.value,
@@ -573,7 +551,6 @@ const handlePayment = async () => {
     delivery_address: props.cartData.customer ? props.cartData.customer.address : '',
     customer: props.cartData.customer ? props.cartData.customer.id : 1,
   }).then(async response => {
-    console.log("Payment processed successfully:", response.data);
     payload.paymentConfirmation = response.data;
 
     toPrint.value = response.data;
@@ -587,22 +564,9 @@ const handlePayment = async () => {
     // Handle error (e.g., show notification)
   });
 
-  emit('complete-payment', payload);
 };
 
 const close = () => {
-    console.log("Closing Payment Modal update-cart-data");
-
-    console.log("Emitting update-cart-data with:", {
-        ...props.cartData,
-        amountPaidByCustomer: amountPaidByCustomer.value,
-        amountPaidTransportCompany: amountPaidTransportCompany.value,
-        paymentMethod: paymentMethod.value, 
-        selectedChannel: selectedChannel.value,
-        selectedSeller: selectedSeller.value,
-        transportCompany: transportCompany.value,
-        amountPaidTransportCompany: amountPaidTransportCompany.value,
-    });
   emit('update-cart-data', {
     ...props.cartData,
     amountPaidByCustomer: amountPaidByCustomer.value,

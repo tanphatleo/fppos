@@ -1,3 +1,6 @@
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from django.db import models
 
 # Create your models here.
@@ -38,8 +41,8 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=0)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     date = models.DateField(auto_now_add=True)
-    ref = models.CharField(max_length=100, blank=True, null=True)
-    ref_model = models.CharField(max_length=100, blank=True, null=True)
+    invoice = models.ForeignKey('sales.Invoice', on_delete=models.CASCADE, blank=True, null=True)
+    purchase = models.ForeignKey('purchases.Purchase', on_delete=models.CASCADE, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -47,6 +50,22 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.transaction_type} - {self.amount}"
+
+
+# Signal to update invoice payment fields when a Transaction is saved
+@receiver(post_save, sender=Transaction)
+def update_invoice_payment_fields(sender, instance, **kwargs):
+    if instance.invoice:
+        # transaction_type 2: update amount_paid_by_customer
+        if instance.transaction_type.id == 2:
+            total = sender.objects.filter(invoice=instance.invoice, transaction_type=2, is_active=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
+            instance.invoice.amount_paid_by_customer = total
+            instance.invoice.save(update_fields=['amount_paid_by_customer'])
+        # transaction_type 3: update amount_paid_transport_company
+        elif instance.transaction_type.id == 3:
+            total = sender.objects.filter(invoice=instance.invoice, transaction_type=3, is_active=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
+            instance.invoice.amount_paid_transport_company = total
+            instance.invoice.save(update_fields=['amount_paid_transport_company'])
 
 
 class AccountBalance(models.Model):

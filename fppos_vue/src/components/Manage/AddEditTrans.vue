@@ -74,7 +74,7 @@
           </div>
         </div>
         <div class="window-footer">
-          <button type="button" class="btn btn-outline" @click="$emit('close')">Hủy</button>
+          <button type="button" class="btn btn-outline" @click="$emit('close')">Đóng</button>
           <button type="button" class="btn btn-primary" @click="handleSubmit">Lưu</button>
         </div>
       </div>

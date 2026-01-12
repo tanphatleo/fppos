@@ -3,6 +3,22 @@
     <div class="top-area">
       <div class="page-name-area">Hóa Đơn</div>
       <div class="action-area">
+        <div class="page-actions">
+          <div class="datatable-toolbar">
+              <input
+                v-model="filterText"
+                placeholder="Tìm kiếm..."
+                class="search-input"
+                style="margin-right: 1rem;"
+              />
+              <select
+                v-model="pageSize"
+                class="page-size-select"
+              >
+                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
+              </select>
+            </div>
+        </div>
         <div class="other-actions">
           <div class="buttons-area">
 
@@ -49,6 +65,14 @@
       <div class="filter-area">
         <div class="filters">
           <div class="form-group">
+            <label>Từ ngày</label>
+            <input type="date" v-model="dateFrom" @click="$event.target.showPicker()" />
+          </div>
+          <div class="form-group">
+            <label>Đến ngày</label>
+            <input type="date" v-model="dateTo" @click="$event.target.showPicker()" />
+          </div>
+          <div class="form-group">
             <label>Trạng thái</label>
             <div class="checkbox-group">
               <label><input type="checkbox" v-model="isActiveFilter" :value="true" /> Kích hoạt</label>
@@ -56,13 +80,50 @@
             </div>
           </div>
           <div class="form-group">
-            <label>Từ ngày</label>
-            <input type="date" v-model="dateFrom" />
+            <label>Người bán</label>
+            <div class="multiselect-dropdown" ref="sellerFilterDropdownRef">
+              <button @click="toggleSellerFilterDropdown" class="multiselect-toggle">
+                {{ selectedSellerNames }}
+              </button>
+              <div v-if="showSellerFilterDropdown" class="multiselect-menu">
+                <div class="multiselect-item">
+                  <label>
+                    <input type="checkbox" v-model="allSellersSelected" style="margin-right: 0.5rem;"/>
+                    Tất cả
+                  </label>
+                </div>
+                <div v-for="seller in uniqueSellers" :key="seller" class="multiselect-item">
+                  <label>
+                    <input type="checkbox" v-model="sellerFilter" :value="seller" style="margin-right: 0.5rem;"/>
+                    {{ seller }}
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="form-group">
-            <label>Đến ngày</label>
-            <input type="date" v-model="dateTo" />
+            <label>Kênh bán</label>
+            <div class="multiselect-dropdown" ref="channelFilterDropdownRef">
+              <button @click="toggleChannelFilterDropdown" class="multiselect-toggle">
+                {{ selectedChannelNames }}
+              </button>
+              <div v-if="showChannelFilterDropdown" class="multiselect-menu">
+                <div class="multiselect-item">
+                  <label>
+                    <input type="checkbox" v-model="allChannelsSelected" style="margin-right: 0.5rem;"/>
+                    Tất cả
+                  </label>
+                </div>
+                <div v-for="channel in uniqueChannels" :key="channel" class="multiselect-item">
+                  <label>
+                    <input type="checkbox" v-model="channelFilter" :value="channel" style="margin-right: 0.5rem;"/>
+                    {{ channel }}
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
+          
         </div>
       </div>
       <div class="data-area">
@@ -76,30 +137,16 @@
           :search="filterText"
           @click:row="openEditInvoice"
         >
-          <template v-slot:top>
-            <div class="datatable-toolbar">
-              <input
-                v-model="filterText"
-                placeholder="Tìm kiếm..."
-                class="search-input"
-              />
-              <select
-                v-model="pageSize"
-                class="page-size-select"
-              >
-                <option v-for="size in [5, 10, 20, 50, 100, 200]" :key="size" :value="size">{{ size }} rows</option>
-              </select>
-            </div>
+          <template v-slot:item.final_total="{ item }">
+            {{ formatPrice(item.final_total) }}
           </template>
         </v-data-table>
       </div>
     </div>
-    <AddEditCustomer
+    <AddEditInvoice
       v-if="showAddEdit"
-      :customer="selectedCustomer"
-      :regionList="provinces"
-      :wardList="wards"
-      :type="editOrNew"
+      :item="selectedInvoice"
+      :channels="channels"
       @close="showAddEdit = false"
       @saved="onInvoiceSaved"
     />
@@ -116,14 +163,14 @@
 <script>
 import { ref, computed, onMounted, nextTick, onBeforeUnmount, watch} from 'vue';
 import axios from 'axios';
-import AddEditCustomer from './AddEditCustomer.vue';
+import AddEditInvoice from './AddEditInvoices.vue';
 import AddEditSurcharge from './AddEditSurcharges.vue';
 import { useStore } from 'vuex';
 
 export default {
   name: 'Invoices',
   components: {
-    AddEditCustomer,
+    AddEditInvoice,
     AddEditSurcharge,
   },
   setup() {
@@ -136,20 +183,35 @@ export default {
     const currentPage = ref(1);
     const pageSize = ref(200);
     const showAddEdit = ref(false);
-    const selectedCustomer = ref({});
+    const selectedInvoice = ref({});
     const showSurchargeList = ref(false);
     const surchargeList = ref([]);
     const wards = ref([]);
     const showAddEditSurchargeModal = ref(false);
     const editingSurcharge = ref(null);
     const provinces = ref([]);
-    const dateFrom = ref(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().substr(0, 10));
-    const dateTo = ref(new Date().toISOString().substr(0, 10));
+    const sellerFilter = ref([]);
+    const uniqueSellers = ref([]);
+    const showSellerFilterDropdown = ref(false);
+    const sellerFilterDropdownRef = ref(null);
+    const channelFilter = ref([]);
+    const uniqueChannels = ref([]);
+    const showChannelFilterDropdown = ref(false);
+    const channelFilterDropdownRef = ref(null);
+
+    const channels = ref([]);
+    const getLocalDateISO = (date) => {
+      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+    };
+
+    const dateFrom = ref(getLocalDateISO(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)));
+    const dateTo = ref(getLocalDateISO(new Date()));
     const headers = [
         { title: 'Mã HĐ', key: 'code', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Khách hàng', key: 'customer_name', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Tổng tiền', key: 'final_total', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Ngày', key: 'date', headerProps: { class: 'my-custom-header-class' }},
+        { title: 'Người bán', key: 'seller', headerProps: { class: 'my-custom-header-class' }},
         { title: 'Trạng thái', key: 'is_active', headerProps: { class: 'my-custom-header-class' }},
     ];
 
@@ -174,6 +236,14 @@ export default {
       });
     };
 
+    const toggleSellerFilterDropdown = () => {
+      showSellerFilterDropdown.value = !showSellerFilterDropdown.value;
+    };
+
+    const toggleChannelFilterDropdown = () => {
+      showChannelFilterDropdown.value = !showChannelFilterDropdown.value;
+    };
+
     const handleClickOutside = (event) => {
       if (showSurchargeList.value) {
         const groupListEl = groupListRef.value;
@@ -181,7 +251,53 @@ export default {
           showSurchargeList.value = false;
         }
       }
+      if (showSellerFilterDropdown.value) {
+        if (sellerFilterDropdownRef.value && !sellerFilterDropdownRef.value.contains(event.target)) {
+          showSellerFilterDropdown.value = false;
+        }
+      }
+      if (showChannelFilterDropdown.value) {
+        if (channelFilterDropdownRef.value && !channelFilterDropdownRef.value.contains(event.target)) {
+          showChannelFilterDropdown.value = false;
+        }
+      }
     };
+
+    const selectedSellerNames = computed(() => {
+      if (!sellerFilter.value || sellerFilter.value.length === 0) return 'Tất cả';
+      if (sellerFilter.value.length === uniqueSellers.value.length) return 'Tất cả';
+      if (sellerFilter.value.length > 1) return `${sellerFilter.value.length} người bán đã chọn`;
+      return sellerFilter.value[0];
+    });
+
+    const allSellersSelected = computed({
+      get: () => uniqueSellers.value.length > 0 && sellerFilter.value.length === uniqueSellers.value.length,
+      set: (value) => {
+        if (value) {
+          sellerFilter.value = uniqueSellers.value.slice();
+        } else {
+          sellerFilter.value = [];
+        }
+      }
+    });
+
+    const selectedChannelNames = computed(() => {
+      if (!channelFilter.value || channelFilter.value.length === 0) return 'Tất cả';
+      if (channelFilter.value.length === uniqueChannels.value.length) return 'Tất cả';
+      if (channelFilter.value.length > 1) return `${channelFilter.value.length} kênh đã chọn`;
+      return channelFilter.value[0];
+    });
+
+    const allChannelsSelected = computed({
+      get: () => uniqueChannels.value.length > 0 && channelFilter.value.length === uniqueChannels.value.length,
+      set: (value) => {
+        if (value) {
+          channelFilter.value = uniqueChannels.value.slice();
+        } else {
+          channelFilter.value = [];
+        }
+      }
+    });
 
     const openAddEditSurcharge = (item) => {
         
@@ -207,6 +323,14 @@ export default {
         result = result.filter(invoice => isActiveFilter.value.includes(invoice.is_active));
       }
 
+      if (sellerFilter.value && sellerFilter.value.length > 0) {
+        result = result.filter(invoice => sellerFilter.value.includes(invoice.seller));
+      }
+
+      if (channelFilter.value && channelFilter.value.length > 0) {
+        result = result.filter(invoice => channelFilter.value.includes(invoice.channel));
+      }
+
       if (!filterText.value.trim()) return result;
 
       const search = filterText.value.toLowerCase();
@@ -230,6 +354,24 @@ export default {
         console.error('Error fetching invoices:', error);
       }
       store.commit('setLoading', false);
+    };
+
+    const formatPrice = (value) => {
+      const numericValue = Number(value);
+      if (isNaN(numericValue)) return '0 ₫';
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numericValue);
+    };
+
+    const fetchChannels = async () => {
+      try {
+        const response = await axios.get('/logicconfigs/');
+        const channelConfig = response.data.find(c => c.key === 'channels');
+        if (channelConfig) {
+          channels.value = JSON.parse(channelConfig.value);
+        }
+      } catch (error) {
+        console.error('Error fetching channels:', error);
+      }
     };
 
     const fetchProvincesWards = async () => {
@@ -258,7 +400,7 @@ export default {
 
     function createNewInvoice() {
       editOrNew.value = 'new';
-      selectedCustomer.value = {};
+      selectedInvoice.value = {};
       showAddEdit.value = true;
     };
 
@@ -287,23 +429,33 @@ export default {
     }
 
     function openEditInvoice(event, { item }) {
-      console.log('Editing customer:', item);
-      selectedCustomer.value = { ...item };
+      console.log('Editing invoice:', item);
+      selectedInvoice.value = { ...item };
       editOrNew.value = 'edit';
       showAddEdit.value = true;
     }
 
     async function onInvoiceSaved() {
-      console.log('Customer saved, refreshing list...');
+      console.log('Invoice saved, refreshing list...');
       await fetchInvoices();
       showAddEdit.value = false;
     }
 
     watch([dateFrom, dateTo], fetchInvoices);
 
+    watch(invoices, (newInvoices) => {
+      if (newInvoices && newInvoices.length > 0) {
+        const sellers = newInvoices.map(inv => inv.seller).filter(Boolean);
+        uniqueSellers.value = [...new Set(sellers)];
+        const channelsData = newInvoices.map(inv => inv.channel).filter(Boolean);
+        uniqueChannels.value = [...new Set(channelsData)];
+      }
+    });
+
     onMounted(() => {
       fetchInvoices();
       fetchProvincesWards();
+      fetchChannels();
       fetchSurcharges();
       document.addEventListener('mousedown', handleClickOutside);
     });
@@ -319,7 +471,7 @@ export default {
       currentPage,
       pageSize,
       showAddEdit,
-      selectedCustomer,
+      selectedInvoice,
       showSurchargeList,
       surchargeList,
       headers,
@@ -331,7 +483,23 @@ export default {
       groupListRef,
       showAddEditSurchargeModal,
       editingSurcharge,
+      channels,
+      sellerFilter,
+      uniqueSellers,
+      showSellerFilterDropdown,
+      sellerFilterDropdownRef,
+      toggleSellerFilterDropdown,
+      selectedSellerNames,
+      allSellersSelected,
+      channelFilter,
+      uniqueChannels,
+      showChannelFilterDropdown,
+      channelFilterDropdownRef,
+      toggleChannelFilterDropdown,
+      selectedChannelNames,
+      allChannelsSelected,
       // surcharges,
+      formatPrice,
       exportToCSV,
       openAddCustomer,
       openEditInvoice,
@@ -408,9 +576,9 @@ input[type="checkbox"] {
 .datatable-toolbar {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #eee;
+  padding: 0.5rem;
+  // background-color: #f9f9f9;
+  // border-bottom: 1px solid #eee;
 
   .search-input {
     width: 300px;
@@ -455,6 +623,7 @@ input[type="checkbox"] {
                 flex-direction: row;
                 justify-content: flex-end;
                 flex: 1;
+                padding: 0.5rem;
 
                 .buttons-area {
                   display: flex;
@@ -512,12 +681,71 @@ input[type="checkbox"] {
       }
 
       .elevation-1 {
-        height: calc(100vh - 7rem);
+        height: calc(100vh - 7.8rem);
         background-color: white;
         color: black;
       }
     }
   }
+}
+
+.multiselect-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.multiselect-toggle {
+  width: 100%;
+  background-color: white;
+  color: black;
+  border-radius: 0.3rem;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.multiselect-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 0.3rem 0.3rem;
+  z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.multiselect-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  
+  label {
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    width: 100%;
+    margin-bottom: 0;
+  }
+}
+.multiselect-item:hover {
+  background-color: #f0f0f0;
+}
+
+.product-group-teleport {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 </style>
 

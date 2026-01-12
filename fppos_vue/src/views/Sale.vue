@@ -158,14 +158,13 @@
   />
 
   <Payment 
+    v-if="isPaymentModalOpen"
     :visible="isPaymentModalOpen"
     :cart-data="this.focus_invoice"
     :channels="this.channels"
     :default-surcharges="this.defaultSurcharges"
     :bank-accounts="this.bankAccounts"
     :transport-companies="this.transportCompanies"
-    
-    :key="focus_invoice ? focus_invoice.id + '-' + JSON.stringify(focus_invoice) + '-' + JSON.stringify(channels) + '-' + JSON.stringify(defaultSurcharges) + '-' + JSON.stringify(bankAccounts) + '-' + JSON.stringify(transportCompanies) : 'no-invoice'"
     @close="isPaymentModalOpen = false"
     @update-cart-data="handleUpdateItem"
     @complete-payment="handleCompletePayment"
@@ -203,7 +202,7 @@ import axios from 'axios';
     },
     data() {
       return {
-        testPrint: {},
+  
         products: [],
         filteredProducts: [], 
         localPendingSales: [], 
@@ -263,31 +262,42 @@ import axios from 'axios';
         }, duration + 1000); // Extra second to ensure it's unmounted after duration
       },
       
-      handleCompletePayment (payload) {
+      async handleCompletePayment (payload) {
+        if (!this.isPaymentModalOpen) return;
         console.log("Payment completed with payload:", payload);
         
         // Clear the current focus invoice
         // this.focus_invoice = null;
 
         // Remove the paid invoice from localPendingSales
-        this.localPendingSales = this.localPendingSales.filter(sale => sale.id !== this.focus_invoice.id);
-        this.focus_invoice = {};
+        console.log("Pending sales before payment:", this.localPendingSales);
+        console.log("Focus invoice before payment:", this.focus_invoice);
+        console.log("Removing invoice with ID:", this.focus_invoice.id);
+        setTimeout(() => {
+          
+        }, 10);
+        this.localPendingSales = this.localPendingSales.filter(sale => parseInt(sale.id) !== parseInt(this.focus_invoice.id));
+        console.log("Pending sales after removal:", this.localPendingSales);
+        await this.$nextTick();
+        localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
+        
+        // this.focus_invoice = {};
 
         // Update local storage
-        localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
+        
 
         // Select the first pending sale if available
         if (this.localPendingSales.length > 0) {
           this.select_pending_invoice(this.localPendingSales[0].id, null);
         } else {
           // If no pending sales left, create a new one
-          this.localPendingSales.push(this.sampleInvoice);
+          this.add_new_pending_sale();
           localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
           this.select_pending_invoice(this.localPendingSales[0].id, null);
           this.focus_invoice = this.localPendingSales[0];
-
         }
-
+        
+        console.log("Pending sales after payment:", this.localPendingSales);
         // close 
         this.isPaymentModalOpen = false;
         
@@ -468,6 +478,7 @@ import axios from 'axios';
         // copy sampleInvoice and set id to newId
         const newInvoice = JSON.parse(JSON.stringify(this.sampleInvoice));
         newInvoice.id = newId;
+        // newInvoice.unique_code = 'INV-' + Date.now();
 
         this.localPendingSales.push(newInvoice);
 
@@ -650,16 +661,7 @@ import axios from 'axios';
       this.fetchSurcharges();
       this.fetchBankAccounts();
 
-      axios.get('/invoices/5/')
-        .then(response => {
-          this.testPrint = response.data;
-          console.log('Fetched test invoice for printing:', this.testPrint);
-          // console.log('Fetched test invoice for printing:', this.testPrint);
-        })
-        .catch(error => {
-          console.error('Error fetching test invoice:', error);
-        });
-
+      
       // read pending sales from local storage
       const pendingSales = localStorage.getItem('pendingSales');
       if (pendingSales) {

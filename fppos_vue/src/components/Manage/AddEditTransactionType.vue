@@ -48,7 +48,7 @@
         </div>
 
         <div class="window-footer">
-          <button type="button" class="btn btn-outline" @click="$emit('close')">Hủy</button>
+          <button type="button" class="btn btn-outline" @click="$emit('close')">Đóng</button>
           <button type="button" class="btn btn-primary" @click="handleSubmit">
             {{ item && item.id ? 'Lưu' : 'Tạo mới' }}
           </button>
