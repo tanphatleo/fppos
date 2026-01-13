@@ -69,8 +69,8 @@
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </template>
-          <template v-slot:item.total_amount="{ item }">
-            {{ formatPrice(item.total_amount) }}
+          <template v-slot:item.total_quantity="{ item }">
+            {{ item.total_quantity }}
           </template>
           <template v-slot:item.date="{ item }">
             {{ formatDate(item.date) }}
@@ -112,12 +112,12 @@ export default {
     const dateTo = ref(getLocalDateISO(new Date()));
     
     const headers = [
-        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' } },
-        { title: 'Mã đơn', key: 'code' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Nhà cung cấp', key: 'supplier' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Ngày nhập', key: 'date' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Tổng tiền', key: 'total_amount' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Kích hoạt', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
+        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' }, cellProps: { class: 'text-left' } },
+        { title: 'Mã đơn', key: 'code' , headerProps: { class: 'my-custom-header-class' }, cellProps:  { class: 'text-left'}},
+        { title: 'Nhà cung cấp', key: 'supplier' , headerProps: { class: 'my-custom-header-class' }, cellProps:  { class: 'text-left'}},
+        { title: 'Ngày nhập', key: 'date' , headerProps: { class: 'my-custom-header-class' }, cellProps:  { class: 'text-left'}},
+        { title: 'Tổng Số Lượng', key: 'total_quantity' , headerProps: { class: 'my-custom-header-class' }, align: 'end', cellProps:  { class: 'text-right'}},
+        { title: 'Kích hoạt', key: 'is_active' , headerProps: { class: 'my-custom-header-class pr-2' }, align: 'end', cellProps:  { class: 'text-right pr-2'}},
     ];
 
     const isActiveFilter = ref([true]);
@@ -417,87 +417,6 @@ input[type="checkbox"] {
            
         }
     }
-}
-</style>
-
-<style lang="scss">
-$back-ground-color: rgba(165, 165, 165, 0.235);
-$kv-primary-color: #0070F4;
-
-
-// hide scroll bar table
-table::-webkit-scrollbar {
-    height: 0;
-    width: 0;
-}
-
-table {
-    thead {
-        tr {
-
-            th{
-                padding-left: 0.5rem !important;
-            }
-            // first th
-            th:first-child {
-                border-top-left-radius: 0.5rem !important;
-            }
-
-            // last th
-            th:last-child {
-                border-top-right-radius: 0.5rem !important;
-            }
-            // change opacity of header
-
-            background-color: #66a9f5 !important;
-            
-        }
-    }
-
-}
-
-.my-custom-header-class {
-    background-color: #00000000 !important;
-
-    font-weight: bold;
-    color: black;
-    padding-left: 0.5rem;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-}
-
-.v-data-table td, .v-data-table th {
-    text-align: left !important;
-    height: auto;
-    padding-left: 0.5rem;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-    
-    
-}
-
-.v-data-table td {
-  border-top: 1px solid #c1c1c1 !important;
-  border-bottom: none !important;
-}
-
-.v-data-table-footer {
-    background-color: #f0f0f0 !important;
-}
-
-.v-toolbar__content{
-    height: auto !important;
-    border-radius: 0.5rem !important;
-}
-
-// hide scroll bar table
-.v-table__wrapper::-webkit-scrollbar {
-    height: 0;
-    width: 0;
-}
-
-.c-button{
-    margin-left: 0.5rem;
 }
 
 .checkbox-group {

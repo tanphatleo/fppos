@@ -202,11 +202,110 @@ $kv-primary-color: #0070F4;
 }
 </style>
 
-<style>
-    .v-table__wrapper {
-        user-select: none;
+<style lang="scss">
+$back-ground-color: rgba(165, 165, 165, 0.235);
+$kv-primary-color: #0070F4;
+
+
+// hide scroll bar table
+table::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+table {
+    thead {
+        // background-color: #0070F4 !important;
+        tr {
+
+            th{
+                padding-left: 0.5rem !important;
+            }
+            // first th
+            th:first-child {
+                border-top-left-radius: 0.5rem !important;
+            }
+
+            // last th
+            th:last-child {
+                border-top-right-radius: 0.5rem !important;
+            }
+            // change opacity of header
+
+            background-color: #66a9f5 !important;
+            
+        }
     }
-    .v-table__wrapper * {
-        user-select: text;
+
+}
+
+.my-custom-header-class {
+    background-color: #00000000 !important;
+
+    font-weight: bold;
+    color: black;
+    padding-left: 0.5rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+.my-custom-header-class-right {
+    background-color: #00000000 !important;
+    text-align: right;
+    font-weight: bold;
+    color: black;
+    padding-left: 0.5rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+.v-data-table td, .v-data-table th {
+    height: auto;
+    padding-left: 0.5rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    
+    
+}
+
+.v-data-table td {
+  border-top: 1px solid #c1c1c1 !important;
+  border-bottom: none !important;
+}
+
+.v-data-table-footer {
+    background-color: #f0f0f0 !important;
+}
+
+.v-toolbar__content{
+    // background-color: $back-ground-color !important;
+    height: auto !important;
+    border-radius: 0.5rem !important;
+}
+
+// hide scroll bar table
+.v-table__wrapper::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+.c-button{
+    margin-left: 0.5rem;
+}
+
+.v-table__wrapper {
+    user-select: none;
+}
+.v-table__wrapper * {
+    user-select: text;
+}
+
+.text-left {
+    text-align: left !important;
     }
+
+.text-right {
+    text-align: right !important;
+}
+
 </style>

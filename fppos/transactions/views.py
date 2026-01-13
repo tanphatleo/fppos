@@ -37,7 +37,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
 					'Transaction Type': transaction.transaction_type.name,
 					'Debit/Credit': transaction.debit_or_credit,
 					'Amount': transaction.amount,
-					'Account': transaction.account.account_holder_name,
+					'Account': transaction.account.bank_name + ' - ' + transaction.account.account_number + ' - ' + transaction.account.account_holder_name,
 					'Date': transaction.date,
 					'Ref': ref,
 					'Description': transaction.description,

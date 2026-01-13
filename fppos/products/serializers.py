@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, ProductGroup
+from .models import Product, ProductGroup, DateEndInventory
 
 
 
@@ -15,4 +15,12 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
+        fields = '__all__'
+
+class DateEndInventorySerializer(serializers.ModelSerializer):
+    created_by_name = serializers.CharField(source='created_by.username', read_only=True)
+    updated_by_name = serializers.CharField(source='updated_by.username', read_only=True)
+
+    class Meta:
+        model = DateEndInventory
         fields = '__all__'

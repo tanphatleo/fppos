@@ -250,14 +250,15 @@ export default {
     const dateFrom = ref(getLocalDateISO(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)));
     const dateTo = ref(getLocalDateISO(new Date()));
     const headers = [
-        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' } },
-        { title: 'Mã HĐ', key: 'code', headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Khách hàng', key: 'customer_name', headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Tổng tiền', key: 'final_total', headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Ngày', key: 'date', headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Người bán', key: 'seller', headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Trạng thái', key: 'is_active', headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Thời gian tạo', key: 'created_at', headerProps: { class: 'my-custom-header-class' }},
+        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' } , cellProps:  { class: 'text-left'}},
+        { title: 'Mã HĐ', key: 'code', headerProps: { class: 'my-custom-header-class' }, cellProps:  { class: 'text-left'}},
+        { title: 'Khách hàng', key: 'customer_name', headerProps: { class: 'my-custom-header-class' }, cellProps:  { class: 'text-left'}},
+        { title: 'Người bán', key: 'seller', headerProps: { class: 'my-custom-header-class' }, cellProps:  { class: 'text-left'}},
+        { title: 'Tổng tiền', key: 'final_total', headerProps: { class: 'my-custom-header-class' },align: 'end' ,cellProps:  { class: 'text-right'}},
+        { title: 'Ngày', key: 'date', headerProps: { class: 'my-custom-header-class' }, align: 'end', cellProps:  { class: 'text-right'}},
+        
+        { title: 'Trạng thái', key: 'is_active', headerProps: { class: 'my-custom-header-class' },align: 'end', cellProps:  { class: 'text-right'}},
+        { title: 'Thời gian tạo', key: 'created_at', headerProps: { class: 'my-custom-header-class' }, align: 'end', cellProps:  { class: 'text-right'}},
     ];
 
     const groupListRef = ref(null);
@@ -402,9 +403,8 @@ export default {
     };
 
     const formatPrice = (value) => {
-      const numericValue = Number(value);
-      if (isNaN(numericValue)) return '0 ₫';
-      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(numericValue);
+      if (typeof value !== 'number') return value;
+      return value.toLocaleString('en-US');
     };
 
 
@@ -817,85 +817,6 @@ input[type="checkbox"] {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-</style>
-
-<style lang="scss">
-$back-ground-color: rgba(165, 165, 165, 0.235);
-$kv-primary-color: #0070F4;
-
-
-// hide scroll bar table
-table::-webkit-scrollbar {
-    height: 0;
-    width: 0;
-}
-
-table {
-    thead {
-        // background-color: #0070F4 !important;
-        tr {
-
-            th{
-                padding-left: 0.5rem !important;
-            }
-            // first th
-            th:first-child {
-                border-top-left-radius: 0.5rem !important;
-            }
-
-            // last th
-            th:last-child {
-                border-top-right-radius: 0.5rem !important;
-            }
-            // change opacity of header
-
-            background-color: #66a9f5 !important;
-            
-        }
-    }
-
-}
-
-.my-custom-header-class {
-    background-color: #00000000 !important;
-
-    font-weight: bold;
-    color: black;
-    padding-left: 0.5rem;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-}
-
-.v-data-table td, .v-data-table th {
-    text-align: left !important;
-    height: auto;
-    padding-left: 0.5rem;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-    
-    
-}
-
-.v-data-table td {
-  border-top: 1px solid #c1c1c1 !important;
-  border-bottom: none !important;
-}
-
-.v-data-table-footer {
-    background-color: #f0f0f0 !important;
-}
-
-.v-toolbar__content{
-    // background-color: $back-ground-color !important;
-    height: auto !important;
-    border-radius: 0.5rem !important;
-}
-
-// hide scroll bar table
-.v-table__wrapper::-webkit-scrollbar {
-    height: 0;
-    width: 0;
-}
 
 .checkbox-group {
   label {
@@ -920,5 +841,4 @@ table {
       justify-content: space-between;
   
 }
-
 </style>

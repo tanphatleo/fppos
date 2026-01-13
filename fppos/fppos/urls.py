@@ -19,7 +19,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, GroupViewSet , user_info
 from customers.views import ProvinceViewSet, WardViewSet, CustomerViewSet
-from products.views import ProductViewSet, ProductGroupViewSet
+from products.views import ProductViewSet, ProductGroupViewSet, DateEndInventoryViewSet
 from sales.views import InvoiceViewSet, SurchargeViewSet, process_shopee, download_purchase_template
 from purchases.views import PurchaseViewSet
 from logicconfig.views import LogicConfigViewSet
@@ -34,6 +34,7 @@ router.register(r'wards', WardViewSet)
 router.register(r'customers', CustomerViewSet)
 router.register(r'products', ProductViewSet)
 router.register(r'productgroups', ProductGroupViewSet)
+router.register(r'dateendinventories', DateEndInventoryViewSet)
 router.register(r'invoices', InvoiceViewSet)
 router.register(r'surcharges', SurchargeViewSet)
 router.register(r'logicconfigs', LogicConfigViewSet)

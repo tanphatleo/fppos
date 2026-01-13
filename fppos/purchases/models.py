@@ -18,6 +18,12 @@ class Purchase(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def total_quantity(self):
+        if not isinstance(self.items, list):
+            return 0
+        return sum(int(item.get('quantity', 0)) for item in self.items if isinstance(item, dict))
+
     def __str__(self):
         return self.code
 

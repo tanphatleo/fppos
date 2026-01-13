@@ -183,6 +183,9 @@
           <template v-slot:item.debit_or_credit="{item}">
             {{ item.debit_or_credit == 'DR' ? 'Phiếu Thu' : 'Phiếu Chi' }}
           </template>
+          <template v-slot:item.created_at="{ item }">
+            {{ formatDateTime(item.created_at) }}
+          </template>
         </v-data-table>
       </div>
     </div>
@@ -249,6 +252,20 @@ export default {
       }
       return subList2.value.filter(tt => debitCreditFilter.value.includes(tt.debit_or_credit));
     });
+
+    const formatDateTime = (dateString) => { // format YYYY-MM-DD HH:mm:ss
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+
+      return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+    };
 
     const selectedTransactionTypeNames = computed(() => {
       if (!transactionTypeFilter.value || transactionTypeFilter.value.length === 0) return 'Tất cả';
@@ -438,14 +455,17 @@ export default {
     const showAddEditItem = ref(false);
     const selectedItem = ref({});
     const headers = [
-        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' } },
-        { title: 'Thu/Chi', key: 'debit_or_credit' , headerProps: { class: 'my-custom-header-class' }},  
-        { title: 'Mã', key: 'id' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Nội Dung', key: 'description' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Loại', key: 'transaction_type_name' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Số Tiền', key: 'amount' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Ngày Tạo', key: 'date' , headerProps: { class: 'my-custom-header-class' }},
-        { title: 'Trạng Thái', key: 'is_active' , headerProps: { class: 'my-custom-header-class' }},
+        { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' },cellProps: { class: 'text-left' }},
+        { title: 'Thu/Chi', key: 'debit_or_credit' , headerProps: { class: 'my-custom-header-class' } , cellProps:  { class: 'text-left'}},  
+        { title: 'Mã', key: 'id' , headerProps: { class: 'my-custom-header-class' } , cellProps: { class: 'text-left' }},
+        { title: 'Nội Dung', key: 'description' , headerProps: { class: 'my-custom-header-class' }  , cellProps: { class: 'text-left' }},
+        { title: 'Loại', key: 'transaction_type_name' , headerProps: { class: 'my-custom-header-class' }, cellProps: { class: 'text-left' }},
+        { title: 'Số Tiền', key: 'amount' , align: 'end', headerProps: { class: 'my-custom-header-class' }   , cellProps: { class: 'text-right' }},
+        { title: 'Ngày Hiệu Lực', key: 'date' , align: 'end', headerProps: { class: 'my-custom-header-class' } ,  cellProps: { class: 'text-right' }},
+        { title: 'Trạng Thái', key: 'is_active' , align: 'end', headerProps: { class: 'my-custom-header-class pr-3' } , cellProps: { class: 'text-right pr-3' }},
+        { title: 'Tài Khoản', key: 'bank_account_name' , headerProps: { class: 'my-custom-header-class' }, cellProps: { class: 'text-left' }},
+        { title: 'Ngày Tạo', key: 'created_at' , headerProps: { class: 'my-custom-header-class pr-3' }, align: 'end', cellProps: { class: 'text-right pr-3' }},
+
     ];
 
     const isActiveFilter = ref([true]);
@@ -495,7 +515,7 @@ export default {
 
     const formatPrice = (value) => {
       if (typeof value !== 'number') return value;
-      return value.toLocaleString('en-US', { style: 'currency', currency: 'VND', minimumFractionDigits: 0 });
+      return value.toLocaleString('en-US');
     };
 
     async function exportToExcel() {
@@ -581,6 +601,7 @@ export default {
       openEditItem,
       createNewItem,
       onItemSaved,
+      formatDateTime,
 
       showSubList,
       subList,
@@ -872,91 +893,6 @@ input[type="checkbox"] {
            
         }
     }
-}
-
-
-</style>
-
-<style lang="scss">
-$back-ground-color: rgba(165, 165, 165, 0.235);
-$kv-primary-color: #0070F4;
-
-
-// hide scroll bar table
-table::-webkit-scrollbar {
-    height: 0;
-    width: 0;
-}
-
-table {
-    thead {
-        // background-color: #0070F4 !important;
-        tr {
-
-            th{
-                padding-left: 0.5rem !important;
-            }
-            // first th
-            th:first-child {
-                border-top-left-radius: 0.5rem !important;
-            }
-
-            // last th
-            th:last-child {
-                border-top-right-radius: 0.5rem !important;
-            }
-            // change opacity of header
-
-            background-color: #66a9f5 !important;
-            
-        }
-    }
-
-}
-
-.my-custom-header-class {
-    background-color: #00000000 !important;
-
-    font-weight: bold;
-    color: black;
-    padding-left: 0.5rem;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-}
-
-.v-data-table td, .v-data-table th {
-    text-align: left !important;
-    height: auto;
-    padding-left: 0.5rem;
-    padding-top: 0.4rem;
-    padding-bottom: 0.4rem;
-    
-    
-}
-
-.v-data-table td {
-  border-top: 1px solid #c1c1c1 !important;
-  border-bottom: none !important;
-}
-
-.v-data-table-footer {
-    background-color: #f0f0f0 !important;
-}
-
-.v-toolbar__content{
-    // background-color: $back-ground-color !important;
-    height: auto !important;
-    border-radius: 0.5rem !important;
-}
-
-// hide scroll bar table
-.v-table__wrapper::-webkit-scrollbar {
-    height: 0;
-    width: 0;
-}
-
-.c-button{
-    margin-left: 0.5rem;
 }
 
 .checkbox-group {

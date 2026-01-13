@@ -35,6 +35,7 @@ class Invoice(models.Model):
     ecom_fee = models.IntegerField(default=0)
     ecom_feestructure = models.JSONField(blank=True, null=True)  # JSON field for e-commerce fee structure
     items = models.JSONField(blank=True, null=True)  # JSON field to store invoice items
+    changes_items = models.JSONField(blank=True, null=True)  # JSON field to store changes in items
     channel = models.CharField(max_length=50, blank=True, null=True)
     seller = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='sold_by_invoices')
     created_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='created_invoices')
