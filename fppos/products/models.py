@@ -35,6 +35,7 @@ class DateEndInventory(models.Model):
     id = models.AutoField(primary_key=True)
     date = models.DateField()
     items = models.JSONField(default=list)  # List of items in JSON format
+    # changes_items = models.JSONField(default=list, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     created_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='date_end_inventories_created')
     updated_by = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, related_name='date_end_inventories_updated')
@@ -45,4 +46,17 @@ class DateEndInventory(models.Model):
     def __str__(self):
         return f"Date End Inventory - {self.date}"
 
+    @property
+    def changes_items(self):
+        change_item = ChangeItem.objects.filter(date=self.date).first()
+        return change_item.items if change_item else []
+
     
+class ChangeItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    # date_end_inventory = models.ForeignKey(DateEndInventory, on_delete=models.CASCADE, related_name='change_items')
+    date = models.DateField(unique=True)
+    items = models.JSONField(default=list)  # List of changed items in JSON format
+
+    def __str__(self):
+        return f"ChangeItem {self.id} for DateEndInventory {self.date_end_inventory.id}"

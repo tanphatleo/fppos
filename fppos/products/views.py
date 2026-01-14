@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Product, ProductGroup, DateEndInventory
-from .serializers import ProductSerializer, ProductGroupSerializer, DateEndInventorySerializer
+from .models import Product, ProductGroup, DateEndInventory, ChangeItem
+from .serializers import ProductSerializer, ProductGroupSerializer, DateEndInventorySerializer, ChangeItemSerializer
 from sales.models import Invoice
 from purchases.models import Purchase
 from sales.serializers import InvoiceSerializer
+from rest_framework.response import Response
 from purchases.serializers import PurchaseSerializer
 # Create your views here.
 
@@ -24,16 +25,31 @@ class DateEndInventoryViewSet(viewsets.ModelViewSet):
         response = super().list(request, *args, **kwargs)
         dayend = self.request.query_params.get('dayend')
         date = self.request.query_params.get('date')
-
+        print("DateEndInventoryViewSet.list called with dayend =", dayend, "and date =", date)
         if dayend == 'true' and date:
+            
             invoices = Invoice.objects.filter(date=date, is_active=True)
             purchases = Purchase.objects.filter(date=date, is_active=True)
 
             target = None
-            if isinstance(response.data, list) and len(response.data) > 0:
-                target = response.data[0]
+            if isinstance(response.data, list):
+                if len(response.data) > 0:
+                    target = response.data[0]
+                else:
+                    # No DateEndInventory found for the given date, create a placeholder
+                    change_item_obj = ChangeItem.objects.filter(date=date).first()
+                    changes_items_data = change_item_obj.items if change_item_obj else []
+                    target = {'date': date, 'is_active': False, 'created_by': None, 'updated_by': None, 'items': None , 'previous_date': None, 'changes_items': changes_items_data}
+                    response.data.append(target)
             
-            if target:
+            if target is not None:
+                # Find previous date inventory
+                previous_inventory = DateEndInventory.objects.filter(date__lt=date, is_active=True).order_by('-date').first()
+                if previous_inventory:
+                    target['previous_date'] = DateEndInventorySerializer(previous_inventory).data
+                else:
+                    target['previous_date'] = None
+
                 target['invoices'] = InvoiceSerializer(invoices, many=True).data
                 target['purchases'] = PurchaseSerializer(purchases, many=True).data
         return response
@@ -54,3 +70,17 @@ class DateEndInventoryViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user)
+
+class ChangeItemViewSet(viewsets.ModelViewSet):
+    queryset = ChangeItem.objects.all()
+    serializer_class = ChangeItemSerializer
+
+    def create(self, request, *args, **kwargs):
+        date = request.data.get('date')
+        items = request.data.get('items')
+        change_item, created = ChangeItem.objects.update_or_create(
+            date=date,
+            defaults={'items': items}
+        )
+        serializer = self.get_serializer(change_item)
+        return Response(serializer.data)
