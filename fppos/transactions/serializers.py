@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Account, TransactionType, Transaction, AccountBalance
+from .models import Account, TransactionType, Transaction, AccountBalance, DateEndCashBalance
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,11 +14,12 @@ class TransactionTypeSerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
     transaction_type_name = serializers.CharField(source='transaction_type.name', read_only=True)
     bank_account_name = serializers.SerializerMethodField()
+    invoice_code = serializers.CharField(source='invoice.code', read_only=True)
 
     class Meta:
         model = Transaction
         fields = '__all__'
-        extra_fields = ['transaction_type_name', 'bank_account_name']
+        extra_fields = ['transaction_type_name', 'bank_account_name', 'invoice_code']
     
     def get_transaction_type_name(self, obj):
         return obj.transaction_type.name
@@ -29,4 +30,9 @@ class TransactionSerializer(serializers.ModelSerializer):
 class AccountBalanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = AccountBalance
+        fields = '__all__'
+
+class DateEndCashBalanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DateEndCashBalance
         fields = '__all__'

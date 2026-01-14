@@ -141,7 +141,7 @@ export default {
 
     const code = ref(item.value ? item.value.code : '');
     const supplier = ref(item.value && item.value.supplier ? item.value.supplier : 'Sản xuất');
-    const date = ref(item.value && item.value.date ? item.value.date : new Date().toISOString().substr(0, 10));
+    const date = ref(item.value && item.value.date ? item.value.date : new Date().toISOString().slice(0, 10));
     // const total_amount = ref(item.value ? item.value.total_amount : 0);
     const isActive = ref(item.value && item.value.is_active !== undefined ? item.value.is_active : true);
     
@@ -159,7 +159,7 @@ export default {
     watch(item, (newVal) => {
       code.value = newVal ? newVal.code : '';
       supplier.value = newVal && newVal.supplier ? newVal.supplier : 'Sản xuất';
-      date.value = newVal && newVal.date ? newVal.date : new Date().toISOString().substr(0, 10);
+      date.value = newVal && newVal.date ? newVal.date : new Date().toISOString().slice(0, 10);
       // total_amount.value = newVal ? newVal.total_amount : 0;
       isActive.value = newVal && newVal.is_active !== undefined ? newVal.is_active : true;
       items.value = newVal && newVal.items ? JSON.parse(JSON.stringify(newVal.items)) : [];

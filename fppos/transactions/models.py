@@ -17,6 +17,15 @@ class Account(models.Model):
     def __str__(self):
         return f"{self.account_holder_name} - {self.account_number}"
 
+class DateEndCashBalance(models.Model):
+    id = models.AutoField(primary_key=True)
+    date = models.DateField(unique=True)
+    cash_in_hand = models.DecimalField(max_digits=15, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Cash Balance on {self.date} - {self.cash_in_hand}"
 
 class TransactionType(models.Model):
     TRANSACTION_TYPE_CHOICES = [

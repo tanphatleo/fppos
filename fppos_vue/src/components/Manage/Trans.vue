@@ -389,7 +389,7 @@ export default {
     const subList2 = ref([]);
     // Datepicker filter state
     const getLocalDateISO = (date) => {
-      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
     };
     // date from default to last 30 days
     const dateFrom = ref(getLocalDateISO(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)));

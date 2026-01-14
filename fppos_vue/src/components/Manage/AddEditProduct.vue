@@ -65,25 +65,12 @@
                       <input 
                           type="text" 
                           v-model="item.searchText" 
-                          @focus="item.isOpen = true"
-                          @blur="handleBlur(item)"
+                          @focus="handleComboFocus($event, item)"
+                          @blur="handleComboBlur"
                           placeholder="Tìm sản phẩm..."
                           class="combo-product-input" 
                           style="width: 100%;"
                       />
-                      <div v-if="item.isOpen" class="combo-dropdown">
-                          <div 
-                              v-for="p in filterProducts(item.searchText)" 
-                              :key="p.code" 
-                              class="combo-dropdown-item"
-                              @click="selectComboProduct(item, p)"
-                          >
-                              {{ p.name }} ({{ p.code }})
-                          </div>
-                          <div v-if="filterProducts(item.searchText).length === 0" class="combo-dropdown-item" style="color: #999; cursor: default;">
-                              Không tìm thấy
-                          </div>
-                      </div>
                     </div>
                     <input type="number" v-model.number="item.quantity" min="1" class="combo-quantity-input" />
                     <button @click="removeComboItem(idx)" class="btn-remove-combo">×</button>
@@ -101,6 +88,21 @@
       </div>
     </div>
   </div>
+  <Teleport to="body">
+    <div v-if="activeComboDropdown" class="combo-dropdown-teleport" :style="dropdownStyle">
+        <div 
+            v-for="p in filterProducts(activeComboDropdown.searchText)" 
+            :key="p.code" 
+            class="combo-dropdown-item"
+            @mousedown.prevent="selectComboProduct(activeComboDropdown, p)"
+        >
+            {{ p.name }} ({{ p.code }})
+        </div>
+        <div v-if="filterProducts(activeComboDropdown.searchText).length === 0" class="combo-dropdown-item" style="color: #999; cursor: default;">
+            Không tìm thấy
+        </div>
+    </div>
+  </Teleport>
 </template>
 
 <script setup>
@@ -140,6 +142,9 @@ const product = ref({
 // Combo items: [{ product: <id>, quantity: <number> }]
 const comboItems = ref([]);
 
+const activeComboDropdown = ref(null);
+const dropdownStyle = ref({});
+
 const priceDisplay = computed({
   get: () => {
     if (!product.value.price || product.value.price === 0) return '0';
@@ -167,8 +172,7 @@ watch(() => props.productData, (newVal) => {
           code: item.code,
           name: name,
           quantity: item.quantity,
-          searchText: name ? `${name} (${item.code})` : item.code,
-          isOpen: false
+          searchText: name ? `${name} (${item.code})` : item.code
         };
       });
     } else {
@@ -197,7 +201,7 @@ watch(() => product.value.product_type, (type) => {
 });
 
 function addComboItem() {
-  comboItems.value.push({ code: '', name: '', quantity: 1, searchText: '', isOpen: false });
+  comboItems.value.push({ code: '', name: '', quantity: 1, searchText: '' });
 }
 function removeComboItem(idx) {
   comboItems.value.splice(idx, 1);
@@ -226,12 +230,22 @@ function selectComboProduct(item, p) {
   item.code = p.code;
   item.name = p.name;
   item.searchText = `${p.name} (${p.code})`;
-  item.isOpen = false;
+  activeComboDropdown.value = null;
 }
 
-function handleBlur(item) {
+function handleComboFocus(event, item) {
+  const rect = event.target.getBoundingClientRect();
+  dropdownStyle.value = {
+    top: `${rect.bottom}px`,
+    left: `${rect.left}px`,
+    width: `${rect.width}px`
+  };
+  activeComboDropdown.value = item;
+}
+
+function handleComboBlur() {
   setTimeout(() => {
-    item.isOpen = false;
+    activeComboDropdown.value = null;
   }, 200);
 }
 
@@ -487,17 +501,13 @@ input[type="checkbox"] {
   text-align: center;
 }
 
-.combo-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
+.combo-dropdown-teleport {
+  position: fixed;
   background: white;
   border: 1px solid #ccc;
-  border-top: none;
   max-height: 200px;
   overflow-y: auto;
-  z-index: 10;
+  z-index: 9999;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 .combo-dropdown-item {

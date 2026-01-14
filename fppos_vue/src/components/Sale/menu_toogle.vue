@@ -47,17 +47,16 @@ export default {
   props: {
     msg: String
   },
+  emits: ['menu-action'],
   data() {
     return {
       isOpen: false,
       menuItems: [
-        { text: 'Xem báo cáo cuối ngày', icon: 'fas fa-chart-pie', action: 'viewReport' },
-        { text: 'Xử lý đặt hàng', icon: 'fas fa-shopping-bag', action: 'handleOrder' },
-        { text: 'Chọn hóa đơn trả hàng', icon: 'fas fa-reply-all', action: 'refund' },
+        { text: 'Quản lý', icon: 'fas fa-chart-pie', action: 'viewReport' },
         { text: 'Lập phiếu thu', icon: 'fas fa-edit', action: 'receipt' },
-        { text: 'Tùy chọn hiển thị', icon: 'fas fa-eye', action: 'configDisplay' },
-        { text: 'Phím tắt', icon: 'fas fa-info-circle', action: 'hotkeys' },
-        { text: 'Quản lý', icon: 'fas fa-poll', action: 'manage' },
+        { text: 'Lập phiếu chi', icon: 'fas fa-edit', action: 'payment' },
+        { text: 'Chốt hàng', icon: 'fas fa-eye', action: 'date_end_inventory' },
+        { text: 'Chốt tiền', icon: 'fas fa-info-circle', action: 'date_end_cash_balance' }
       ]
     };
   },
@@ -67,6 +66,7 @@ export default {
     },
     handleAction(action) {
       console.log("Triggered:", action);
+      this.$emit('menu-action', action);
       this.isOpen = false; // Close after click
     },
     logout() {

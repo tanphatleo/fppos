@@ -53,7 +53,7 @@
           <div style="text-align: center; margin: 1rem 0;">
         </div>
           <div class="menu-toggle"> 
-            <menu_toggle/>
+            <menu_toggle @menu-action="handleMenuAction"/>
           </div>
         </div>  
       </div>
@@ -170,6 +170,14 @@
     @complete-payment="handleCompletePayment"
   />
 
+  <AddEditTrans 
+    v-if="showAddEditTrans"
+    :item="selectedTransItem"
+    :accounts="allAccounts"
+    :transaction-types="transactionTypes"
+    @close="showAddEditTrans = false"
+    @saved="onTransSaved"
+  />
 
   <!-- Print Button -->
   
@@ -185,6 +193,7 @@ import Carts from '@/components/Sale/Carts.vue';
 import ProfuctFilterCate from '@/components/Sale/ProfuctFilterCate.vue';
 import Payment from '@/components/Sale/Payment.vue';
 import AlertModule from '@/components/common/AlertModule.vue';
+import AddEditTrans from '@/components/Manage/AddEditTrans.vue';
 
 import { createApp } from 'vue';
 
@@ -198,7 +207,8 @@ import axios from 'axios';
       Carts, 
       ProfuctFilterCate,
       Payment,
-      AlertModule
+      AlertModule,
+      AddEditTrans
     },
     data() {
       return {
@@ -206,8 +216,7 @@ import axios from 'axios';
         products: [],
         filteredProducts: [], 
         localPendingSales: [], 
-        user: this.$store.getters.userName, 
-        branch: 'Chi nhánh Hà Nội',
+        branch: '',
         isCustomerModalOpen: false, 
         isPaymentModalOpen: false,
         focus_invoice: {},
@@ -221,6 +230,10 @@ import axios from 'axios';
         transportCompanies: [],
         channels: [],
         defaultSurcharges: [],
+        allAccounts: [],
+        transactionTypes: [],
+        showAddEditTrans: false,
+        selectedTransItem: {},
         searchQuery: '',
         sampleInvoice: {
           id: 1,
@@ -247,7 +260,41 @@ import axios from 'axios';
       }
     },
     
+    computed: {
+      user() {
+        return this.$store.getters.userName;
+      }
+    },
     methods: {
+
+      handleMenuAction(action) {
+        switch (action) {
+          case 'viewReport':
+            this.$router.push('/manage');
+            break;
+          case 'receipt':
+            this.selectedTransItem = { debit_or_credit: 'DR' };
+            this.showAddEditTrans = true;
+            break;
+          case 'payment':
+            this.selectedTransItem = { debit_or_credit: 'CR' };
+            this.showAddEditTrans = true;
+            break;
+          case 'date_end_inventory':
+            this.$router.push('/manage?view=date_end_inventory');
+            break;
+          case 'date_end_cash_balance':
+            this.$router.push('/manage?view=date_end_cash_balance');
+            break;
+          default:
+            console.log('Unknown action:', action);
+        }
+      },
+
+      onTransSaved() {
+        this.showAddEditTrans = false;
+        this.triggerAlert("Lưu giao dịch thành công!", 3000);
+      },
 
       triggerAlert(message, duration=30000) {
         const alertContainer = document.createElement('div');
@@ -316,7 +363,7 @@ import axios from 'axios';
         if (text.length <= maxLength) {
           return text;
         }
-        return text.substring(0, maxLength) + '...';
+        return text.slice(0, maxLength) + '...';
       },
 
       select_focus_customer(customer) {
@@ -642,10 +689,20 @@ import axios from 'axios';
       async fetchBankAccounts() {
         try {
           const response = await axios.get('/accounts/');
-          this.bankAccounts = response.data.filter(account => account.is_active && account.bank_name !== 'Cash');
+          this.allAccounts = response.data.filter(account => account.is_active);
+          this.bankAccounts = this.allAccounts.filter(account => account.bank_name !== 'Cash');
           // console.log('Fetched bank accounts:', this.bankAccounts);
         } catch (error) {
           console.error('Error fetching bank accounts:', error);
+        }
+      },
+
+      async fetchTransactionTypes() {
+        try {
+          const response = await axios.get('/transactiontypes/');
+          this.transactionTypes = response.data;
+        } catch (error) {
+          console.error('Error fetching transaction types:', error);
         }
       },
 
@@ -660,6 +717,7 @@ import axios from 'axios';
       this.fetchProvincesWards() ;
       this.fetchSurcharges();
       this.fetchBankAccounts();
+      this.fetchTransactionTypes();
 
       
       // read pending sales from local storage

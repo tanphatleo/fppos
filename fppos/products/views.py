@@ -39,7 +39,7 @@ class DateEndInventoryViewSet(viewsets.ModelViewSet):
                     # No DateEndInventory found for the given date, create a placeholder
                     change_item_obj = ChangeItem.objects.filter(date=date).first()
                     changes_items_data = change_item_obj.items if change_item_obj else []
-                    target = {'date': date, 'is_active': False, 'created_by': None, 'updated_by': None, 'items': None , 'previous_date': None, 'changes_items': changes_items_data}
+                    target = {'date': date, 'is_active': False, 'created_by': None, 'created_at': None, 'updated_by': None, 'items': None , 'previous_date': None, 'changes_items': changes_items_data}
                     response.data.append(target)
             
             if target is not None:

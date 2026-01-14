@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework import viewsets
-from .models import Account, TransactionType, Transaction, AccountBalance
-from .serializers import AccountSerializer, TransactionTypeSerializer, TransactionSerializer, AccountBalanceSerializer
+from .models import Account, TransactionType, Transaction, AccountBalance, DateEndCashBalance
+from .serializers import AccountSerializer, TransactionTypeSerializer, TransactionSerializer, AccountBalanceSerializer, DateEndCashBalanceSerializer
 import pandas as pd
 from django.http import HttpResponse
 from io import BytesIO
@@ -76,3 +76,40 @@ class TransactionViewSet(viewsets.ModelViewSet):
 class AccountBalanceViewSet(viewsets.ModelViewSet):
 	queryset = AccountBalance.objects.all()
 	serializer_class = AccountBalanceSerializer
+
+class DateEndCashBalanceViewSet(viewsets.ModelViewSet):
+	queryset = DateEndCashBalance.objects.all()
+	serializer_class = DateEndCashBalanceSerializer
+
+	def get_queryset(self):
+		queryset = super().get_queryset()
+		dateend = self.request.query_params.get('dateend')
+		date = self.request.query_params.get('date')
+		if dateend == 'true' and date:
+			queryset = queryset.filter(date=date)
+		return queryset
+
+	def list(self, request, *args, **kwargs):
+		response = super().list(request, *args, **kwargs)
+		dateend = self.request.query_params.get('dateend')
+		date = self.request.query_params.get('date')
+
+		if dateend == 'true' and date:
+			target = None
+			if isinstance(response.data, list):
+				if len(response.data) > 0:
+					target = response.data[0]
+				else:
+					target = {'date': date, 'cash_in_hand': 0, 'previous_date': None, 'created_by': None, 'created_at': None, 'updated_by': None	}
+					response.data.append(target)
+			
+			if target:
+				previous_balance = DateEndCashBalance.objects.filter(date__lt=date).order_by('-date').first()
+				if previous_balance:
+					target['previous_date'] = DateEndCashBalanceSerializer(previous_balance).data
+				else:
+					target['previous_date'] = None
+
+				transactions = Transaction.objects.filter(date=date)
+				target['transactions'] = TransactionSerializer(transactions, many=True).data
+		return response

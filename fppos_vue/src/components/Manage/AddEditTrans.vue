@@ -111,7 +111,7 @@ export default {
     
     const amount = ref(item.value && item.value.id ? item.value.amount : '');
     const account_id = ref(item.value && item.value.id ? item.value.account : 1);
-    const date = ref(item.value && item.value.id ? item.value.date : new Date().toISOString().substr(0, 10));
+    const date = ref(item.value && item.value.id ? item.value.date : new Date().toISOString().slice(0, 10));
     const ref_field = ref(item.value && item.value.id ? item.value.ref : '');
     const description = ref(item.value && item.value.id ? item.value.description : '');
     const isActive = ref(item.value && item.value.is_active !== undefined ? item.value.is_active : true);
@@ -148,7 +148,7 @@ export default {
       transaction_type_id.value = isEditing ? newVal.transaction_type : null;
       amount.value = isEditing ? newVal.amount : '';
       account_id.value = isEditing ? newVal.account : null;
-      date.value = isEditing ? newVal.date : new Date().toISOString().substr(0, 10);
+      date.value = isEditing ? newVal.date : new Date().toISOString().slice(0, 10);
       ref_field.value = isEditing ? newVal.ref : '';
       description.value = isEditing ? newVal.description : '';
       isActive.value = newVal && newVal.is_active !== undefined ? newVal.is_active : true;

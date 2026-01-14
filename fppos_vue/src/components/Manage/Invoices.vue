@@ -244,7 +244,7 @@ export default {
 
     const channels = ref([]);
     const getLocalDateISO = (date) => {
-      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
     };
 
     const dateFrom = ref(getLocalDateISO(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)));
@@ -258,7 +258,7 @@ export default {
         { title: 'Ngày', key: 'date', headerProps: { class: 'my-custom-header-class' }, align: 'end', cellProps:  { class: 'text-right'}},
         
         { title: 'Trạng thái', key: 'is_active', headerProps: { class: 'my-custom-header-class' },align: 'end', cellProps:  { class: 'text-right'}},
-        { title: 'Thời gian tạo', key: 'created_at', headerProps: { class: 'my-custom-header-class' }, align: 'end', cellProps:  { class: 'text-right'}},
+        { title: 'Thời gian tạo', key: 'created_at', headerProps: { class: 'my-custom-header-class pr-3' }, align: 'end', cellProps:  { class: 'text-right pr-3'}},
     ];
 
     const groupListRef = ref(null);

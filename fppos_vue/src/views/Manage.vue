@@ -55,6 +55,8 @@
                 <Trans v-if="activeView === 'Sổ quỹ'" :isVisible="true" />
                 <Users v-if="activeView === 'Người dùng'" :isVisible="true" />
                 <Purchases v-if="activeView === 'Mua hàng'" :isVisible="true" />
+                <DateEndInventory v-if="activeView === 'Chốt Kho'" :isVisible="true" />
+                <DateEndCashBalance v-if="activeView === 'Chốt Quỹ'" :isVisible="true" />
             </div>
             
         </div>
@@ -71,6 +73,8 @@ import Settings from "@/components/Manage/Settings.vue";
 import Trans from "@/components/Manage/Trans.vue";
 import Users from "@/components/Manage/Users.vue";
 import Purchases from "@/components/Manage/Purchases.vue";
+import DateEndInventory from "@/components/Manage/DateEndInventory.vue";
+import DateEndCashBalance from "@/components/Manage/DateEndCashBalance.vue";
 
 export default {
   name: "Manage",
@@ -82,30 +86,50 @@ export default {
     Trans,  
     Users,
     Purchases,
+    DateEndInventory,
+    DateEndCashBalance,
   },
 
   data() {
     return {
       menus: [
-        { Id: 1, name: "Hóa Đơn" , require_admin : false},
-        { Id: 2, name: "Mua hàng" , require_admin : false},
-        { Id: 3, name: "Sản phẩm" , require_admin : true},
-        { Id: 4, name: "Khách hàng" , require_admin : true},
-        { Id: 5, name: "Sổ quỹ" , require_admin : false},
-        { Id: 6, name: "Cài đặt" , require_admin : true},
-        { Id: 7, name: "Người dùng" , require_admin : true},
+        { Id: 1, name: "Hóa Đơn" , require_admin : false, query_params : 'invoices'},
+        { Id: 2, name: "Mua hàng" , require_admin : false, query_params : 'purchases'},
+        { Id: 3, name: "Sản phẩm" , require_admin : true, query_params : 'products'},
+        { Id: 4, name: "Khách hàng" , require_admin : true, query_params : 'customers'},
+        { Id: 5, name: "Sổ quỹ" , require_admin : false, query_params : 'trans'},
+        { Id: 6, name: "Cài đặt" , require_admin : true, query_params : 'settings'},
+        { Id: 7, name: "Người dùng" , require_admin : true, query_params : 'users'},
+        { Id: 8, name: "Chốt Kho" , require_admin : false, query_params : 'date_end_inventory'},
+        { Id: 9, name: "Chốt Quỹ" , require_admin : false, query_params : 'date_end_cash_balance'},
       ],
-      activeView: "Mua hàng", // Define your menus data here
+      activeView: "Hóa Đơn", // Define your menus data here
     };
   },
+  watch: {
+    '$route.query.view'(newVal) {
+      const menu = this.menus.find(m => m.query_params === newVal);
+      if (menu) {
+        this.activeView = menu.name;
+      }
+    }
+  },
   mounted() {
-    // Automatically click/select "Hóa Đơn" when the page loads
-    this.setActiveView("Mua hàng");
+    const view = this.$route.query.view;
+    const menu = this.menus.find(m => m.query_params === view);
+    if (menu) {
+      this.activeView = menu.name;
+    } else {
+      this.setActiveView("Hóa Đơn");
+    }
   },
   methods: {
     setActiveView(page) {
       this.activeView = page; // Assign the emitted page to activeView
-    //   window.alert(`Switched to ${page} view`);
+      const menu = this.menus.find(m => m.name === page);
+      if (menu && this.$route.query.view !== menu.query_params) {
+        this.$router.push({ query: { ...this.$route.query, view: menu.query_params } });
+      }
     },
     handleSignOut() {
       this.$store.dispatch('removeToken'); // Clear token from Vuex store
@@ -200,20 +224,9 @@ $kv-primary-color: #0070F4;
     }
 
 }
-</style>
-
-<style lang="scss">
-$back-ground-color: rgba(165, 165, 165, 0.235);
-$kv-primary-color: #0070F4;
 
 
-// hide scroll bar table
-table::-webkit-scrollbar {
-    height: 0;
-    width: 0;
-}
-
-table {
+::v-deep table {
     thead {
         // background-color: #0070F4 !important;
         tr {
@@ -232,12 +245,26 @@ table {
             }
             // change opacity of header
 
-            background-color: #66a9f5 !important;
+            background-color: #66a9f5 ;
             
         }
     }
 
 }
+</style>
+
+<style lang="scss">
+$back-ground-color: rgba(165, 165, 165, 0.235);
+$kv-primary-color: #0070F4;
+
+
+// hide scroll bar table
+table::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+}
+
+
 
 .my-custom-header-class {
     background-color: #00000000 !important;

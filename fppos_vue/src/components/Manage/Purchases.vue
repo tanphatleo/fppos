@@ -106,7 +106,7 @@ export default {
     const selectedItem = ref({});
 
     const getLocalDateISO = (date) => {
-      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
+      return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
     };
     const dateFrom = ref(getLocalDateISO(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)));
     const dateTo = ref(getLocalDateISO(new Date()));

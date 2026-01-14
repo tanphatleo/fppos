@@ -1,21 +1,12 @@
 <template>
   <div class="work-area">
     <div class="top-area">
-      <div class="page-name-area">Chốt kho </div>
+      <div class="page-name-area">Chốt Kho</div>
       <div class="action-area">
         <div class="page-actions">
-          <div class="pr-3"> từ ngày <b>{{ previousDate }}</b> đến ngày </div>
-          <input type="date" v-model="chosenDate" class="date-picker" @click="$event.target.showPicker()" style="background-color: white; color: black;"/>
-          <div class="pl-2"> Đã chốt lúc: {{ created_at }}</div>
-          
+          <input type="date" v-model="chosenDate" class="date-picker" />
           <button @click="copyClosingToActual" class="btn btn-primary" style="margin-left: 1rem;">
             Copy Tồn cuối -> Thực tế
-          </button>
-          <button @click="openEditChanges" class="btn btn-info" style="margin-left: 1rem;">
-            Sửa đổi hàng
-          </button>
-          <button @click="createDateEndInventory" class="btn btn-primary" style="margin-left: 1rem;">
-            Tạo phiếu chốt
           </button>
         </div>
       </div>
@@ -30,7 +21,7 @@
             class="elevation-1"
             fixed-header
             :items-per-page="-1"
-            height="calc(100vh - 10rem)"
+            height="calc(100vh - 8rem)"
             style="background-color: white;"
             density="compact"
             hide-default-footer
@@ -41,8 +32,8 @@
             <template v-slot:item.closing="{ item }">
               <span class="font-bold">{{ item.closing }}</span>
             </template>
-            <template v-slot:item.check_actual="{ item }">
-              <input type="number" v-model.number="item.check_actual" class="qty-input" @focus="$event.target.select()">
+            <template v-slot:item.actual="{ item }">
+              <input type="number" v-model.number="item.actual" class="qty-input" @input="onDiffChange(item)" @focus="$event.target.select()">
             </template>
           </v-data-table>
 
@@ -74,13 +65,6 @@
         
       </div>
     </div>
-    <EditChangesItems
-      v-if="showEditChanges"
-      :initial-items="currentChangesItems"
-      :products="products"
-      @close="showEditChanges = false"
-      @save="handleSaveChanges"
-    />
   </div>
 </template>
 
@@ -89,12 +73,10 @@ import { ref, computed, onMounted, nextTick, onBeforeUnmount, watch} from 'vue';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 import { useStore } from 'vuex';
-import EditChangesItems from './EditChangesItems.vue';
 
 export default {
   name: 'DateEndInventory',
   components: {
-    EditChangesItems,
   },
   setup() {
     const store = useStore();
@@ -105,13 +87,10 @@ export default {
 
     const DateEndInventorys = ref([]);
     // default to today -1 day
-    const created_at = ref('chưa chốt');
-    const chosenDate = ref(getLocalDateISO(new Date(Date.now())));
+    
+    const chosenDate = ref(getLocalDateISO(new Date(Date.now() - 86400000)));
     const searchQuery = ref('');
     const searchQueryInvoice = ref('');
-    const showEditChanges = ref(false);
-    const currentChangesItems = ref([]);
-    const previousDate = ref(null);
 
     const products = ref([]);
 
@@ -119,7 +98,6 @@ export default {
       try {
         const response = await axios.get('/products/');
         products.value = response.data;
-        console.log('Fetched products:', products.value);
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -135,31 +113,8 @@ export default {
           }
         });
         DateEndInventorys.value = response.data;
-        previousDate.value = DateEndInventorys.value[0].previous_date?.date || null;
-        created_at.value = DateEndInventorys.value[0].created_at ? DateEndInventorys.value[0].created_at.slice(0, 16): 'chưa chốt';
       } catch (error) {
         console.error('Error fetching date end inventories:', error);
-      }
-      store.commit('setLoading', false);
-    };
-
-    const createDateEndInventory = async () => {
-      if (!chosenDate.value) return;
-      store.commit('setLoading', true);
-      try {
-        const itemsPayload = tableRows.value.map(row => ({
-          code: row.code,
-          quantity: row.check_actual
-        }));
-        await axios.post('/dateendinventories/', {
-          date: chosenDate.value,
-          items: itemsPayload
-        });
-        await fetchDateEndInventorys();
-        alert("Đã tạo phiếu chốt kho thành công.");
-      } catch (error) {
-        console.error('Error creating date end inventory:', error);
-        alert("Lỗi khi tạo phiếu chốt kho: " + (error.response?.data?.detail || error.message));
       }
       store.commit('setLoading', false);
     };
@@ -175,7 +130,6 @@ export default {
       { title: 'Tồn cuối (LT)', key: 'closing', align: 'end', headerProps: { class: 'my-custom-header-class ' , style: 'text-align: right;' } , align: 'end', cellProps: { class: 'text-right  back-ground-white' } },
       { title: 'Thực tế', key: 'actual', align: 'end', headerProps: { class: 'my-custom-header-class ' , style: 'text-align: right;'} , align: 'end', cellProps: { class: 'text-right back-ground-white ' } },
       { title: 'Chênh lệch', key: 'diff', align: 'end', headerProps: { class: 'my-custom-header-class  pr-3' , style: 'text-align: right;' } , align: 'end', cellProps: { class: 'text-right  back-ground-white pr-3' } },
-      { title: 'Kiểm kê', key: 'check_actual', align: 'end', headerProps: { class: 'my-custom-header-class pr-3' , style: 'text-align: right;'} , align: 'end', cellProps: { class: 'text-right back-ground-white pr-3' } },
     ];
 
     const tableRows = ref([]);
@@ -190,7 +144,6 @@ export default {
       const currentItems = data.items || [];
       const purchases = data.purchases || [];
       const invoices = data.invoices || [];
-      const changes = data.changes_items || [];
 
       const allCodes = new Set();
 
@@ -209,10 +162,7 @@ export default {
       purchases.forEach(p => collectCodes(p.items));
       invoices.forEach(i => {
         collectCodes(i.expanded_items);
-      });
-      changes.forEach(c => {
-        if (c.deduction_product_code) allCodes.add(c.deduction_product_code);
-        if (c.replace_product_code) allCodes.add(c.replace_product_code);
+        collectCodes(i.changes_items);
       });
 
       const productInfoMap = {};
@@ -232,9 +182,8 @@ export default {
           invoiceSum: 0,
           changeSum: 0,
           closing: 0,
-          actual: '',
-          diff: 0,
-          check_actual: 0
+          actual: 0,
+          diff: 0
         };
 
         // Previous Quantity
@@ -252,24 +201,21 @@ export default {
 
         // Invoices
         let invoiceSum = 0;
+        let changeSum = 0;
         invoices.forEach(inv => {
           const invItem = inv.expanded_items ? inv.expanded_items.find(i => i.code === code) : null;
           const qty = invItem ? (Number(invItem.quantity) || 0) : 0;
           invoiceSum += qty;
+
+          if (inv.changes_items && inv.changes_items.length > 0) {
+            const changeItem = inv.changes_items.find(i => i.code === code);
+            const cQty = changeItem ? (Number(changeItem.quantity) || 0) : 0;
+            // Assuming changes also count towards outflow/adjustment in the same direction for simplicity of "sum"
+            invoiceSum += cQty; 
+            changeSum += cQty; 
+          }
         });
         row.invoiceSum = invoiceSum === 0 ? '' : invoiceSum;
-
-        // Changes (Global)
-        let changeSum = 0;
-        changes.forEach(c => {
-          const qty = Number(c.quantity) || 0;
-          if (c.deduction_product_code === code) {
-            changeSum -= qty; // Deduction reduces outflow (returns to stock)
-          }
-          if (c.replace_product_code === code) {
-            changeSum += qty; // Replacement increases outflow (leaves stock)
-          }
-        });
         row.changeSum = changeSum === 0 ? '' : changeSum;
 
         // Closing (Calculated)
@@ -278,7 +224,7 @@ export default {
 
         // Actual (Checked)
         const currItem = currentItems.find(i => i.code === code);
-        row.actual = currItem ? (Number(currItem.quantity) || 0) : '';
+        row.actual = currItem ? (Number(currItem.quantity) || 0) : 0;
 
         // Diff
         row.diff = row.closing - row.actual;
@@ -325,6 +271,20 @@ export default {
              productMap[item.code][key] = (productMap[item.code][key] || 0) + (Number(item.quantity) || 0);
           }
         });
+
+        if (inv.changes_items && inv.changes_items.length > 0) {
+          inv.changes_items.forEach(item => {
+             if (!productMap[item.code]) {
+               const p = products.value.find(prod => prod.code === item.code);
+               productMap[item.code] = {
+                 code: item.code,
+                 name: p ? p.name : '',
+               };
+             }
+             const key = `invoice_change_${inv.id}`;
+             productMap[item.code][key] = (productMap[item.code][key] || 0) + (Number(item.quantity) || 0);
+          });
+        }
       });
 
       let result = Object.values(productMap);
@@ -350,6 +310,7 @@ export default {
 
       invoices.forEach(inv => {
         const invKey = `invoice_${inv.id}`;
+        const changeKey = `invoice_change_${inv.id}`;
         
         const hasMainData = searchQuery.value ? visibleRows.some(r => r[invKey]) : true;
 
@@ -361,6 +322,19 @@ export default {
             headerProps: { class: 'my-custom-header-class vertical-header' },
             cellProps: { class: 'text-right back-ground-white pr-2' }
           });
+        }
+
+        if (inv.changes_items && inv.changes_items.length > 0) {
+          const hasChangeData = searchQuery.value ? visibleRows.some(r => r[changeKey]) : true;
+          if (hasChangeData) {
+            headers.push({
+              title: inv.code + ' (Thay đổi)',
+              key: changeKey,
+              align: 'end',
+              headerProps: { class: 'my-custom-header-class vertical-header' },
+              cellProps: { class: 'text-right back-ground-white pr-2' }
+            });
+          }
         }
       });
       
@@ -389,6 +363,20 @@ export default {
              productMap[item.code][key] = (productMap[item.code][key] || 0) + (Number(item.quantity) || 0);
           }
         });
+
+        if (inv.changes_items && inv.changes_items.length > 0) {
+          inv.changes_items.forEach(item => {
+             if (!productMap[item.code]) {
+               const p = products.value.find(prod => prod.code === item.code);
+               productMap[item.code] = {
+                 code: item.code,
+                 name: p ? p.name : '',
+               };
+             }
+             const key = `invoice_change_${inv.id}`;
+             productMap[item.code][key] = (productMap[item.code][key] || 0) + (Number(item.quantity) || 0);
+          });
+        }
       });
 
       const rows = Object.values(productMap).sort((a, b) => a.code.localeCompare(b.code));
@@ -399,6 +387,11 @@ export default {
       invoices.forEach(inv => {
         headerRow.push(inv.code);
         keys.push(`invoice_${inv.id}`);
+
+        if (inv.changes_items && inv.changes_items.length > 0) {
+           headerRow.push(inv.code + ' (Thay đổi)');
+           keys.push(`invoice_change_${inv.id}`);
+        }
       });
 
       const wsData = [headerRow];
@@ -422,40 +415,10 @@ export default {
     const copyClosingToActual = () => {
       tableRows.value.forEach(row => {
         let val = row.closing;
-        row.check_actual = val;
+        if (val < 0) val = 0;
+        row.actual = val;
+        row.diff = row.closing - row.actual;
       });
-    };
-
-    const openEditChanges = () => {
-      if (DateEndInventorys.value.length > 0) {
-        currentChangesItems.value = JSON.parse(JSON.stringify(DateEndInventorys.value[0].changes_items || []));
-        showEditChanges.value = true;
-      } else {
-        alert("Không có dữ liệu chốt kho cho ngày này.");
-      }
-    };
-
-    const handleSaveChanges = async (updatedItems) => {
-      if (DateEndInventorys.value.length > 0) {
-        const date = DateEndInventorys.value[0].date;
-        if (!date) {
-            alert("Không thể lưu, không tìm thấy ngày.");
-            return;
-        }
-        try {
-          store.commit('setLoading', true);
-          await axios.post(`/changeitems/`, {
-            date: date,
-            items: updatedItems
-          });
-          showEditChanges.value = false;
-          await fetchDateEndInventorys(); // Refresh data
-        } catch (error) {
-          alert("Lỗi khi lưu đổi hàng: " + (error.response?.data?.detail || error.message));
-        } finally {
-          store.commit('setLoading', false);
-        }
-      }
     };
 
     const formatPrice = (value) => {
@@ -503,14 +466,6 @@ export default {
       infoHeaders,
       infoTableRows,
       exportToExcel,
-      showEditChanges,
-      openEditChanges,
-      handleSaveChanges,
-      currentChangesItems,
-      products,
-      previousDate,
-      createDateEndInventory,
-      created_at,
     };
   },
 };
@@ -520,7 +475,7 @@ export default {
 $kv-primary-color: #0070F4;
 $border-color: #aaaaaa;
 .work-area {
-  padding: 1rem 5rem;
+  padding: 1rem;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -528,7 +483,6 @@ $border-color: #aaaaaa;
   box-sizing: border-box;
 
   .top-area {
-    // height: calc(100% - 5rem);
     display: flex;
     padding: 0.5rem;
     align-items: center;
@@ -560,13 +514,11 @@ $border-color: #aaaaaa;
 }
 
 .info-area {
-    margin-left: 3rem;
     height: 100%;
     width: 40%;
     overflow: auto;
     background: white;
-    // border-left: 1px solid #aaaaaa;
-    border-radius: 0.5rem;
+    border-left: 1px solid #aaaaaa;
 }
 
 .page-actions {
@@ -595,11 +547,6 @@ $border-color: #aaaaaa;
 
 .btn-secondary {
   background: #6c757d;
-  color: white;
-}
-
-.btn-info {
-  background: #17a2b8;
   color: white;
 }
 

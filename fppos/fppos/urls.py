@@ -24,7 +24,9 @@ from sales.views import InvoiceViewSet, SurchargeViewSet, process_shopee, downlo
 from purchases.views import PurchaseViewSet
 from logicconfig.views import LogicConfigViewSet
 from customers.views import search_customers
-from transactions.views import TransactionViewSet, AccountViewSet, TransactionTypeViewSet
+from transactions.views import TransactionViewSet, AccountViewSet, TransactionTypeViewSet, AccountBalanceViewSet, DateEndCashBalanceViewSet
+
+
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -43,6 +45,8 @@ router.register(r'accounts', AccountViewSet)
 router.register(r'transactiontypes', TransactionTypeViewSet)
 router.register(r'purchases', PurchaseViewSet)
 router.register(r'changeitems', ChangeItemViewSet)
+router.register(r'accountbalances', AccountBalanceViewSet)
+router.register(r'dateendcashbalances', DateEndCashBalanceViewSet)
 
 
 urlpatterns = [

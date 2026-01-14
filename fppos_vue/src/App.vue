@@ -5,7 +5,6 @@
 
 <script>
 import { useStore } from 'vuex';
-import { onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import LoadingOverlay from './components/LoadingOverlay.vue';
@@ -32,7 +31,9 @@ export default {
         store.dispatch('setUserAdmin', isAdmin);
         const isSuperadmin = userGroups_.includes('super_user');
         store.dispatch('setUserSuperadmin', isSuperadmin);
+        console.log('User groups:');
         store.dispatch('setUserName', response.data.username || '');
+        console.log('setUserName:', response.data.username || '');
 
       } catch (error) {
         console.error('Invalid token:', error);
@@ -41,21 +42,17 @@ export default {
       }
     };
 
-    onBeforeMount(() => {
-      store.dispatch('checkAuthentication').then(() => {
-        if (store.getters.isAuthenticated) {
-          const token = store.getters.getToken;
-          console.log('Existing token found:', token);
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set default token header
-          checkTokenValidity(); // Check token validity
-          store.commit('setLoading', false); 
-        } else {
-          router.push('/signin'); // Redirect to SignIn page if not authenticated
-          store.commit('setLoading', false);
-        }
-      });
-
-      // console.log('isLoading:', store.getters.isLoading);
+    store.dispatch('checkAuthentication').then(() => {
+      if (store.getters.isAuthenticated) {
+        const token = store.getters.getToken;
+        console.log('Existing token found:', token);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set default token header
+        checkTokenValidity(); // Check token validity
+        store.commit('setLoading', false); 
+      } else {
+        router.push('/signin'); // Redirect to SignIn page if not authenticated
+        store.commit('setLoading', false);
+      }
     });
 
     return {
