@@ -31,7 +31,11 @@ ALLOWED_HOSTS = [
     'http://localhost',
     'localhost:8000',
     'localhost',
-    '127.0.0.1'
+    '127.0.0.1',
+    'fitpackvn.fitpack.io.vn',
+    'fitpackvnapi.fitpack.io.vn',
+    'fitpackhn.fitpack.io.vn',
+    'fitpackhnapi.fitpack.io.vn',
 ]
 
 
@@ -81,6 +85,10 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     'http://localhost:8080',
     'http://localhost:8000',
+    'http://fitpackvn.fitpack.io.vn',
+    'http://fitpackvnapi.fitpack.io.vn',
+    'http://fitpackhn.fitpack.io.vn',
+    'http://fitpackhnapi.fitpack.io.vn',
     
 ]
 

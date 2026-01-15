@@ -136,7 +136,7 @@
         </div>
       </div>
       <div class="page-footer no-select">
-      Footer
+      
       </div>
     </div>
   </div>

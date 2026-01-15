@@ -247,7 +247,7 @@ export default {
       return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
     };
 
-    const dateFrom = ref(getLocalDateISO(new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)));
+    const dateFrom = ref(getLocalDateISO(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)));
     const dateTo = ref(getLocalDateISO(new Date()));
     const headers = [
         { title: '', key: 'actions', sortable: false, headerProps: { class: 'my-custom-header-class' } , cellProps:  { class: 'text-left'}},

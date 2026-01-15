@@ -30,7 +30,7 @@
                         </a>
                         </li>
                         <li class="kv-navbar-item kv-navbar-item-light">
-                          <span class="text-white"> {{ $store.getters.userName  + ($store.getters.userSuperadmin ? ' (Superadmin)' : '') }}</span>
+                          <span class="text-white"> {{ $store.getters.userName  }}</span>
                         </li>
 
                         <li

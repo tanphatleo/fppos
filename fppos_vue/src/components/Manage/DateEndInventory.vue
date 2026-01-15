@@ -15,7 +15,7 @@
             Sửa đổi hàng
           </button>
           <button @click="createDateEndInventory" class="btn btn-primary" style="margin-left: 1rem;">
-            Tạo phiếu chốt
+            CHỐT HÀNG
           </button>
         </div>
       </div>
@@ -55,7 +55,7 @@
           <button @click="exportToExcel" class="btn btn-secondary">Export Excel</button>
         </div>
         <div style="padding: 0.5rem; text-align: left;">
-          Lưu ý: Hiển thị tối đa 10 hóa đơn gần nhất theo ngày chọn, xuất excel sẽ xuất toàn bộ hóa đơn.
+          Lưu ý: Hiển thị tối đa 10 hóa đơn, xuất excel sẽ xuất toàn bộ hóa đơn.
         </div>
         <div class="data-table-holder">
           <v-data-table
