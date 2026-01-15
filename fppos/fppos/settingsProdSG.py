@@ -86,9 +86,13 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8080',
     'http://localhost:8000',
     'http://fitpackvn.fitpack.io.vn',
+    'https://fitpackvn.fitpack.io.vn',
     'http://fitpackvnapi.fitpack.io.vn',
+    'https://fitpackvnapi.fitpack.io.vn',
     'http://fitpackhn.fitpack.io.vn',
+    'https://fitpackhn.fitpack.io.vn',
     'http://fitpackhnapi.fitpack.io.vn',
+    'https://fitpackhnapi.fitpack.io.vn',
     
 ]
 
