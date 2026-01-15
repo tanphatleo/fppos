@@ -38,6 +38,10 @@ ALLOWED_HOSTS = [
     'fitpackhnapi.fitpack.io.vn',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://fitpackvnapi.fitpack.io.vn',
+    'https://fitpackvn.fitpack.io.vn',
+]
 
 # Application definition
 

@@ -96,6 +96,11 @@ CORS_ALLOWED_ORIGINS = [
     
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://fitpackvnapi.fitpack.io.vn',
+    'https://fitpackvn.fitpack.io.vn',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
