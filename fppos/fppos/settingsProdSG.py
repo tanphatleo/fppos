@@ -16,16 +16,6 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# 1. Tell Django to trust the Nginx SSL header
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# 2. Force all connections to use SSL (redirect http -> https)
-SECURE_SSL_REDIRECT = True
-
-# 3. Ensure cookies are only sent over HTTPS
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
