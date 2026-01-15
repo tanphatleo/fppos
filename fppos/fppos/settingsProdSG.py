@@ -38,6 +38,8 @@ ALLOWED_HOSTS = [
     'fitpackhnapi.fitpack.io.vn',
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
 CSRF_TRUSTED_ORIGINS = [
     'https://fitpackvnapi.fitpack.io.vn',
     'https://fitpackvn.fitpack.io.vn',
@@ -97,14 +99,15 @@ CORS_ALLOWED_ORIGINS = [
     'https://fitpackhn.fitpack.io.vn',
     'http://fitpackhnapi.fitpack.io.vn',
     'https://fitpackhnapi.fitpack.io.vn',
-    
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     # add this line 
     'corsheaders.middleware.CorsMiddleware', 
+    
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    
 
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',

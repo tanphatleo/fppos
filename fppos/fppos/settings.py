@@ -38,6 +38,12 @@ ALLOWED_HOSTS = [
     'fitpackhnapi.fitpack.io.vn',
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://fitpackvnapi.fitpack.io.vn',
+    'https://fitpackvn.fitpack.io.vn',
+]
 
 # Application definition
 
@@ -93,19 +99,15 @@ CORS_ALLOWED_ORIGINS = [
     'https://fitpackhn.fitpack.io.vn',
     'http://fitpackhnapi.fitpack.io.vn',
     'https://fitpackhnapi.fitpack.io.vn',
-    
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://fitpackvnapi.fitpack.io.vn',
-    'https://fitpackvn.fitpack.io.vn',
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     # add this line 
     'corsheaders.middleware.CorsMiddleware', 
+    
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    
 
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
@@ -131,7 +133,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'fppos.wsgi.application'
+WSGI_APPLICATION = 'fppos.wsgiProdSG.application'
 
 
 # Database
@@ -145,7 +147,7 @@ DATABASES = {
         # postgresql database settings
 
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fppos_psql',          
+        'NAME': 'fp_pos',          
         'USER': 'fp_pos',        
         'PASSWORD': 'jUsTjin#@!',  
         'HOST': '127.0.0.1',             
@@ -191,3 +193,4 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
+
