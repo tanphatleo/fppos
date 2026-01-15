@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                   <label>Ghi chú</label>
-                  <textarea :value="item.note" rows="2" readonly></textarea>
+                  <textarea :value="item.note" rows="2"></textarea>
                 </div>
                 <div class="form-group">
                   <label>Kích hoạt</label>

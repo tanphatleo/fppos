@@ -16,8 +16,8 @@
                 </div>
             
                 <div class="date-group">
-                    <input type="date" v-model="purchaseDate" class="form-input date-input" disabled @click="openDatePicker($event)" ref="dateInputRef" />
-                    <input type="time" v-model="purchaseTime" class="form-input time-input" disabled @click="openTimePicker($event)" ref="timeInputRef" />
+                    <input type="date" v-model="purchaseDate" class="form-input date-input" :disabled="!store.getters.userAdmin" @click="openDatePicker($event)" ref="dateInputRef" />
+                    <input type="time" v-model="purchaseTime" class="form-input time-input" :disabled="!store.getters.userAdmin" @click="openTimePicker($event)" ref="timeInputRef" />
                 </div>
             </div>
             
@@ -196,6 +196,7 @@
 <script setup>
 import { ref, computed, onMounted, watch, onBeforeUnmount, nextTick } from 'vue';
 import axios from 'axios';
+import { useStore } from 'vuex';
 import Surcharge from './Surcharge.vue';
 import PrintInvoice from '@/components/Sale/PrintInvoice.vue';
 
@@ -210,6 +211,7 @@ const props = defineProps({
   // focusCustomer: { type: Object, default: null }
 });
 
+const store = useStore();
 const toPrint = ref({});
 
 // console.log("Payment Component Props:", props);
@@ -557,8 +559,8 @@ const handlePayment = async () => {
     channel: selectedChannel.value,
     transport_company: transportCompany.value?.name || '',
     amount_paid_transport_company: amountPaidTransportCompany.value,
-    date: getTodayDateStr(),
-    time: getNowTimeStr(),
+    date: purchaseDate.value,
+    time: purchaseTime.value,
     delivery_address: props.cartData.customer ? props.cartData.customer.address : '',
     customer: props.cartData.customer ? props.cartData.customer.id : 1,
   }).then(async response => {
