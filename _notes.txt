@@ -34,7 +34,10 @@ create user fp_pos with password 'jUsTjin#@!';
 grant all privileges on database fp_pos to fp_pos;
 alter role fp_pos set client_encoding to 'utf8';
 alter role fp_pos set timezone to 'Asia/Bangkok';
-
+\c fp_pos
+GRANT ALL ON SCHEMA public TO fp_pos;
+GRANT ALL PRIVILEGES ON DATABASE fp_pos TO fp_pos;
+ALTER SCHEMA public OWNER TO fp_pos;
 \q
 
 mkdir -p /webapps/fppossg/
@@ -56,6 +59,7 @@ ssh -T git@github.com     # should say "Hi <user>!"
 
 
 cd /webapps/fppossg/
+rm -r fppos
 git clone --depth 1 --branch main git@github.com:tanphatleo/fppos.git
 
 
@@ -69,3 +73,14 @@ chown -R fppossg_user:webappusers /webapps/fppossg/
 sudo nano /etc/postgresql/17/main/postgresql.conf
 sudo nano /etc/postgresql/17/main/pg_hba.conf
 sudo systemctl restart postgresql
+
+
+cd /webapps/fppossg/fppos/fppos
+python3 manageProdSG.py makemigrations
+python3 manageProdSG.py migrate
+
+python manageProdSG.py loaddata customers.json
+python manageProdSG.py loaddata provinces.json
+python manageProdSG.py loaddata wards.json
+python manageProdSG.py loaddata product_groups.json
+python manageProdSG.py loaddata products.json
