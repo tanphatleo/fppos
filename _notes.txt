@@ -21,7 +21,7 @@ jUsTjin#@!0704a
 
 sudo apt update
 sudo apt upgrade
-sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx python3.13-venv
+sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx python3.13-venv supervisor certbot python3-certbot-nginx
 sudo apt install certbot python3-certbot-nginx
 
 sudo -u postgres psql
@@ -42,11 +42,12 @@ ALTER SCHEMA public OWNER TO fp_pos;
 
 mkdir -p /webapps/fppossg/
 cd /webapps/fppossg/
-python3 -m venv .venv
+python3 -m venv venv_fppos
 
 
 cd /webapps/fppossg/
-source .venv/bin/activate
+source venv_fppos/bin/activate
+pip install -r requirements.txt
 
 
 git config --global user.email "tanphat.leo@gmail.com"
@@ -60,7 +61,12 @@ ssh -T git@github.com     # should say "Hi <user>!"
 
 cd /webapps/fppossg/
 rm -r fppos
+rm -r git_fppos
+rm -r fppos_vue
 git clone --depth 1 --branch main git@github.com:tanphatleo/fppos.git
+mv /webapps/fppossg/fppos/ /webapps/fppossg/git_fppos/
+mv /webapps/fppossg/git_fppos/fppos/ /webapps/fppossg/fppos/
+mv /webapps/fppossg/git_fppos/fppos_vue/ /webapps/fppossg/fppos_vue/
 
 
 sudo groupadd webappusers
@@ -79,8 +85,57 @@ cd /webapps/fppossg/fppos/fppos
 python3 manageProdSG.py makemigrations
 python3 manageProdSG.py migrate
 
-python manageProdSG.py loaddata customers.json
+
 python manageProdSG.py loaddata provinces.json
 python manageProdSG.py loaddata wards.json
 python manageProdSG.py loaddata product_groups.json
 python manageProdSG.py loaddata products.json
+python manageProdSG.py loaddata customers.json
+
+
+pip install gunicorn
+
+
+
+nano /webapps/fppossg/venv_fppos/bin/gunicorn_start
+chmod +x /webapps/fppossg/venv_fppos/bin/gunicorn_start
+
+
+
+verify unicorn 
+/webapps/fppossg/.venv_fppos/bin/gunicorn_start
+
+
+cd /etc/supervisor/conf.d/
+touch fppossg.conf
+nano /etc/supervisor/conf.d/fppossg.conf
+paste conf file and add
+
+create log folder 
+mkdir /webapps/fppossg/venv_fppos/logs/
+
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start fppossg
+
+cd /webapps/fppossg/.venv_fppos/logs/
+tail supervisor.log
+
+
+cd /etc/nginx/sites-available/
+touch fitpackvn.fitpack.io.vn
+nano /etc/nginx/sites-available/fitpackvn.fitpack.io.vn
+
+touch fitpackvnapi.fitpack.io.vn
+nano /etc/nginx/sites-available/fitpackvnapi.fitpack.io.vn
+
+cd /etc/nginx/sites-enabled/
+rm -f fitpackvn.fitpack.io.vn
+rm -f fitpackvnapi.fitpack.io.vn
+sudo ln -s /etc/nginx/sites-available/fitpackvn.fitpack.io.vn /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/fitpackvnapi.fitpack.io.vn /etc/nginx/sites-enabled/
+
+
+
+service nginx restart
+sudo supervisorctl restart fppossg
