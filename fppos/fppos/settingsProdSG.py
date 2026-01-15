@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-uqjmasd^zwh6%@cb8f@%kxie(htemat(7i3=f+ie#lr!0k+gq)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'http://localhost:8000',
@@ -103,7 +103,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware', 
 
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -126,7 +126,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'fppos.wsgi.application'
+WSGI_APPLICATION = 'fppos.wsgiProdSG.application'
 
 
 # Database
@@ -143,7 +143,7 @@ DATABASES = {
         'NAME': 'fp_pos',          
         'USER': 'fp_pos',        
         'PASSWORD': 'jUsTjin#@!',  
-        'HOST': '127.0.0.1',             
+        'HOST': '157.230.40.184',             
         'PORT': '5432',
        
     }

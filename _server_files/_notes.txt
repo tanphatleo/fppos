@@ -67,7 +67,10 @@ git clone --depth 1 --branch main git@github.com:tanphatleo/fppos.git
 mv /webapps/fppossg/fppos/ /webapps/fppossg/git_fppos/
 mv /webapps/fppossg/git_fppos/fppos/ /webapps/fppossg/fppos/
 mv /webapps/fppossg/git_fppos/fppos_vue/ /webapps/fppossg/fppos_vue/
-
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl restart fppossg
+sudo supervisorctl status
 
 sudo groupadd webappusers
 sudo adduser fppossg_user
