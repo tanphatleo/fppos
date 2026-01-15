@@ -73,6 +73,7 @@ sudo groupadd webappusers
 sudo adduser fppossg_user
 sudo usermod -aG webappusers fppossg_user
 jUsTjin#@!
+
 chown -R fppossg_user:webappusers /webapps/fppossg/
 
 
@@ -103,7 +104,7 @@ chmod +x /webapps/fppossg/venv_fppos/bin/gunicorn_start
 
 
 verify unicorn 
-/webapps/fppossg/.venv_fppos/bin/gunicorn_start
+/webapps/fppossg/venv_fppos/bin/gunicorn_start
 
 
 cd /etc/supervisor/conf.d/
@@ -117,8 +118,9 @@ mkdir /webapps/fppossg/venv_fppos/logs/
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start fppossg
+sudo supervisorctl status
 
-cd /webapps/fppossg/.venv_fppos/logs/
+cd /webapps/fppossg/venv_fppos/logs/
 tail supervisor.log
 
 
@@ -129,13 +131,14 @@ nano /etc/nginx/sites-available/fitpackvn.fitpack.io.vn
 touch fitpackvnapi.fitpack.io.vn
 nano /etc/nginx/sites-available/fitpackvnapi.fitpack.io.vn
 
+
 cd /etc/nginx/sites-enabled/
 rm -f fitpackvn.fitpack.io.vn
 rm -f fitpackvnapi.fitpack.io.vn
 sudo ln -s /etc/nginx/sites-available/fitpackvn.fitpack.io.vn /etc/nginx/sites-enabled/
 sudo ln -s /etc/nginx/sites-available/fitpackvnapi.fitpack.io.vn /etc/nginx/sites-enabled/
-
-
-
 service nginx restart
 sudo supervisorctl restart fppossg
+
+
+cd /webapps/fppossg/venv_fppos/logs/
