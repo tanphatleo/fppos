@@ -238,7 +238,7 @@ def process_shopee(request):
         # rename columns based on mapping
         rename_dict = {item['name']: item['id'] for item in mapping if item['name'] in df.columns}
         df.rename(columns=rename_dict, inplace=True)
-        df.to_clipboard(index=False)
+        # df.to_clipboard(index=False)
 
 
         required_columns = ['code', 'temp_status', 'transport_company', 

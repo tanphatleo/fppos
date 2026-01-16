@@ -147,7 +147,7 @@ DATABASES = {
         # postgresql database settings
 
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fp_pos',          
+        'NAME': 'fppos_psql',          
         'USER': 'fp_pos',        
         'PASSWORD': 'jUsTjin#@!',  
         'HOST': '127.0.0.1',             
