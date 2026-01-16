@@ -46,12 +46,18 @@ class CustomerViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def search_customers(request):
     query = request.GET.get('query', '')
+    exclude = request.GET.get('exclude', '')
     if not query:
         return Response({"error": "Query parameter is required."}, status=400)
 
-    customers = Customer.objects.filter(
+    queryset = Customer.objects.filter(
         models.Q(name__icontains=query) | models.Q(phone_number__icontains=query) | models.Q(code__icontains=query)
-    ).order_by('-created_at')[:20]
+    )
+
+    if exclude:
+        queryset = queryset.exclude(code__icontains=exclude)
+
+    customers = queryset.order_by('-created_at')[:20]
 
     serializer = CustomerSerializer(customers, many=True)
     return Response(serializer.data)

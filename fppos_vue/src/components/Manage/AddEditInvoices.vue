@@ -158,8 +158,8 @@ export default {
         emit('saved', response.data);
         emit('close');
       } catch (error) {
-        console.error("Error updating invoice:", error.response ? error.response.data : error);
-        alert("Có lỗi xảy ra khi cập nhật hóa đơn.");
+        console.error("Error updating invoice:", error);
+        window.alert("Lỗi cập nhật hóa đơn: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
       }
     }
 

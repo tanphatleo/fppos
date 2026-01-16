@@ -122,6 +122,7 @@ export default {
           })
           .catch(error => {
             console.error("Error updating surcharge:", error);
+            window.alert("Lỗi khi cập nhật phụ phí: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
           });
       } else {
         // Creating new surcharge
@@ -132,6 +133,7 @@ export default {
           })
           .catch(error => {
             console.error("Error creating surcharge:", error);
+            window.alert("Lỗi khi tạo phụ phí: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
           });
       }
     }

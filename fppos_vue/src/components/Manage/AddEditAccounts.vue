@@ -101,12 +101,12 @@ export default {
           await axios.put(`/accounts/${item.value.id}/`, payload)
             .then(response => {
               console.log("Account updated:", response.data);
+              emit('saved', payload);
             })
             .catch(error => {
               console.error("Error updating account:", error);
+              window.alert("Lỗi khi cập nhật: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
             });
-
-          emit('saved', payload);
           return;
         } else {
           // Creating new account
@@ -121,11 +121,12 @@ export default {
           await axios.post('/accounts/', payload)
             .then(response => {
               console.log("Account created:", response.data);
+              emit('saved', payload);
             })
             .catch(error => {
               console.error("Error creating account:", error);
+              window.alert("Lỗi khi tạo mới: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
             });
-          emit('saved', payload);
         }
       };
 

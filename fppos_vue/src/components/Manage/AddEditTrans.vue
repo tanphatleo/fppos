@@ -190,6 +190,7 @@ export default {
           })
           .catch(error => {
             console.error('Error updating transaction:', error);
+            window.alert("Lỗi khi cập nhật giao dịch: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
           });
       } else {
         await axios.post('/transactions/', payload)
@@ -198,6 +199,7 @@ export default {
           })
           .catch(error => {
             console.error('Error creating transaction:', error);
+            window.alert("Lỗi khi tạo giao dịch: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
           });
       }
     }

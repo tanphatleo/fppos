@@ -266,17 +266,17 @@ async function saveProduct() {
     code: product.value.code,
     product_group: product.value.product_group,
   };
-  if (product.value.id) {
-    await axios.put(`/products/${product.value.id}/`, payload);
-    // close modal after save
-    
+  try {
+    if (product.value.id) {
+      await axios.put(`/products/${product.value.id}/`, payload);
+    } else {
+      await axios.post('/products/', payload);
+    }
     emit('saved');
     emit('close');
-  } else {
-    
-    await axios.post('/products/', payload);
-    emit('saved');
-    emit('close');
+  } catch (error) {
+    console.error("Error saving product:", error);
+    window.alert("Lỗi khi lưu sản phẩm: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
   }
 }
 </script>

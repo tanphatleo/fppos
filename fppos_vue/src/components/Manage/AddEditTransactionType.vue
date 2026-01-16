@@ -102,12 +102,12 @@ export default {
           await axios.put(`/transactiontypes/${item.value.id}/`, payload)
             .then(response => {
               console.log("TransactionType updated:", response.data);
+              emit('saved', payload);
             })
             .catch(error => {
               console.error("Error updating transaction type:", error);
+              window.alert("Lỗi khi cập nhật loại giao dịch: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
             });
-
-          emit('saved', payload);
           return;
         } else {
           // Creating new transaction type
@@ -122,12 +122,12 @@ export default {
           await axios.post('/transactiontypes/', payload)
             .then(response => {
               console.log("TransactionType created:", response.data);
+              emit('saved', payload);
             })
             .catch(error => {
               console.error("Error creating transaction type:", error);
-              window.alert("Error creating transaction type:", error);
+              window.alert("Lỗi khi tạo loại giao dịch: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
             });
-          emit('saved', payload);
         }
       };
 

@@ -176,7 +176,7 @@ export default {
             }
         } catch (error) {
             console.error("Error saving user:", error.response ? error.response.data : error);
-            alert("Có lỗi xảy ra: " + (error.response?.data?.detail || "Vui lòng kiểm tra lại thông tin"));
+            window.alert("Lỗi khi lưu người dùng: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
         }
     }
 

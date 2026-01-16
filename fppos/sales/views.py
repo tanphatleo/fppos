@@ -268,6 +268,7 @@ def process_shopee(request):
         customer_df = df[['customer', 'customer_name', 'customer_phone', 'delivery_address']].drop_duplicates()
         # update or create customers
         for index, row in customer_df.iterrows():
+            # print(row)
             customer, created = Customer.objects.update_or_create(
                 code='SP_' + str(row['customer']),
                 defaults={
@@ -276,7 +277,7 @@ def process_shopee(request):
                     'address': row['delivery_address']
                 }
             )
-
+        print("Customer processing done.")
         # Filter out rows where date is not set
         df = df.dropna(subset=['date'])
 
@@ -332,7 +333,7 @@ def process_shopee(request):
 
                 items.append({
                     "code": product_code,
-                    "name": row.get('product_name', '') + ' - ' + row.get('product_name_after', ''),
+                    "name": str(row.get('product_name', '')) + ' - ' + str(row.get('product_name_after', '')),
                     "note": "", 
                     "hasNote": False,
                     "quantity": quantity,

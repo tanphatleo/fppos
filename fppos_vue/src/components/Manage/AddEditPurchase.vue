@@ -337,6 +337,7 @@ export default {
           })
           .catch(error => {
             console.error('Error updating purchase:', error);
+            window.alert("Lỗi khi cập nhật đơn nhập hàng: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
           });
       } else {
         // Create
@@ -346,6 +347,7 @@ export default {
           })
           .catch(error => {
             console.error('Error creating purchase:', error);
+            window.alert("Lỗi khi tạo đơn nhập hàng: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
           });
       }
     }
@@ -613,4 +615,3 @@ input[type="checkbox"] {
     margin-top: 1rem;
 }
 </style>
-

@@ -417,7 +417,8 @@ import axios from 'axios';
 
         await axios.get('/search_customers/', {
           params: {
-            query: query
+            query: query, 
+            exclude: 'SP_'
           }
         }).then(response => {
           this.filteredCust = response.data;

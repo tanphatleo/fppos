@@ -92,12 +92,12 @@ export default {
           await axios.put(`/logicconfigs/${item.value.id}/`, payload)
             .then(response => {
               console.log("Product group updated:", response.data);
+              emit('saved', payload);
             })
             .catch(error => {
               console.error("Error updating product group:", error);
+              window.alert("Lỗi khi cập nhật cấu hình: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
             });
-
-          emit('saved', payload);
           return;
         } else {
           // Creating new product group
@@ -111,11 +111,12 @@ export default {
             await axios.post('/logicconfigs/', payload)
               .then(response => {
                 console.log("Product group created:", response.data);
+                emit('saved', payload);
               })
               .catch(error => {
                 console.error("Error creating product group:", error);
+                window.alert("Lỗi khi tạo cấu hình: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
               });
-        emit('saved', payload);
       }
     };
 

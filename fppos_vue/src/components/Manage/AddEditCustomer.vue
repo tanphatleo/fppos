@@ -322,7 +322,7 @@ const saveCustomer = async () => {
       })
       .catch(error => {
         console.error("Error updating customer:", error);
-        window.alert("Lỗi cập nhật khách hàng.", error.response.data.message || error.message);
+        window.alert("Lỗi cập nhật khách hàng: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
       });
   } else {
     // create new
@@ -337,7 +337,7 @@ const saveCustomer = async () => {
       })
       .catch(error => {
         console.error("Error creating customer:", error);
-        window.alert("Lỗi tạo khách hàng.", error.response.data.message || error.message);
+        window.alert("Lỗi tạo khách hàng: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
       });
   }
    
