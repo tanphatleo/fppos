@@ -29,7 +29,7 @@
             </button>
               
 
-            <button @click="toggleSubList" class="btn btn-outline create-new-btn-group" style="margin-right: 0.5rem;" v-if="store.state.userAdmin">
+            <button @click="toggleSubList" class="btn btn-outline create-new-btn-group" style="margin-right: 0.5rem;" v-if="store.getters.userAdmin || store.getters.userSuperadmin">
               Bank Accounts
             </button>
               <div class="list-product-groups btn-group" style="position:relative;">
@@ -55,7 +55,7 @@
                 </Teleport>
               </div>
 
-            <template v-if="store.state.userAdmin">
+            <template v-if="store.getters.userAdmin || store.getters.userSuperadmin">
               <button @click="toggleSubList2" class="btn btn-outline create-new-btn-group-2" style="margin-right: 0.5rem;">
                 Loại Giao Dịch
               </button>
