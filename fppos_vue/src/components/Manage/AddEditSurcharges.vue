@@ -46,7 +46,7 @@
 
         <div class="window-footer">
           <button type="button" class="btn btn-outline" @click="$emit('close')">Đóng</button>
-          <button type="button" class="btn btn-primary" @click="handleSubmit">
+          <button type="button" class="btn btn-primary new-button" @click="handleSubmit" :disabled="!code.trim() || amount === 0 || !description.trim()">
             {{ item && item.id ? 'Lưu' : 'Tạo mới' }}
           </button>
         </div>
@@ -155,6 +155,14 @@ export default {
 
 <style lang="scss" scoped>
 $kv-primary: #0070F4;
+
+.new-button {
+  &:disabled {
+    background-color: #a0c4ff !important;
+    border-color: #a0c4ff !important;
+    cursor: not-allowed !important;
+  }
+}
 
 * {
   box-sizing: border-box;

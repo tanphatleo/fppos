@@ -141,7 +141,7 @@
           :search="filterText"
         >
           <template v-slot:item.actions="{ item }">
-            <button class="c-button" @click="openEditInvoice($event, { item })">
+            <button v-if="isEditable(item.date)" class="c-button" @click="openEditInvoice($event, { item })">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </template>
@@ -184,7 +184,19 @@ export default {
     AddEditInvoice,
     AddEditSurcharge,
   },
-  setup() {
+  props: {
+    channels: {
+      type: Array,
+      default: () => []
+    },
+    d_edit_days: {
+      type: Number,
+      default: 3
+    }
+  },
+  setup(props) {
+    
+
     const editOrNew = ref('new'); // 'new' or 'edit'
     const groupListPosition = ref({ top: '0px', left: '0px', width: '200px' }); 
     // const surcharges = ref([]);
@@ -217,6 +229,10 @@ export default {
       }
     };
 
+    const channels = computed(() => {
+      return props.channels || [];
+    });
+
     const handleFileUploadShopee = async (event) => {
       const file = event.target.files[0];
       if (!file) return;
@@ -242,7 +258,6 @@ export default {
       }
     };
 
-    const channels = ref([]);
     const getLocalDateISO = (date) => {
       return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
     };
@@ -422,17 +437,7 @@ export default {
       return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
     };
 
-    const fetchChannels = async () => {
-      try {
-        const response = await axios.get('/logicconfigs/');
-        const channelConfig = response.data.find(c => c.key === 'channels');
-        if (channelConfig) {
-          channels.value = JSON.parse(channelConfig.value);
-        }
-      } catch (error) {
-        console.error('Error fetching channels:', error);
-      }
-    };
+
 
     const fetchProvincesWards = async () => {
       try {
@@ -452,9 +457,9 @@ export default {
         const response = await axios.get('/surcharges/', {
         });
         surchargeList.value = response.data;
-        console.log('Fetched surcharges:', surchargeList.value);
+        // console.log('Fetched surcharges:', surchargeList.value);
       } catch (error) {
-        console.error('Error fetching surcharges:', error);
+        // console.error('Error fetching surcharges:', error);
       }
     };
 
@@ -489,6 +494,28 @@ export default {
       store.commit('setLoading', false);
     }
 
+    const isEditable = (itemDate) => {
+      // console.log("Checking if editable for date:", itemDate);
+      // console.log("User admin:", store.getters.userAdmin);
+
+
+      if (store.getters.userAdmin || store.getters.userSuperadmin) {
+        return true;
+      }
+
+      if (!itemDate) return false;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const date = new Date(itemDate);
+      // console.log("Item date object:", date);
+      date.setHours(0, 0, 0, 0);
+
+      const diffDays = (today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
+      // console.log("Difference in days:", diffDays, "Allowed edit days:", props.d_edit_days);
+      return diffDays < props.d_edit_days;
+    };
+
     function openAddCustomer() {
       selectedCustomer.value = {};
       showAddEdit.value = true;
@@ -521,7 +548,6 @@ export default {
     onMounted(() => {
       fetchInvoices();
       fetchProvincesWards();
-      fetchChannels();
       fetchSurcharges();
       document.addEventListener('mousedown', handleClickOutside);
     });
@@ -529,6 +555,8 @@ export default {
     onBeforeUnmount(() => {
       document.removeEventListener('mousedown', handleClickOutside);
     });
+
+    
 
     return {
       editOrNew,
@@ -578,6 +606,7 @@ export default {
       dateFrom,
       dateTo,
       fileInputShopee,
+      isEditable,
       triggerImportShopee,
       handleFileUploadShopee,
     };

@@ -16,7 +16,7 @@
                 </div>
             
                 <div class="date-group">
-                    <input type="date" v-model="purchaseDate" class="form-input date-input" :disabled="!store.getters.userAdmin" @click="openDatePicker($event)" ref="dateInputRef" />
+                    <input type="date" v-model="purchaseDate" class="form-input date-input" :disabled="!store.getters.userAdmin" @click="openDatePicker($event)" ref="dateInputRef" :max="maxDate" />
                     <input type="time" v-model="purchaseTime" class="form-input time-input" :disabled="!store.getters.userAdmin" @click="openTimePicker($event)" ref="timeInputRef" />
                 </div>
             </div>
@@ -200,6 +200,13 @@ import { useStore } from 'vuex';
 import Surcharge from './Surcharge.vue';
 import PrintInvoice from '@/components/Sale/PrintInvoice.vue';
 
+const maxDate = computed(() => {
+  const today = new Date();
+  today.setDate(today.getDate()); // 30 days from now
+  return today.toISOString().split('T')[0];
+});
+
+
 // --- Props & Emits ---
 const props = defineProps({
   visible: { type: Boolean, default: false },
@@ -284,6 +291,8 @@ const checkAndUpdateDiscount = (event) => {
             discountMethodValue.value = 0;
         }
     }
+
+    
 
     emit('update-cart-data', {
         ...props.cartData,
@@ -462,7 +471,7 @@ function openDatePicker(event) {
 // Financials
 const confirm_miss_payment = ref(false);
 const totalAmount = ref(0); // Will load from props
-const discountAmount = ref(0);
+const discount = ref(0);
 // const surchargeAmount = ref(0);
 const amountPaidByCustomer = ref(0); // "Khách thanh toán"
 const amountPaidTransportCompany = ref(0); // "Phí ship mình trả"
@@ -485,7 +494,7 @@ const paymentMethods = [
 
 // 1. Calculate the final amount the customer needs to pay
 const finalTotal = computed(() => {
-  return totalAmount.value - discountAmount.value + totalSurcharge.value;
+  return totalAmount.value - discount.value + totalSurcharge.value;
 });
 
 // 2. Calculate "Tiền thừa" (Change due) or "Còn thiếu" (Remaining)
@@ -505,7 +514,7 @@ onMounted(() => {
   if (props.cartData) {
     totalAmount.value = props.cartData.total ;
      // Auto-fill full amount
-    discountAmount.value = props.cartData.discount || 0;
+    discount.value = props.cartData.discount || 0;
     // surchargeAmount.value = props.cartData.surcharge || 0;
     discountMethodValue.value = props.cartData.discountMethodValue || 0;
     chosenDiscountMethod.value = props.cartData.chosenDiscountMethod || 'VND';
@@ -523,7 +532,7 @@ onMounted(() => {
     if (paymentMethod.value === 'receivable') {
         amountPaidByCustomer.value = 0;
     } else {
-    amountPaidByCustomer.value = props.cartData.amountPaidByCustomer || totalAmount.value - discountAmount.value + totalSurcharge.value;
+    amountPaidByCustomer.value = props.cartData.amountPaidByCustomer || totalAmount.value - discount.value + totalSurcharge.value;
     }
   }
   purchaseDate.value = getTodayDateStr();
@@ -582,7 +591,7 @@ const handlePayment = async () => {
 const close = () => {
   emit('update-cart-data', {
     ...props.cartData,
-    discount: discountAmount.value,
+    discount: discount.value,
     amountPaidByCustomer: amountPaidByCustomer.value,
     amountPaidTransportCompany: amountPaidTransportCompany.value,
     paymentMethod: paymentMethod.value, 

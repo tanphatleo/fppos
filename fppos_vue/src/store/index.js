@@ -81,6 +81,9 @@ export default createStore({
       commit('clearToken');
       commit('setAuthentication', false);
       commit('setLoading', false);
+      commit('setUserAdmin', false);
+      commit('setUserName', '');
+      commit('setUserSuperadmin', false);
     },
   },
   modules: {},

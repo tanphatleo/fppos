@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                   <label>Ngày</label>
-                  <input type="date" v-model="form.date" :disabled="!item.is_active" @click="$event.target.showPicker()" />
+                  <input type="date" v-model="form.date" :disabled="!item.is_active || (!store.getters.userAdmin && !store.getters.userSuperadmin)" @click="$event.target.showPicker()" :max="maxDate" />
                 </div>
                 <div class="form-group">
                   <label>Kênh bán</label>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="form-group">
                   <label>Kích hoạt</label>
-                  <input type="checkbox" v-model="form.is_active" :disabled="!item.is_active" />
+                    <input type="checkbox" v-model="form.is_active" :disabled="!item.is_active || (!store.getters.userAdmin && !store.getters.userSuperadmin)" />
                 </div>
               </div>
 
@@ -107,8 +107,9 @@
 </template>
 
 <script>
-import { ref, reactive, watch, toRefs } from 'vue';
+import { ref, reactive, watch, toRefs, computed } from 'vue';
 import axios from 'axios';
+import { useStore } from 'vuex';
 
 export default {
   name: 'AddEditInvoice',
@@ -124,7 +125,13 @@ export default {
   },
   emits: ['close', 'saved'],
   setup(props, { emit }) {
+
+    const maxDate = computed(() => {
+      const today = new Date();
+      return today.toISOString().split('T')[0];
+    });
     const { item } = toRefs(props);
+    const store = useStore();
 
     const form = reactive({
       date: '',
@@ -167,6 +174,8 @@ export default {
       form,
       formatCurrency,
       handleSubmit,
+      store, // Make store available in the template
+      maxDate
     };
   }
 };
@@ -190,6 +199,11 @@ input, select, textarea {
   padding: 6px 10px;
   font-size: 1rem;
   transition: border-color 0.2s;
+}
+
+input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
 }
 
 input:focus, select:focus, textarea:focus {

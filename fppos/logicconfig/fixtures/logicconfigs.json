@@ -1,0 +1,56 @@
+[
+    {
+        "model": "logicconfig.logicconfig",
+        "pk": 1,
+        "fields": {
+            "key": "transportCompanies",
+            "value": "[{ \"id\": 0, \"name\": \"Không có\" } ,{ \"id\": 1, \"name\": \"Giao hàng nhanh\" }, { \"id\": 2, \"name\": \"Giao hàng tiết kiệm\" }, { \"id\": 3, \"name\": \"Viettel Post\" },{ \"id\": 4, \"name\": \"J&T Express\" },{ \"id\": 5, \"name\": \"Hỏa Tốc-SPX Instant\" },{\"id\": 6, \"name\": \"Hỏa Tốc-AhaMove\" } ]",
+            "is_active": true
+        }
+    },
+    {
+        "model": "logicconfig.logicconfig",
+        "pk": 2,
+        "fields": {
+            "key": "channels",
+            "value": "[{ \"id\": 0, \"name\": \"Bán trực tiếp\" },{ \"id\": 1, \"name\": \"Facebook\" },{ \"id\": 2, \"name\": \"NOW\" }, { \"id\": 3, \"name\": \"Website\" },{ \"id\": 4, \"name\": \"Shopee\" },{ \"id\": 5, \"name\": \"Hủy hàng\" }]",
+            "is_active": true
+        }
+    },
+    {
+        "model": "logicconfig.logicconfig",
+        "pk": 3,
+        "fields": {
+            "key": "branch_name",
+            "value": "Chi nhánh SG",
+            "is_active": true
+        }
+    },
+    {
+        "model": "logicconfig.logicconfig",
+        "pk": 4,
+        "fields": {
+            "key": "shopee_map",
+            "value": "[\n  { \"id\": \"code\", \"name\": \"Mã đơn hàng\" },\n  { \"id\": \"temp_status\", \"name\": \"Trạng Thái Đơn Hàng\" },\n  { \"id\": \"transport_company\", \"name\": \"Đơn Vị Vận Chuyển\" },\n  { \"id\": \"date\", \"name\": \"Ngày gửi hàng\" },\n  { \"id\": \"product_code\", \"name\": \"SKU phân loại hàng\" },\n  { \"id\": \"price\", \"name\": \"Giá ưu đãi\" },\n  { \"id\": \"quant\", \"name\": \"Số lượng\" },\n  { \"id\": \"discount_code_value\", \"name\": \"Mã giảm giá của Shop\" },\n  { \"id\": \"discount_combo_value\", \"name\": \"Giảm giá từ Combo của Shop\" },\n  { \"id\": \"discount_trade_in_value\", \"name\": \"Trade-in Bonus by Seller\" },\n  { \"id\": \"standard_fee\", \"name\": \"Phí cố định\" },\n  { \"id\": \"service_fee\", \"name\": \"Phí Dịch Vụ\" },\n  { \"id\": \"payment_fee\", \"name\": \"Phí thanh toán\" },\n  { \"id\": \"customer\", \"name\": \"Người Mua\" },\n  { \"id\": \"customer_name\", \"name\": \"Tên Người nhận\" },\n  { \"id\": \"customer_phone\", \"name\": \"Số điện thoại\" },\n  { \"id\": \"delivery_address\", \"name\": \"Địa chỉ nhận hàng\" },\n  { \"id\": \"product_name\", \"name\": \"Tên sản phẩm\" },\n{ \"id\": \"product_name_after\", \"name\": \"Tên phân loại hàng\" }\n]",
+            "is_active": true
+        }
+    },
+    {
+        "model": "logicconfig.logicconfig",
+        "pk": 5,
+        "fields": {
+            "key": "suppliers",
+            "value": "[{ \"id\": 0, \"name\": \"Sản xuất\" }, { \"id\": 1, \"name\": \"Nhập từ kho\" }]",
+            "is_active": true
+        }
+    },
+    {
+        "model": "logicconfig.logicconfig",
+        "pk": 6,
+        "fields": {
+            "key": "d_edit_days",
+            "value": "3",
+            "is_active": true
+        }
+    }
+]

@@ -65,7 +65,7 @@
           :search="filterText"
         >
           <template v-slot:item.actions="{ item }">
-            <button class="c-button" @click="openEditItem($event, { item })">
+            <button v-if="isEditable(item.date)" class="c-button" @click="openEditItem($event, { item })">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </template>
@@ -81,6 +81,7 @@
     <AddEditPurchase
       v-if="showAddEditItem"
       :item="selectedItem"
+      :d_edit_days="d_edit_days"
       @close="showAddEditItem = false"
       @saved="onItemSaved"
     />
@@ -91,13 +92,44 @@
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import axios from 'axios';
 import AddEditPurchase from './AddEditPurchase.vue';
+import { useStore } from 'vuex';
+
 
 export default {
   name: 'Purchases',
   components: {
     AddEditPurchase,
   },
-  setup() {
+  props: {
+    d_edit_days: {
+      type: Number,
+      default: 3
+    }
+  },
+  setup(props) {
+    const store = useStore();
+    const isEditable = (itemDate) => {
+      // console.log("Checking if editable for date:", itemDate);
+      // console.log("User admin:", store.getters.userAdmin);
+
+
+      if (store.getters.userAdmin || store.getters.userSuperadmin) {
+        return true;
+      }
+
+      if (!itemDate) return false;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const date = new Date(itemDate);
+      // console.log("Item date object:", date);
+      date.setHours(0, 0, 0, 0);
+
+      const diffDays = (today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
+      // console.log("Difference in days:", diffDays, "Allowed edit days:", props.d_edit_days);
+      return diffDays < props.d_edit_days;
+    };
+
     const items = ref([]);
     const filterText = ref('');
     const currentPage = ref(1);
@@ -234,6 +266,7 @@ export default {
       onItemSaved,
       dateFrom,
       dateTo,
+      isEditable,
     };
   },
 };

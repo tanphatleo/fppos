@@ -10,8 +10,8 @@ import axios from 'axios';
 import LoadingOverlay from './components/LoadingOverlay.vue';
 
 // Set the root URL for axios globally
-axios.defaults.baseURL = 'https://fitpackvnapi.fitpack.io.vn/api/v1';
-// axios.defaults.baseURL = 'http://localhost:8000/api/v1';
+// axios.defaults.baseURL = 'https://fitpackvnapi.fitpack.io.vn/api/v1';
+axios.defaults.baseURL = 'http://localhost:8000/api/v1';
 
 export default {
   name: 'App',
@@ -25,16 +25,19 @@ export default {
     const checkTokenValidity = async () => {
       try {
         const response = await axios.get('/who_i_am/');
-        console.log('Token is valid:', response.data);
+        // console.log('Token is valid:', response.data);
 
         const userGroups_ = response.data.usergroups || [];
         const isAdmin = userGroups_.includes('admin');
         store.dispatch('setUserAdmin', isAdmin);
         const isSuperadmin = userGroups_.includes('super_user');
+        // console.log('userGroups_:', userGroups_);
         store.dispatch('setUserSuperadmin', isSuperadmin);
-        console.log('User groups:');
+        // console.log('setUserAdmin:', isAdmin);
+        // console.log('setUserSuperadmin:', isSuperadmin);
+        // console.log('User groups:');
         store.dispatch('setUserName', response.data.username || '');
-        console.log('setUserName:', response.data.username || '');
+        // console.log('setUserName:', response.data.username || '');
 
       } catch (error) {
         console.error('Invalid token:', error);
@@ -46,7 +49,7 @@ export default {
     store.dispatch('checkAuthentication').then(() => {
       if (store.getters.isAuthenticated) {
         const token = store.getters.getToken;
-        console.log('Existing token found:', token);
+        // console.log('Existing token found:', token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set default token header
         checkTokenValidity(); // Check token validity
         store.commit('setLoading', false); 

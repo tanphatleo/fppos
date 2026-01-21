@@ -27,7 +27,7 @@
               <div class="col-left">
                 <div class="form-group">
                   <label for="date">Ngày</label>
-                  <input id="date" ref="dateInput" v-model="date" type="date" required @click="openDatePicker" />
+                  <input id="date" ref="dateInput" v-model="date" type="date" required @click="openDatePicker" :min="minDate" :max="maxDate"/>
                 </div>
 
                 <div class="form-group">
@@ -67,7 +67,7 @@
                 </div>
                 <div class="form-group">
                   <label for="is_active">Kích hoạt</label>
-                  <input id="is_active" v-model="isActive" type="checkbox" />
+                  <input id="is_active" v-model="isActive" type="checkbox" :disabled="!store.getters.userAdmin || !store.getters.userSuperadmin"/>
                 </div>
               </div>
             </div>
@@ -75,7 +75,7 @@
         </div>
         <div class="window-footer">
           <button type="button" class="btn btn-outline" @click="$emit('close')">Đóng</button>
-          <button type="button" class="btn btn-primary" @click="handleSubmit">Lưu</button>
+          <button type="button" class="btn btn-primary new-button" @click="handleSubmit" :disabled="amountDisplay === '0' || !description.trim()">Lưu</button>
         </div>
       </div>
     </div>
@@ -85,6 +85,7 @@
 <script>
 import { ref, watch, toRefs, computed } from 'vue';
 import axios from 'axios';
+import { useStore } from 'vuex';
 
 export default {
   name: 'AddEditTrans',
@@ -100,12 +101,37 @@ export default {
     transactionTypes: {
       type: Array,
       default: () => []
+    }, 
+    d_edit_days: {
+      type: Number,
+      default: 0
     }
   },
   emits: ['close', 'saved'],
   setup(props, { emit }) {
-    const { item, accounts, transactionTypes } = toRefs(props);
+
+    const { item, accounts, transactionTypes, d_edit_days } = toRefs(props);
     const dateInput = ref(null);
+    const getLocalDateISO = (date) => {
+      const tzOffset = date.getTimezoneOffset() * 60000; // offset in milliseconds
+      const localISOTime = new Date(date - tzOffset).toISOString().slice(0, 10);
+      return localISOTime;
+    };
+
+    const store = useStore();
+    const maxDate = computed(() => {
+      return getLocalDateISO(new Date());
+    });
+
+    const minDate = computed(() => {
+      if (store.getters.userAdmin || store.getters.userSuperadmin) {
+        return ''; // No minimum date for admins
+      }
+      const today = new Date();
+      const minDay = new Date();
+      minDay.setDate(today.getDate() - (props.d_edit_days || 3));
+      return getLocalDateISO(minDay);
+    });
 
     const debit_or_credit = ref(item.value?.debit_or_credit || 'DR');
     
@@ -226,6 +252,9 @@ export default {
       openDatePicker,
       handleSubmit,
       selectAll,
+      minDate,
+      maxDate,
+      store
     };
   }
 };
@@ -233,6 +262,14 @@ export default {
 
 <style lang="scss" scoped>
 $kv-primary: #0070F4;
+
+.new-button {
+  &:disabled {
+    background-color: #a0c4ff !important;
+    border-color: #a0c4ff !important;
+    cursor: not-allowed !important;
+  }
+}
 
 input , select, textarea {
   background-color: white;

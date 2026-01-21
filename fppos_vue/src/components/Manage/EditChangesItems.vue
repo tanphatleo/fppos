@@ -5,13 +5,16 @@
         <h3>Chỉnh sửa đổi hàng</h3>
         <button @click="$emit('close')" class="close-btn">&times;</button>
       </div>
+
       <div class="modal-body">
         <div class="table-header">
           <div class="col-deduct">Hàng trả (Deduction)</div>
           <div class="col-replace">Hàng đổi (Replacement)</div>
+          <div class="col-description">Mô tả</div>
           <div class="col-qty">Số lượng</div>
           <div class="col-action"></div>
         </div>
+
         <div v-for="(item, index) in items" :key="index" class="table-row">
           <!-- Deduction Input -->
           <div class="col-deduct search-container">
@@ -37,9 +40,13 @@
               class="search-input"
             />
           </div>
+          <!-- Description Input -->
+          <div class="col-description">
+            <input type="text" v-model="item.description" placeholder="Mô tả" class="description-input" />
+          </div>
           <!-- Quantity Input -->
           <div class="col-qty">
-            <input type="number" v-model.number="item.quantity" class="qty-input" min="0" />
+            <input type="number" v-model.number="item.quantity" class="qty-input" min="1" @change="handleQuantityChange(item)" />
           </div>
           <div class="col-action">
             <button @click="removeItem(index)" class="btn-remove">&times;</button>
@@ -49,7 +56,7 @@
       </div>
       <div class="modal-footer">
         <button @click="$emit('close')" class="btn btn-secondary">Hủy</button>
-        <button @click="saveChanges" class="btn btn-primary">Lưu</button>
+          <button @click="saveChanges" class="btn btn-primary new-button" :disabled="items.length === 0 || items.every(item => !item.deduction_product_code || !item.replace_product_code || item.quantity <= 0)">Lưu</button>
       </div>
     </div>
   </div>
@@ -94,6 +101,7 @@ export default {
       ...i,
       deductSearchTerm: getInitialSearchTerm(i.deduction_product_code),
       replaceSearchTerm: getInitialSearchTerm(i.replace_product_code),
+      description: i.description || '',
       showDeductDropdown: false,
       showReplaceDropdown: false,
     })));
@@ -172,6 +180,7 @@ export default {
         deduction_product_code: '',
         replace_product_code: '',
         quantity: 1,
+        description: '',
         deductSearchTerm: '',
         replaceSearchTerm: '',
         showDeductDropdown: false,
@@ -183,6 +192,13 @@ export default {
       items.value.splice(index, 1);
     };
 
+    const handleQuantityChange = (item) => {
+      const qty = Number(item.quantity);
+      if (isNaN(qty) || qty < 1) {
+        item.quantity = 1;
+      }
+    };
+
     const saveChanges = () => {
       const validItems = items.value
         .filter(item => 
@@ -192,6 +208,7 @@ export default {
           deduction_product_code: item.deduction_product_code,
           replace_product_code: item.replace_product_code,
           quantity: item.quantity,
+          description: item.description || ''
         }));
       emit('save', validItems);
     };
@@ -208,13 +225,22 @@ export default {
       selectProduct,
       addItem,
       removeItem,
-      saveChanges
+      saveChanges,
+      handleQuantityChange
     };
   }
 };
 </script>
 
 <style scoped lang="scss">
+
+.new-button {
+  &:disabled {
+    background-color: #a0c4ff !important;
+    border-color: #a0c4ff !important;
+    cursor: not-allowed !important;
+  }
+}
 /* Modal styles */
 .modal-overlay {
   position: fixed;
@@ -268,6 +294,7 @@ export default {
   gap: 1rem;
   align-items: center;
   padding: 0.5rem 0;
+  position: relative; /* For dropdown positioning */
 }
 .table-header {
   font-weight: bold;
@@ -275,6 +302,7 @@ export default {
 }
 .col-deduct, .col-replace { flex: 3; }
 .col-qty { flex: 1; }
+.col-description { flex: 2; } /* Added description column */
 .col-action { flex: 0.5; text-align: center; }
 
 .search-container {
@@ -282,6 +310,14 @@ export default {
   width: 100%;
 }
 .search-input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.description-input {
   width: 100%;
   padding: 6px;
   border: 1px solid #ccc;

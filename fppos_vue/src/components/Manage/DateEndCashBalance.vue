@@ -9,6 +9,8 @@
         v-model="selectedDate" 
         @change="fetchData"
         @click="$event.target.showPicker()"
+        :max="maxDate"
+        :min="minDate"
         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         style="background-color: white; color: black; border: 1px solid gray;"
       />
@@ -139,8 +141,15 @@ import axios from 'axios';
 
 export default {
   name: 'DateEndCashBalance',
-  data() {
+  props: {
+    d_edit_days: {
+      type: Number,
+      default: 3,
+    },
+  },
+  data(props) {
     return {
+      d_edit_days: props.d_edit_days,
       selectedDate: this.getLocalDateISO(new Date(Date.now())),
       loading: false,
       saving: false,
@@ -158,6 +167,19 @@ export default {
     };
   },
   computed: {
+    maxDate() {
+      return this.getLocalDateISO(new Date());
+    },
+    minDate() {
+      if (this.$store.getters.userAdmin || this.$store.getters.userSuperadmin) {
+        return ''; // No minimum date for admins
+      }
+      const today = new Date();
+      const minDay = new Date();
+      minDay.setDate(today.getDate() - (this.d_edit_days || 3));
+      return this.getLocalDateISO(minDay);
+    },
+
     transactions() {
       return (this.balanceData?.transactions || []).filter(t => t.account === 1);
     },
@@ -207,7 +229,7 @@ export default {
     this.fetchData();
   },
   methods: {
-
+    
     getLocalDateISO(date) {
       return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
     },

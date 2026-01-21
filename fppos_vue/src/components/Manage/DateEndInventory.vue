@@ -5,7 +5,7 @@
       <div class="action-area">
         <div class="page-actions">
           <div class="pr-3"> từ ngày <b>{{ previousDate }}</b> đến ngày </div>
-          <input type="date" v-model="chosenDate" class="date-picker" @click="$event.target.showPicker()" style="background-color: white; color: black;"/>
+          <input type="date" v-model="chosenDate" class="date-picker" @click="$event.target.showPicker()" style="background-color: white; color: black;" :max="maxDate" :min="minDate"/>
           <div class="pl-2"> Đã chốt lúc: {{ created_at }}</div>
           
           <button @click="copyClosingToActual" class="btn btn-primary" style="margin-left: 1rem;">
@@ -96,7 +96,14 @@ export default {
   components: {
     EditChangesItems,
   },
-  setup() {
+  props: {
+    d_edit_days: {
+      type: Number,
+      default: 3,
+    },
+  },
+  
+  setup(props) {
     const store = useStore();
 
     const getLocalDateISO = (date) => {
@@ -114,6 +121,20 @@ export default {
     const previousDate = ref(null);
 
     const products = ref([]);
+
+    const maxDate = computed(() => {
+      return getLocalDateISO(new Date());
+    });
+
+    const minDate = computed(() => {
+      if (store.getters.userAdmin || store.getters.userSuperadmin) {
+        return ''; // No minimum date for admins
+      }
+      const today = new Date();
+      const minDay = new Date();
+      minDay.setDate(today.getDate() - (props.d_edit_days || 3));
+      return getLocalDateISO(minDay);
+    });
 
     const fetchProducts = async () => {
       try {
@@ -511,6 +532,8 @@ export default {
       previousDate,
       createDateEndInventory,
       created_at,
+      minDate,
+      maxDate,
     };
   },
 };

@@ -55,6 +55,7 @@ def search_customers(request):
     )
 
     if exclude:
+        print("Excluding customers with code containing:", exclude)
         queryset = queryset.exclude(code__icontains=exclude)
 
     customers = queryset.order_by('-created_at')[:20]

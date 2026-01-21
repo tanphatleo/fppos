@@ -33,11 +33,11 @@
                   </div>
                   <div class="form-group" style="flex: 1;">
                     <label for="date">Ngày nhập</label>
-                    <input id="date" ref="dateInput" v-model="date" type="date" required @click="openDatePicker" />
+                    <input id="date" ref="dateInput" v-model="date" type="date" required @click="openDatePicker" :min="minDate" :max="maxDate" :disabled="isDateOutsideAllowedRange" />
                   </div>
                   <div class="form-group" style="flex-direction: row; align-items: center;">
                     <label for="is_active" style="width: auto; margin-right: 0.5rem;">Kích hoạt</label>
-                    <input id="is_active" v-model="isActive" type="checkbox" />
+                    <input id="is_active" v-model="isActive" type="checkbox" :disabled="!isActive || (!store.getters.userAdmin && !store.getters.userSuperadmin)" />
                 </div>
               </div>
               <div class="row-search" style="display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 0.5rem; ">
@@ -93,7 +93,7 @@
                               <div class="div-cell col-code">{{ item.code }}</div>
                               <div class="div-cell col-name">{{ item.name }}</div>
                               <div class="div-cell col-qty">
-                                  <input type="number" v-model.number="item.quantity" class="qty-input" min="1" @focus="selectAll" />
+                                  <input type="number" v-model.number="item.quantity" class="qty-input" min="1" @focus="selectAll" @change="handleQuantityChange(item)" />
                               </div>
                               <div class="div-cell col-action">
                                   <button @click="removeItem(index)" class="btn-remove">×</button>
@@ -124,6 +124,8 @@
 import { ref, watch, toRefs, computed, onMounted } from 'vue';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
+// import store from '@/store';
+import { useStore } from 'vuex';
 
 export default {
   name: 'AddEditPurchase',
@@ -131,10 +133,53 @@ export default {
     item: {
       type: Object,
       default: null
+    }, 
+    d_edit_days: {
+      type: Number,
+      default: 3
     }
   },
   emits: ['close', 'saved'],
   setup(props, { emit }) {
+    const getLocalDateISO = (date) => {
+      const tzOffset = date.getTimezoneOffset() * 60000; // offset in milliseconds
+      const localISOTime = new Date(date - tzOffset).toISOString().slice(0, 10);
+      return localISOTime;
+    };
+
+    const store = useStore();
+    const maxDate = computed(() => {
+      return getLocalDateISO(new Date());
+    });
+
+    const minDate = computed(() => {
+      if (store.getters.userAdmin || store.getters.userSuperadmin) {
+        return ''; // No minimum date for admins
+      }
+      const today = new Date();
+      const minDay = new Date();
+      minDay.setDate(today.getDate() - (props.d_edit_days || 3));
+      return getLocalDateISO(minDay);
+    });
+
+    const isDateOutsideAllowedRange = computed(() => {
+      // If admin, date is never disabled by range
+      if (store.getters.userAdmin || store.getters.userSuperadmin) {
+        return false;
+      }
+
+      const currentDate = new Date(date.value);
+      const minAllowed = minDate.value ? new Date(minDate.value) : null;
+      const maxAllowed = maxDate.value ? new Date(maxDate.value) : null;
+
+      // Check if current date is before minAllowed
+      if (minAllowed && currentDate < minAllowed) {
+        return true;
+      }
+      // Check if current date is after maxAllowed
+      return maxAllowed && currentDate > maxAllowed;
+    });
+
     const { item } = toRefs(props);
     const dateInput = ref(null);
     const fileInput = ref(null);
@@ -255,6 +300,18 @@ export default {
             const firstSheetName = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[firstSheetName];
             const jsonData = XLSX.utils.sheet_to_json(worksheet);
+            
+            const invalidQuantityRows = [];
+            jsonData.forEach((row, index) => {
+                const quantity = Number(row['Số lượng'] || row['Quantity']);
+                if (isNaN(quantity) || quantity < 1) {
+                    invalidQuantityRows.push(`Dòng ${index + 2} (Mã hàng: ${row['Mã hàng'] || row['Code'] || 'N/A'}, Số lượng: ${row['Số lượng'] || row['Quantity'] || 'N/A'})`);
+                }
+            });
+            if (invalidQuantityRows.length > 0) {
+                window.alert(`Lỗi: Các dòng sau có số lượng không hợp lệ (nhỏ hơn 1 hoặc không phải số):\n${invalidQuantityRows.join('\n')}`);
+                return;
+            }
 
             const validProductsMap = new Map();
             products.value.forEach(p => {
@@ -297,6 +354,13 @@ export default {
         event.target.value = null;
     }
 
+    function handleQuantityChange(item) {
+      const qty = Number(item.quantity);
+      if (isNaN(qty) || qty < 1) {
+        item.quantity = 1;
+      }
+    }
+
     onMounted(() => {
         fetchSuppliers();
         fetchProducts();
@@ -328,6 +392,11 @@ export default {
         is_active: isActive.value,
         items: items.value
       };
+
+      if (payload.items.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0) === 0) {
+        window.alert("Vui lòng thêm ít nhất một sản phẩm với số lượng lớn hơn 0.");
+        return;
+      }
 
       if (item.value && item.value.id) {
         // Update
@@ -376,7 +445,12 @@ export default {
       triggerImport,
       handleFileUpload,
       downloadTemplate,
-      showImportButton
+      showImportButton,
+      handleQuantityChange,
+      maxDate,
+      minDate,
+      isDateOutsideAllowedRange,
+      store // Make store available in the template
     };
   }
 };

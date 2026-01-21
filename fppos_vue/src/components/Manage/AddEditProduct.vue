@@ -83,7 +83,7 @@
         </div>
         <div class="window-footer">
           <button type="button" class="btn btn-outline" @click="$emit('close')">Đóng</button>
-          <button type="button" class="btn btn-primary" @click="saveProduct">Lưu</button>
+          <button type="button" class="btn btn-primary new-button" @click="saveProduct" :disabled="!product.name.trim() || (product.product_type === 'combo' && (comboItems.length === 0 || comboItems.some(item => !item.code)))">Lưu</button>
         </div>
       </div>
     </div>
@@ -218,12 +218,17 @@ function onlyNumbers(event) {
 }
 
 function filterProducts(text) {
-  if (!text) return normalProducts.value;
+  let filtered = normalProducts.value;
+  console.log("Filtering products with text:", filtered);
   const lower = text.toLowerCase();
-  return normalProducts.value.filter(p => 
+  filtered = filtered.filter(p => p.is_active);
+  // Filter by search term
+  filtered = filtered.filter(p => 
     (p.name && p.name.toLowerCase().includes(lower)) || 
     (p.code && p.code.toLowerCase().includes(lower))
   );
+  // Filter out products already in comboItems
+  return filtered.filter(p => !comboItems.value.some(comboItem => comboItem.code === p.code));
 }
 
 function selectComboProduct(item, p) {
@@ -283,6 +288,13 @@ async function saveProduct() {
 
 <style lang="scss" scoped>
 $kv-primary: #0070F4;
+.new-button {
+  &:disabled {
+    background-color: #a0c4ff !important;
+    border-color: #a0c4ff !important;
+    cursor: not-allowed !important;
+  }
+}
 
 * {
   box-sizing: border-box;

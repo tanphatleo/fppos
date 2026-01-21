@@ -50,13 +50,13 @@
             <div class="main-area">
                 <Products v-if="activeView === 'Sản phẩm'" :isVisible="true" />
                 <Customers v-if="activeView === 'Khách hàng'" :isVisible="true" />
-                <Invoices v-if="activeView === 'Hóa Đơn'" :isVisible="true" />
+                <Invoices v-if="activeView === 'Hóa Đơn'" :isVisible="true"  :channels="channels" :d_edit_days="d_edit_days" />
                 <Settings v-if="activeView === 'Cài đặt'" :isVisible="true" />
-                <Trans v-if="activeView === 'Sổ quỹ'" :isVisible="true" />
+                <Trans v-if="activeView === 'Sổ quỹ'" :isVisible="true" :d_edit_days="d_edit_days" />
                 <Users v-if="activeView === 'Người dùng'" :isVisible="true" />
-                <Purchases v-if="activeView === 'Mua hàng'" :isVisible="true" />
-                <DateEndInventory v-if="activeView === 'Chốt Kho'" :isVisible="true" />
-                <DateEndCashBalance v-if="activeView === 'Chốt Quỹ'" :isVisible="true" />
+                <Purchases v-if="activeView === 'Mua hàng'" :isVisible="true" :d_edit_days="d_edit_days" />
+                <DateEndInventory v-if="activeView === 'Chốt Kho'" :isVisible="true" :d_edit_days="d_edit_days" />
+                <DateEndCashBalance v-if="activeView === 'Chốt Quỹ'" :isVisible="true" :d_edit_days="d_edit_days"/>
             </div>
             
         </div>
@@ -75,6 +75,7 @@ import Users from "@/components/Manage/Users.vue";
 import Purchases from "@/components/Manage/Purchases.vue";
 import DateEndInventory from "@/components/Manage/DateEndInventory.vue";
 import DateEndCashBalance from "@/components/Manage/DateEndCashBalance.vue";
+import axios from "axios";
 
 export default {
   name: "Manage",
@@ -92,6 +93,7 @@ export default {
 
   data() {
     return {
+        d_edit_days : 3,
       menus: [
         { Id: 1, name: "Hóa Đơn" , require_admin : false, query_params : 'invoices'},
         { Id: 2, name: "Mua hàng" , require_admin : false, query_params : 'purchases'},
@@ -104,6 +106,7 @@ export default {
         { Id: 9, name: "Chốt Quỹ" , require_admin : false, query_params : 'date_end_cash_balance'},
       ],
       activeView: "Hóa Đơn", // Define your menus data here
+        channels: [],
     };
   },
   watch: {
@@ -122,8 +125,29 @@ export default {
     } else {
       this.setActiveView("Hóa Đơn");
     }
+    this.fetchLogicConfig();
   },
   methods: {
+    
+    async fetchLogicConfig() {
+      try {
+        const response = await axios.get('/logicconfigs/');
+        const channelConfig = response.data.find(c => c.key === 'channels');
+        if (channelConfig) {
+          this.channels = JSON.parse(channelConfig.value);
+        }
+
+        const editDaysConfig = response.data.find(c => c.key === 'd_edit_days');
+        if (editDaysConfig) {
+          this.d_edit_days = parseInt(editDaysConfig.value);
+        //   console.log("Fetched d_edit_days:", this.d_edit_days);
+        }
+
+      } catch (error) {
+        console.error('Error fetching channels:', error);
+      }
+    },
+
     setActiveView(page) {
       this.activeView = page; // Assign the emitted page to activeView
       const menu = this.menus.find(m => m.name === page);

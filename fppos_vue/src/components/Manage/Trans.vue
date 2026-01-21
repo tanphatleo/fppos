@@ -29,7 +29,7 @@
             </button>
               
 
-            <button @click="toggleSubList" class="btn btn-outline create-new-btn-group" style="margin-right: 0.5rem;">
+            <button @click="toggleSubList" class="btn btn-outline create-new-btn-group" style="margin-right: 0.5rem;" v-if="store.state.userAdmin">
               Bank Accounts
             </button>
               <div class="list-product-groups btn-group" style="position:relative;">
@@ -55,9 +55,11 @@
                 </Teleport>
               </div>
 
-            <button @click="toggleSubList2" class="btn btn-outline create-new-btn-group-2" style="margin-right: 0.5rem;">
-              Loại Giao Dịch
-            </button>
+            <template v-if="store.state.userAdmin">
+              <button @click="toggleSubList2" class="btn btn-outline create-new-btn-group-2" style="margin-right: 0.5rem;">
+                Loại Giao Dịch
+              </button>
+            </template>
               <div class="list-product-groups btn-group" style="position:relative;" >
                 <Teleport to="body">
                   <div v-if="showSubList2" ref="subListRef2" class="product-group-teleport" @click.self="showSubList2 = false" :style="{ position: 'fixed', maxHeight:'50vh' , 
@@ -173,7 +175,7 @@
           :search="filterText"
         >
           <template v-slot:item.actions="{ item }">
-            <button class="c-button" @click="openEditItem($event, { item })">
+            <button v-if="isEditable(item.date)" class="c-button" @click="openEditItem($event, { item })">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
           </template>
@@ -216,6 +218,7 @@
 <script>
 import { ref, computed, onMounted, watch, nextTick , onBeforeUnmount } from 'vue';
 import axios from 'axios';
+import { useStore } from 'vuex';
 import AddEditTrans from './AddEditTrans.vue';
 import AddEditAccounts from './AddEditAccounts.vue';
 import AddEditTransactionType from './AddEditTransactionType.vue';
@@ -227,8 +230,35 @@ export default {
     AddEditAccounts,
     AddEditTransactionType
   },
-  setup() {
+  props: {
+    d_edit_days: {
+      type: Number,
+      default: 3
+    }
+  },
+  setup(props) {
+    const store = useStore();
+    const isEditable = (itemDate) => {
+      // console.log("Checking if editable for date:", itemDate);
+      // console.log("User admin:", store.getters.userAdmin);
 
+
+      if (store.getters.userAdmin || store.getters.userSuperadmin) {
+        return true;
+      }
+
+      if (!itemDate) return false;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const date = new Date(itemDate);
+      // console.log("Item date object:", date);
+      date.setHours(0, 0, 0, 0);
+
+      const diffDays = (today.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
+      // console.log("Difference in days:", diffDays, "Allowed edit days:", props.d_edit_days);
+      return diffDays < props.d_edit_days;
+    };
     const showSubList = ref(false);
     const subListRef = ref(null);
     const selectedSubItem = ref(null);
@@ -645,6 +675,8 @@ export default {
       filteredTransactionTypesForFilter,
       selectedTransactionTypeNames,
       allTransactionTypesSelected,
+      store, // Make store available in the template
+      isEditable,
     };
   },
 };
