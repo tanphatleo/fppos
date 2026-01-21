@@ -153,6 +153,11 @@ class InvoiceViewSet(viewsets.ModelViewSet):
         # Create customer payment transaction
         payment_method = request.data.get('payment_method')
         amount_paid_by_customer = request.data.get('amount_paid_by_customer', 0)
+    
+        # if amount_paid_by_customer > final_total, set to final_total
+        if amount_paid_by_customer > invoice_instance.final_total:
+            amount_paid_by_customer = invoice_instance.final_total
+
 
         if payment_method and amount_paid_by_customer and int(amount_paid_by_customer) > 0:
             account_id = None

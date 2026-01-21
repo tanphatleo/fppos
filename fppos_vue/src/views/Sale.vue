@@ -561,7 +561,7 @@ import axios from 'axios';
 
           // update local storage
           localStorage.setItem('pendingSales', JSON.stringify(this.localPendingSales));
-          console.log("Pending sales updated in local storage.", this.localPendingSales);
+          // console.log("Pending sales updated in local storage.", this.localPendingSales);
         }
 
         // check if focus_invoice is the updated one, if so, update it
@@ -734,7 +734,7 @@ import axios from 'axios';
 
 
 
-      console.log("Pending Sales on created:", this.localPendingSales);
+      // console.log("Pending Sales on created:", this.localPendingSales);
 
       
 

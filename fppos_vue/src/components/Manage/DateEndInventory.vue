@@ -140,7 +140,7 @@ export default {
       try {
         const response = await axios.get('/products/');
         products.value = response.data;
-        console.log('Fetched products:', products.value);
+        // console.log('Fetched products:', products.value);
       } catch (error) {
         console.error('Error fetching products:', error);
       }

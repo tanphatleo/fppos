@@ -530,6 +530,7 @@ onMounted(() => {
     paymentAccount.value = props.cartData.paymentAccount || 1;
     // console.log("props.cartData.transportCompany:", props.cartData.transportCompany);
     transportCompany.value = props.cartData.transportCompany || props.transportCompanies[0];
+    // console.log("props.transportCompanies:", props.transportCompanies);
     // console.log("Initialized transportCompany to:", transportCompany.value);
     amountPaidTransportCompany.value = props.cartData.amountPaidTransportCompany || 0;
     totalSurcharge.value = props.cartData.surcharge || 0;
