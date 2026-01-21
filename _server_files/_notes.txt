@@ -88,16 +88,16 @@ sudo supervisorctl status
 
 
 cd /webapps/fpposhn/
-rm -r fppos
-rm -r git_fppos
-rm -r fppos_vue
+rm -r /webapps/fpposhn/fppos/
+rm -r /webapps/fpposhn/git_fppos/
+rm -r /webapps/fpposhn/fppos_vue/
 git clone --depth 1 --branch main git@github.com:tanphatleo/fppos.git
 mv /webapps/fpposhn/fppos/ /webapps/fpposhn/git_fppos/
 mv /webapps/fpposhn/git_fppos/fppos/ /webapps/fpposhn/fppos/
 mv /webapps/fpposhn/git_fppos/fppos_vue/ /webapps/fpposhn/fppos_vue/
 sudo supervisorctl reread
 sudo supervisorctl update
-sudo supervisorctl restart fppossg
+sudo supervisorctl restart fpposhn
 sudo supervisorctl status
 
 sudo groupadd webappusers
