@@ -1,5 +1,5 @@
 server {
-        if ($host = fitfood.io.vn) {
+        if ($host = fitpackvn.fitpack.io.vn) {
                 return 301 https://$host$request_uri;
         } # managed by Certbot
 

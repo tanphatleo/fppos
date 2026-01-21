@@ -1,0 +1,27 @@
+#!/bin/sh
+
+NAME='fppos_django'
+DJANGODIR=/webapps/fpposhn/fppos/
+SOCKFILE=/webapps/fpposhn/venv_fppos/run/gunicorn.sock
+USER=fpposhn_user
+GROUP=webappusers
+NUM_WORKERS=2
+DJANGO_SETTINGS_MODULE=fppos.settingsProdHN
+DJANGO_WSGI_MODULE=fppos.wsgiProdHN
+TIMEOUT=240
+
+cd $DJANGODIR
+source ../venv_fppos/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+RUNDIR=$(dirname $SOCKFILE)
+test -d $RUNDIR || mkdir -p $RUNDIR
+
+exec ../venv_fppos/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+--name $NAME \
+--workers $NUM_WORKERS \
+--timeout $TIMEOUT \
+--bind=unix:$SOCKFILE \
+--log-level=debug \
+--log-file=-

@@ -1,4 +1,5 @@
 fp_pos jUsTjin#@!
+sudo -u postgres psql
 CREATE USER fp_pos WITH PASSWORD 'jUsTjin#@!';
 CREATE ROLE developer_group NOLOGIN;
 GRANT ALL PRIVILEGES ON DATABASE fp_pos TO developer_group;
@@ -40,8 +41,21 @@ GRANT ALL PRIVILEGES ON DATABASE fp_pos TO fp_pos;
 ALTER SCHEMA public OWNER TO fp_pos;
 \q
 
+
+create database fp_pos_hn;
+create user fp_pos_hn with password 'jUsTjin#@!';
+grant all privileges on database fp_pos_hn to fp_pos_hn;
+alter role fp_pos_hn set client_encoding to 'utf8';
+alter role fp_pos_hn set timezone to 'Asia/Bangkok';
+\c fp_pos_hn
+GRANT ALL ON SCHEMA public TO fp_pos_hn;
+GRANT ALL PRIVILEGES ON DATABASE fp_pos_hn TO fp_pos_hn;
+\q
+
 mkdir -p /webapps/fppossg/
+mkdir -p /webapps/fpposhn/
 cd /webapps/fppossg/
+cd /webapps/fpposhn/
 python3 -m venv venv_fppos
 
 
@@ -72,12 +86,29 @@ sudo supervisorctl update
 sudo supervisorctl restart fppossg
 sudo supervisorctl status
 
+
+cd /webapps/fpposhn/
+rm -r fppos
+rm -r git_fppos
+rm -r fppos_vue
+git clone --depth 1 --branch main git@github.com:tanphatleo/fppos.git
+mv /webapps/fpposhn/fppos/ /webapps/fpposhn/git_fppos/
+mv /webapps/fpposhn/git_fppos/fppos/ /webapps/fpposhn/fppos/
+mv /webapps/fpposhn/git_fppos/fppos_vue/ /webapps/fpposhn/fppos_vue/
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl restart fppossg
+sudo supervisorctl status
+
 sudo groupadd webappusers
 sudo adduser fppossg_user
+sudo adduser fpposhn_user
 sudo usermod -aG webappusers fppossg_user
+sudo usermod -aG webappusers fpposhn_user
 jUsTjin#@!
 
 chown -R fppossg_user:webappusers /webapps/fppossg/
+chown -R fpposhn_user:webappusers /webapps/fpposhn/
 
 
 sudo nano /etc/postgresql/17/main/postgresql.conf
@@ -89,6 +120,12 @@ cd /webapps/fppossg/fppos/fppos
 python3 manageProdSG.py makemigrations
 python3 manageProdSG.py migrate
 
+
+cd /webapps/fpposhn/
+source venv_fppos/bin/activate
+cd /webapps/fpposhn/fppos/
+python3 manageProdHN.py makemigrations
+python3 manageProdHN.py migrate
 
 python manageProdSG.py loaddata provinces.json
 python manageProdSG.py loaddata wards.json
@@ -104,10 +141,12 @@ pip install gunicorn
 nano /webapps/fppossg/venv_fppos/bin/gunicorn_start
 chmod +x /webapps/fppossg/venv_fppos/bin/gunicorn_start
 
-
+nano /webapps/fpposhn/venv_fppos/bin/gunicorn_start
+chmod +x /webapps/fpposhn/venv_fppos/bin/gunicorn_start
 
 verify unicorn 
 /webapps/fppossg/venv_fppos/bin/gunicorn_start
+/webapps/fpposhn/venv_fppos/bin/gunicorn_start
 
 
 cd /etc/supervisor/conf.d/
@@ -115,12 +154,19 @@ touch fppossg.conf
 nano /etc/supervisor/conf.d/fppossg.conf
 paste conf file and add
 
+cd /etc/supervisor/conf.d/
+touch fpposhn.conf
+nano /etc/supervisor/conf.d/fpposhn.conf
+
+
 create log folder 
 mkdir /webapps/fppossg/venv_fppos/logs/
+mkdir /webapps/fpposhn/venv_fppos/logs/
 
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start fppossg
+sudo supervisorctl start fpposhn
 sudo supervisorctl status
 
 cd /webapps/fppossg/venv_fppos/logs/
@@ -131,17 +177,34 @@ cd /etc/nginx/sites-available/
 touch fitpackvn.fitpack.io.vn
 nano /etc/nginx/sites-available/fitpackvn.fitpack.io.vn
 
+cd /etc/nginx/sites-available/
+touch fitpackhn.fitpack.io.vn
+nano /etc/nginx/sites-available/fitpackhn.fitpack.io.vn
+
 touch fitpackvnapi.fitpack.io.vn
 nano /etc/nginx/sites-available/fitpackvnapi.fitpack.io.vn
 
+touch fitpackhnapi.fitpack.io.vn
+nano /etc/nginx/sites-available/fitpackhnapi.fitpack.io.vn
 
 cd /etc/nginx/sites-enabled/
 rm -f fitpackvn.fitpack.io.vn
 rm -f fitpackvnapi.fitpack.io.vn
 sudo ln -s /etc/nginx/sites-available/fitpackvn.fitpack.io.vn /etc/nginx/sites-enabled/
 sudo ln -s /etc/nginx/sites-available/fitpackvnapi.fitpack.io.vn /etc/nginx/sites-enabled/
+
+cd /etc/nginx/sites-enabled/
+rm -f fitpackhn.fitpack.io.vn
+rm -f fitpackhnapi.fitpack.io.vn
+sudo ln -s /etc/nginx/sites-available/fitpackhn.fitpack.io.vn /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/fitpackhnapi.fitpack.io.vn /etc/nginx/sites-enabled/
+
+sudo certbot --nginx -d fitpackhn.fitpack.io.vn -d www.fitpackhn.fitpack.io.vn
+
+
 service nginx restart
 sudo supervisorctl restart fppossg
 
 
 cd /webapps/fppossg/venv_fppos/logs/
+cd /webapps/fpposhn/venv_fppos/logs/
