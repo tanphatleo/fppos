@@ -43,6 +43,8 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     'https://fitpackvnapi.fitpack.io.vn',
     'https://fitpackvn.fitpack.io.vn',
+    'https://fitpackhnapi.fitpack.io.vn',
+    'https://fitpackhn.fitpack.io.vn',
 ]
 
 # Application definition

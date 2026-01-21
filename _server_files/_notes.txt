@@ -131,7 +131,11 @@ python manageProdSG.py loaddata provinces.json
 python manageProdSG.py loaddata wards.json
 python manageProdSG.py loaddata product_groups.json
 python manageProdSG.py loaddata products.json
+python manageProdSG.py loaddata usergroups.json
 python manageProdSG.py loaddata customers.json
+python manageProdSG.py loaddata logicconfigs.json
+python manageProdSG.py loaddata accounts.json
+python manageProdSG.py loaddata transaction_types.json
 
 
 pip install gunicorn
