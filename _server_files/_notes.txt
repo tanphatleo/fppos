@@ -19,6 +19,8 @@ nom install bulma
 pass server
 ssh root@157.230.40.184
 jUsTjin#@!0704a
+sudo timedatectl set-timezone Asia/Ho_Chi_Minh
+
 
 sudo apt update
 sudo apt upgrade
