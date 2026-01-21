@@ -133,7 +133,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'fppos.wsgiProdSG.application'
+WSGI_APPLICATION = 'fppos.wsgiProdHN.application'
 
 
 # Database
@@ -147,8 +147,8 @@ DATABASES = {
         # postgresql database settings
 
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fp_pos',          
-        'USER': 'fp_pos',        
+        'NAME': 'fp_pos_hn',          
+        'USER': 'fp_pos_hn',        
         'PASSWORD': 'jUsTjin#@!',  
         'HOST': '157.230.40.184',             
         'PORT': '5432',

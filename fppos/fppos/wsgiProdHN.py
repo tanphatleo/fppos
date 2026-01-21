@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fppos.settingsProdSG')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fppos.settingsProdHN')
 
 application = get_wsgi_application()
