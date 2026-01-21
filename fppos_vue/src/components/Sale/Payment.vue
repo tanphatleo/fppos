@@ -279,16 +279,20 @@ const checkAndUpdateDiscount = (event) => {
         const percentValue = parseFloat(percentStr);
         if (!isNaN(percentValue)) {
             discountMethodValue.value = Math.round((percentValue / 100) * totalAmount.value);
+            discount.value = discountMethodValue.value;
         } else {
             discountMethodValue.value = 0;
+            discount.value = 0;
         }
     } else {
         // Treat as fixed amount
         const fixedValue = parseInt(input.replace(/\D/g, ''), 10);
         if (!isNaN(fixedValue)) {
             discountMethodValue.value = fixedValue;
+            discount.value = discountMethodValue.value;
         } else {
             discountMethodValue.value = 0;
+            discount.value = 0;
         }
     }
 

@@ -1,0 +1,47 @@
+upstream fitpackhn_app_server {
+        server unix:/webapps/fpposhn/venv_fppos/run/gunicorn.sock fail_timeout=0;
+}
+
+server {
+        listen 80;
+        server_name fitpackhnapi.fitpack.io.vn;
+        return 301 https://$host$request_uri;
+}
+
+server {
+        listen 443 ssl;
+        server_name fitpackhnapi.fitpack.io.vn;
+
+        ssl_certificate /etc/letsencrypt/live/fitpackhnapi.fitpack.io.vn/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/fitpackhnapi.fitpack.io.vn/privkey.pem;
+        include /etc/letsencrypt/options-ssl-nginx.conf;
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+        client_max_body_size 4G;
+
+        access_log /webapps/fpposhn/venv_fppos/logs/nginx-django-access.log;
+        error_log /webapps/fpposhn/venv_fppos/logs/nginx-django-error.log;
+
+        location /static/ {
+                alias /webapps/fpposhn/fppos/static/;
+        }
+
+        location /media/ {
+                alias /webapps/fpposhn/fppos/media/;
+        }
+
+        location / {
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+                proxy_redirect off;
+
+                if (!-f $request_filename) {
+                        proxy_pass http://fitpackhn_app_server;
+                }
+        }
+
+        
+}
