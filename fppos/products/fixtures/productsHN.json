@@ -1,0 +1,1695 @@
+[
+    {
+        "model": "products.product",
+        "pk": 1,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0027",
+            "name": "100g Ức gà Bít tết",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 2,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0022",
+            "name": "100g Ức gà Cà ri Ấn",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 3,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0023",
+            "name": "100g Ức gà Ngũ vị",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 4,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0021",
+            "name": "100g Ức gà Teriyaki",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 5,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0024",
+            "name": "100g Ức gà Tiêu xanh",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 6,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0025",
+            "name": "100g Ức gà Tỏi Á",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 7,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FF0026",
+            "name": "100g Ức gà Xông Khói",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 8,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000010",
+            "name": "BA CHỈ CHÁY TỎI",
+            "price": 62500,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 9,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAKBO",
+            "name": "Bơ lạt 10gr",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 10,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000007",
+            "name": "BÒ XÀO BÔNG THIÊN LÝ",
+            "price": 55000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 11,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "SP000016",
+            "name": "Bông cúc kỷ tử",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 12,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "BOX02",
+            "name": "BOX Ức gà",
+            "price": 459000,
+            "package_details": [
+                {
+                    "code": "FP0016",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0015",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPBG02",
+                    "quantity": 2
+                },
+                {
+                    "code": "UGAC150",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN01",
+                    "quantity": 2
+                },
+                {
+                    "code": "FP0017",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 2
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 13,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "FPBG01",
+            "name": "BURGER Gà Teriyaki ăn liền 150g - 1 Bánh",
+            "price": 17000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 14,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "FPBG02",
+            "name": "BURGER Gà Teriyaki",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 15,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000008",
+            "name": "CÀ RI BÒ KHOAI NƯỚNG",
+            "price": 55000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 16,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 14,
+            "code": "SP000015",
+            "name": "Cà rốt luộc sốt Raisin",
+            "price": 35000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 17,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000005",
+            "name": "CƠM GÀ XIÊN YAKITORI",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 18,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN02",
+            "name": "Cơm gạo lức 200g - Vị cá mặn",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 19,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN03",
+            "name": "Cơm gạo lức 200g - Vị rong biển",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 20,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN01",
+            "name": "Cơm gạo lức ăn liền Fitpack 200g",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 21,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000004",
+            "name": "CƠM GẠO LỨC GÀ TERIYAKI",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 22,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000006",
+            "name": "CƠM GYUDON BÒ",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 23,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000003",
+            "name": "CƠM XÁ XÍU",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 24,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "SETBG2",
+            "name": "Combo 02 burger gà + 2 vỏ bánh nguyên cám",
+            "price": 60000,
+            "package_details": [
+                {
+                    "code": "FPBG02",
+                    "quantity": 1
+                },
+                {
+                    "code": "BGBA01",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 25,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "FPBG03",
+            "name": "COMBO 05 GÓI BURGER GÀ 2 BÁNH",
+            "price": 189000,
+            "package_details": [
+                {
+                    "code": "FPBG02",
+                    "quantity": 5
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 26,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN04",
+            "name": "Combo 05 gói mix vị cơm gạo lức ăn liền",
+            "price": 119000,
+            "package_details": [
+                {
+                    "code": "GLAN01",
+                    "quantity": 1
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 2
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 2
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 27,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP005100",
+            "name": "COMBO 05 gói ức gà 100g (5 vị mix)",
+            "price": 133000,
+            "package_details": [
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0025",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 28,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP005150",
+            "name": "COMBO 05 gói ức gà 150g (5 vị mix)",
+            "price": 174000,
+            "package_details": [
+                {
+                    "code": "FP0015",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 29,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0061001",
+            "name": "COMBO 06 GÓI ỨC GÀ ĂN LIỀN 100g (mix 6 vị)",
+            "price": 175000,
+            "package_details": [
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0025",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 30,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0061002",
+            "name": "COMBO 07 GÓI ỨC GÀ ĂN LIỀN 100g (mix 7 vị)",
+            "price": 203000,
+            "package_details": [
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0025",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC100",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 31,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0061502",
+            "name": "COMBO 07 GÓI ỨC GÀ ĂN LIỀN FITPACK 150g (Mix 7 vị)",
+            "price": 269000,
+            "package_details": [
+                {
+                    "code": "FP0016",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0015",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC150",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 32,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP0061003",
+            "name": "COMBO 08 GÓI ỨC GÀ ĂN LIỀN 100g (mix 8 vị)",
+            "price": 229000,
+            "package_details": [
+                {
+                    "code": "FF0026",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0025",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC100",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0027",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 33,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0061503",
+            "name": "COMBO 08 GÓI ỨC GÀ ĂN LIỀN FITPACK 150g (Mix 8 vị)",
+            "price": 299000,
+            "package_details": [
+                {
+                    "code": "FP0016",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0015",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                },
+                {
+                    "code": "UGAC150",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0017",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 34,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "FPBG04",
+            "name": "COMBO 10 GÓI BURGER GÀ 2 BÁNH",
+            "price": 359000,
+            "package_details": [
+                {
+                    "code": "FPBG02",
+                    "quantity": 10
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 35,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN05",
+            "name": "Combo 10 gói mix vị cơm gạo lức ăn liền",
+            "price": 229000,
+            "package_details": [
+                {
+                    "code": "GLAN01",
+                    "quantity": 4
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 3
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 3
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 36,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0011",
+            "name": "COMBO 12 GÓI ỨC GÀ VIÊN 200GR",
+            "price": 588000,
+            "package_details": [
+                {
+                    "code": "FPGV0001",
+                    "quantity": 3
+                },
+                {
+                    "code": "FPGV0002",
+                    "quantity": 3
+                },
+                {
+                    "code": "FPGV0003",
+                    "quantity": 3
+                },
+                {
+                    "code": "FPGV0004",
+                    "quantity": 3
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 37,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "GLAN06",
+            "name": "Combo 15 gói mix vị cơm gạo lức ăn liền",
+            "price": 349000,
+            "package_details": [
+                {
+                    "code": "GLAN01",
+                    "quantity": 5
+                },
+                {
+                    "code": "GLAN02",
+                    "quantity": 5
+                },
+                {
+                    "code": "GLAN03",
+                    "quantity": 5
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 38,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "FP004",
+            "name": "Combo 04 gói ức gà 100g (4 vị mix)",
+            "price": 105000,
+            "package_details": [
+                {
+                    "code": "FP0022",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0024",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0023",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0021",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 39,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0009",
+            "name": "COMBO 4 GÓI ỨC GÀ VIÊN 200GR",
+            "price": 196000,
+            "package_details": [
+                {
+                    "code": "FPGV0001",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0002",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0003",
+                    "quantity": 1
+                },
+                {
+                    "code": "FPGV0004",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 40,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0061501",
+            "name": "COMBO 06 GÓI ỨC GÀ ĂN LIỀN FITPACK 150g (Mix 6 vị)",
+            "price": 230000,
+            "package_details": [
+                {
+                    "code": "FP0016",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0015",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0013",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0012",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0011",
+                    "quantity": 1
+                },
+                {
+                    "code": "FP0014",
+                    "quantity": 1
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 41,
+        "fields": {
+            "product_type": "combo",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0010",
+            "name": "COMBO 8 GÓI ỨC GÀ VIÊN 200GR",
+            "price": 392000,
+            "package_details": [
+                {
+                    "code": "FPGV0001",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPGV0002",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPGV0003",
+                    "quantity": 2
+                },
+                {
+                    "code": "FPGV0004",
+                    "quantity": 2
+                }
+            ]
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 42,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000002",
+            "name": "GÀ XÀO LÁ QUẾ",
+            "price": 45000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 43,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0001",
+            "name": "Hủ Sốt Teriyaki 200ml",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 44,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0008",
+            "name": "Hủ Sốt Tiêu đen 250ml",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 45,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0009",
+            "name": "Hủ Sốt Tứ xuyên 250ml",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 46,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000020",
+            "name": "MÌ RAU CỦ GÀ SỐT NẤM",
+            "price": 50000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 47,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000021",
+            "name": "MIẾN HÀN QUỐC XÀO BÒ",
+            "price": 62500,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 48,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000001",
+            "name": "MỲ Ý SỐT BÒ BẰM",
+            "price": 45000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 49,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "SP000017",
+            "name": "Nha đam hạt chia",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 50,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "SP000019",
+            "name": "Nhân sâm táo đỏ",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 51,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 3,
+            "code": "SP000009",
+            "name": "NUI RAU CỦ CÁ SỐT KEM",
+            "price": 55000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 52,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 14,
+            "code": "FPRMIX",
+            "name": "Rau củ luộc kèm sốt mè rang",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 53,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "SP000012",
+            "name": "Salad cá ngừ",
+            "price": 45000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 54,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "SP000013",
+            "name": "Salad gà giấm vua",
+            "price": 45000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 55,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 1,
+            "code": "SP000018",
+            "name": "Sâm mát nhãn nhục",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 56,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "4897074803240",
+            "name": "SANDWICH BÒ TRỨNG",
+            "price": 45000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 57,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "SP000022",
+            "name": "SANDWICH CÁ MAYO",
+            "price": 45000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 58,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK4",
+            "name": "Sốt Garlic Thyme",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 59,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0011",
+            "name": "Sốt Mắm Tỏi 20ml",
+            "price": 5000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 60,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0010",
+            "name": "Sốt Mắm Tỏi 20ml - Hàng Tặng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 61,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK2",
+            "name": "Sốt Mustard cream",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 62,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK6",
+            "name": "Sốt Mustard cream - Hàng tặng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 63,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK1",
+            "name": "Sốt Rosemary",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 64,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK5",
+            "name": "Sốt Rosemary - Hàng tặng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 65,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK3",
+            "name": "Sốt Smoked BBQ",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 66,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK7",
+            "name": "Sốt Smoked BBQ - Hàng tặng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 67,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0002",
+            "name": "Sốt Teriyaki 10ml - Hàng Tặng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 68,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0003",
+            "name": "Sốt Teriyaki 20ml",
+            "price": 5000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 69,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0004",
+            "name": "Sốt Tiêu Đen 20ml",
+            "price": 5000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 70,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0007",
+            "name": "Sốt Tiêu Đen 20ml - Hàng Tặng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 71,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0005",
+            "name": "Sốt Tứ Xuyên 20ml",
+            "price": 5000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 72,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 5,
+            "code": "SS0006",
+            "name": "Sốt Tứ Xuyên 20ml - Hàng Tặng",
+            "price": 0,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 73,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 11,
+            "code": "FPSTEAK0",
+            "name": "Steak Bò Mỹ Fitpack - Không sốt",
+            "price": 119000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 74,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 4,
+            "code": "UGAC100",
+            "name": "ỨC GÀ ÁP CHẢO 100gr",
+            "price": 30000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 75,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "UGAC150",
+            "name": "ỨC GÀ ÁP CHẢO NGUYÊN VỊ 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 76,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0017",
+            "name": "Ức gà Bít tết 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 77,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0012",
+            "name": "Ức gà Cà ri ấn 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 78,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0013",
+            "name": "Ức gà Ngũ vị 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 79,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0011",
+            "name": "Ức gà Teriyaki 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 80,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0014",
+            "name": "Ức gà Tiêu xanh 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 81,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0015",
+            "name": "Ức gà Tỏi Á 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 82,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0002",
+            "name": "Ức gà viên Lá chanh 200gr",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 83,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0006",
+            "name": "Ức gà viên Lá chanh túi mini",
+            "price": 10000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 84,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0003",
+            "name": "Ức gà viên Mắm tỏi 200gr",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 85,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0007",
+            "name": "Ức gà viên Mắm tỏi túi mini",
+            "price": 10000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 86,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0001",
+            "name": "Ức gà viên Nấm hương 200gr",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 87,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0005",
+            "name": "Combo 4 vị Ức Gà Viên 200gr",
+            "price": 10000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 88,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0004",
+            "name": "Ức gà viên Rau củ eatclean 200gr",
+            "price": 49000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 89,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 9,
+            "code": "FPGV0008",
+            "name": "Ức gà viên Rau củ eatclean túi mini",
+            "price": 10000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 90,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 12,
+            "code": "FP0016",
+            "name": "Ức gà Xông Khói 150g",
+            "price": 40000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 91,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "BGBA03",
+            "name": "Vỏ bánh BURGER - 1 bánh",
+            "price": 13000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 92,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "BGBA01",
+            "name": "Vỏ bánh BURGER - 2 bánh",
+            "price": 25000,
+            "package_details": null
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 93,
+        "fields": {
+            "product_type": "normal",
+            "created_at": "2024-07-01T00:00:00Z",
+            "updated_at": "2024-07-01T00:00:00Z",
+            "product_group": 2,
+            "code": "BGBA02",
+            "name": "Vỏ bánh BURGER - 4 bánh",
+            "price": 50000,
+            "package_details": null
+        }
+    }
+]
