@@ -20,6 +20,8 @@
                     <input type="time" v-model="purchaseTime" class="form-input time-input" :disabled="!store.getters.userAdmin" @click="openTimePicker($event)" ref="timeInputRef" />
                 </div>
             </div>
+
+            
             
 
           <div class="close-btn-group">

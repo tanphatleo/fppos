@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import Sale from '@/views/Sale.vue'
 import Manage from '@/views/Manage.vue'
 import SignIn from '@/views/SignIn.vue'
@@ -7,8 +6,7 @@ import SignIn from '@/views/SignIn.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    redirect: '/sale'
   },
   {
     path: '/sale',

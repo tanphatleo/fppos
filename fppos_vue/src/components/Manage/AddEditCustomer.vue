@@ -143,7 +143,7 @@
           <button class="btn btn-outline" @click="closeForm">
             <i class="icon-ban"></i> Bỏ qua
           </button>
-          <button class="btn btn-primary new-button" @click="saveCustomer" :disabled="!form.name.trim() || !form.phone_number.trim()">
+          <button class="btn btn-primary new-button" @click="saveCustomer" :disabled="!form.name.trim() || !form.phone_number.trim() || !form.address.trim() || !form.province_name.trim()">
             <i class="icon-save"></i> Lưu
           </button>
         </div>

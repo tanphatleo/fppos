@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                   <label>Ngày</label>
-                  <input type="date" v-model="form.date" :disabled="!item.is_active || (!store.getters.userAdmin && !store.getters.userSuperadmin)" @click="$event.target.showPicker()" :max="maxDate" />
+                  <input type="date" v-model="form.date" :disabled="!item.is_active" @click="$event.target.showPicker()" :max="maxDate" :min="minDate" />
                 </div>
                 <div class="form-group">
                   <label>Kênh bán</label>
@@ -122,13 +122,32 @@ export default {
       type: Array,
       default: () => [],
     },
+    d_edit_days: {
+      type: Number,
+      default: 3,
+    },
   },
+
   emits: ['close', 'saved'],
   setup(props, { emit }) {
-
+    const getLocalDateISO = (date) => {
+      const tzOffset = date.getTimezoneOffset() * 60000; // offset in milliseconds
+      const localISOTime = new Date(date - tzOffset).toISOString().slice(0, 10);
+      return localISOTime;
+    };
     const maxDate = computed(() => {
       const today = new Date();
       return today.toISOString().split('T')[0];
+    });
+
+    const minDate = computed(() => {
+      if (store.getters.userAdmin || store.getters.userSuperadmin) {
+        return ''; // No minimum date for admins
+      }
+      const today = new Date();
+      const minDay = new Date();
+      minDay.setDate(today.getDate() - (props.d_edit_days || 3));
+      return getLocalDateISO(minDay);
     });
     const { item } = toRefs(props);
     const store = useStore();
@@ -175,7 +194,8 @@ export default {
       formatCurrency,
       handleSubmit,
       store, // Make store available in the template
-      maxDate
+      maxDate,
+      minDate,
     };
   }
 };

@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group">
                   <label class="no-select">Điện thoại</label>
-                  <input type="text" v-model="form.phone_number" />
+                  <input type="text" v-model="form.phone_number" placeholder="Bắt buộc" @input="handlePhoneNumberInput"/>
                 </div>
                 <div class="form-group">
                   <label class="no-select">Địa chỉ</label>
@@ -143,7 +143,7 @@
           <button class="btn btn-outline" @click="closeForm">
             <i class="icon-ban"></i> Bỏ qua
           </button>
-          <button class="btn btn-primary" @click="saveCustomer">
+          <button class="btn btn-primary new-button" @click="saveCustomer" :disabled="!form.name.trim() || !form.phone_number.trim() || !form.address.trim() || !form.province_name.trim()">
             <i class="icon-save"></i> Lưu
           </button>
         </div>
@@ -202,6 +202,13 @@ const defaultForm = () => ({
   facebook: '',
   comments: ''
 });
+
+function handlePhoneNumberInput(event) {
+  let value = event.target.value;
+  // Allow numbers, +, -, (, )
+  form.phone_number = value.replace(/[^0-9+\-()]/g, '');
+}
+
 
 const form = reactive(defaultForm());
 
@@ -322,7 +329,7 @@ const saveCustomer = async () => {
       })
       .catch(error => {
         console.error("Error updating customer:", error);
-        window.alert("Lỗi cập nhật khách hàng.", error.response.data.message || error.message);
+        window.alert("Lỗi cập nhật khách hàng: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
       });
   } else {
     // create new
@@ -337,7 +344,7 @@ const saveCustomer = async () => {
       })
       .catch(error => {
         console.error("Error creating customer:", error);
-        window.alert("Lỗi tạo khách hàng.", error.response.data.message || error.message);
+        window.alert("Lỗi tạo khách hàng: " + (error.response && error.response.data ? JSON.stringify(error.response.data) : error.message));
       });
   }
    
@@ -372,6 +379,15 @@ onMounted(() => {
 <style lang="scss" scoped>
   $kv-primary: #0070F4;
 /* Reset & Layout */
+
+.new-button {
+  &:disabled {
+    background-color: #a0c4ff !important;
+    border-color: #a0c4ff !important;
+    cursor: not-allowed !important;
+  }
+}
+
 .no-select {
   user-select: none;
   -webkit-user-select: none;
