@@ -221,8 +221,9 @@ cd /webapps/fppossg/venv_fppos/logs/
 cd /webapps/fpposhn/venv_fppos/logs/
 
 
-cd /webapps/fppossg/fppos/
+cd /webapps/fppossg/
 source venv_fppos/bin/activate
+cd /webapps/fppossg/fppos/
 
 cd /webapps/fpposhn/fppos/
 source venv_fppos/bin/activate
