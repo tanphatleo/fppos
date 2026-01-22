@@ -219,3 +219,60 @@ sudo supervisorctl restart fppossg
 
 cd /webapps/fppossg/venv_fppos/logs/
 cd /webapps/fpposhn/venv_fppos/logs/
+
+
+cd /webapps/fppossg/fppos/
+source venv_fppos/bin/activate
+
+cd /webapps/fpposhn/fppos/
+source venv_fppos/bin/activate
+
+python manageProdSG.py shell
+from purchases.models import Purchase
+Purchase.objects.all().delete()
+
+from sales.models import Invoice
+Invoice.objects.all().delete()
+
+from transactions.models import DateEndCashBalance
+DateEndCashBalance.objects.all().delete()
+
+from transactions.models import Transaction
+Transaction.objects.all().delete()
+
+from products.models import DateEndInventory
+DateEndInventory.objects.all().delete()
+
+from products.models import ChangeItem
+ChangeItem.objects.all().delete()
+
+from customers.models import Customer
+Customer.objects.all().delete()
+
+
+cd /webapps/fppossg/fppos/
+source venv_fppos/bin/activate
+python manageProdSG.py loaddata usergroups.json
+python manageProdSG.py loaddata users.json
+python manageProdSG.py loaddata accounts.json
+python manageProdSG.py loaddata transaction_types.json
+python manageProdSG.py loaddata customers.json
+python manageProdSG.py loaddata provinces.json
+python manageProdSG.py loaddata wards.json
+python manageProdSG.py loaddata product_groups.json
+python manageProdSG.py loaddata products.json
+python manageProdSG.py loaddata logicconfigs.json
+python manageProdSG.py loaddata surcharges.json
+
+
+python manageProdHN.py loaddata usergroups.json
+python manageProdHN.py loaddata users.json
+python manageProdHN.py loaddata accounts.json
+python manageProdHN.py loaddata transaction_types.json
+python manageProdHN.py loaddata customersHN.json
+python manageProdHN.py loaddata provinces.json
+python manageProdHN.py loaddata wards.json
+python manageProdHN.py loaddata product_groups.json
+python manageProdHN.py loaddata productsHN.json
+python manageProdHN.py loaddata logicconfigs.json
+python manageProdHN.py loaddata surcharges.json
