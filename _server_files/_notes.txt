@@ -41,6 +41,9 @@ alter role fp_pos set timezone to 'Asia/Bangkok';
 GRANT ALL ON SCHEMA public TO fp_pos;
 GRANT ALL PRIVILEGES ON DATABASE fp_pos TO fp_pos;
 ALTER SCHEMA public OWNER TO fp_pos;
+alter role fp_pos set timezone to 'Asia/Bangkok';
+ALTER DATABASE fp_pos SET timezone TO 'Asia/Ho_Chi_Minh';
+
 \q
 
 
@@ -52,6 +55,8 @@ alter role fp_pos_hn set timezone to 'Asia/Bangkok';
 \c fp_pos_hn
 GRANT ALL ON SCHEMA public TO fp_pos_hn;
 GRANT ALL PRIVILEGES ON DATABASE fp_pos_hn TO fp_pos_hn;
+alter role fp_pos_hn set timezone to 'Asia/Bangkok';
+ALTER DATABASE fp_pos_hn SET timezone TO 'Asia/Ho_Chi_Minh';
 \q
 
 mkdir -p /webapps/fppossg/

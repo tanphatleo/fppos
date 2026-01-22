@@ -257,7 +257,8 @@ const openDropdown = (type) => {
 
 // --- Regions ---
 const filteredRegions = computed(() => {
-  const query = form.locationName ? form.locationName.toLowerCase() : '';
+  // console.log('Filtering regions with query:', form.province_name);
+  const query = form.province_name ? form.province_name.toLowerCase() : '';
   // console.log('Filtering regions with query:', query);
   // console.log('Total regions available:', props.regionList);
   if (!query) return props.regionList || [];
@@ -279,15 +280,21 @@ function handleChangeLocation() {
 }
 
 const filteredWards = computed(() => {
-  const queryWard = form.ward ? String(form.ward).toLowerCase() : '';
-  if (!form.province_id) return (props.wardList || []).filter(w => w.name.toLowerCase().includes(queryWard));
+  const queryWard = form.ward_name ? form.ward_name.toLowerCase() : '';
+  // console.log('Filtering wards with query:', queryWard);
+  // console.log('Total wards available:', props.wardList);
+  // console.log('Current selected province:', form.province);
 
-  if (form.province_id && !queryWard) {
-    return (props.wardList || [])
-      .filter(w => w.province === form.province_id)
-      .filter(w => w.name.toLowerCase().includes(queryWard));
+  let wardsToFilter = props.wardList || [];
+  
+  // If a province is selected, filter by province first
+  if (form.province) {
+    wardsToFilter = wardsToFilter.filter(w => w.province === form.province);
   }
-  return [];
+  // console.log('Wards to filter count:', form.province, wardsToFilter.length);
+
+  // Always filter by the ward name query
+  return wardsToFilter.filter(w => w.name.toLowerCase().includes(queryWard));
 });
 
 function selectWard(ward) {

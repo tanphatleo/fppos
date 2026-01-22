@@ -217,6 +217,7 @@ const props = defineProps({
   defaultSurcharges: { type: Array, default: () => [] },
   bankAccounts: { type: Array, default: () => [] },
   transportCompanies: { type: Array, default: () => [] },
+  
   // focusCustomer: { type: Object, default: null }
 });
 
