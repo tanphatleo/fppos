@@ -24,7 +24,7 @@
             <button @click="triggerImportShopee" class="btn btn-primary" style="margin-right: 0.5rem;">
               Import SP
             </button>
-            <button @click="toggleGroupList" class="btn btn-outline create-new-btn-group" style="margin-right: 0.5rem;">
+            <button @click="toggleGroupList" class="btn btn-outline create-new-btn-group" style="margin-right: 0.5rem;" v-if ="store.getters.userAdmin || store.getters.userSuperadmin">
               Phụ Phí
             </button>
               <div class="list-product-groups btn-group" style="position:relative;" >
@@ -177,6 +177,7 @@ import axios from 'axios';
 import AddEditInvoice from './AddEditInvoices.vue';
 import AddEditSurcharge from './AddEditSurcharges.vue';
 import { useStore } from 'vuex';
+// import store from 'vuex';
 
 export default {
   name: 'Invoices',
@@ -609,6 +610,8 @@ export default {
       isEditable,
       triggerImportShopee,
       handleFileUploadShopee,
+
+      store
     };
   },
 };
