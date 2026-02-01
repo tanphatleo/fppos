@@ -10,8 +10,8 @@ import axios from 'axios';
 import LoadingOverlay from './components/LoadingOverlay.vue';
 
 // Set the root URL for axios globally
-// axios.defaults.baseURL = 'https://fitpackvnapi.fitpack.io.vn/api/v1';
-axios.defaults.baseURL = 'https://fitpackhnapi.fitpack.io.vn/api/v1';
+axios.defaults.baseURL = 'https://fitpackvnapi.fitpack.io.vn/api/v1';
+// axios.defaults.baseURL = 'https://fitpackhnapi.fitpack.io.vn/api/v1';
 // axios.defaults.baseURL = 'http://localhost:8000/api/v1';
 
 export default {
