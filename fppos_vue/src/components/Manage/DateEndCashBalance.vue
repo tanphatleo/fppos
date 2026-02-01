@@ -149,7 +149,7 @@ export default {
   },
   data(props) {
     return {
-      d_edit_days: props.d_edit_days,
+      // d_edit_days: props.d_edit_days,
       selectedDate: this.getLocalDateISO(new Date(Date.now())),
       loading: false,
       saving: false,
