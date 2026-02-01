@@ -1,0 +1,50 @@
+[
+  {
+    "model": "auth.User",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$ep8374$7+s5Q5/J7Z5/s7/w5/s5/s5/s5/s5/s5/s5=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "khanh",
+      "first_name": "test",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth.User",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$ep8374$7+s5Q5/J7Z5/s7/w5/s5/s5/s5/s5/s5/s5=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "reserved",
+      "first_name": "reserved",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "auth.User",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$ep8374$7+s5Q5/J7Z5/s7/w5/s5/s5/s5/s5/s5/s5=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "Shopee",
+      "first_name": "Shopee",
+      "last_name": "Shopee",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z"
+    }
+  }
+]

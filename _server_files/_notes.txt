@@ -1,0 +1,279 @@
+fp_pos jUsTjin#@!
+sudo -u postgres psql
+CREATE USER fp_pos WITH PASSWORD 'jUsTjin#@!';
+CREATE ROLE developer_group NOLOGIN;
+GRANT ALL PRIVILEGES ON DATABASE fp_pos TO developer_group;
+GRANT developer_group TO dev_user;
+GRANT developer_group TO dev_user;
+GRANT ALL ON SCHEMA public TO fp_pos;
+
+npm install -g vue/cli
+vue create fppos_vue
+cd fppos_vue
+npm install axios
+nom install bulma
+
+#rememmber to delete .git inside fppos_vue
+
+
+pass server
+ssh root@157.230.40.184
+jUsTjin#@!0704a
+sudo timedatectl set-timezone Asia/Ho_Chi_Minh
+
+
+sudo apt update
+sudo apt upgrade
+sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx python3.13-venv supervisor certbot python3-certbot-nginx
+sudo apt install certbot python3-certbot-nginx
+
+sudo -u postgres psql
+ALTER USER postgres WITH PASSWORD 'jUsTjin#@!';
+
+
+sudo -u postgres psql
+create database fp_pos;
+create user fp_pos with password 'jUsTjin#@!';
+grant all privileges on database fp_pos to fp_pos;
+alter role fp_pos set client_encoding to 'utf8';
+alter role fp_pos set timezone to 'Asia/Bangkok';
+\c fp_pos
+GRANT ALL ON SCHEMA public TO fp_pos;
+GRANT ALL PRIVILEGES ON DATABASE fp_pos TO fp_pos;
+ALTER SCHEMA public OWNER TO fp_pos;
+alter role fp_pos set timezone to 'Asia/Bangkok';
+ALTER DATABASE fp_pos SET timezone TO 'Asia/Ho_Chi_Minh';
+
+\q
+
+
+create database fp_pos_hn;
+create user fp_pos_hn with password 'jUsTjin#@!';
+grant all privileges on database fp_pos_hn to fp_pos_hn;
+alter role fp_pos_hn set client_encoding to 'utf8';
+alter role fp_pos_hn set timezone to 'Asia/Bangkok';
+\c fp_pos_hn
+GRANT ALL ON SCHEMA public TO fp_pos_hn;
+GRANT ALL PRIVILEGES ON DATABASE fp_pos_hn TO fp_pos_hn;
+alter role fp_pos_hn set timezone to 'Asia/Bangkok';
+ALTER DATABASE fp_pos_hn SET timezone TO 'Asia/Ho_Chi_Minh';
+\q
+
+mkdir -p /webapps/fppossg/
+mkdir -p /webapps/fpposhn/
+cd /webapps/fppossg/
+cd /webapps/fpposhn/
+python3 -m venv venv_fppos
+
+
+cd /webapps/fppossg/
+source venv_fppos/bin/activate
+pip install -r requirements.txt
+
+
+git config --global user.email "tanphat.leo@gmail.com"
+ssh-keygen -t ed25519 -C "tanphat.leo@email.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
+# Copy output → GitHub → Settings → SSH and GPG keys → New SSH key
+ssh -T git@github.com     # should say "Hi <user>!"
+
+
+cd /webapps/fppossg/
+rm -r fppos
+rm -r git_fppos
+rm -r fppos_vue
+git clone --depth 1 --branch main git@github.com:tanphatleo/fppos.git
+mv /webapps/fppossg/fppos/ /webapps/fppossg/git_fppos/
+mv /webapps/fppossg/git_fppos/fppos/ /webapps/fppossg/fppos/
+mv /webapps/fppossg/git_fppos/fppos_vue/ /webapps/fppossg/fppos_vue/
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl restart fppossg
+sudo supervisorctl status
+
+
+cd /webapps/fpposhn/
+rm -r /webapps/fpposhn/fppos/
+rm -r /webapps/fpposhn/git_fppos/
+rm -r /webapps/fpposhn/fppos_vue/
+git clone --depth 1 --branch main git@github.com:tanphatleo/fppos.git
+mv /webapps/fpposhn/fppos/ /webapps/fpposhn/git_fppos/
+mv /webapps/fpposhn/git_fppos/fppos/ /webapps/fpposhn/fppos/
+mv /webapps/fpposhn/git_fppos/fppos_vue/ /webapps/fpposhn/fppos_vue/
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl restart fpposhn
+sudo supervisorctl status
+
+sudo groupadd webappusers
+sudo adduser fppossg_user
+sudo adduser fpposhn_user
+sudo usermod -aG webappusers fppossg_user
+sudo usermod -aG webappusers fpposhn_user
+jUsTjin#@!
+
+chown -R fppossg_user:webappusers /webapps/fppossg/
+chown -R fpposhn_user:webappusers /webapps/fpposhn/
+
+
+sudo nano /etc/postgresql/17/main/postgresql.conf
+sudo nano /etc/postgresql/17/main/pg_hba.conf
+sudo systemctl restart postgresql
+
+
+cd /webapps/fppossg/fppos/fppos
+python3 manageProdSG.py makemigrations
+python3 manageProdSG.py migrate
+
+
+cd /webapps/fpposhn/
+source venv_fppos/bin/activate
+cd /webapps/fpposhn/fppos/
+python3 manageProdHN.py makemigrations
+python3 manageProdHN.py migrate
+
+python manageProdSG.py loaddata provinces.json
+python manageProdSG.py loaddata wards.json
+python manageProdSG.py loaddata product_groups.json
+python manageProdSG.py loaddata products.json
+python manageProdSG.py loaddata usergroups.json
+python manageProdSG.py loaddata customers.json
+python manageProdSG.py loaddata logicconfigs.json
+python manageProdSG.py loaddata accounts.json
+python manageProdSG.py loaddata transaction_types.json
+
+
+pip install gunicorn
+
+
+
+nano /webapps/fppossg/venv_fppos/bin/gunicorn_start
+chmod +x /webapps/fppossg/venv_fppos/bin/gunicorn_start
+
+nano /webapps/fpposhn/venv_fppos/bin/gunicorn_start
+chmod +x /webapps/fpposhn/venv_fppos/bin/gunicorn_start
+
+verify unicorn 
+/webapps/fppossg/venv_fppos/bin/gunicorn_start
+/webapps/fpposhn/venv_fppos/bin/gunicorn_start
+
+
+cd /etc/supervisor/conf.d/
+touch fppossg.conf
+nano /etc/supervisor/conf.d/fppossg.conf
+paste conf file and add
+
+cd /etc/supervisor/conf.d/
+touch fpposhn.conf
+nano /etc/supervisor/conf.d/fpposhn.conf
+
+
+create log folder 
+mkdir /webapps/fppossg/venv_fppos/logs/
+mkdir /webapps/fpposhn/venv_fppos/logs/
+
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start fppossg
+sudo supervisorctl start fpposhn
+sudo supervisorctl status
+
+cd /webapps/fppossg/venv_fppos/logs/
+tail supervisor.log
+
+
+cd /etc/nginx/sites-available/
+touch fitpackvn.fitpack.io.vn
+nano /etc/nginx/sites-available/fitpackvn.fitpack.io.vn
+
+cd /etc/nginx/sites-available/
+touch fitpackhn.fitpack.io.vn
+nano /etc/nginx/sites-available/fitpackhn.fitpack.io.vn
+
+touch fitpackvnapi.fitpack.io.vn
+nano /etc/nginx/sites-available/fitpackvnapi.fitpack.io.vn
+
+touch fitpackhnapi.fitpack.io.vn
+nano /etc/nginx/sites-available/fitpackhnapi.fitpack.io.vn
+
+cd /etc/nginx/sites-enabled/
+rm -f fitpackvn.fitpack.io.vn
+rm -f fitpackvnapi.fitpack.io.vn
+sudo ln -s /etc/nginx/sites-available/fitpackvn.fitpack.io.vn /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/fitpackvnapi.fitpack.io.vn /etc/nginx/sites-enabled/
+
+cd /etc/nginx/sites-enabled/
+rm -f fitpackhn.fitpack.io.vn
+rm -f fitpackhnapi.fitpack.io.vn
+sudo ln -s /etc/nginx/sites-available/fitpackhn.fitpack.io.vn /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/fitpackhnapi.fitpack.io.vn /etc/nginx/sites-enabled/
+
+sudo certbot --nginx -d fitpackhn.fitpack.io.vn -d www.fitpackhn.fitpack.io.vn
+
+
+service nginx restart
+sudo supervisorctl restart fppossg
+
+
+cd /webapps/fppossg/venv_fppos/logs/
+cd /webapps/fpposhn/venv_fppos/logs/
+
+
+cd /webapps/fppossg/
+source venv_fppos/bin/activate
+cd /webapps/fppossg/fppos/
+
+cd /webapps/fpposhn/fppos/
+source venv_fppos/bin/activate
+
+python manageProdSG.py shell
+from purchases.models import Purchase
+Purchase.objects.all().delete()
+
+from sales.models import Invoice
+Invoice.objects.all().delete()
+
+from transactions.models import DateEndCashBalance
+DateEndCashBalance.objects.all().delete()
+
+from transactions.models import Transaction
+Transaction.objects.all().delete()
+
+from products.models import DateEndInventory
+DateEndInventory.objects.all().delete()
+
+from products.models import ChangeItem
+ChangeItem.objects.all().delete()
+
+from customers.models import Customer
+Customer.objects.all().delete()
+
+
+cd /webapps/fppossg/fppos/
+source venv_fppos/bin/activate
+python manageProdSG.py loaddata usergroups.json
+python manageProdSG.py loaddata users.json
+python manageProdSG.py loaddata accounts.json
+python manageProdSG.py loaddata transaction_types.json
+python manageProdSG.py loaddata customers.json
+python manageProdSG.py loaddata provinces.json
+python manageProdSG.py loaddata wards.json
+python manageProdSG.py loaddata product_groups.json
+python manageProdSG.py loaddata products.json
+python manageProdSG.py loaddata logicconfigs.json
+python manageProdSG.py loaddata surcharges.json
+
+
+python manageProdHN.py loaddata usergroups.json
+python manageProdHN.py loaddata users.json
+python manageProdHN.py loaddata accounts.json
+python manageProdHN.py loaddata transaction_types.json
+python manageProdHN.py loaddata customersHN.json
+python manageProdHN.py loaddata provinces.json
+python manageProdHN.py loaddata wards.json
+python manageProdHN.py loaddata product_groups.json
+python manageProdHN.py loaddata productsHN.json
+python manageProdHN.py loaddata logicconfigs.json
+python manageProdHN.py loaddata surcharges.json

@@ -1,0 +1,47 @@
+[
+    {
+        "model": "transactions.TransactionType",
+        "pk": 1,
+        "fields": {
+            "name": "Chuyển tiền sale cho Quỹ",
+            "is_active": true,
+            "debit_or_credit": "CR",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    }, 
+    {
+        "model": "transactions.TransactionType",
+        "pk": 2,
+        "fields": {
+            "name": "Thu tiền từ khách hàng",
+            "is_active": true,
+            "debit_or_credit": "DR",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "transactions.TransactionType",
+        "pk": 3,
+        "fields": {
+            "name": "Chi tiền ship ngoài đơn hàng",
+            "is_active": true,
+            "debit_or_credit": "CR",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "transactions.TransactionType",
+        "pk": 4,
+        "fields": {
+            "name": "Nhận tiền từ Quỹ",
+            "is_active": true,
+            "debit_or_credit": "DR",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    }
+    
+]

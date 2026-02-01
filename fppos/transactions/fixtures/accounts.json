@@ -1,0 +1,25 @@
+[
+    {
+        "model": "transactions.account",
+        "pk": 1,
+        "fields": {
+            "account_holder_name": "Cash",
+            "account_number": "1",
+            "bank_name": "Cash",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    }, 
+    {
+        "model": "transactions.account",
+        "pk": 2,
+        "fields": {
+            "account_holder_name": "fitfood",
+            "account_number": "fitfood",
+            "bank_name": "Vietcombank",
+            "created_at": "2024-01-01T00:00:00Z",
+            "updated_at": "2024-01-01T00:00:00Z"
+        }
+    }
+    
+]

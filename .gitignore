@@ -1,0 +1,13 @@
+
+# venv
+.venv/
+=======
+ff_ref/
+    
+.vscode/
+
+# Python cache
+__pycache__/
+
+/fppos_vue/node_modules/
+
