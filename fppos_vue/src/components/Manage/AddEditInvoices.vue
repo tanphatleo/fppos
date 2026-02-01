@@ -82,17 +82,18 @@
                     <span>Phụ phí</span>
                     <span>+{{ formatCurrency(item.total_surcharge) }}</span>
                   </div>
-                  <hr />
-                  <div class="total-row final">
+                  <hr v-if="!item.code.startsWith('SP_')"/>
+                  <div class="total-row final" v-if="!item.code.startsWith('SP_')">
                     <span>Khách phải trả</span>
                     <span>{{ formatCurrency(item.final_total) }}</span>
                   </div>
-                  <div class="total-row">
+                  <div class="total-row" v-if="!item.code.startsWith('SP_')">
                     <span>Đã thanh toán</span>
                     <span>{{ formatCurrency(item.amount_paid_by_customer) }}</span>
                   </div>
-                  <hr />
-                  <div class="total-row final">
+                  <hr v-if="!item.code.startsWith('SP_')"/>
+                  <!-- only show if code do not start with SP_ -->
+                  <div class="total-row final" v-if="!item.code.startsWith('SP_')">
                     <span>Tiền ship đã trả bằng tiền mặt</span>
                     <span>{{ formatCurrency(item.amount_paid_transport_company) }}</span>
                   </div>
