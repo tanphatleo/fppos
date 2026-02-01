@@ -112,7 +112,7 @@ export default {
     // default to today -1 day
     const created_at = ref('chưa chốt');
     // const chosenDate = ref(getLocalDateISO(new Date(Date.now())));
-    const chosenDate = ref(getLocalDateISO(new Date(Date.now() - 4*86400000)));
+    const chosenDate = ref(getLocalDateISO(new Date(Date.now())));
     const searchQuery = ref('');
     const searchQueryInvoice = ref('');
     const showEditChanges = ref(false);
@@ -317,6 +317,15 @@ export default {
         const prod = products.value.find(p => p.code === row.code);
         return prod && prod.product_type !== 'combo';
       });
+
+      // remove all codes that have open purchase invoiceSum and zero closing and zero actual
+      tableRows.value = tableRows.value.filter(row => {
+        const prod = products.value.find(p => p.code === row.code);
+        return !(prod && row.prev === 0 && (row.purchaseSum === 0 || row.purchaseSum === '' ) && (row.invoiceSum === 0 || row.invoiceSum === '') 
+        && (row.changeSum === 0 || row.changeSum === '') && row.closing === 0 && row.actual === 0);
+      });
+
+
 
       console.log('Updated table rows:', tableRows.value);
     };
